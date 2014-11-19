@@ -7,29 +7,27 @@
 */
 
 extern int count;
-extern pthread_mutex_t sec2ClsMutexWr;
-extern pthread_mutex_t sec2ClsMutexRd;
-extern pthread_mutex_t cls2SecMutexWr;
-extern pthread_mutex_t cls2SecMutexRd;
+extern pthread_mutex_t cls2SecMutexWr[2];
+extern pthread_cond_t  cls2SecCondWr[2];
 
 extern int newData4Sec;
 extern int newData4Cls;
 
-EIBConnection *master;
+EIBConnection *clsFD;
 
 int clsState = UNINIT;
 
 void sendClsPackage(void)
 {
-	debug("SEND PACKAGE");
+	debug("SEND PACKAGE", pthread_self());
 }
 
 int clsSend(void)
 {
 	while(1)
 	{
-		printf("CLS: blocking(MUTEX)\n");
-		sleep(1);
+	//	debug("CLS: blocking(MUTEX)", pthread_self());
+		sleep(10);
 	}
 	return 0;
 }
@@ -43,42 +41,45 @@ int clsReceive(void)
 	while(1)
 	{
 		// block SEC send call for syncronization
-		printf("cls: locking\n");
-		pthread_mutex_lock(&cls2SecMutexRd);
+		#ifdef DEBUG
+			debug("CLS _____locking", pthread_self());
+		#endif
+		pthread_mutex_lock(&cls2SecMutexWr[0]);
+		pthread_mutex_lock(&cls2SecMutexWr[1]);
+
 		// blocking call to get next package
-		len = EIBGetBusmonitorPacket (master, sizeof(*packet), (uint8_t *)packet);
+		len = EIBGetBusmonitorPacket (clsFD, sizeof(*packet), (uint8_t *)packet);
 		if (len == -1)
 		{
 			printf("GET failed\n");
 			return -1;
 		}
-		printf("%x\n", packet->atNcpiLength & 0x80);
-		printf("Len = %d / CTRL: %x / %x.%x.%x", len, packet->ctrl, \
+		//printf("%x\n", packet->atNcpiLength & 0x80);
+		printf("\tLen = %d / CTRL: %x / %x.%x.%x\n", len, packet->ctrl, \
 			AreaAddress(packet->srcAreaLine), LineAddress(packet->srcAreaLine), packet->srcDev);
 		newData4Sec = 1;
-		printf("cls: unlocking\n");
-		pthread_mutex_unlock(&cls2SecMutexRd);
-		pthread_mutex_lock(&cls2SecMutexWr);
+		#ifdef DEBUG
+			debug("CLS _____unlocking", pthread_self());
+		#endif
+		
+		pthread_cond_signal(&cls2SecCondWr[0]);
+		pthread_cond_signal(&cls2SecCondWr[1]);
+
+		pthread_mutex_unlock(&cls2SecMutexWr[0]);
+		pthread_mutex_unlock(&cls2SecMutexWr[1]);
 		count++;
 	}
 
 	return 0;
 }
 
-void debug(char *str)
-{
-	printf("CLS %u: %s\n", (unsigned)pthread_self(), str);
-}
-
-int mainStateMachine(EIBConnection *master)
+int mainStateMachine(EIBConnection *clsFD)
 {
 	return 0;
 }
 
 int initCls(void *env)
 {
-	int rc = 0;
-	
 	struct threadEnvCls_t *arg = (struct threadEnvCls_t *) env;
 
 	int (*clsSendThreadfPtr)(void);
@@ -87,23 +88,29 @@ int initCls(void *env)
 	clsRecvThreadfPtr = &clsReceive;
 
 	pthread_t clsRecvThread, clsSendThread;
-
-	master = EIBSocketURL(arg->socket);
-	debug("opening socket");
-	debug(arg->socket);
-
-
-	if (master != NULL)
-		printf("OK - socket opened\n");
+	
+	clsFD = EIBSocketURL(arg->socket);
+	#ifdef DEBUG
+		debug("cls opening socket", pthread_self());
+	#endif
+	
+	if (clsFD != NULL)
+	{
+		#ifdef DEBUG
+			printf("OK - cls socket opened\n");
+		#endif
+	}
 	else
 	{
 		printf("NOTOK\n");
 		return -1;
 	}
 	
-	if(EIBOpenBusmonitor(master) == 0)
+	if(EIBOpenBusmonitor(clsFD) == 0)
 	{
-		printf("OK - busmonitor started\n");
+		#ifdef DEBUG
+			printf("OK - busmonitor started\n");
+		#endif
 	}
 	else
 	{
@@ -122,8 +129,11 @@ int initCls(void *env)
 		return -1;
 	}
 
+	#ifdef DEBUG
+		debug("CLS send/recv threads startet, waiting for kids", pthread_self());
+	#endif
 	pthread_join(clsRecvThread, NULL);
 	pthread_join(clsSendThread, NULL);
-	debug("going home");
+	debug("CLS going home", pthread_self());
 	return 0;
 }

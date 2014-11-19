@@ -9,6 +9,7 @@
 #include<unistd.h>
 #include<eibclient.h>
 #include<assert.h>
+#include<getopt.h>
 #include<pthread.h>
 
 #include "master.h"
@@ -30,3 +31,6 @@
 
 #define	CLSBUFSIZE	256
 #define	SECBUFSIZE	256
+
+#define SEC1		0
+#define SEC2		1
