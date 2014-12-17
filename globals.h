@@ -34,3 +34,5 @@
 
 #define SEC1		0
 #define SEC2		1
+
+#define SYNCRETRY	3

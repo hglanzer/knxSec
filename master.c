@@ -5,11 +5,11 @@
 	harald.glanzer@gmail.com
 */
 
-uint8_t	cls2SecBUF[CLSBUFSIZE];
+uint8_t	clr2SecBUF[CLSBUFSIZE];
 uint8_t	sec2ClsBUF[SECBUFSIZE];
 
-pthread_mutex_t cls2SecMutexWr[2];
-pthread_cond_t  cls2SecCondWr[2];
+pthread_mutex_t clr2SecMutexWr[2];
+pthread_cond_t  clr2SecCondWr[2];
 
 int newData4Sec = 0;
 int newData4Cls = 0;
@@ -23,7 +23,7 @@ static struct option long_options[] =
 	/* These options don’t set a flag.
 	   We distinguish them by their indices. */
 	{"help",	no_argument,		NULL, 'h'},
-	{"clsSocket",	required_argument,	NULL, 'c'},
+	{"clrSocket",	required_argument,	NULL, 'c'},
 	{"sec1Socket",	required_argument,	NULL, '1'},
 	{"sec2Socket",	required_argument,	NULL, '2'},
 	{0, 0, 0, 0}
@@ -31,7 +31,7 @@ static struct option long_options[] =
 
 void Usage(char **argv)
 {
-	printf("Usage: %s --clsSocket local:<socket> --sec1Socket local:<socket> --sec2Socket local:<socket>\n", argv[0]);
+	printf("Usage: %s --clrSocket local:<socket> --sec1Socket local:<socket> --sec2Socket local:<socket>\n", argv[0]);
 	exit(EXIT_FAILURE);
 }
 
@@ -43,7 +43,7 @@ void debug(char *str, pthread_t id)
 /*
 	master prozess: creates 3 threads:
 		- 2 secLine threads
-		- 1 clsThreadLine threads
+		- 1 clrThreadLine threads
 
 */
 int main(int argc, char **argv)
@@ -57,14 +57,14 @@ int main(int argc, char **argv)
 	struct threadEnvSec_t threadEnvSec1; 
 	struct threadEnvSec_t threadEnvSec2; 
 	
-	int (*clsThreadStart)(void);
-	clsThreadStart = &initCls;
+	int (*clrThreadStart)(void);
+	clrThreadStart = &initCls;
 
 	int (*secStart)(void *);
 	secStart = &initSec;
 
-	void *clsThreadRetval, *sec1ThreadRetval, *sec2ThreadRetval;
-	pthread_t sec1MasterThread, sec2MasterThread, clsMasterThread;
+	void *clrThreadRetval, *sec1ThreadRetval, *sec2ThreadRetval;
+	pthread_t sec1MasterThread, sec2MasterThread, clrMasterThread;
 
 	pthread_mutexattr_t mutexAttr;
 	pthread_mutexattr_init(&mutexAttr);
@@ -110,26 +110,26 @@ int main(int argc, char **argv)
 
 	for(i=0; i < 2; i++)
 	{
-		// create condition variables for syncronization cls(recv) -> sec(send)
-		if(pthread_cond_init(&cls2SecCondWr[i], NULL) != 0)
+		// create condition variables for syncronization clr(recv) -> sec(send)
+		if(pthread_cond_init(&clr2SecCondWr[i], NULL) != 0)
 		{
 			printf("condition variable %d init failed, exit", i);
 			return -1;
 		}
 
 		// every condition variable needs a mutex
-		if(pthread_mutex_init(&cls2SecMutexWr[i], NULL) != 0)
+		if(pthread_mutex_init(&clr2SecMutexWr[i], NULL) != 0)
 		{
-			printf("cls mutex init failed, exit");
+			printf("clr mutex init failed, exit");
 			return -1;
 		}
 	}
 
 
 	// create cleartext-knx master thread
-	if((pthread_create(&clsMasterThread, NULL, (void *)clsThreadStart, &threadEnvCls)) != 0)
+	if((pthread_create(&clrMasterThread, NULL, (void *)clrThreadStart, &threadEnvCls)) != 0)
 	{
-		printf("clsThread thread init failed, exit\n");
+		printf("clrThread thread init failed, exit\n");
 		return -1;
 	}
 
@@ -151,9 +151,9 @@ int main(int argc, char **argv)
 		printf("MAIN Master Thread %u, waiting for kids\n", (unsigned)pthread_self());
 		printf("MAIN sec1Thread: %u\n", (unsigned)sec1MasterThread);
 		printf("MAIN sec2Thread: %u\n", (unsigned)sec2MasterThread);
-		printf("MAIN clsThread : %u\n", (unsigned)clsMasterThread);
+		printf("MAIN clrThread : %u\n", (unsigned)clrMasterThread);
 	#endif
-	pthread_join(clsMasterThread, &clsThreadRetval);
+	pthread_join(clrMasterThread, &clrThreadRetval);
 	pthread_join(sec1MasterThread, &sec1ThreadRetval);
 	pthread_join(sec2MasterThread, &sec2ThreadRetval);
 

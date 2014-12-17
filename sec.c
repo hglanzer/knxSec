@@ -1,13 +1,14 @@
 #include "globals.h"
 
-extern pthread_mutex_t cls2SecMutexWr[SECLINES];
-extern pthread_cond_t  cls2SecCondWr[SECLINES];
+extern pthread_mutex_t clr2SecMutexWr[SECLINES];
+extern pthread_cond_t  clr2SecCondWr[SECLINES];
 
 extern int newData4Sec;
 extern int newData4Cls;
 
 extern int count;
 
+uint8_t state = BOOTED;
 uint8_t	secINIT = 0;
 
 EIBConnection *secFD[SECLINES];
@@ -27,8 +28,8 @@ int secSend(void *myID)
 	while(1)
 	{
 		// wait for new data to send over secure line
-		pthread_mutex_lock(&cls2SecMutexWr[id]);
-		pthread_cond_wait(&cls2SecCondWr[id], &cls2SecMutexWr[id]);
+		pthread_mutex_lock(&clr2SecMutexWr[id]);
+		pthread_cond_wait(&clr2SecCondWr[id], &clr2SecMutexWr[id]);
 
 		if(secINIT)
 		{
@@ -46,7 +47,7 @@ int secSend(void *myID)
 		{
 			debug("no key established", pthread_self());
 		}
-		pthread_mutex_unlock(&cls2SecMutexWr[id]);
+		pthread_mutex_unlock(&clr2SecMutexWr[id]);
 	}
 	return 0;
 }
@@ -74,6 +75,9 @@ int secReceive(void *myID)
 */
 void keyInit(void)
 {
+	int i = 0;
+
+	
 	// stage 1
 		// send HELLO message to SEC1 + SEC2
 		// wait for ANSWER on SEC1 + SEC2 (set timeout / alarm)
@@ -83,6 +87,23 @@ void keyInit(void)
 		// wait for challenge RESPONSE(set timeout / alarm)
 
 	// retry
+	for(i = 0; i <= SYNCRETRY; i++)
+	{
+		switch(state)
+		{
+			case BOOTED:
+			break;
+	
+			case HELO:
+			break;
+		
+			case CHALLENGE:
+			break;
+	
+			default:
+			assert(0);
+		}
+	}
 }
 
 /*
