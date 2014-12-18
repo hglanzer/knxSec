@@ -102,7 +102,7 @@ int initCls(void *env)
 	}
 	else
 	{
-		printf("NOTOK\n");
+		debug("CLR: EIBSocketURL() failed", pthread_self());
 		return -1;
 	}
 	

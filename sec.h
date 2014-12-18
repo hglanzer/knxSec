@@ -1,14 +1,26 @@
 int initSec(void *);
 int secReceive(void *);
 int secSend(void *);
-void keyInit(void);
+void keyInit(void *);
+
+#define SYNCTIMEOUT_SEC 3
+#define SYNC_RETRIES 3
+#define JOINTIMEOUT_SEC 3
+#define JOIN_RETRIES 3
+
+#define BUFSIZE		256
+#define PSKSIZE		256	// preshared key size
+#define KSIZE		256	// global key size
 
 #define SECLINES	2
 
-#define	BOOTED		0
+#define	INIT		0
 #define HELO		1
 #define CHALLENGE	2
 #define INSYNC		3
+
+#define READEND		0
+#define WRITEEND	1
 
 /*
 		TYPES OF PACKAGES

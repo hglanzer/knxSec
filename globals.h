@@ -10,7 +10,12 @@
 #include<eibclient.h>
 #include<assert.h>
 #include<getopt.h>
+#include<time.h>
+#include<signal.h>
 #include<pthread.h>
+#include<sys/select.h>
+#include<string.h>
+#include<errno.h>
 
 #include "master.h"
 #include "cls.h"

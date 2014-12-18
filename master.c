@@ -8,8 +8,12 @@
 uint8_t	clr2SecBUF[CLSBUFSIZE];
 uint8_t	sec2ClsBUF[SECBUFSIZE];
 
-pthread_mutex_t clr2SecMutexWr[2];
-pthread_cond_t  clr2SecCondWr[2];
+pthread_mutex_t clr2SecMutexWr[SECLINES];
+pthread_cond_t  clr2SecCondWr[SECLINES];
+
+pthread_mutex_t secMutexInternal[SECLINES];
+pthread_cond_t  secCondInternal[SECLINES];
+
 
 int newData4Sec = 0;
 int newData4Cls = 0;
@@ -158,7 +162,7 @@ int main(int argc, char **argv)
 	pthread_join(sec2MasterThread, &sec2ThreadRetval);
 
 	#ifdef DEBUG
-	printf("all kids gone, exit\n");
+		printf("all threads gone, exit\n");
 	#endif
 
 	return 0;
