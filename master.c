@@ -3,10 +3,15 @@
 /*
 	harald glanzer, 0727156
 	harald.glanzer@gmail.com
+
+	needs 3 running eib daemones:
+		eibd --listen-local=/tmp/eib.clr  -t31 -e 1.1.x  tpuarts:/dev/tty<DEV-cleartext>
+		eibd --listen-local=/tmp/eib.sec1 -t31 -e 1.1.y  tpuarts:/dev/tty<DEV-secured-1>
+		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.1.z  tpuarts:/dev/tty<DEv-secured-2>
 */
 
 uint8_t	clr2SecBUF[CLSBUFSIZE];
-uint8_t	sec2ClsBUF[SECBUFSIZE];
+uint8_t	sec2ClrBUF[SECBUFSIZE];
 
 pthread_mutex_t clr2SecMutexWr[SECLINES];
 pthread_cond_t  clr2SecCondWr[SECLINES];
@@ -16,7 +21,7 @@ pthread_cond_t  secCondInternal[SECLINES];
 
 
 int newData4Sec = 0;
-int newData4Cls = 0;
+int newData4Clr = 0;
 int count = 0;
 
 static struct option long_options[] =
@@ -57,12 +62,12 @@ int main(int argc, char **argv)
 	/*
 		thread - variables
 	*/
-	struct threadEnvCls_t threadEnvCls; 
+	struct threadEnvClr_t threadEnvClr; 
 	struct threadEnvSec_t threadEnvSec1; 
 	struct threadEnvSec_t threadEnvSec2; 
 	
 	int (*clrThreadStart)(void);
-	clrThreadStart = &initCls;
+	clrThreadStart = &initClr;
 
 	int (*secStart)(void *);
 	secStart = &initSec;
@@ -102,7 +107,7 @@ int main(int argc, char **argv)
 			break;
 			case 'c':
 				printf("\tARG: %s for CLS SOCKET\n", &optarg[0]);
-				threadEnvCls.socket = &optarg[0];	
+				threadEnvClr.socket = &optarg[0];	
 			break;
 			default:
 				assert(0);
@@ -131,7 +136,7 @@ int main(int argc, char **argv)
 
 
 	// create cleartext-knx master thread
-	if((pthread_create(&clrMasterThread, NULL, (void *)clrThreadStart, &threadEnvCls)) != 0)
+	if((pthread_create(&clrMasterThread, NULL, (void *)clrThreadStart, &threadEnvClr)) != 0)
 	{
 		printf("clrThread thread init failed, exit\n");
 		return -1;

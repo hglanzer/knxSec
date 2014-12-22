@@ -1,4 +1,4 @@
-struct threadEnvCls_t
+struct threadEnvClr_t
 {
 	char *socket;
 };

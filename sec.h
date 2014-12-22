@@ -43,7 +43,7 @@ void keyInit(void *);
 #define		RES6		0xC
 #define		RES7		0xD
 #define		RES8		0xE
-#define		RES9		0xF
+#define		INVALID		0xF
 
 /*
 		ENCRYPTION / AUTHENTICATION MODES

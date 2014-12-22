@@ -11,13 +11,13 @@ extern pthread_mutex_t clr2SecMutexWr[2];
 extern pthread_cond_t  clr2SecCondWr[2];
 
 extern int newData4Sec;
-extern int newData4Cls;
+extern int newData4Clr;
 
 EIBConnection *clrFD;
 
 int clrState = UNINIT;
 
-void sendClsPackage(void)
+void sendClrPackage(void)
 {
 	debug("SEND PACKAGE", pthread_self());
 }
@@ -30,6 +30,13 @@ int clrSend(void)
 		sleep(10);
 	}
 	return 0;
+}
+
+int checkClrPkg(uint8_t *pkg, uint8_t len)
+{
+	uint8_t type = INVALID;
+
+	return type;
 }
 
 int clrReceive(void)
@@ -54,20 +61,28 @@ int clrReceive(void)
 			printf("GET failed\n");
 			return -1;
 		}
-		//printf("%x\n", packet->atNcpiLength & 0x80);
-		printf("\tLen = %d / CTRL: %x / %x.%x.%x\n", len, packet->ctrl, \
-			AreaAddress(packet->srcAreaLine), LineAddress(packet->srcAreaLine), packet->srcDev);
-		newData4Sec = 1;
-		#ifdef DEBUG
-			debug("CLS _____unlocking", pthread_self());
-		#endif
-		
-		pthread_cond_signal(&clr2SecCondWr[0]);
-		pthread_cond_signal(&clr2SecCondWr[1]);
 
-		pthread_mutex_unlock(&clr2SecMutexWr[0]);
-		pthread_mutex_unlock(&clr2SecMutexWr[1]);
-		count++;
+		if (len > MAX_CLR_SIZE)
+		{
+			debug("discarding oversized clr package",  pthread_self());
+		}
+		else
+		{
+			//printf("%x\n", packet->atNcpiLength & 0x80);
+			printf("\tLen = %d / CTRL: %x / %x.%x.%x\n", len, packet->ctrl, \
+				AreaAddress(packet->srcAreaLine), LineAddress(packet->srcAreaLine), packet->srcDev);
+			newData4Sec = 1;
+			#ifdef DEBUG
+				debug("CLS _____unlocking", pthread_self());
+			#endif
+			
+			pthread_cond_signal(&clr2SecCondWr[0]);
+			pthread_cond_signal(&clr2SecCondWr[1]);
+	
+			pthread_mutex_unlock(&clr2SecMutexWr[0]);
+			pthread_mutex_unlock(&clr2SecMutexWr[1]);
+			count++;
+		}
 	}
 
 	return 0;
@@ -78,9 +93,9 @@ int mainStateMachine(EIBConnection *clrFD)
 	return 0;
 }
 
-int initCls(void *env)
+int initClr(void *env)
 {
-	struct threadEnvCls_t *arg = (struct threadEnvCls_t *) env;
+	struct threadEnvClr_t *arg = (struct threadEnvClr_t *) env;
 
 	int (*clrSendThreadfPtr)(void);
 	clrSendThreadfPtr = &clrSend;

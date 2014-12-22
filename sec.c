@@ -12,12 +12,66 @@ extern int newData4Cls;
 
 uint8_t	secINIT = 0;
 
+/*
+	LAYOUT OF FRAMES USED:
+
+	SEC - sync REQUEST:
+		-> unauthenticated request to obtain state of globally used seq number
+	|--------------------------------------------------------------------------------
+	|	 |        |	   	    |		     |	      |	       |	|
+	|   CTRL |CTRL-EXT| Source Address  | DestinationAddr| LENGTH |  SECH  |  FC    |  
+	|	 | 	  | 	   	    |		     |	      |	       |	|
+	|--------------------------------------------------------------------------------
+
+	SEC - sync RESPONSE:
+		-> authenticated response to syncronize requester
+	|---------------------------------------------------------------------------------------------------------------------------------
+	|	 |        |	   	    |		     |	      |	       |			|			|	 |
+	|   CTRL |CTRL-EXT| Source Address  | DestinationAddr| LENGTH |  SECH  | Global Sequence Counter|      MAC (k_PSK)	|   FC   |  
+	|	 | 	  | 	   	    |		     |	      |	       |	4-6 Byte	|	4-6 Byte	|	 |
+	|---------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	SEC - join REQUEST
+		-> request to obtain the actual, globally used key
+	|---------------------------------------------------------------------------------------------------------------------------------
+	|	 |        |	   	    |		     |	      |	       |			|			|	 |
+	|   CTRL |CTRL-EXT| Source Address  | DestinationAddr| LENGTH |  SECH  | Global Sequence Counter|      MAC (k_PSK)	|   FC   |  
+	|	 | 	  | 	   	    |		     |	      |	       |	4-6 Byte	|	4-6 Byte	|	 |
+	|---------------------------------------------------------------------------------------------------------------------------------
+
+	SEC - join RESPONSE
+		-> response to submit the actual, globally used key to requester
+	|---------------------------------------------------------------------------------------------------------------------------------
+	|	 |        |	   	    |		     |	      |	       |			|			|	 |
+	|   CTRL |CTRL-EXT| Source Address  | DestinationAddr| LENGTH |  SECH  | Global Sequence Counter|      MAC (k_PSK)	|   FC   |  
+	|	 | 	  | 	   	    |		     |	      |	       |	4-6 Byte	|	4-6 Byte	|	 |
+	|---------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
 EIBConnection *secFD[SECLINES];
 
 /*
 	harald glanzer
 	secure line thread
 */
+
+/*
+	gets pointer to dataframe
+	returns type or INVALID if pkg is unknown / corrupted
+*/
+int checkPkg(uint8_t *pkg)
+{
+	uint8_t type = INVALID;
+
+	
+
+	return type;
+}
 
 /*
 	sec receive thread
