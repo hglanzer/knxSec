@@ -1,0 +1,19 @@
+ 
+
+\begin{itemize}
+ \item Divisiblity
+ \\
+$a | b \iff \exists z \in \mathbb{Z}: b = z \times a$
+ \item Integer Division $r \equiv a \bmod b$ 
+ \\
+ $ \forall a, b \in \mathbb{Z}, b > 0:  a = z \times b + r $ with $ 0 \leq r < b$
+ \item Common Divisor $c$ for $a, b \iff$
+ \\
+ $c | a \wedge c | b$
+ \item Greatest Common Divisor(GCD) $d$:
+ \\
+ $d | a \wedge d | b$ and whenever $c | a \wedge c | b \rightarrow c | d$
+ 
+ \item unlimited number of primes
+ \item every number has exact 1 factorization 
+\end{itemize}

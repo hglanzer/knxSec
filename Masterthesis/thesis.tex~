@@ -1,0 +1,212 @@
+\documentclass[a4paper,11pt,oneside,openany]{memoir}
+\chapterstyle{veelo}
+
+\usepackage{TUINFDA}
+
+\usepackage{url}
+\usepackage{hyperref}					% links in pdf
+\usepackage{graphicx}            			% Figures
+\usepackage{verbatim}            			% Code-Environment
+\usepackage{hyperref}
+\usepackage{listings}
+
+% hglanzer: problem workstation@labor <--> laptop
+%\usepackage[lined,linesnumbered,algochapter]{algorithm2e} % Algorithm-Environment
+\usepackage[lined,linesnumbered,algochapter,norelsize]{algorithm2e} % Algorithm-Environment
+
+\usepackage{pgf}					
+\usepackage{tikz}					% tikz graphics
+\usetikzlibrary{arrows,automata}
+
+\usepackage{glossaries}
+
+\makeglossary
+\loadglsentries{acronyms}
+
+\usepackage[backend=bibtex]{biblatex}
+\addbibresource{references.bib}
+
+%\usepackage[ngerman]{babel}
+%\usepackage{bibgerm,cite}       % Deutsche Bezeichnungen, Automatisches Zusammenfassen von Literaturstellen
+%\usepackage[latin1]{inputenc}
+
+\thesistitle{KNX for Safety Critical Environments}
+\thesissubtitle{Building a secure and dependable Layer} % optional
+\thesisdate{1.12.2014}
+
+% all titles and designations have to be gender-related!
+\thesisdegree{Diplom-Ingenieur}{Diplom-Ingenieur}
+\thesiscurriculum{Technische Informatik}{Computer Engineering} % your study
+\thesisverfassung{Verfasser} % Verfasser
+\thesisauthor{Harald Glanzer} % your name
+\thesisauthoraddress{Hardtgasse 25 / 12A, 1190 Wien} % your address
+\thesismatrikelno{0727156} % your registration number
+
+\thesisbetreins{ao.Univ.-Prof. Dipl.-Ing. Wolfgang Kastner}
+\thesisbetrzwei{Dr. Lukas Krammer}
+%\thesisbetrdrei{Dr. Vorname Familienname} % optional
+
+% define page numbering styles
+\makepagestyle{numberCorner}
+\makeevenfoot{numberCorner}{\thepage}{}{}
+\makeoddfoot{numberCorner}{}{}{\thepage}
+
+% define custom macros for specific formats or names
+\newcommand{\uml}[1]{\texttt{#1}}
+\newcommand{\cd}{\textsf{Class Diagram}}
+
+% for shell command snippets
+\newcommand{\shellcmd}[1]{\\\indent\indent\texttt{\footnotesize\# #1}\\}
+
+% for shell command snippets with multiple lines
+\lstdefinestyle{BashInputStyle}{
+  language=bash,
+  basicstyle=\small\sffamily,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=3pt,
+  frame=tb,
+  columns=fullflexible,
+  backgroundcolor=\color{yellow!20},
+  linewidth=0.9\linewidth,
+  xleftmargin=0.1\linewidth
+}
+
+\begin{document}
+
+\captionnamefont{\bfseries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   FRONTMATTER    %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+\pagenumbering{roman}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   TITLEPAGES    %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% the german title page is required as first page
+\include{titlepage}
+
+% an english translation may follow
+\include{titlepage_en} % optional
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   ERKLAERUNG DER SELBSTAENDIGKEIT   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\selectlanguage{ngerman}
+\input{chapters/erklaerung}
+\selectlanguage{english}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   ACKNOWLEDGEMENTS    %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% optional acknowledgements may be included in german or in english
+%\input{chapters/danksagung} 		% optional
+\input{chapters/acknowledgements}	% optional
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   ABSTARCT    %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/abstract_en}
+\cleardoublepage
+\selectlanguage{ngerman}
+\input{chapters/abstract_de}
+\selectlanguage{english}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   CONTENTS    %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% uncomment to set document language to german (results in "Inhaltsverzeichnis", "Kapitel", "Abbildung", etc. instead of "Contents", "Chapter", and "Figure"), otherwise the document's language is english
+%\selectlanguage{ngerman}
+
+\setcounter{tocdepth}{1}
+
+\cleardoublepage
+\pagestyle{numberCorner}
+\tableofcontents*
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   MAINMATTER    %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+\pagenumbering{arabic}
+\pagestyle{numberCorner}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+\label{ch:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/introduction}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{KNX}
+\label{ch:knx}
+\input{chapters/knx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{EIBD}
+\label{ch:eibd}
+\input{chapters/eibd}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Mathematical Background}
+\label{ch:SOAmath}
+\input{chapters/SOAmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Cryptopgraphy}
+\label{ch:SOAcryptography}
+\input{chapters/SOAcryptography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Security Concept}
+\label{ch:security}
+\input{chapters/securityconcept}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BACKMATTER %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nocite{*}	% generate complete bibliography without corresponding \cites{}
+\printbibliography
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\printglossary
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Configuration Files}
+
+\begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for static ip address},label=lst:staticIP]
+# device: eth0
+  auto  eth0
+  iface eth0 inet static
+  address   192.168.0.2
+  broadcast 192.168.0.255
+  netmask   255.255.255.0
+  gateway   192.168.0.1
+\end{lstlisting}
+
+\begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for dynamic ip address},label=lst:dynamicIP]
+# device: eth0
+  iface eth0 inet dhcp
+\end{lstlisting}
+
+%\end{appendices}
+
+\end{document}

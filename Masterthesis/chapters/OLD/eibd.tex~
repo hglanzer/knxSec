@@ -1,0 +1,98 @@
+\section{Setup of the Base System}
+
+The base system consists of a standard raspbian operating system, the EIBD daemon and some shared libraries which are used by EIBD and the master daemon.
+The operating system is based on the Debian project, with the kernel and all the binaries ported to the ARM platform, so it is possible to use the
+comfortable packet manager called
+\textit{aptitude} provided by Debian. A short introduction to the most important commands is given below as they are needed.
+
+\subsection{Raspbian}
+
+To obtain a running system for deploying the secure KNX daemon, a prebuilt image is used, which can be ownloaded from the raspberry homepage:
+
+\url{http://downloads.raspberrypi.org/raspbian_latest.torrent}
+
+The image must be unzipped and copied to a suitable memorycard. First-generation raspberries(model 'A') have SD slots, while
+all later models come with micro-SD slots. To copy the basic operating system to the memorycard, the linux commandline tool 'dd' can
+be used. To find the correct device to write the image to, the following command can be used: 
+
+
+\begin{lstlisting}[style=BashInputStyle]
+    # tail -f /var/log/kern.log
+\end{lstlisting}
+
+After inserting the memorycard into a cardreader, look for output like that:
+
+\begin{lstlisting}[style=BashInputStyle]
+    [1004111.533698] sdb: detected capacity change from 7909408768 to 0
+    [1004114.055840] sd 6:0:0:0: [sdb] 15448064 512-byte logical blocks: ...
+\end{lstlisting}
+
+Here, the proper device to use is the device /dev/sdb.
+\textbf{Pay attention to use the correct device in the following command - this device will be overwritten}:
+
+\begin{lstlisting}[style=BashInputStyle]
+    # dd if=<Path to Image> of=<Device to overwrite>
+\end{lstlisting}
+
+After the write command has finished, the memory card is ready to use. For first time setup, a display must be connected via HDMI. Powering up the raspberry
+opens a ncurses configuration dialogue. To be able to operate the raspberry without external display, it is necessary to start the ssh server and assign a 
+fixed ip to the host - this way it is possible to connect to the raspberry with a ssh client. For password less logins, a ssh public/private key pair can generated:
+
+\begin{lstlisting}[style=BashInputStyle]
+    # ssh-keygen
+\end{lstlisting}
+ 
+The program generates the key pair and saves public and private key in the subdirectory ~/.ssh/ on the actual host. To actually use them, the public
+key must be copied to the remote host and saved in the file \textit{~/.ssh/authorized\_keys}.
+
+\subsection{EIBD}
+
+The maintainer of EIBD only provides binary packages for i386 architecture, so the daemon and its prerequisites must be built from source. 
+
+\url{https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz}
+\url{http://sourceforge.net/projects/bcusdk/}
+
+After copying the archives to the raspberry, they must be unpacked and compiled. First the pthsem shared library, which offers user mode multi
+threading with semaphores, must be compiled because it is used by EIBD. 
+
+\begin{lstlisting}[style=BashInputStyle]
+    # tar -xvzf pthsem-2.0.8.tar.gz
+    # cd pthsem-2.0.8
+    # ./configure
+    # make
+    # make install // must be executed as root
+\end{lstlisting}
+
+Now the EIBD daemon itself is ready for compilation:
+
+\begin{lstlisting}[style=BashInputStyle]
+    # tar -xvzf bcusdk-0.0.5.tar.gz
+    # cd bcdusk-0.0.5
+    # ./configure --without-pth-test --enable-onlyeibd --enable-tpuarts
+    # make
+    # make install // must be executed as root
+\end{lstlisting}
+
+
+
+\begin{itemize}
+ \item  EIBConnection *EIBSocketURL (const char *url)
+ \item EIBConnection *EIBSocketLocal (const char *path)
+ \item int EIBClose (EIBConnection *con)
+ \item int EIBClose sync (EIBConnection *con)
+ \item int EIBReset (EIBConnection *con)
+ \item int EIBOpenBusmonitor (EIBConnection *con)
+ \item int EIBOpenVBusmonitor (EIBConnection *con
+ \item int EIBOpenBusmonitorText (EIBConnection *con)
+ \item int EIBSendAPDU (EIBConnection *con, int len, const uint8 t *data)
+ \item int EIBGetAPDU (EIBConnection *con, int maxlen, uint8 t *buf)
+ \item
+ \item
+ \item
+ \item
+ \item
+ \item
+ \item
+ \item 
+ 
+\end{itemize}

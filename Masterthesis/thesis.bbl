@@ -1,0 +1,420 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 1.7 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{knxapps}{unpublished}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Association}{A.}%
+     {KNX}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AK1}
+  \strng{fullhash}{AK1}
+  \field{sortinit}{A}
+  \field{title}{KNX Applications}
+  \verb{url}
+  \verb http://www.knx.org/fileadmin/downloads/08%20-%20KNX%20Flyers/KNX%20Solu
+  \verb tions/KNX_Solutions_English.pdf
+  \endverb
+\endentry
+
+\entry{knxSpec}{unpublished}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Association}{A.}%
+     {KNX}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AK1}
+  \strng{fullhash}{AK1}
+  \field{sortinit}{A}
+  \field{pages}{11}
+  \field{title}{System Specifications, Overview}
+  \verb{url}
+  \verb http://www.knx.org/knx-en/knx/technology/specifications/index.php
+  \endverb
+\endentry
+
+\entry{Borisov:2004:OCW:1029179.1029200}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Borisov}{B.}%
+     {N.}{N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Goldberg}{G.}%
+     {I.}{I.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Brewer}{B.}%
+     {E.}{E.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{deniability, perfect forward secrecy, private communication}
+  \strng{namehash}{BNGIBE1}
+  \strng{fullhash}{BNGIBE1}
+  \field{sortinit}{B}
+  \field{booktitle}{Proceedings of the 2004 ACM Workshop on Privacy in the
+  Electronic Society}
+  \field{pages}{77\bibrangedash 84}
+  \field{title}{Off-the-record Communication, or, Why Not to Use PGP}
+  \list{location}{1}{%
+    {Washington DC, USA}%
+  }
+  \field{year}{2004}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{knxsec}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Cavalieri}{C.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cutuli}{C.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{building management systems;cryptography;home automation;AES
+  algorithm;Diffie-Hellman algorithm;KNX communication system;building
+  automation;data authentication;data encryption;home
+  automation;Authentication;Cryptography;Network-on-a-chip}
+  \strng{namehash}{CSCG1}
+  \strng{fullhash}{CSCG1}
+  \field{sortinit}{C}
+  \field{booktitle}{Industrial Electronics, 2009. IECON '09. 35th Annual
+  Conference of IEEE}
+  \field{issn}{1553-572X}
+  \field{pages}{2459\bibrangedash 2464}
+  \field{title}{Implementing encryption and authentication in KNX using
+  Diffie-Hellman and AES algorithms}
+  \field{year}{2009}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{knxsecExt}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Cavalieri}{C.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cutuli}{C.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Malgeri}{M.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{building management systems;computer network security;computer
+  networks;control engineering computing;data communication;data privacy;home
+  automation;protocols;European standard;KNX-based home automation
+  network;authentication;building automation network;confidentiality;data
+  transmission security;international standard;protocols;security mechanism}
+  \strng{namehash}{CSCGMM1}
+  \strng{fullhash}{CSCGMM1}
+  \field{sortinit}{C}
+  \field{booktitle}{Emerging Technologies and Factory Automation (ETFA), 2010
+  IEEE Conference on}
+  \field{pages}{1\bibrangedash 4}
+  \field{title}{A study on security mechanisms in KNX-based home/building
+  automation networks}
+  \field{year}{2010}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{rfc2246}{report}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Dierks}{D.}%
+     {T.}{T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Allen}{A.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {{RFC Editor}}%
+  }
+  \strng{namehash}{DTAC1}
+  \strng{fullhash}{DTAC1}
+  \field{sortinit}{D}
+  \field{howpublished}{Internet Requests for Comments}
+  \field{number}{2246}
+  \field{pages}{1\bibrangedash 80}
+  \field{title}{{The TLS Protocol Version 1.0}}
+  \verb{url}
+  \verb https://www.ietf.org/rfc/rfc2246.txt
+  \endverb
+  \list{institution}{1}{%
+    {{RFC Editor}}%
+  }
+  \field{type}{{RFC}}
+  \field{year}{1999}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{1055638}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Diffie}{D.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hellman}{H.}%
+     {M.E.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{DWHM1}
+  \strng{fullhash}{DWHM1}
+  \field{sortinit}{D}
+  \field{number}{6}
+  \field{pages}{644\bibrangedash 654}
+  \field{title}{New directions in cryptography}
+  \field{volume}{22}
+  \field{journaltitle}{Information Theory, IEEE Transactions on}
+  \field{year}{1976}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{Goldberg:2009:MOM:1653662.1653705}{inproceedings}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Goldberg}{G.}%
+     {I.}{I.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Ustao\u{g}lu}{U.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Van~Gundy}{V.~G.}%
+     {M.~D.}{M.~D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Chen}{C.}%
+     {H.}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{deniability, instant messaging, multi-party, privacy}
+  \strng{namehash}{GI+1}
+  \strng{fullhash}{GIUBVGMDCH1}
+  \field{sortinit}{G}
+  \field{booktitle}{Proceedings of the 16th ACM Conference on Computer and
+  Communications Security}
+  \field{pages}{358\bibrangedash 368}
+  \field{series}{CCS '09}
+  \field{title}{Multi-party Off-the-record Messaging}
+  \list{location}{1}{%
+    {Chicago, Illinois, USA}%
+  }
+  \field{year}{2009}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{WG2006d}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Granzer}{G.}%
+     {W}{W}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Neugschwandtner}{N.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kastner}{K.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GWNGKW1}
+  \strng{fullhash}{GWNGKW1}
+  \field{sortinit}{G}
+  \field{booktitle}{{Konnex Scientific Conference}}
+  \field{title}{{EIBsec: A Security Extension to KNX/EIB}}
+  \field{month}{11}
+  \field{year}{2006}
+\endentry
+
+\entry{Liu:2013:IGO:2517840.2517867}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Hong}{H.}%
+     {L.}{L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vasserman}{V.}%
+     {E.~Y.}{E.~Y.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hopper}{H.}%
+     {N.}{N.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{authentication, group communication, privacy, repudiability,
+  robustness}
+  \strng{namehash}{HLVEYHN1}
+  \strng{fullhash}{HLVEYHN1}
+  \field{sortinit}{H}
+  \field{booktitle}{Proceedings of the 12th ACM Workshop on Workshop on Privacy
+  in the Electronic Society}
+  \field{pages}{249\bibrangedash 254}
+  \field{series}{WPES '13}
+  \field{title}{Improved Group Off-the-record Messaging}
+  \list{location}{1}{%
+    {Berlin, Germany}%
+  }
+  \field{year}{2013}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{rfc4301}{report}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Kent}{K.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Seo}{S.}%
+     {K.}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {{RFC Editor}}%
+  }
+  \strng{namehash}{KSSK1}
+  \strng{fullhash}{KSSK1}
+  \field{sortinit}{K}
+  \field{howpublished}{Internet Requests for Comments}
+  \field{number}{4301}
+  \field{pages}{1\bibrangedash 101}
+  \field{title}{{Security Architecture for the Internet Protocol}}
+  \verb{url}
+  \verb http://tools.ietf.org/html/rfc4301
+  \endverb
+  \list{institution}{1}{%
+    {{RFC Editor}}%
+  }
+  \field{type}{{RFC}}
+  \field{year}{2005}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{Rivest:1978:MOD:359340.359342}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Rivest}{R.}%
+     {R.~L.}{R.~L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shamir}{S.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Adleman}{A.}%
+     {L.}{L.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{authentication, cryptography, digital signatures, electronic funds
+  transfer, electronic mail, factorization, message-passing, prime number,
+  privacy, public-key cryptosystems, security}
+  \strng{namehash}{RRLSAAL1}
+  \strng{fullhash}{RRLSAAL1}
+  \field{sortinit}{R}
+  \field{number}{2}
+  \field{pages}{120\bibrangedash 126}
+  \field{title}{A Method for Obtaining Digital Signatures and Public-key
+  Cryptosystems}
+  \field{volume}{21}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{Commun. ACM}
+  \field{month}{02}
+  \field{year}{1978}
+\endentry
+
+\entry{Vaudenay02securityflaws}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Vaudenay}{V.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer-Verlag}%
+  }
+  \strng{namehash}{VS1}
+  \strng{fullhash}{VS1}
+  \field{sortinit}{V}
+  \field{booktitle}{Proceedings of In Advances in Cryptology}
+  \field{pages}{534\bibrangedash 546}
+  \field{title}{Security Flaws Induced by CBC Padding - Applications to SSL,
+  IPSEC, WTLS}
+  \field{year}{2002}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput
