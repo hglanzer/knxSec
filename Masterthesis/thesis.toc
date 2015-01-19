@@ -54,128 +54,130 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{Topologies}{10}{section*.17}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\chapternumberline {3}EIBD}{11}{chapter.3}
+\contentsline {chapter}{\chapternumberline {3}Mathematical Background}{11}{chapter.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Setup of the Base System}{11}{section.3.1}
+\contentsline {section}{\numberline {3.1}One Way functions}{11}{section.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Raspbian}{11}{section*.18}
+\contentsline {chapter}{\chapternumberline {4}Cryptopgraphy}{12}{chapter.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{EIBD}{12}{section*.19}
+\contentsline {subsection}{Propabilistic Theory}{13}{section*.18}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\chapternumberline {4}Mathematical Background}{14}{chapter.4}
+\contentsline {section}{\numberline {4.1}History of Cryptography}{13}{section.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}One Way functions}{14}{section.4.1}
+\contentsline {section}{\numberline {4.2}Definitions and Basic Assumptions}{13}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\chapternumberline {5}Cryptopgraphy}{15}{chapter.5}
+\contentsline {section}{\numberline {4.3}Kind of Ciphers}{14}{section.4.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Propabilistic Theory}{16}{section*.20}
+\contentsline {subsection}{Stream Ciphers}{15}{section*.19}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}History of Cryptography}{16}{section.5.1}
+\contentsline {subsubsection}{Secure Ciphers - The one time pad}{15}{section*.20}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Definitions and Basic Assumptions}{16}{section.5.2}
+\contentsline {subsection}{Shannons Communication Theory}{15}{section*.21}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Kind of Ciphers}{17}{section.5.3}
+\contentsline {subsection}{Block Ciphers}{15}{section*.22}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Stream Ciphers}{18}{section*.21}
+\contentsline {subsubsection}{Permutation Blockciphers}{16}{section*.23}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Secure Ciphers - The one time pad}{18}{section*.22}
+\contentsline {subsubsection}{Substitution Blockciphers}{16}{section*.24}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Shannons Communication Theory}{18}{section*.23}
+\contentsline {subsubsection}{Product Blockciphers}{16}{section*.25}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Block Ciphers}{18}{section*.24}
+\contentsline {subsection}{Feistel Networks}{16}{section*.26}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Permutation Blockciphers}{19}{section*.25}
+\contentsline {subsection}{Stream Ciphers}{16}{section*.27}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Substitution Blockciphers}{19}{section*.26}
+\contentsline {subsection}{Block Ciphers}{16}{section*.28}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Product Blockciphers}{19}{section*.27}
+\contentsline {subsection}{Confidentiality}{16}{section*.29}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Feistel Networks}{19}{section*.28}
+\contentsline {subsubsection}{Cipher Block Chaining - CBC}{16}{section*.30}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Stream Ciphers}{19}{section*.29}
+\contentsline {subsubsection}{Counter Mode - CTR}{18}{section*.31}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Block Ciphers}{19}{section*.30}
+\contentsline {subsection}{Authenticity}{18}{section*.32}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Confidentiality}{19}{section*.31}
+\contentsline {subsubsection}{OCB}{18}{section*.33}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Cipher Block Chaining - CBC}{19}{section*.32}
+\contentsline {subsubsection}{Cipher Block Chaining - CBC}{18}{section*.34}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Counter Mode - CTR}{21}{section*.33}
+\contentsline {section}{\numberline {4.4}Authenticated Encryption}{18}{section.4.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Authenticity}{21}{section*.34}
+\contentsline {subsection}{CCM}{18}{section*.35}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{OCB}{21}{section*.35}
+\contentsline {subsubsection}{Generating the MAC}{18}{section*.36}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Cipher Block Chaining - CBC}{21}{section*.36}
+\contentsline {subsubsection}{Encrypting Data and MAC}{19}{section*.37}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.4}Authenticated Encryption}{21}{section.5.4}
+\contentsline {subsubsection}{Decryption and Authenticity Check}{20}{section*.38}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{CCM}{21}{section*.37}
+\contentsline {subsubsection}{Attacks on CCM}{20}{section*.39}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Generating the MAC}{21}{section*.38}
+\contentsline {section}{\numberline {4.5}Public Key Cryptography}{20}{section.4.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Encrypting Data and MAC}{22}{section*.39}
+\contentsline {subsection}{Discrete Logarithm Systems}{20}{section*.40}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Decryption and Authenticity Check}{23}{section*.40}
+\contentsline {subsection}{Diffie-Hellman based on Elliptic Curves}{21}{section*.41}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Attacks on CCM}{23}{section*.41}
+\contentsline {subsection}{RSA}{21}{section*.42}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.5}Public Key Cryptography}{23}{section.5.5}
+\contentsline {section}{\numberline {4.6}Random Number Generators}{21}{section.4.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Discrete Logarithm Systems}{23}{section*.42}
+\contentsline {subsection}{Quality / Measurement}{21}{section*.43}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Diffie-Hellman based on Elliptic Curves}{24}{section*.43}
+\contentsline {subsection}{Hardware based}{21}{section*.44}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{RSA}{24}{section*.44}
+\contentsline {section}{\numberline {4.7}Attacks on Ciphers}{21}{section.4.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.6}Random Number Generators}{24}{section.5.6}
+\contentsline {subsection}{Passive Attacks}{21}{section*.45}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Quality / Measurement}{24}{section*.45}
+\contentsline {subsection}{Active Attacks}{21}{section*.46}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Hardware based}{24}{section*.46}
+\contentsline {chapter}{\chapternumberline {5}Security Concept}{22}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.7}Attacks on Ciphers}{24}{section.5.7}
+\contentsline {section}{\numberline {5.1}Basic Assumptions}{22}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Passive Attacks}{24}{section*.47}
+\contentsline {subsection}{Security Related Architectural Overview}{25}{section*.47}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Active Attacks}{24}{section*.48}
+\contentsline {subsection}{Redundancy Related Architectural Overview}{26}{section*.48}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\chapternumberline {6}Security Concept}{25}{chapter.6}
+\contentsline {subsection}{Operational Constrains}{26}{section*.49}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.1}Basic Assumptions}{25}{section.6.1}
+\contentsline {subsection}{Operation states FIXME}{27}{section*.50}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Security Related Architectural Overview}{28}{section*.49}
+\contentsline {subsection}{Key Management}{27}{section*.51}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Redundancy Related Architectural Overview}{29}{section*.50}
+\contentsline {subsection}{Discovery of Group Addresses}{28}{section*.52}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Operational Constrains}{29}{section*.51}
+\contentsline {section}{\numberline {5.2}Key Derivation}{28}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Operation states FIXME}{30}{section*.52}
+\contentsline {subsection}{Diffie - Hellman}{28}{section*.53}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Key Management}{30}{section*.53}
+\contentsline {subsection}{One Secret for all devices}{29}{section*.54}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Discovery of Group Addresses}{31}{section*.54}
+\contentsline {subsection}{Secret for all pairs of devices}{30}{section*.55}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.2}Key Derivation}{31}{section.6.2}
+\contentsline {subsection}{Using the Factory Key}{31}{section*.56}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Diffie - Hellman}{31}{section*.55}
+\contentsline {subsubsection}{Using a fixed String as Authentication Token}{31}{section*.57}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{One Secret for all devices}{32}{section*.56}
+\contentsline {subsubsection}{Challenge - Response}{32}{section*.58}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Secret for all pairs of devices}{33}{section*.57}
+\contentsline {subsection}{High Level Cryptography Library}{32}{section*.59}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Using the Factory Key}{34}{section*.58}
+\contentsline {subsubsection}{OpenSSL}{32}{section*.60}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Using a fixed String as Authentication Token}{34}{section*.59}
+\contentsline {subsubsection}{Crypto++}{32}{section*.61}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Challenge - Response}{35}{section*.60}
+\contentsline {chapter}{\chapternumberline {6}Implementation}{33}{chapter.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{High Level Cryptography Library}{35}{section*.61}
+\contentsline {section}{\numberline {6.1}Setup of the Base System}{33}{section.6.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{OpenSSL}{35}{section*.62}
+\contentsline {subsection}{Raspbian}{33}{section*.62}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Crypto++}{35}{section*.63}
+\contentsline {subsection}{EIBD}{34}{section*.63}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliography}{36}{section*.65}
+\contentsline {section}{\numberline {6.2}Master daemon}{35}{section.6.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {A}Configuration Files}{39}{appendix.A}
+\contentsline {chapter}{Bibliography}{37}{section*.65}
+\defcounter {refsection}{0}\relax 
+\contentsline {appendix}{\chapternumberline {A}Code snippets and configuration files}{40}{appendix.A}

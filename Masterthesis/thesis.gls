@@ -2,7 +2,7 @@
 \begin{theglossary}\glossaryheader
 \glsgroupheading{S}\relax \glsresetentrylist %
 \glossaryentryfield{ssh}{\glsnamefont{SSH}}{secure shell}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{13}}}%
+		\setentrycounter[]{page}\glsnumberformat{35}}}%
 \glossaryentryfield{svm}{\glsnamefont{SVM}}{support vector machine}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{13}}}%
+		\setentrycounter[]{page}\glsnumberformat{35}}}%
 \end{theglossary}\glossarypostamble

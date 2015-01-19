@@ -1,3 +1,5 @@
+
+
 \section{Setup of the Base System}
 
 The base system consists of a standard raspbian operating system, the EIBD daemon, shared libraries which are used by EIBD and the master daemon.
@@ -118,13 +120,18 @@ Now that pthsem is available, which is a dependence of the EIBD daemon, EIBD its
     # make install // must be executed as root
 \end{lstlisting}
 
-first use \gls{svm}
-second use \gls{svm}
-
-third use \gls{svm}
-
-\Gls{ssh} is used for login
-
 These steps generate the binary \textit{eibd} and lots of helper programs in the directories \textit{/usr/local/bin}, and the shared object
-\textit{/usr/local/lib/libeibclient.so.0} that provides the EIBD API and therefore is needed to be linked to the master daemon. To ease the compilation 
-of the master daemon, a makefile has been created. The source of the master daemon is managed by GIT 
+\textit{/usr/local/lib/libeibclient.so.0} that provides the EIBD API and therefore is needed to be linked to the master daemon. 
+
+\section{Master daemon}
+
+The source of the master daemon is managed by GIT. GIT is a decentralized revision-control system and is available under Debian/Raspbian after installing
+the package 'git'. The command
+
+\begin{lstlisting}[style=BashInputStyle]
+    # git clone git@github.com:hglanzer/knxSec.git
+\end{lstlisting}
+
+fetches the latest version and creates a directory called 'knxSec' which contains all the needed source files as well as a makefile for the project
+
+To ease the compilation of the master daemon, a makefile has been created. 

@@ -152,12 +152,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{EIBD}
-\label{ch:eibd}
-\input{chapters/eibd}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Mathematical Background}
 \label{ch:SOAmath}
 \input{chapters/SOAmath}
@@ -173,6 +167,13 @@
 \chapter{Security Concept}
 \label{ch:security}
 \input{chapters/securityconcept}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Implementation}
+\label{ch:implementation}
+\input{chapters/implementation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% BACKMATTER %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -184,13 +185,12 @@
 \nocite{*}	% generate complete bibliography without corresponding \cites{}
 \printbibliography
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \printglossary
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Configuration Files}
+\chapter{Code snippets and configuration files}
 
 \begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for static ip address},label=lst:staticIP]
 # device: eth0
@@ -206,6 +206,8 @@
 # device: eth0
   iface eth0 inet dhcp
 \end{lstlisting}
+
+\lstinputlisting[style=BashInputStyle,caption={Makefile for the master daemon},label=lst:makefile]{../src/Makefile}
 
 %\end{appendices}
 
