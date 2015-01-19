@@ -13,7 +13,7 @@ debug: clean
 clean:
 	clear
 	rm -rf *.o
-	rm master
+	rm -f master
 
 run:	all
 	./master
