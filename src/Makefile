@@ -16,3 +16,8 @@ clean:
 
 run:	all
 	./master
+
+update:	
+	git commit -a
+	git pull
+	git push
