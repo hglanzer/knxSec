@@ -1,8 +1,10 @@
 CFLAGS=-Wall
-LIBS=-lgmp -lcrypto
+LIBS=-leibclient
+#LIBS=-lgmp -lcrypto -llibeibclient
 
 all:	clean
-	gcc $(CFLAGS) master.c sec.c cls.c -o master /usr/lib/libeibclient.so.0 -pthread
+	gcc $(CFLAGS) $(LIBS) master.c sec.c cls.c -o master -pthread
+	#gcc $(CFLAGS) master.c sec.c cls.c -o master /usr/lib/libeibclient.so.0 -pthread
 
 debug: clean
 	gcc $(CFLAGS) master.c sec.c cls.c -o master /usr/lib/libeibclient.so.0 -pthread -DDEBUG 
