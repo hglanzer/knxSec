@@ -17,7 +17,7 @@ The image must be unzipped and copied to a suitable memorycard. First-generation
 all later models come with micro-SD slots. To copy the basic operating system to the memorycard, the linux commandline tool 'dd' can
 be used. To find the correct device to write the image to, the following command can be used: 
 
-\begin{lstlisting}[style=BashInputStyle]
+\begin{lstlisting}[style=BashInputStyle,label=lst:kern.log]
     # tail -f /var/log/kern.log
 \end{lstlisting}
 
@@ -123,6 +123,20 @@ Now that pthsem is available, which is a dependence of the EIBD daemon, EIBD its
 These steps generate the binary \textit{eibd} and lots of helper programs in the directories \textit{/usr/local/bin}, and the shared object
 \textit{/usr/local/lib/libeibclient.so.0} that provides the EIBD API and therefore is needed to be linked to the master daemon. 
 
+\subsection{Busware \gls{usb} couplers}
+
+To make the KNX TP1 bus accessible, i.e. to write datagrams to and receive datagrams from the bus, \gls{usb} dongles as shown in figure \ref{fig:busware}
+from the company \textit{Busware} are used. Depending on the revision, the bus couplers creates a new device which is used as \gls{url} by \gls{eibd}.
+The coupler will be accessible by \textit{/dev/USBx}, \textit{dev/AMAx} or \textit{/dev/ACMx}, where x is. The easiest way is to use command \ref{lst:kern.log}
+
+\begin{figure}
+    \centering
+    \caption{Busware KNX-USB coupler}
+    \label{fig:busware}
+\includegraphics[scale=0.2]{figures/busware.png}
+\end{figure}
+
+
 \section{Master daemon}
 
 The source of the master daemon is managed by GIT. GIT is a decentralized revision-control system and is available under Debian/Raspbian after installing
@@ -132,6 +146,5 @@ the package 'git'. The command
     # git clone git@github.com:hglanzer/knxSec.git
 \end{lstlisting}
 
-fetches the latest version and creates a directory called 'knxSec' which contains all the needed source files as well as a makefile for the project
-
-To ease the compilation of the master daemon, a makefile has been created. 
+fetches the latest version and creates a directory called 'knxSec' which contains all the needed source files as well as a makefile \ref{lst:makefile}
+for the project.

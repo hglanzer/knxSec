@@ -1,8 +1,11 @@
 \glossarysection[\glossarytoctitle]{\glossarytitle}\glossarypreamble
 \begin{theglossary}\glossaryheader
-\glsgroupheading{S}\relax \glsresetentrylist %
-\glossaryentryfield{ssh}{\glsnamefont{SSH}}{secure shell}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{35}}}%
-\glossaryentryfield{svm}{\glsnamefont{SVM}}{support vector machine}{\relax }{\glossaryentrynumbers{\relax 
+\glsgroupheading{E}\relax \glsresetentrylist %
+\glossaryentryfield{eibd}{\glsnamefont{EIBD}}{european installation bus daemon}{\relax }{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{36}}}\glsgroupskip
+\glsgroupheading{U}\relax \glsresetentrylist %
+\glossaryentryfield{url}{\glsnamefont{URL}}{uniform resource locator}{\relax }{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{36}}}%
+\glossaryentryfield{usb}{\glsnamefont{USB}}{universal serial bus}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{35}}}%
 \end{theglossary}\glossarypostamble

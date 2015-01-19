@@ -176,8 +176,10 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{EIBD}{34}{section*.63}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.2}Master daemon}{35}{section.6.2}
+\contentsline {subsection}{Busware \gls {usb} couplers}{35}{section*.64}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliography}{37}{section*.65}
+\contentsline {section}{\numberline {6.2}Master daemon}{36}{section.6.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliography}{37}{section*.66}
 \defcounter {refsection}{0}\relax 
 \contentsline {appendix}{\chapternumberline {A}Code snippets and configuration files}{40}{appendix.A}
