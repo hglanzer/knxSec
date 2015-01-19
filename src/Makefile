@@ -18,6 +18,6 @@ run:	all
 	./master
 
 update:	
-	git commit -a
+	git commit -a --allow-empty
 	git pull
 	git push
