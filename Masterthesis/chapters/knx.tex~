@@ -139,6 +139,12 @@ APCI(application layer protocol control information) bit - read / write / respon
 
 For booth formats, a check byte completes the frame, calculating a bitwise NOT XOR function over all bytes.
 
+
+fafa
+fadfa
+
+fdaa
+
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{figures/standardframe.png}
@@ -196,8 +202,6 @@ point-to-domain(multicast) and point-to-all-points(broadcast):
  This service uses a timer to detect timeouts, and allows up to 3 retransmissions. Prior to sending data, a T\_Connect request has to be sent. If the
  remote device cannot handle a new connection, a T\_Disconnect request is returned to the sender. Otherwise, no confirmation or acknowledgment is sent
  to the remote device.
-
- \cite{rfc2246}
  
  \item point-to-multipoint, connectionless
  \\
