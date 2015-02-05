@@ -16,10 +16,9 @@ void keyInit(void *);
 
 #define	INIT		0
 #define	SYNC		1
-#define RESET		2
-#define HELO		3
-#define CHALLENGE	4
-#define INSYNC		5
+#define JOIN		2
+#define CHOOSE_KEY	3
+#define READY		4
 
 #define READEND		0
 #define WRITEEND	1

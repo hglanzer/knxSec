@@ -13,16 +13,8 @@
 uint8_t	clr2SecBUF[CLSBUFSIZE];
 uint8_t	sec2ClrBUF[SECBUFSIZE];
 
-pthread_mutex_t clr2SecMutexWr[SECLINES];
-pthread_cond_t  clr2SecCondWr[SECLINES];
-
-pthread_mutex_t secMutexInternal[SECLINES];
-pthread_cond_t  secCondInternal[SECLINES];
-
-
-int newData4Sec = 0;
-int newData4Clr = 0;
-int count = 0;
+pthread_mutex_t SecMutexWr[SECLINES];
+pthread_cond_t  SecCondWr[SECLINES];
 
 static struct option long_options[] =
 {
@@ -113,21 +105,18 @@ int main(int argc, char **argv)
 				assert(0);
 		}
 	}
-	#ifdef DEBUG
-		printf("creating threads\n");
-	#endif
 
 	for(i=0; i < 2; i++)
 	{
 		// create condition variables for syncronization clr(recv) -> sec(send)
-		if(pthread_cond_init(&clr2SecCondWr[i], NULL) != 0)
+		if(pthread_cond_init(&SecCondWr[i], NULL) != 0)
 		{
 			printf("condition variable %d init failed, exit", i);
 			return -1;
 		}
 
 		// every condition variable needs a mutex
-		if(pthread_mutex_init(&clr2SecMutexWr[i], NULL) != 0)
+		if(pthread_mutex_init(&SecMutexWr[i], NULL) != 0)
 		{
 			printf("clr mutex init failed, exit");
 			return -1;
@@ -157,10 +146,10 @@ int main(int argc, char **argv)
 	}
 
 	#ifdef DEBUG
-		printf("MAIN Master Thread %u, waiting for kids\n", (unsigned)pthread_self());
-		printf("MAIN sec1Thread: %u\n", (unsigned)sec1MasterThread);
-		printf("MAIN sec2Thread: %u\n", (unsigned)sec2MasterThread);
-		printf("MAIN clrThread : %u\n", (unsigned)clrMasterThread);
+		printf("\n\nMaster   Thread %u, waiting for kids\n", (unsigned)pthread_self());
+		printf("sec1Mst  Thread: %u\n", (unsigned)sec1MasterThread);
+		printf("sec2Mst  Thread: %u\n", (unsigned)sec2MasterThread);
+		printf("clearMst Thread: %u\n\n\n", (unsigned)clrMasterThread);
 	#endif
 	pthread_join(clrMasterThread, &clrThreadRetval);
 	pthread_join(sec1MasterThread, &sec1ThreadRetval);

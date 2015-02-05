@@ -5,6 +5,11 @@ then
 	if [ "$1" -gt "0" ] && [ "$1" -lt "16" ]
 	then
 		killall -9 eibd
+		killall -9 eibd
+
+		rm /tmp/knxCLR
+		rm /tmp/knxSEC1
+		rm /tmp/knxSEC2
 
 		cd src
 		make debug
