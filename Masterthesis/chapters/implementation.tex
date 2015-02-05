@@ -3,8 +3,8 @@
 \section{Setup of the Base System}
 
 The base system consists of a standard raspbian operating system, the EIBD daemon, shared libraries which are used by EIBD and the master daemon.
-The operating system is based on the Debian project, with the kernel and all the binaries ported to the ARM platform, so it is possible to use a
-comfortable packet manager called
+The operating system is based on the Debian project, with the kernel, libraries and binaries ported to the ARM platform, so it is possible to benefit from
+using a full-scale operating system, e.g. by using the comfortable packet manager called
 \textit{aptitude} provided by Debian. A short introduction to the most important commands is given below as they are needed.
 
 \subsection{Raspbian}
@@ -38,9 +38,10 @@ Here, the proper device to use is the device /dev/sdb.
 After the write command has finished, the memory card is ready to use. For first time setup, a display must be connected via HDMI. Powering up the raspberry
 opens a ncurses configuration dialogue. First thing to do is to resize the root partition to maximum size and set a password for the administrative
 account. Optionally, different options like keyboard layout can be set.
-To be able to operate the raspberry without external display, it is necessary to start the ssh server under \textit{Advanced Options} and assign a 
-fixed ip to the host by editing the file \textit{/etc/network/interfaces}, as shown in example \ref{lst:staticIP}. This way it is possible to connect to the raspberry with a ssh client. For password less logins, create an unpriviliged user and
- a ssh public/private key pair for that user by executing these commands on the raspberry pi:
+To be able to operate the raspberry without external display, it is necessary to start the \gls{ssh} server under \textit{Advanced Options} and assign a 
+fixed ip to the host by editing the file \textit{/etc/network/interfaces}, as shown in example \ref{lst:staticIP}. This way it is possible to connect to the
+raspberry with a \gls{ssh} client. For password less logins, create an unpriviliged user and
+ a \gls{ssh} public/private key pair for that user by executing these commands on the raspberry pi:
 
 \begin{lstlisting}[style=BashInputStyle]
     # groupadd <usergroup>
@@ -53,7 +54,7 @@ The program generates the user and the correspoding key pair and saves public an
 to use a password-less keypair, an option that should only be used in restriced areas.
 To actually use the keypair for logging into
 the raspberry pi, the public key must be saved in the file \textit{~/.ssh/authorized\_keys}. Additionally, the private key must be copied to every host
-from that ssh connections to the raspberry pi want to be opened. After that, it is possible to load the private key into memory with the command \textit{ssh-add}
+from that \gls{ssh} connections to the raspberry pi want to be opened. After that, it is possible to load the private key into memory with the command \textit{ssh-add}
 and to connect to the host without a password:
 
 \begin{lstlisting}[style=BashInputStyle]
@@ -121,13 +122,47 @@ Now that pthsem is available, which is a dependence of the EIBD daemon, EIBD its
 \end{lstlisting}
 
 These steps generate the binary \textit{eibd} and lots of helper programs in the directories \textit{/usr/local/bin}, and the shared object
-\textit{/usr/local/lib/libeibclient.so.0} that provides the EIBD API and therefore is needed to be linked to the master daemon. 
+\textit{/usr/local/lib/libeibclient.so.0} that provides the \gls{eibd} \gls{api} and therefore is needed to be linked to the master daemon. 
+
+\subsection{Revision control}
+
+The source of the master daemon is managed by GIT. GIT is a decentralized revision-control system and is available under Debian/Raspbian after installing
+the package 'git'. The command \ref{lst:git} fetches the latest version and creates a directory called 'knxSec' which contains all the needed source files,
+a proper makefile \ref{lst:makefile} for the project, as well as all other needed files.
+
+\begin{lstlisting}[style=BashInputStyle,label=lst:git]
+    # git clone git@github.com:hglanzer/knxSec.git
+\end{lstlisting}
 
 \subsection{Busware \gls{usb} couplers}
 
 To make the KNX TP1 bus accessible, i.e. to write datagrams to and receive datagrams from the bus, \gls{usb} dongles as shown in figure \ref{fig:busware}
-from the company \textit{Busware} are used. Depending on the revision, the bus couplers creates a new device which is used as \gls{url} by \gls{eibd}.
-The coupler will be accessible by \textit{/dev/USBx}, \textit{dev/AMAx} or \textit{/dev/ACMx}, where x is. The easiest way is to use command \ref{lst:kern.log}
+from the company \textit{Busware} are used. Depending on the revision, the bus couplers creates a new device which is used as \gls{url} by the \gls{eibd}.
+The coupler will be accessible by \textit{/dev/ACMx}, where x is the number of the device. It may be necessary to flash the bus couplers with the correct
+firmware first. The easiest way to check this is to use command \ref{lst:kern.log} and look for output similar to listing \ref{lst:device} when plugging 
+the coupler into an \gls{usb} slot.
+
+\begin{lstlisting}[style=BashInputStyle,label=lst:device]
+... usb 1-1.2: new full-speed USB device number 19 using ehci_hcd
+... usb 1-1.2: New USB device found, idVendor=03eb, idProduct=204b
+... usb 1-1.2: New USB device strings: Mfr=1, Product=2, SerialNumber=220
+... usb 1-1.2: Product: TPUART
+... usb 1-1.2: Manufacturer: busware.de
+... usb 1-1.2: SerialNumber: 7543034373135130C140
+... cdc_acm 1-1.2:1.0: ttyACM0: USB ACM device
+\end{lstlisting}
+
+If no such line like 7 appears, the correct firmware is available as file \textit{firmware/TPUARTtransparent.hex} inside the git project. To actually flash the 
+coupler, the programming button on the bottom of the device must be kept pressed while connecting it to an \gls{usb} slot. Afterwards, the commands shown
+in \ref{lst:flash} must be executed.
+
+\begin{lstlisting}[style=BashInputStyle,label=lst:flash]
+    # apt-get install dfu-programmer
+    # dfu-programmer atmega32u4 erase
+    # dfu-programmer atmega32u4 flash TPUARTtransparent.hex
+    # dfu-programmer atmega32u4 reset
+\end{lstlisting}
+
 
 \begin{figure}
     \centering
@@ -136,15 +171,11 @@ The coupler will be accessible by \textit{/dev/USBx}, \textit{dev/AMAx} or \text
 \includegraphics[scale=0.2]{figures/busware.png}
 \end{figure}
 
+\subsection{Test setup}
+
+The test environment consists of 2 raspberry pis, as shown in figure \ref{fig:secArea}. 
 
 \section{Master daemon}
 
-The source of the master daemon is managed by GIT. GIT is a decentralized revision-control system and is available under Debian/Raspbian after installing
-the package 'git'. The command
 
-\begin{lstlisting}[style=BashInputStyle]
-    # git clone git@github.com:hglanzer/knxSec.git
-\end{lstlisting}
 
-fetches the latest version and creates a directory called 'knxSec' which contains all the needed source files as well as a makefile \ref{lst:makefile}
-for the project.
