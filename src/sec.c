@@ -197,7 +197,7 @@ void keyInit(void *env)
 					if(thisEnv->retryCount == SYNC_RETRIES)
 					{
 						debug("max retries / setting global counter = 0x00", pthread_self());
-						thisEnv->state = SYNCED;
+						thisEnv->state = SYNC;
 					
 					}
 					
