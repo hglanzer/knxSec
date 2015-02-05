@@ -118,7 +118,7 @@ int secReceive(void *env)
 	#endif
 	while(1)
 	{
-		debug("SEC: blocking(EIBD)", pthread_self());
+//		debug("SEC: blocking(EIBD)", pthread_self());
 		sleep(10);
 	}
 	return 0;
@@ -140,7 +140,6 @@ void keyInit(void *env)
 	uint8_t buffer[BUFSIZE]; 
 
 	thisEnv->state = INIT;
-	thisEnv->retryCount = 0;
 
 	/*	
 		1a) send sync request		(cleartext)
@@ -150,19 +149,24 @@ void keyInit(void *env)
 		2b) wait for join response	-> obtain global key(auth+enc)
 
 	*/
-	FD_ZERO(&set);
-	FD_SET(thisEnv->Read2MasterPipe[READEND], &set);
 
 	while(1)
 	{
 		switch(thisEnv->state)
 		{
 			case INIT:
+				FD_ZERO(&set);
+				FD_SET(thisEnv->Read2MasterPipe[READEND], &set);
 
+				debug("key Master: INIT", pthread_self());
 				syncTimeout.tv_sec = SYNCTIMEOUT_SEC;
 				syncTimeout.tv_usec = 0;	
+				thisEnv->retryCount = 0;
 
-				debug("key Master: select() / sending sync req", pthread_self());
+				thisEnc->state = SYNC;
+			case SYNC:
+
+				debug("key Master: SYNC / select() / sending sync req", pthread_self());
 		//		pthread_mutex_lock();
 
 				// copy data to buffer...
@@ -181,6 +185,7 @@ void keyInit(void *env)
 				if(selectRC == 0)
 				{
 					// timeout
+					thisEnv->retryCount++;
 					debug("key Master JOIN timeout, retry", pthread_self());
 		
 					/*
@@ -192,6 +197,7 @@ void keyInit(void *env)
 					if(thisEnv->retryCount == SYNC_RETRIES)
 					{
 						debug("max retries / setting global counter = 0x00", pthread_self());
+						thisEnv->state = SYNCED;
 					
 					}
 					
@@ -245,13 +251,14 @@ int initSec(void *threadEnv)
 	pthread_t secRecvThread, secSendThread;
 	printf("this is sec %u, with args sock = %s id = %d\n", (unsigned)pthread_self(),threadEnvSec->socket, threadEnvSec->id);
 
-	
-
+	// create READ thread
 	if((pthread_create(&secRecvThread, NULL, (void *)secRecvThreadfPtr, (void *)threadEnvSec)) != 0)
 	{
 		printf("sec RECEIVE Thread init failed, exit\n");
 		return -1;
 	}
+
+	// create WRITE thread
 	if((pthread_create(&secSendThread, NULL, (void *)secSendThreadfPtr, (void *)threadEnvSec)) != 0)
 	//if((pthread_create(&secSendThread, NULL, (void *)secSendThreadfPtr, &threadEnvSec->id)) != 0)
 	{
