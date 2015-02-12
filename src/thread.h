@@ -11,4 +11,5 @@ struct threadEnvSec_t
 	uint8_t PSK[PSKSIZE];
 	uint8_t kGlobal[KSIZE];
 	uint8_t retryCount;
+	uint32_t globalCount;
 };

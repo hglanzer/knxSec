@@ -6,12 +6,8 @@
 		-> get  cleartextdata from sec lines, and write to bus
 */
 
-extern int count;
-extern pthread_mutex_t clr2SecMutexWr[2];
-extern pthread_cond_t  clr2SecCondWr[2];
-
-extern int newData4Sec;
-extern int newData4Clr;
+//extern pthread_mutex_t clr2SecMutexWr[2];
+//extern pthread_cond_t  clr2SecCondWr[2];
 
 EIBConnection *clrFD;
 
@@ -51,8 +47,8 @@ int clrReceive(void)
 		#ifdef DEBUG
 			debug("CLS _____locking", pthread_self());
 		#endif
-		pthread_mutex_lock(&clr2SecMutexWr[0]);
-		pthread_mutex_lock(&clr2SecMutexWr[1]);
+//		pthread_mutex_lock(&clr2SecMutexWr[0]);
+//		pthread_mutex_lock(&clr2SecMutexWr[1]);
 
 		// blocking call to get next package
 		len = EIBGetBusmonitorPacket (clrFD, sizeof(*packet), (uint8_t *)packet);
@@ -71,17 +67,15 @@ int clrReceive(void)
 			//printf("%x\n", packet->atNcpiLength & 0x80);
 			printf("\tLen = %d / CTRL: %x / %x.%x.%x\n", len, packet->ctrl, \
 				AreaAddress(packet->srcAreaLine), LineAddress(packet->srcAreaLine), packet->srcDev);
-			newData4Sec = 1;
 			#ifdef DEBUG
 				debug("CLS _____unlocking", pthread_self());
 			#endif
 			
-			pthread_cond_signal(&clr2SecCondWr[0]);
-			pthread_cond_signal(&clr2SecCondWr[1]);
+//			pthread_cond_signal(&clr2SecCondWr[0]);
+//			pthread_cond_signal(&clr2SecCondWr[1]);
 	
-			pthread_mutex_unlock(&clr2SecMutexWr[0]);
-			pthread_mutex_unlock(&clr2SecMutexWr[1]);
-			count++;
+//			pthread_mutex_unlock(&clr2SecMutexWr[0]);
+//			pthread_mutex_unlock(&clr2SecMutexWr[1]);
 		}
 	}
 

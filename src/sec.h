@@ -15,9 +15,10 @@ void keyInit(void *);
 #define SECLINES	2
 
 #define	INIT		0
-#define HELO		1
-#define CHALLENGE	2
-#define INSYNC		3
+#define	SYNC		1
+#define JOIN		2
+#define CHOOSE_KEY	3
+#define READY		4
 
 #define READEND		0
 #define WRITEEND	1
