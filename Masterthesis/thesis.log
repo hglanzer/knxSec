@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  20 JAN 2015 09:22
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  11 FEB 2015 20:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1046,9 +1046,45 @@ File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
+
+Class memoir Warning: You are using the caption package with the memoir 
+(memoir)              class. This may cause unexpected or inconsistent 
+(memoir)              results if you use any of memoir's captioning facilities.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2012/02/19 v3.2f Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2012/01/12 v1.4b caption3 kernel (AR)
+\captionmargin=\dimen208
+\captionmargin@=\dimen209
+\captionwidth=\dimen210
+\caption@indent=\dimen211
+\caption@parindent=\dimen212
+\caption@hangindent=\dimen213
+)
+\c@ContinuedFloat=\count181
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+\c@KVtest=\count182
+\sf@farskip=\skip190
+\sf@captopadj=\dimen214
+\sf@capskip=\skip191
+\sf@nearskip=\skip192
+\c@subfigure=\count183
+\c@subfigure@save=\count184
+\c@subtable=\count185
+\c@subtable@save=\count186
+\sf@top=\skip193
+\sf@bottom=\skip194
+)
 (/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 Package: algorithm2e 2008/00/00 v3.10 algorithms environments
-\c@AlgoLine=\count181
+\c@AlgoLine=\count187
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
@@ -1063,34 +1099,34 @@ Package `algorithm2e' Release 4.01 -- december 14 2009 --
 subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 - Author: Christophe Fiorio (fiorio@lirmm.fr)
 ********************************************************
-\skiptotal=\skip190
-\skiplinenumber=\skip191
-\skiprule=\skip192
-\skiphlne=\skip193
-\skiptext=\skip194
-\skiplength=\skip195
-\algomargin=\skip196
-\skipalgocfslide=\skip197
-\algowidth=\dimen208
-\inoutsize=\dimen209
-\inoutline=\dimen210
-\interspacetitleruled=\dimen211
-\interspacealgoruled=\dimen212
-\interspacetitleboxruled=\dimen213
+\skiptotal=\skip195
+\skiplinenumber=\skip196
+\skiprule=\skip197
+\skiphlne=\skip198
+\skiptext=\skip199
+\skiplength=\skip200
+\algomargin=\skip201
+\skipalgocfslide=\skip202
+\algowidth=\dimen215
+\inoutsize=\dimen216
+\inoutline=\dimen217
+\interspacetitleruled=\dimen218
+\interspacealgoruled=\dimen219
+\interspacetitleboxruled=\dimen220
 \algocf@inoutbox=\box40
 \algocf@inputbox=\box41
-\AlCapSkip=\skip198
-\AlCapHSkip=\skip199
+\AlCapSkip=\skip203
+\AlCapHSkip=\skip204
 \algocf@nlbox=\box42
 \algocf@hangingbox=\box43
 \algocf@capbox=\box44
-\algoheightruledefault=\skip200
-\algoheightrule=\skip201
-\algotitleheightruledefault=\skip202
-\algotitleheightrule=\skip203
-\c@algocfline=\count182
-\c@algocfproc=\count183
-\c@algocf=\count184
+\algoheightruledefault=\skip205
+\algoheightrule=\skip206
+\algotitleheightruledefault=\skip207
+\algotitleheightrule=\skip208
+\c@algocfline=\count188
+\c@algocfproc=\count189
+\c@algocf=\count190
 \algocf@algoframe=\box45
 \algocf@algobox=\box46
 )
@@ -1100,7 +1136,7 @@ File: tikzlibraryarrows.code.tex 2008/01/09 v2.10 (rcs-revision 1.1)
 
 (/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
 File: pgflibraryarrows.code.tex 2008/10/27 v2.10 (rcs-revision 1.9)
-\arrowsize=\dimen214
+\arrowsize=\dimen221
 ))
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryautom
 ata.code.tex
@@ -1143,7 +1179,7 @@ Package: xkeyval 2008/08/13 v2.6a package option processing (HA)
 (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 \XKV@toks=\toks37
 \XKV@tempa@toks=\toks38
-\XKV@depth=\count185
+\XKV@depth=\count191
 File: xkeyval.tex 2008/08/13 v2.6a key=value parser (HA)
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/glossaries/base/mfirstuc.sty
@@ -1151,7 +1187,7 @@ Package: mfirstuc 2012/05/21 v1.06 (NLCT)
 
 (/usr/share/texmf/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
-\etb@tempcnta=\count186
+\etb@tempcnta=\count192
 )
 \@glsmfirst=\toks39
 \@glsmrest=\toks40
@@ -1162,7 +1198,7 @@ Package: xfor 2009/02/05 v1.05 (NLCT)
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks41
-\ex@=\dimen215
+\ex@=\dimen222
 )
 (/usr/share/texmf/tex/latex/beamer/base/translator/translator.sty
 Package: translator 2010/06/12 ver 1.10
@@ -1172,9 +1208,9 @@ Package: translator 2010/06/12 ver 1.10
 
 Package glossaries Warning: overriding \glossarymark on input line 558.
 
-\gls@level=\count187
+\gls@level=\count193
 \@gls@tmpb=\toks42
-\gls@tmplen=\skip204
+\gls@tmplen=\skip209
 \glswrite=\write5
 
 Package glossaries Warning: Overriding \printglossary on input line 3393.
@@ -1193,186 +1229,187 @@ y
 Package: glossary-hypernav 2007/07/04 v1.01 (NLCT)
 ) (/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-list.sty
 Package: glossary-list 2011/03/28 v3.0 (NLCT)
-\glslistdottedwidth=\skip205
+\glslistdottedwidth=\skip210
 ) (/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-long.sty
 Package: glossary-long 2011/03/28 v3.0 (NLCT)
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
-\LTleft=\skip206
-\LTright=\skip207
-\LTpre=\skip208
-\LTpost=\skip209
-\LTchunksize=\count188
-\LTcapwidth=\dimen216
+\LTleft=\skip211
+\LTright=\skip212
+\LTpre=\skip213
+\LTpost=\skip214
+\LTchunksize=\count194
+\LTcapwidth=\dimen223
 \LT@head=\box67
 \LT@firsthead=\box68
 \LT@foot=\box69
 \LT@lastfoot=\box70
-\LT@cols=\count189
-\LT@rows=\count190
-\c@LT@tables=\count191
-\c@LT@chunks=\count192
+\LT@cols=\count195
+\LT@rows=\count196
+\c@LT@tables=\count197
+\c@LT@chunks=\count198
 \LT@p@ftn=\toks47
 )
-\glsdescwidth=\skip210
-\glspagelistwidth=\skip211
+\glsdescwidth=\skip215
+\glspagelistwidth=\skip216
 )
 (/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-super.sty
 Package: glossary-super 2011/03/28 v3.0 (NLCT)
 
 (/usr/share/texlive/texmf-dist/tex/latex/supertabular/supertabular.sty
 Package: supertabular 2004/02/20 v4.1e the supertabular environment
-\c@tracingst=\count193
-\ST@wd=\dimen217
-\ST@rightskip=\skip212
-\ST@leftskip=\skip213
-\ST@parfillskip=\skip214
-\ST@pageleft=\dimen218
-\ST@headht=\dimen219
-\ST@tailht=\dimen220
-\ST@pagesofar=\dimen221
-\ST@pboxht=\dimen222
-\ST@lineht=\dimen223
-\ST@stretchht=\dimen224
-\ST@prevht=\dimen225
-\ST@toadd=\dimen226
-\ST@dimen=\dimen227
+\c@tracingst=\count199
+\ST@wd=\dimen224
+\ST@rightskip=\skip217
+\ST@leftskip=\skip218
+\ST@parfillskip=\skip219
+\ST@pageleft=\dimen225
+\ST@headht=\dimen226
+\ST@tailht=\dimen227
+\ST@pagesofar=\dimen228
+Normal \dimen register pool exhausted, switching to extended pool.
+\ST@pboxht=\dimen256
+\ST@lineht=\dimen257
+\ST@stretchht=\dimen258
+\ST@prevht=\dimen259
+\ST@toadd=\dimen260
+\ST@dimen=\dimen261
 \ST@pbox=\box71
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-tree.sty
 Package: glossary-tree 2011/03/28 v3.0 (NLCT)
-\glstreeindent=\skip215
+\glstreeindent=\skip220
 ))
 \glo@main@file=\write6
 \openout6 = `thesis.glo'.
 
-Package glossaries Info: Writing glossary file thesis.glo on input line 23.
+Package glossaries Info: Writing glossary file thesis.glo on input line 26.
 
 (./acronyms.tex) (/usr/share/texmf/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2011/11/13 v1.7 programmable bibliographies
 
 (/usr/share/texmf/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count194
+\lrq@indent=\count200
 
 (/usr/share/texmf/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 ))
-\c@listtotal=\count195
-\c@listcount=\count196
-\c@liststart=\count197
-\c@liststop=\count198
-\c@citecount=\count199
-\c@citetotal=\count200
-\c@multicitecount=\count201
-\c@multicitetotal=\count202
-\c@instcount=\count203
-\c@maxnames=\count204
-\c@minnames=\count205
-\c@maxitems=\count206
-\c@minitems=\count207
-\c@citecounter=\count208
-\c@savedcitecounter=\count209
-\c@uniquelist=\count210
-\c@uniquename=\count211
-\c@refsection=\count212
-\c@refsegment=\count213
-\c@maxextrayear=\count214
-\c@maxextraalpha=\count215
-\c@abbrvpenalty=\count216
-\c@highnamepenalty=\count217
-\c@lownamepenalty=\count218
-\c@maxparens=\count219
-\c@parenlevel=\count220
-\blx@tempcnta=\count221
-\blx@tempcntb=\count222
-\blx@tempcntc=\count223
-\blx@maxsection=\count224
-\blx@maxsegment=\count225
-\blx@notetype=\count226
-\blx@parenlevel@text=\count227
-\blx@parenlevel@foot=\count228
-\labelnumberwidth=\skip216
-\labelalphawidth=\skip217
-\shorthandwidth=\skip218
-\biblabelsep=\skip219
-\bibnamesep=\skip220
-\bibinitsep=\skip221
-\bibparsep=\skip222
-\bibhang=\skip223
+\c@listtotal=\count201
+\c@listcount=\count202
+\c@liststart=\count203
+\c@liststop=\count204
+\c@citecount=\count205
+\c@citetotal=\count206
+\c@multicitecount=\count207
+\c@multicitetotal=\count208
+\c@instcount=\count209
+\c@maxnames=\count210
+\c@minnames=\count211
+\c@maxitems=\count212
+\c@minitems=\count213
+\c@citecounter=\count214
+\c@savedcitecounter=\count215
+\c@uniquelist=\count216
+\c@uniquename=\count217
+\c@refsection=\count218
+\c@refsegment=\count219
+\c@maxextrayear=\count220
+\c@maxextraalpha=\count221
+\c@abbrvpenalty=\count222
+\c@highnamepenalty=\count223
+\c@lownamepenalty=\count224
+\c@maxparens=\count225
+\c@parenlevel=\count226
+\blx@tempcnta=\count227
+\blx@tempcntb=\count228
+Normal \count register pool exhausted, switching to extended pool.
+\blx@tempcntc=\count277
+\blx@maxsection=\count278
+\blx@maxsegment=\count279
+\blx@notetype=\count280
+\blx@parenlevel@text=\count281
+\blx@parenlevel@foot=\count282
+\labelnumberwidth=\skip221
+\labelalphawidth=\skip222
+\shorthandwidth=\skip223
+\biblabelsep=\skip224
+\bibnamesep=\skip225
+\bibinitsep=\skip226
+\bibparsep=\skip227
+\bibhang=\skip228
 \blx@auxin=\read3
 \blx@auxout=\write7
-Normal \count register pool exhausted, switching to extended pool.
-\c@mincomprange=\count277
-\c@maxcomprange=\count278
-\c@mincompwidth=\count279
-\c@labelname=\count280
-\c@savedlabelname=\count281
-\c@author=\count282
-\c@savedauthor=\count283
-\c@shortauthor=\count284
-\c@savedshortauthor=\count285
-\c@editor=\count286
-\c@savededitor=\count287
-\c@editora=\count288
-\c@savededitora=\count289
-\c@editorb=\count290
-\c@savededitorb=\count291
-\c@editorc=\count292
-\c@savededitorc=\count293
-\c@shorteditor=\count294
-\c@savedshorteditor=\count295
-\c@bookauthor=\count296
-\c@savedbookauthor=\count297
-\c@translator=\count298
-\c@savedtranslator=\count299
-\c@annotator=\count300
-\c@savedannotator=\count301
-\c@commentator=\count302
-\c@savedcommentator=\count303
-\c@introduction=\count304
-\c@savedintroduction=\count305
-\c@foreword=\count306
-\c@savedforeword=\count307
-\c@afterword=\count308
-\c@savedafterword=\count309
-\c@holder=\count310
-\c@savedholder=\count311
-\c@namea=\count312
-\c@savednamea=\count313
-\c@nameb=\count314
-\c@savednameb=\count315
-\c@namec=\count316
-\c@savednamec=\count317
-\c@institution=\count318
-\c@savedinstitution=\count319
-\c@language=\count320
-\c@savedlanguage=\count321
-\c@location=\count322
-\c@savedlocation=\count323
-\c@organization=\count324
-\c@savedorganization=\count325
-\c@origlocation=\count326
-\c@savedoriglocation=\count327
-\c@origpublisher=\count328
-\c@savedorigpublisher=\count329
-\c@pageref=\count330
-\c@savedpageref=\count331
-\c@publisher=\count332
-\c@savedpublisher=\count333
-\c@lista=\count334
-\c@savedlista=\count335
-\c@listb=\count336
-\c@savedlistb=\count337
-\c@listc=\count338
-\c@savedlistc=\count339
-\c@listd=\count340
-\c@savedlistd=\count341
-\c@liste=\count342
-\c@savedliste=\count343
-\c@listf=\count344
-\c@savedlistf=\count345
+\c@mincomprange=\count283
+\c@maxcomprange=\count284
+\c@mincompwidth=\count285
+\c@labelname=\count286
+\c@savedlabelname=\count287
+\c@author=\count288
+\c@savedauthor=\count289
+\c@shortauthor=\count290
+\c@savedshortauthor=\count291
+\c@editor=\count292
+\c@savededitor=\count293
+\c@editora=\count294
+\c@savededitora=\count295
+\c@editorb=\count296
+\c@savededitorb=\count297
+\c@editorc=\count298
+\c@savededitorc=\count299
+\c@shorteditor=\count300
+\c@savedshorteditor=\count301
+\c@bookauthor=\count302
+\c@savedbookauthor=\count303
+\c@translator=\count304
+\c@savedtranslator=\count305
+\c@annotator=\count306
+\c@savedannotator=\count307
+\c@commentator=\count308
+\c@savedcommentator=\count309
+\c@introduction=\count310
+\c@savedintroduction=\count311
+\c@foreword=\count312
+\c@savedforeword=\count313
+\c@afterword=\count314
+\c@savedafterword=\count315
+\c@holder=\count316
+\c@savedholder=\count317
+\c@namea=\count318
+\c@savednamea=\count319
+\c@nameb=\count320
+\c@savednameb=\count321
+\c@namec=\count322
+\c@savednamec=\count323
+\c@institution=\count324
+\c@savedinstitution=\count325
+\c@language=\count326
+\c@savedlanguage=\count327
+\c@location=\count328
+\c@savedlocation=\count329
+\c@organization=\count330
+\c@savedorganization=\count331
+\c@origlocation=\count332
+\c@savedoriglocation=\count333
+\c@origpublisher=\count334
+\c@savedorigpublisher=\count335
+\c@pageref=\count336
+\c@savedpageref=\count337
+\c@publisher=\count338
+\c@savedpublisher=\count339
+\c@lista=\count340
+\c@savedlista=\count341
+\c@listb=\count342
+\c@savedlistb=\count343
+\c@listc=\count344
+\c@savedlistc=\count345
+\c@listd=\count346
+\c@savedlistd=\count347
+\c@liste=\count348
+\c@savedliste=\count349
+\c@listf=\count350
+\c@savedlistf=\count351
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 
@@ -1384,10 +1421,10 @@ Package biblatex Info: ... file 'biblatex.def' found.
 
 (/usr/share/texmf/tex/latex/biblatex/biblatex.def
 File: biblatex.def 2011/11/13 v1.7 biblatex generic definitions
-\c@biburlnumpenalty=\count346
-\c@biburlucpenalty=\count347
-\c@biburllcpenalty=\count348
-\c@smartand=\count349
+\c@biburlnumpenalty=\count352
+\c@biburlucpenalty=\count353
+\c@biburllcpenalty=\count354
+\c@smartand=\count355
 )
 Package biblatex Info: Trying to load bibliography style 'numeric'...
 Package biblatex Info: ... file 'numeric.bbx' found.
@@ -1432,8 +1469,8 @@ File: english.lbx 2011/11/13 v1.7 biblatex localization
 Package biblatex Warning: 'babel' detected but 'csquotes' missing.
 (biblatex)                Loading 'csquotes' recommended.
 
-\@quotelevel=\count350
-\@quotereset=\count351
+\@quotelevel=\count356
+\@quotereset=\count357
 (./thesis.aux (./titlepage.aux
 Package biblatex Info: Trying to load language 'ngerman'...
 Package biblatex Info: ... file 'ngerman.lbx' found.
@@ -1453,38 +1490,37 @@ Package biblatex Warning: No hyphenation patterns for 'german' on input line 44
 ))) (./titlepage_en.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 76.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 79.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count352
-\scratchdimen=\dimen228
+\scratchcounter=\count358
+\scratchdimen=\dimen262
 \scratchbox=\box72
-\nofMPsegments=\count353
-\nofMParguments=\count354
+\nofMPsegments=\count359
+\nofMParguments=\count360
 \everyMPshowfont=\toks48
-\MPscratchCnt=\count355
-Normal \dimen register pool exhausted, switching to extended pool.
-\MPscratchDim=\dimen256
-\MPnumerator=\count356
-\makeMPintoPDFobject=\count357
+\MPscratchCnt=\count361
+\MPscratchDim=\dimen263
+\MPnumerator=\count362
+\makeMPintoPDFobject=\count363
 \everyMPtoPDFconversion=\toks49
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -1535,26 +1571,44 @@ ABD: EveryShipout initializing macros
 * (1in=72.27pt, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box73
-Package hyperref Info: Link coloring OFF on input line 76.
+Package hyperref Info: Link coloring OFF on input line 79.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count358
+\c@section@level=\count364
 )
 Redoing nameref's sectioning
 Redoing nameref's label
-LaTeX Info: Redefining \nameref on input line 76.
-LaTeX Info: Redefining \ref on input line 76.
-LaTeX Info: Redefining \pageref on input line 76.
-LaTeX Info: Redefining \nameref on input line 76.
+LaTeX Info: Redefining \nameref on input line 79.
+LaTeX Info: Redefining \ref on input line 79.
+LaTeX Info: Redefining \pageref on input line 79.
+LaTeX Info: Redefining \nameref on input line 79.
 (./thesis.out) (./thesis.out)
 \@outlinefile=\write8
 \openout8 = `thesis.out'.
 
-\c@lstlisting=\count359
+\c@lstlisting=\count365
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: Incompatible package detected (regarding \@caption).
+(caption)             \@caption = \long macro:#1[#2]#3->\MNR@old@caption {#1}[{
+#2}]{#3}\def \@currentlabelname {#2}\M@gettitle {#2}.
+
+
+Package caption Warning: \caption will not be redefined since it's already
+(caption)                redefined by a document class or package which is
+(caption)                unknown to the caption package.
+See the caption package documentation for explanation.
+
+Package caption Info: longtable package is loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2011/09/12 v1.3 longtable captions (AR)
+)
+Package caption Info: supertabular package is loaded.
+Package caption Info: End \AtBeginDocument code.
 
 (/usr/share/texlive/texmf-dist/tex/latex/glossaries/dict/glossaries-dictionary-
 English.dict
@@ -1573,6 +1627,11 @@ Package biblatex Warning: Data encoding is 'utf8'.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'thesis.bbl' found.
 (./thesis.bbl
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with '1335465':
+(biblatex)                - Invalid format of field 'month'.
+
 
 Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'Borisov:2004:OCW:1029179.1029200':
@@ -1613,9 +1672,14 @@ Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'rfc4301':
 (biblatex)                - Invalid format of field 'month'.
 
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'rfc791':
+(biblatex)                - Invalid format of field 'month'.
+
 )
-Package biblatex Info: Reference section=0 on input line 76.
-Package biblatex Info: Reference segment=0 on input line 76.
+Package biblatex Info: Reference section=0 on input line 79.
+Package biblatex Info: Reference segment=0 on input line 79.
 \openout2 = `titlepage.aux'.
 
  (./titlepage.tex
@@ -1649,8 +1713,9 @@ Package biblatex Info: Reference segment=0 on input line 76.
 * \@reversemarginfalse
 * (1in=72.27pt, 1cm=28.453pt)
 
-\tmpbaselineskip=\skip224
-\tmpparindent=\skip225
+Normal \skip register pool exhausted, switching to extended pool.
+\tmpbaselineskip=\skip256
+\tmpparindent=\skip257
 LaTeX Font Info:    Try loading font information for T1+phv on input line 42.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
@@ -1686,14 +1751,14 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 10.44997pt on input line 81.
 
-<figures/titlepage/dokumentenkopf__klein.pdf, id=111, 512.91624pt x 47.17625pt>
+<figures/titlepage/dokumentenkopf__klein.pdf, id=135, 512.91624pt x 47.17625pt>
 File: figures/titlepage/dokumentenkopf__klein.pdf Graphic file (type pdf)
 <use figures/titlepage/dokumentenkopf__klein.pdf>
 Package pdftex.def Info: figures/titlepage/dokumentenkopf__klein.pdf used on in
 put line 114.
 (pdftex.def)             Requested size: 509.30415pt x 46.84425pt.
 
-<figures/titlepage/INF_Logo_typo_grau.pdf, id=112, 171.64125pt x 46.1725pt>
+<figures/titlepage/INF_Logo_typo_grau.pdf, id=136, 171.64125pt x 46.1725pt>
 File: figures/titlepage/INF_Logo_typo_grau.pdf Graphic file (type pdf)
 
 <use figures/titlepage/INF_Logo_typo_grau.pdf>
@@ -1814,9 +1879,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--14
 ] (./thesis.toc
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 17.
-) [5
+ [5
 
-]
+]) [6]
 (./chapters/introduction.tex
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 1.
@@ -1837,137 +1902,149 @@ LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 27.
  [2]) [3]
 (./chapters/knx.tex
-
-LaTeX Warning: File `figures/knx stack.png' not found on input line 17.
-
-<figures/knx stack.png, id=215, 703.62875pt x 517.935pt>
-File: figures/knx stack.png Graphic file (type png)
-
-<use figures/knx stack.png>
-Package pdftex.def Info: figures/knx stack.png used on input line 17.
-(pdftex.def)             Requested size: 334.60422pt x 246.29828pt.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 22.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 11.
+ [4
 
-<figures/"knx vs iso layers".png, id=218, 550.055pt x 276.03125pt>
+]
+<figures/"knx vs iso layers".png, id=272, 550.055pt x 276.03125pt>
 File: figures/"knx vs iso layers".png Graphic file (type png)
 
 <use figures/"knx vs iso layers".png>
-Package pdftex.def Info: figures/"knx vs iso layers".png used on input line 36.
+Package pdftex.def Info: figures/"knx vs iso layers".png used on input line 31.
 
 (pdftex.def)             Requested size: 334.60422pt x 167.9155pt.
- [4
 
-] [5 <./figures/knx stack.png> <./figures/knx vs iso layers.png>]
-<figures/tp1-structure.png, id=234, 779.91376pt x 529.98pt>
-File: figures/tp1-structure.png Graphic file (type png)
+Underfull \hbox (badness 10000) in paragraph at lines 46--48
 
-<use figures/tp1-structure.png>
-Package pdftex.def Info: figures/tp1-structure.png used on input line 78.
-(pdftex.def)             Requested size: 209.12683pt x 142.10991pt.
+ []
 
-<figures/tp1-low.png, id=235, 575.14874pt x 530.98375pt>
-File: figures/tp1-low.png Graphic file (type png)
 
-<use figures/tp1-low.png>
-Package pdftex.def Info: figures/tp1-low.png used on input line 85.
-(pdftex.def)             Requested size: 209.12683pt x 193.0661pt.
- [6 <./figures/tp1-structure.png>]
-<figures/controlfield.png, id=246, 673.51625pt x 374.39874pt>
+Underfull \hbox (badness 10000) in paragraph at lines 49--52
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 53--55
+
+ []
+
+[5 <./figures/knx vs iso layers.png>]
+<figures/controlfield.png, id=314, 673.51625pt x 374.39874pt>
 File: figures/controlfield.png Graphic file (type png)
 
 <use figures/controlfield.png>
-Package pdftex.def Info: figures/controlfield.png used on input line 100.
+Package pdftex.def Info: figures/controlfield.png used on input line 102.
 (pdftex.def)             Requested size: 209.12683pt x 116.25093pt.
- [7 <./figures/tp1-low.png> <./figures/controlfield.png>]
-Overfull \hbox (30.5765pt too wide) in paragraph at lines 137--139
-[]\T1/ptm/m/n/10.95 TPCI(transport layer pro-to-col con-trol in-for-ma-tion) bi
-t - point to point con-nec-tion. APCI(application
- []
-
-<figures/standardframe.png, id=260, 577.15625pt x 132.495pt>
+ [6]
+<figures/standardframe.png, id=336, 577.15625pt x 132.495pt>
 File: figures/standardframe.png Graphic file (type png)
 
 <use figures/standardframe.png>
-Package pdftex.def Info: figures/standardframe.png used on input line 144.
+Package pdftex.def Info: figures/standardframe.png used on input line 125.
 (pdftex.def)             Requested size: 209.12683pt x 48.00748pt.
 
-<figures/standardFrame.png, id=261, 668.4975pt x 211.79124pt>
+<figures/standardFrame.png, id=337, 668.4975pt x 211.79124pt>
 File: figures/standardFrame.png Graphic file (type png)
 
 <use figures/standardFrame.png>
-Package pdftex.def Info: figures/standardFrame.png used on input line 151.
+Package pdftex.def Info: figures/standardFrame.png used on input line 132.
 (pdftex.def)             Requested size: 209.12683pt x 66.25569pt.
-
-<figures/extendedframe.png, id=262, 646.415pt x 87.32625pt>
+ [7 <./figures/controlfield.png> <./figures/standardframe.png> <./figures/stand
+ardFrame.png>]
+<figures/extendedframe.png, id=352, 646.415pt x 87.32625pt>
 File: figures/extendedframe.png Graphic file (type png)
 
 <use figures/extendedframe.png>
-Package pdftex.def Info: figures/extendedframe.png used on input line 158.
+Package pdftex.def Info: figures/extendedframe.png used on input line 147.
 (pdftex.def)             Requested size: 209.12683pt x 28.25143pt.
- [8 <./figures/standardframe.png> <./figures/standardFrame.png> <./figures/exte
-ndedframe.png>]
-<figures/"transport flags".png, id=275, 646.415pt x 473.77pt>
+
+<figures/extendedframeCTRLE.png, id=353, 1141.26375pt x 547.04375pt>
+File: figures/extendedframeCTRLE.png Graphic file (type png)
+
+<use figures/extendedframeCTRLE.png>
+Package pdftex.def Info: figures/extendedframeCTRLE.png used on input line 154.
+
+(pdftex.def)             Requested size: 209.12683pt x 100.24158pt.
+
+Overfull \hbox (47.14891pt too wide) in paragraph at lines 173--175
+\T1/ptm/m/n/10.95 This frames are used to ac-knowl-edge the re-cep-tion of a kn
+x data frames(FIXME: ONLY DATAFRAMES??)
+ []
+
+[8 <./figures/extendedframe.png> <./figures/extendedframeCTRLE.png>]
+<figures/"transport flags".png, id=374, 646.415pt x 473.77pt>
 File: figures/"transport flags".png Graphic file (type png)
 
 <use figures/"transport flags".png>
-Package pdftex.def Info: figures/"transport flags".png used on input line 215.
+Package pdftex.def Info: figures/"transport flags".png used on input line 217.
 (pdftex.def)             Requested size: 334.60422pt x 245.23407pt.
- [9]) [10 <./figures/transport flags.png>]
-(./chapters/SOAmath.tex) [11
+ [9]
+<figures/ia.png, id=388, 815.045pt x 348.30125pt>
+File: figures/ia.png Graphic file (type png)
+ <use figures/ia.png>
+Package pdftex.def Info: figures/ia.png used on input line 241.
+(pdftex.def)             Requested size: 144.54pt x 61.76677pt.
 
-] (./chapters/SOAcryptography.tex
-Underfull \hbox (badness 10000) in paragraph at lines 4--15
+<figures/ga.png, id=389, 804.00375pt x 196.735pt>
+File: figures/ga.png Graphic file (type png)
+ <use figures/ga.png>
+Package pdftex.def Info: figures/ga.png used on input line 242.
+(pdftex.def)             Requested size: 144.54pt x 35.36574pt.
+)
+[10 <./figures/transport flags.png> <./figures/ia.png> <./figures/ga.png>]
+(./chapters/SOAcryptography.tex [11
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 53--64
 
  []
 
-[12
-
-] [13] [14]
-Underfull \hbox (badness 10000) in paragraph at lines 152--159
+[12] [13] [14]
+Underfull \hbox (badness 10000) in paragraph at lines 194--201
 
  []
 
-[15] <figures/"CBC encrypt".png, id=332, 910.40125pt x 342.27875pt>
+[15] <figures/"CBC encrypt".png, id=444, 910.40125pt x 342.27875pt>
 File: figures/"CBC encrypt".png Graphic file (type png)
 
 <use figures/"CBC encrypt".png>
-Package pdftex.def Info: figures/"CBC encrypt".png used on input line 215.
+Package pdftex.def Info: figures/"CBC encrypt".png used on input line 257.
 (pdftex.def)             Requested size: 418.25368pt x 157.25166pt.
 
-<figures/"CBC decrypt".png, id=333, 909.3975pt x 342.27875pt>
+<figures/"CBC decrypt".png, id=445, 909.3975pt x 342.27875pt>
 File: figures/"CBC decrypt".png Graphic file (type png)
 
 <use figures/"CBC decrypt".png>
-Package pdftex.def Info: figures/"CBC decrypt".png used on input line 222.
+Package pdftex.def Info: figures/"CBC decrypt".png used on input line 264.
 (pdftex.def)             Requested size: 418.25368pt x 157.42401pt.
 
-<figures/"CBC MAC".png, id=334, 921.4425pt x 302.12875pt>
+<figures/"CBC MAC".png, id=446, 921.4425pt x 302.12875pt>
 File: figures/"CBC MAC".png Graphic file (type png)
 
 <use figures/"CBC MAC".png>
-Package pdftex.def Info: figures/"CBC MAC".png used on input line 238.
+Package pdftex.def Info: figures/"CBC MAC".png used on input line 280.
 (pdftex.def)             Requested size: 418.25368pt x 137.13686pt.
 
-<figures/"CBC IV Flags".png, id=335, 324.21124pt x 55.20625pt>
+<figures/"CBC IV Flags".png, id=447, 324.21124pt x 55.20625pt>
 File: figures/"CBC IV Flags".png Graphic file (type png)
 
 <use figures/"CBC IV Flags".png>
-Package pdftex.def Info: figures/"CBC IV Flags".png used on input line 245.
+Package pdftex.def Info: figures/"CBC IV Flags".png used on input line 287.
 (pdftex.def)             Requested size: 209.12683pt x 35.60985pt.
  [16] [17 <./figures/CBC encrypt.png> <./figures/CBC decrypt.png> <./figures/CB
 C MAC.png>]
-<figures/"CCM CBC IV".png, id=362, 654.445pt x 63.23625pt>
+<figures/"CCM CBC IV".png, id=475, 654.445pt x 63.23625pt>
 File: figures/"CCM CBC IV".png Graphic file (type png)
 
 <use figures/"CCM CBC IV".png>
-Package pdftex.def Info: figures/"CCM CBC IV".png used on input line 281.
+Package pdftex.def Info: figures/"CCM CBC IV".png used on input line 323.
 (pdftex.def)             Requested size: 209.12683pt x 20.20706pt.
  [18 <./figures/CBC IV Flags.png>]
-<figures/CTR.png, id=378, 1455.31941pt x 640.51059pt>
+<figures/CTR.png, id=490, 1455.31941pt x 640.51059pt>
 File: figures/CTR.png Graphic file (type png)
  <use figures/CTR.png>
-Package pdftex.def Info: figures/CTR.png used on input line 317.
+Package pdftex.def Info: figures/CTR.png used on input line 359.
 (pdftex.def)             Requested size: 418.25368pt x 184.07205pt.
 
 [19 <./figures/CCM CBC IV.png> <./figures/CTR.png>] [20]) [21]
@@ -1985,7 +2062,7 @@ verted-to.pdf figures/SecureArea.eps>
 (epstopdf)             \includegraphics on input line 37.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/SecureArea-eps-converted-to.pdf, id=410, 759.83875pt x 369.38pt>
+<figures/SecureArea-eps-converted-to.pdf, id=522, 759.83875pt x 369.38pt>
 File: figures/SecureArea-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/SecureArea-eps-converted-to.pdf>
@@ -1993,41 +2070,43 @@ Package pdftex.def Info: figures/SecureArea-eps-converted-to.pdf used on input
 line 37.
 (pdftex.def)             Requested size: 334.60422pt x 162.66296pt.
  [23 <./figures/SecureArea-eps-converted-to.pdf>] (./figures/firewall.tex
-\du=\skip226
+\du=\skip258
 ) [24] [25] [26] [27] [28]
-<figures/dh-group_round1.png, id=453, 764.8575pt x 291.0875pt>
+<figures/dh-group_round1.png, id=564, 764.8575pt x 291.0875pt>
 File: figures/dh-group_round1.png Graphic file (type png)
 
 <use figures/dh-group_round1.png>
-Package pdftex.def Info: figures/dh-group_round1.png used on input line 251.
+Package pdftex.def Info: figures/dh-group_round1.png used on input line 261.
 (pdftex.def)             Requested size: 334.60422pt x 127.34157pt.
 
-<figures/dh-group_round2.png, id=454, 764.8575pt x 279.0425pt>
+<figures/dh-group_round2.png, id=565, 764.8575pt x 279.0425pt>
 File: figures/dh-group_round2.png Graphic file (type png)
 
 <use figures/dh-group_round2.png>
-Package pdftex.def Info: figures/dh-group_round2.png used on input line 258.
+Package pdftex.def Info: figures/dh-group_round2.png used on input line 268.
 (pdftex.def)             Requested size: 334.60422pt x 122.07227pt.
  [29 <./figures/dh-group_round1.png> <./figures/dh-group_round2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 305--314
+Underfull \hbox (badness 10000) in paragraph at lines 315--324
 
  []
 
-<figures/dh2parties.png, id=466, 556.0775pt x 167.62625pt>
+[30] <figures/dh2parties.png, id=591, 556.0775pt x 167.62625pt>
 File: figures/dh2parties.png Graphic file (type png)
 
 <use figures/dh2parties.png>
-Package pdftex.def Info: figures/dh2parties.png used on input line 334.
+Package pdftex.def Info: figures/dh2parties.png used on input line 344.
 (pdftex.def)             Requested size: 334.60422pt x 100.86554pt.
 
-<figures/dh3parties.png, id=467, 762.85pt x 299.1175pt>
+<figures/dh3parties.png, id=592, 762.85pt x 299.1175pt>
 File: figures/dh3parties.png Graphic file (type png)
 
 <use figures/dh3parties.png>
-Package pdftex.def Info: figures/dh3parties.png used on input line 340.
+Package pdftex.def Info: figures/dh3parties.png used on input line 350.
 (pdftex.def)             Requested size: 334.60422pt x 131.19676pt.
- [30] [31 <./figures/dh2parties.png> <./figures/dh3parties.png>]) [32] (./chapt
-ers/implementation.tex
+ [31 <./figures/dh2parties.png> <./figures/dh3parties.png>]) [32] (./chapters/i
+mplementation.tex) [33
+
+] (./chapters/app.tex
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
@@ -2035,87 +2114,92 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 20.
+(Font)              scaled to size 9.49997pt on input line 16.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 21.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 17.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 21.
- [33
+(Font)              scaled to size 9.49997pt on input line 17.
+ [34
 
-] [34]
-Overfull \hbox (12.65582pt too wide) in paragraph at lines 98--100
+] [35]
+Overfull \hbox (12.65582pt too wide) in paragraph at lines 94--96
 [][]$\T1/pcr/m/n/10.95 https : / / www . auto . tuwien . ac . at / ~mkoegler / 
 pth / pthsem _ 2 . 0 . 8 . tar . gz$[]
  []
 
-[35] <figures/busware.png, id=582, 836.12375pt x 393.47pt>
+[36]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\gls' on input line 133.
+
+<figures/busware.png, id=700, 836.12375pt x 393.47pt>
 File: figures/busware.png Graphic file (type png)
 
 <use figures/busware.png>
-Package pdftex.def Info: figures/busware.png used on input line 171.
+Package pdftex.def Info: figures/busware.png used on input line 167.
 (pdftex.def)             Requested size: 167.22179pt x 78.6926pt.
- [36 <./figures/busware.png>]) [37]
-Overfull \hbox (4.36995pt too wide) in paragraph at lines 188--188
+ [37 <./figures/busware.png>] [38]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 181.
+ (../src/Makefile
+[39
+
+]
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 15.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
+File: omsphv.fd 
+)
+LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 15.
+)) (./thesis.gls [40] [41
+
+
+]) [42]
+Overfull \hbox (4.36995pt too wide) in paragraph at lines 203--203
 []\T1/ptm/m/n/10.95 KNX As-so-ci-a-tion. ``KNX Ap-pli-ca-tions''. \T1/ptm/m/sc/
 10.95 url\T1/ptm/m/n/10.95 : []$\T1/pcr/m/n/10.95 http : / / www . knx . org / 
 fileadmin /
  []
 
 
-Overfull \hbox (18.77843pt too wide) in paragraph at lines 188--188
+Overfull \hbox (18.77843pt too wide) in paragraph at lines 203--203
 \T1/pcr/m/n/10.95 downloads / 08 % 20 -[] %20KNX % 20Flyers / KNX % 20Solutions
  / KNX _ Solutions _
  []
 
-[38
-
-] (./thesis.gls [39]) [40
-
+[43
 
 ]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 196.
- (../src/Makefile
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 15.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
-File: omsphv.fd 
-)
-LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 15.
- [41
-
-])
 
 Class memoir Warning: The material used in the headers is too large
 (77.80435pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
-(in both cases you will find help in the memoir manual). on input line 215.
+(in both cases you will find help in the memoir manual). on input line 207.
 
-[42]
+[44]
 \tf@toc=\write9
 \openout9 = `thesis.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 215.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 215.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 207.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 207.
  (./thesis.aux (./titlepage.aux) (./titlepage_en.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 215.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 215.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 207.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 207.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 7D62394EE78DF1F6F4C7074367EEB818;1617.
+(rerunfilecheck)             Checksum: D88F6C3E4E533149D3547FFBBD08D90B;1979.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 215.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 207.
  ) 
 Here is how much of TeX's memory you used:
- 29331 strings out of 495059
- 490814 string characters out of 3182030
- 979656 words of memory out of 3000000
- 31634 multiletter control sequences out of 15000+200000
- 95641 words of font info for 112 fonts, out of 3000000 for 9000
+ 31076 strings out of 495059
+ 519870 string characters out of 3182030
+ 1007503 words of memory out of 3000000
+ 33335 multiletter control sequences out of 15000+200000
+ 98489 words of font info for 114 fonts, out of 3000000 for 9000
  16 hyphenation exceptions out of 8191
- 69i,19n,122p,1426b,1980s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 69i,19n,122p,1426b,1969s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -2132,10 +2216,10 @@ texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8
 a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (49 pages, 1112835 bytes).
+Output written on thesis.pdf (52 pages, 1073916 bytes).
 PDF statistics:
- 825 PDF objects out of 1000 (max. 8388607)
- 718 compressed objects within 8 object streams
- 299 named destinations out of 1000 (max. 500000)
- 336 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 975 PDF objects out of 1000 (max. 8388607)
+ 864 compressed objects within 9 object streams
+ 329 named destinations out of 1000 (max. 500000)
+ 384 words of extra memory for PDF output out of 10000 (max. 10000000)
 

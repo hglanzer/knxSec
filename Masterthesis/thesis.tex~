@@ -9,6 +9,9 @@
 \usepackage{verbatim}            			% Code-Environment
 \usepackage{hyperref}
 \usepackage{listings}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subfig}
 
 % hglanzer: problem workstation@labor <--> laptop
 %\usepackage[lined,linesnumbered,algochapter]{algorithm2e} % Algorithm-Environment
@@ -69,7 +72,8 @@
   columns=fullflexible,
   backgroundcolor=\color{yellow!20},
   linewidth=0.9\linewidth,
-  xleftmargin=0.1\linewidth
+  xleftmargin=0.1\linewidth,
+  breaklines=true
 }
 
 \begin{document}
@@ -152,19 +156,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Mathematical Background}
-\label{ch:SOAmath}
-\input{chapters/SOAmath}
+%\chapter{Mathematical Background}
+%\label{ch:SOAmath}
+%\input{chapters/SOAmath}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Cryptopgraphy}
+\chapter{Secure and dependable systems}
 \label{ch:SOAcryptography}
 \input{chapters/SOAcryptography}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Security Concept}
+\chapter{Concept}
 \label{ch:security}
 \input{chapters/securityconcept}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -183,31 +187,20 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \nocite{*}	% generate complete bibliography without corresponding \cites{}
-\printbibliography
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Setup of the base system}
+\label{ch:basesystem}
+\input{chapters/app.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \printglossary
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Code snippets and configuration files}
+\printbibliography
 
-\begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for static ip address},label=lst:staticIP]
-# device: eth0
-  auto  eth0
-  iface eth0 inet static
-  address   192.168.0.2
-  broadcast 192.168.0.255
-  netmask   255.255.255.0
-  gateway   192.168.0.1
-\end{lstlisting}
-
-\begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for dynamic ip address},label=lst:dynamicIP]
-# device: eth0
-  iface eth0 inet dhcp
-\end{lstlisting}
-
-\lstinputlisting[style=BashInputStyle,caption={Makefile for the master daemon},label=lst:makefile]{../src/Makefile}
 
 %\end{appendices}
 

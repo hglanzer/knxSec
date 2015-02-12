@@ -52,6 +52,57 @@
   \endverb
 \endentry
 
+\entry{knxTP1}{unpublished}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Association}{A.}%
+     {KNX}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AK1}
+  \strng{fullhash}{AK1}
+  \field{sortinit}{A}
+  \field{pages}{40}
+  \field{title}{Systems Specifications, Communication Medium TP1}
+\endentry
+
+\entry{1335465}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Avizienis}{A.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Laprie}{L.}%
+     {J.-C.}{J.-C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Randell}{R.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Landwehr}{L.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AA+1}
+  \strng{fullhash}{AALJCRBLC1}
+  \field{sortinit}{A}
+  \field{issn}{1545-5971}
+  \field{number}{1}
+  \field{pages}{11\bibrangedash 33}
+  \field{title}{Basic concepts and taxonomy of dependable and secure computing}
+  \field{volume}{1}
+  \field{journaltitle}{Dependable and Secure Computing, IEEE Transactions on}
+  \field{year}{2004}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{Borisov:2004:OCW:1029179.1029200}{inproceedings}{}
   \name{author}{3}{}{%
     {{}%
@@ -350,6 +401,35 @@
   }
   \field{type}{{RFC}}
   \field{year}{2005}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{rfc791}{report}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Postel}{P.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {{RFC Editor}}%
+  }
+  \strng{namehash}{PJ1}
+  \strng{fullhash}{PJ1}
+  \field{sortinit}{P}
+  \field{howpublished}{Internet Requests for Comments}
+  \field{number}{791}
+  \field{pages}{13}
+  \field{title}{{Internet Protocol}}
+  \verb{url}
+  \verb https://tools.ietf.org/html/rfc791
+  \endverb
+  \list{institution}{1}{%
+    {{RFC Editor}}%
+  }
+  \field{type}{{RFC}}
+  \field{year}{1981}
   \warn{\item Invalid format of field 'month'}
 \endentry
 

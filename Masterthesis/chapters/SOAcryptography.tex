@@ -1,5 +1,54 @@
 %\chapter*{Cryptography}
+A system is an entity that interacts with other entities, which constitute the environment for the system and
+can be other systems, humans or the physical world \cite{1335465}. Fundamental properties of communication systems
+are \textit{functionality, performance, security and dependability}. The system provides services to the user(s) 
+of the system through it's service interface, described by the functional specification. Whenever the provided service
+deviates from correct service a system failure occurs. 
+An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
+dependability consists of the following attributes:
+\textit{Availability}, which means that the system is ready for correct service, \textit{reliability}, the continuity of correct service,
+\textit{safety}, i.e. the avoidance of catastrophic consequences \textit{integrity}, s.t. the system cannot be modified in an unwanted manner
+and \textit{maintainability}, so that the system can be repaired in the case of a failure.
 
+In case of a secure system, another important property is \textit{confidentiality}, which means that no information is disclosed to unauthorized 
+entities.
+To achieve 
+
+
+\section{Mathematical background}
+
+To be able to make rigorous statements, it is important to introduce some basic background knowledge, which
+is given in the next chapter:
+
+\begin{itemize}
+ \item Divisiblity
+ \\
+$a | b \iff \exists z \in \mathbb{Z}: b = z \times a$
+ \item Integer Division $r \equiv a \bmod b$ 
+ \\
+ $ \forall a, b \in \mathbb{Z}, b > 0:  a = z \times b + r $ with $ 0 \leq r < b$
+ \item Common Divisor $c$ for $a, b \iff$
+ \\
+ $c | a \wedge c | b$
+ \item Greatest Common Divisor(GCD) $d$:
+ \\
+ $d | a \wedge d | b$ and whenever $c | a \wedge c | b \rightarrow c | d$
+ 
+ \item unlimited number of primes
+ \item every number has exact 1 factorization 
+\end{itemize}
+
+\subsection{Finite fields}
+
+\subsection{One Way functions}
+
+The idea for this concept was formulated for the first time in the year 1874 by William Stanley Jevons in his book
+'The Principles of Science'(page 144).
+
+\section{Propabilistic Theory}
+
+\section{History of Cryptography}
+FIXME:BIBLOGRAPHY: the codebreakers
 
 Cryptography(classical greek for \textit{krypt\^{o}s}, which means \textit{concealed})
 is the science of encrypting information.
@@ -31,13 +80,6 @@ objectives only partially will not result in a secure system. For example, provi
 integrity, but no authenticity, may lead to so called 'replay' attacks, as will be shown.
 FIXME: replay attack
 
-To be able to make rigorous statements, it is important to introduce some basic background knowledge, which
-is given in the next chapter:
-
-\subsection{Propabilistic Theory}
-
-\section{History of Cryptography}
-FIXME:BIBLOGRAPHY: the codebreakers
 
 The evolution of cryptography was no linear process. Ciphers were used independently in different
 places, were forgotten and disappeared when the corresponding civilization died. Nevertheless,
