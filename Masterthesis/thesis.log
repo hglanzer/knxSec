@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  11 FEB 2015 20:48
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  16 FEB 2015 21:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1284,7 +1284,7 @@ Package: glossary-tree 2011/03/28 v3.0 (NLCT)
 \glo@main@file=\write6
 \openout6 = `thesis.glo'.
 
-Package glossaries Info: Writing glossary file thesis.glo on input line 26.
+Package glossaries Info: Writing glossary file thesis.glo on input line 25.
 
 (./acronyms.tex) (/usr/share/texmf/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2011/11/13 v1.7 programmable bibliographies
@@ -1490,21 +1490,21 @@ Package biblatex Warning: No hyphenation patterns for 'german' on input line 44
 ))) (./titlepage_en.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 79.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 76.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
@@ -1571,7 +1571,7 @@ ABD: EveryShipout initializing macros
 * (1in=72.27pt, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box73
-Package hyperref Info: Link coloring OFF on input line 79.
+Package hyperref Info: Link coloring OFF on input line 76.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 
@@ -1582,10 +1582,10 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 Redoing nameref's sectioning
 Redoing nameref's label
-LaTeX Info: Redefining \nameref on input line 79.
-LaTeX Info: Redefining \ref on input line 79.
-LaTeX Info: Redefining \pageref on input line 79.
-LaTeX Info: Redefining \nameref on input line 79.
+LaTeX Info: Redefining \nameref on input line 76.
+LaTeX Info: Redefining \ref on input line 76.
+LaTeX Info: Redefining \pageref on input line 76.
+LaTeX Info: Redefining \nameref on input line 76.
 (./thesis.out) (./thesis.out)
 \@outlinefile=\write8
 \openout8 = `thesis.out'.
@@ -1634,22 +1634,12 @@ Package biblatex Warning: BibTeX reported the following issues
 
 
 Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Borisov:2004:OCW:1029179.1029200':
-(biblatex)                - Can't use 'location' + 'address'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'knxsec':
+(biblatex)                with 'KraInnosec2013':
 (biblatex)                - Invalid format of field 'month'.
 
 
 Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'knxsecExt':
-(biblatex)                - Invalid format of field 'month'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'rfc2246':
+(biblatex)                with 'rfc791':
 (biblatex)                - Invalid format of field 'month'.
 
 
@@ -1659,7 +1649,7 @@ Package biblatex Warning: BibTeX reported the following issues
 
 
 Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Goldberg:2009:MOM:1653662.1653705':
+(biblatex)                with 'Borisov:2004:OCW:1029179.1029200':
 (biblatex)                - Can't use 'location' + 'address'.
 
 
@@ -1669,17 +1659,32 @@ Package biblatex Warning: BibTeX reported the following issues
 
 
 Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'Goldberg:2009:MOM:1653662.1653705':
+(biblatex)                - Can't use 'location' + 'address'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'rfc2246':
+(biblatex)                - Invalid format of field 'month'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'rfc4301':
 (biblatex)                - Invalid format of field 'month'.
 
 
 Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'rfc791':
+(biblatex)                with 'knxsecExt':
+(biblatex)                - Invalid format of field 'month'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'knxsec':
 (biblatex)                - Invalid format of field 'month'.
 
 )
-Package biblatex Info: Reference section=0 on input line 79.
-Package biblatex Info: Reference segment=0 on input line 79.
+Package biblatex Info: Reference section=0 on input line 76.
+Package biblatex Info: Reference segment=0 on input line 76.
 \openout2 = `titlepage.aux'.
 
  (./titlepage.tex
@@ -1731,7 +1736,7 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <20> not available
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 18.99994pt on input line 44.
 
-Overfull \vbox (17.12285pt too high) detected at line 45
+Underfull \vbox (badness 3058) detected at line 45
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
@@ -1751,14 +1756,14 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 10.44997pt on input line 81.
 
-<figures/titlepage/dokumentenkopf__klein.pdf, id=135, 512.91624pt x 47.17625pt>
+<figures/titlepage/dokumentenkopf__klein.pdf, id=147, 512.91624pt x 47.17625pt>
 File: figures/titlepage/dokumentenkopf__klein.pdf Graphic file (type pdf)
 <use figures/titlepage/dokumentenkopf__klein.pdf>
 Package pdftex.def Info: figures/titlepage/dokumentenkopf__klein.pdf used on in
 put line 114.
 (pdftex.def)             Requested size: 509.30415pt x 46.84425pt.
 
-<figures/titlepage/INF_Logo_typo_grau.pdf, id=136, 171.64125pt x 46.1725pt>
+<figures/titlepage/INF_Logo_typo_grau.pdf, id=148, 171.64125pt x 46.1725pt>
 File: figures/titlepage/INF_Logo_typo_grau.pdf Graphic file (type pdf)
 
 <use figures/titlepage/INF_Logo_typo_grau.pdf>
@@ -1830,7 +1835,7 @@ ntenkopf__klein.pdf> <./figures/titlepage/INF_Logo_typo_grau.pdf>])
 * (1in=72.27pt, 1cm=28.453pt)
 
 
-Overfull \vbox (17.12285pt too high) detected at line 43
+Underfull \vbox (badness 3058) detected at line 43
  []
 
 File: figures/titlepage/dokumentenkopf__klein.pdf Graphic file (type pdf)
@@ -1901,154 +1906,185 @@ File: omsptm.fd
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 27.
  [2]) [3]
-(./chapters/knx.tex
+(./chapters/SOAbasics.tex) (./chapters/SOAcryptography.tex [4
+
+]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 11.
- [4
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 41.
 
-]
-<figures/"knx vs iso layers".png, id=272, 550.055pt x 276.03125pt>
-File: figures/"knx vs iso layers".png Graphic file (type png)
-
-<use figures/"knx vs iso layers".png>
-Package pdftex.def Info: figures/"knx vs iso layers".png used on input line 31.
-
-(pdftex.def)             Requested size: 334.60422pt x 167.9155pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--48
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 49--52
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--55
-
- []
-
-[5 <./figures/knx vs iso layers.png>]
-<figures/controlfield.png, id=314, 673.51625pt x 374.39874pt>
-File: figures/controlfield.png Graphic file (type png)
-
-<use figures/controlfield.png>
-Package pdftex.def Info: figures/controlfield.png used on input line 102.
-(pdftex.def)             Requested size: 209.12683pt x 116.25093pt.
- [6]
-<figures/standardframe.png, id=336, 577.15625pt x 132.495pt>
-File: figures/standardframe.png Graphic file (type png)
-
-<use figures/standardframe.png>
-Package pdftex.def Info: figures/standardframe.png used on input line 125.
-(pdftex.def)             Requested size: 209.12683pt x 48.00748pt.
-
-<figures/standardFrame.png, id=337, 668.4975pt x 211.79124pt>
-File: figures/standardFrame.png Graphic file (type png)
-
-<use figures/standardFrame.png>
-Package pdftex.def Info: figures/standardFrame.png used on input line 132.
-(pdftex.def)             Requested size: 209.12683pt x 66.25569pt.
- [7 <./figures/controlfield.png> <./figures/standardframe.png> <./figures/stand
-ardFrame.png>]
-<figures/extendedframe.png, id=352, 646.415pt x 87.32625pt>
-File: figures/extendedframe.png Graphic file (type png)
-
-<use figures/extendedframe.png>
-Package pdftex.def Info: figures/extendedframe.png used on input line 147.
-(pdftex.def)             Requested size: 209.12683pt x 28.25143pt.
-
-<figures/extendedframeCTRLE.png, id=353, 1141.26375pt x 547.04375pt>
-File: figures/extendedframeCTRLE.png Graphic file (type png)
-
-<use figures/extendedframeCTRLE.png>
-Package pdftex.def Info: figures/extendedframeCTRLE.png used on input line 154.
-
-(pdftex.def)             Requested size: 209.12683pt x 100.24158pt.
-
-Overfull \hbox (47.14891pt too wide) in paragraph at lines 173--175
-\T1/ptm/m/n/10.95 This frames are used to ac-knowl-edge the re-cep-tion of a kn
-x data frames(FIXME: ONLY DATAFRAMES??)
- []
-
-[8 <./figures/extendedframe.png> <./figures/extendedframeCTRLE.png>]
-<figures/"transport flags".png, id=374, 646.415pt x 473.77pt>
-File: figures/"transport flags".png Graphic file (type png)
-
-<use figures/"transport flags".png>
-Package pdftex.def Info: figures/"transport flags".png used on input line 217.
-(pdftex.def)             Requested size: 334.60422pt x 245.23407pt.
- [9]
-<figures/ia.png, id=388, 815.045pt x 348.30125pt>
-File: figures/ia.png Graphic file (type png)
- <use figures/ia.png>
-Package pdftex.def Info: figures/ia.png used on input line 241.
-(pdftex.def)             Requested size: 144.54pt x 61.76677pt.
-
-<figures/ga.png, id=389, 804.00375pt x 196.735pt>
-File: figures/ga.png Graphic file (type png)
- <use figures/ga.png>
-Package pdftex.def Info: figures/ga.png used on input line 242.
-(pdftex.def)             Requested size: 144.54pt x 35.36574pt.
-)
-[10 <./figures/transport flags.png> <./figures/ia.png> <./figures/ga.png>]
-(./chapters/SOAcryptography.tex [11
-
-]
 Underfull \hbox (badness 10000) in paragraph at lines 53--64
 
  []
 
-[12] [13] [14]
+[5] [6] [7]
 Underfull \hbox (badness 10000) in paragraph at lines 194--201
 
  []
 
-[15] <figures/"CBC encrypt".png, id=444, 910.40125pt x 342.27875pt>
+[8] <figures/"CBC encrypt".png, id=311, 910.40125pt x 342.27875pt>
 File: figures/"CBC encrypt".png Graphic file (type png)
 
 <use figures/"CBC encrypt".png>
 Package pdftex.def Info: figures/"CBC encrypt".png used on input line 257.
 (pdftex.def)             Requested size: 418.25368pt x 157.25166pt.
 
-<figures/"CBC decrypt".png, id=445, 909.3975pt x 342.27875pt>
+<figures/"CBC decrypt".png, id=312, 909.3975pt x 342.27875pt>
 File: figures/"CBC decrypt".png Graphic file (type png)
 
 <use figures/"CBC decrypt".png>
 Package pdftex.def Info: figures/"CBC decrypt".png used on input line 264.
 (pdftex.def)             Requested size: 418.25368pt x 157.42401pt.
 
-<figures/"CBC MAC".png, id=446, 921.4425pt x 302.12875pt>
+<figures/"CBC MAC".png, id=313, 921.4425pt x 302.12875pt>
 File: figures/"CBC MAC".png Graphic file (type png)
 
 <use figures/"CBC MAC".png>
 Package pdftex.def Info: figures/"CBC MAC".png used on input line 280.
 (pdftex.def)             Requested size: 418.25368pt x 137.13686pt.
 
-<figures/"CBC IV Flags".png, id=447, 324.21124pt x 55.20625pt>
+<figures/"CBC IV Flags".png, id=314, 324.21124pt x 55.20625pt>
 File: figures/"CBC IV Flags".png Graphic file (type png)
 
 <use figures/"CBC IV Flags".png>
 Package pdftex.def Info: figures/"CBC IV Flags".png used on input line 287.
 (pdftex.def)             Requested size: 209.12683pt x 35.60985pt.
- [16] [17 <./figures/CBC encrypt.png> <./figures/CBC decrypt.png> <./figures/CB
-C MAC.png>]
-<figures/"CCM CBC IV".png, id=475, 654.445pt x 63.23625pt>
+ [9] [10 <./figures/CBC encrypt.png> <./figures/CBC decrypt.png> <./figures/CBC
+ MAC.png>]
+<figures/"CCM CBC IV".png, id=341, 654.445pt x 63.23625pt>
 File: figures/"CCM CBC IV".png Graphic file (type png)
 
 <use figures/"CCM CBC IV".png>
 Package pdftex.def Info: figures/"CCM CBC IV".png used on input line 323.
 (pdftex.def)             Requested size: 209.12683pt x 20.20706pt.
- [18 <./figures/CBC IV Flags.png>]
-<figures/CTR.png, id=490, 1455.31941pt x 640.51059pt>
+ [11 <./figures/CBC IV Flags.png>]
+<figures/CTR.png, id=357, 1455.31941pt x 640.51059pt>
 File: figures/CTR.png Graphic file (type png)
  <use figures/CTR.png>
 Package pdftex.def Info: figures/CTR.png used on input line 359.
 (pdftex.def)             Requested size: 418.25368pt x 184.07205pt.
 
-[19 <./figures/CCM CBC IV.png> <./figures/CTR.png>] [20]) [21]
-(./chapters/securityconcept.tex [22
+[12 <./figures/CCM CBC IV.png> <./figures/CTR.png>] [13])
+(./chapters/SOAsecurityBA.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\gls' on input line 1.
+
+) [14] (./chapters/knxGeneral.tex) (./chapters/knxLayers.tex [15
+
+]
+Package epstopdf Info: Source file: <figures/KNXvsISO.eps>
+(epstopdf)                    date: 2015-02-14 17:18:26
+(epstopdf)                    size: 15878 bytes
+(epstopdf)             Output file: <figures/KNXvsISO-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-02-14 17:18:41
+(epstopdf)                    size: 5735 bytes
+(epstopdf)             Command: <repstopdf --outfile=figures/KNXvsISO-eps-conve
+rted-to.pdf figures/KNXvsISO.eps>
+(epstopdf)             \includegraphics on input line 15.
+Package epstopdf Info: Output file is already uptodate.
+
+<figures/KNXvsISO-eps-converted-to.pdf, id=419, 709.65125pt x 391.4625pt>
+File: figures/KNXvsISO-eps-converted-to.pdf Graphic file (type pdf)
+
+<use figures/KNXvsISO-eps-converted-to.pdf>
+Package pdftex.def Info: figures/KNXvsISO-eps-converted-to.pdf used on input li
+ne 15.
+(pdftex.def)             Requested size: 292.77629pt x 161.50415pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--32
+
+ []
+
+[16 <./figures/KNXvsISO-eps-converted-to.pdf>] [17]
+<figures/controlfield.png, id=491, 673.51625pt x 374.39874pt>
+File: figures/controlfield.png Graphic file (type png)
+
+<use figures/controlfield.png>
+Package pdftex.def Info: figures/controlfield.png used on input line 82.
+(pdftex.def)             Requested size: 209.12683pt x 116.25093pt.
+
+<figures/standardframe.png, id=496, 577.15625pt x 132.495pt>
+File: figures/standardframe.png Graphic file (type png)
+
+<use figures/standardframe.png>
+Package pdftex.def Info: figures/standardframe.png used on input line 105.
+(pdftex.def)             Requested size: 209.12683pt x 48.00748pt.
+
+<figures/standardFrame.png, id=497, 668.4975pt x 211.79124pt>
+File: figures/standardFrame.png Graphic file (type png)
+
+<use figures/standardFrame.png>
+Package pdftex.def Info: figures/standardFrame.png used on input line 112.
+(pdftex.def)             Requested size: 209.12683pt x 66.25569pt.
+ [18 <./figures/controlfield.png> <./figures/standardframe.png>] <figures/exten
+dedframe.png, id=515, 646.415pt x 87.32625pt>
+File: figures/extendedframe.png Graphic file (type png)
+
+<use figures/extendedframe.png>
+Package pdftex.def Info: figures/extendedframe.png used on input line 126.
+(pdftex.def)             Requested size: 209.12683pt x 28.25143pt.
+
+<figures/extendedframeCTRLE.png, id=516, 1141.26375pt x 547.04375pt>
+File: figures/extendedframeCTRLE.png Graphic file (type png)
+
+<use figures/extendedframeCTRLE.png>
+Package pdftex.def Info: figures/extendedframeCTRLE.png used on input line 133.
+
+(pdftex.def)             Requested size: 209.12683pt x 100.24158pt.
+
+Overfull \hbox (47.14891pt too wide) in paragraph at lines 152--154
+\T1/ptm/m/n/10.95 This frames are used to ac-knowl-edge the re-cep-tion of a kn
+x data frames(FIXME: ONLY DATAFRAMES??)
+ []
+
+[19 <./figures/standardFrame.png> <./figures/extendedframe.png> <./figures/exte
+ndedframeCTRLE.png>] <figures/ia.png, id=532, 815.045pt x 348.30125pt>
+File: figures/ia.png Graphic file (type png)
+
+<use figures/ia.png>
+Package pdftex.def Info: figures/ia.png used on input line 167.
+(pdftex.def)             Requested size: 144.54pt x 61.76677pt.
+ <figures/ga.png, id=533, 804.00375pt x 196.735pt>
+File: figures/ga.png Graphic file (type png)
+
+<use figures/ga.png>
+Package pdftex.def Info: figures/ga.png used on input line 168.
+(pdftex.def)             Requested size: 144.54pt x 35.36574pt.
+ [20 <./figures/ia.png> <./figures/ga.png>]
+Package epstopdf Info: Source file: <figures/TransportHandshake.eps>
+(epstopdf)                    date: 2015-02-14 18:59:53
+(epstopdf)                    size: 12015 bytes
+(epstopdf)             Output file: <figures/TransportHandshake-eps-converted-t
+o.pdf>
+(epstopdf)                    date: 2015-02-14 19:01:09
+(epstopdf)                    size: 5950 bytes
+(epstopdf)             Command: <repstopdf --outfile=figures/TransportHandshake
+-eps-converted-to.pdf figures/TransportHandshake.eps>
+(epstopdf)             \includegraphics on input line 197.
+Package epstopdf Info: Output file is already uptodate.
+
+<figures/TransportHandshake-eps-converted-to.pdf, id=565, 428.60126pt x 424.586
+24pt>
+File: figures/TransportHandshake-eps-converted-to.pdf Graphic file (type pdf)
+ <use figures/TransportHandshake-eps-converted-to.pdf>
+Package pdftex.def Info: figures/TransportHandshake-eps-converted-to.pdf used o
+n input line 197.
+(pdftex.def)             Requested size: 209.12683pt x 207.16798pt.
+
+<figures/"transport flags".png, id=566, 646.415pt x 473.77pt>
+File: figures/"transport flags".png Graphic file (type png)
+
+<use figures/"transport flags".png>
+Package pdftex.def Info: figures/"transport flags".png used on input line 204.
+(pdftex.def)             Requested size: 334.60422pt x 245.23407pt.
+) (./chapters/knxSecurity.tex [21 <./figures/TransportHandshake-eps-converted-t
+o.pdf>] [22 <./figures/transport flags.png>]
+Overfull \hbox (0.79686pt too wide) in paragraph at lines 40--50
+\T1/ptm/m/n/10.95 (AES)[]128 is used in [][]Counter with CBC MAC (CCM)[] mode, 
+en-crypt-ing the pay-load with [][]Counter
+ []
+
+[23]) [24] (./chapters/securityconcept.tex [25
 
 ]
 Package epstopdf Info: Source file: <figures/SecureArea.eps>
@@ -2062,49 +2098,49 @@ verted-to.pdf figures/SecureArea.eps>
 (epstopdf)             \includegraphics on input line 37.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/SecureArea-eps-converted-to.pdf, id=522, 759.83875pt x 369.38pt>
+<figures/SecureArea-eps-converted-to.pdf, id=679, 759.83875pt x 369.38pt>
 File: figures/SecureArea-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/SecureArea-eps-converted-to.pdf>
 Package pdftex.def Info: figures/SecureArea-eps-converted-to.pdf used on input 
 line 37.
 (pdftex.def)             Requested size: 334.60422pt x 162.66296pt.
- [23 <./figures/SecureArea-eps-converted-to.pdf>] (./figures/firewall.tex
+ [26 <./figures/SecureArea-eps-converted-to.pdf>] (./figures/firewall.tex
 \du=\skip258
-) [24] [25] [26] [27] [28]
-<figures/dh-group_round1.png, id=564, 764.8575pt x 291.0875pt>
+) [27] [28] [29] [30] [31]
+<figures/dh-group_round1.png, id=721, 764.8575pt x 291.0875pt>
 File: figures/dh-group_round1.png Graphic file (type png)
 
 <use figures/dh-group_round1.png>
 Package pdftex.def Info: figures/dh-group_round1.png used on input line 261.
 (pdftex.def)             Requested size: 334.60422pt x 127.34157pt.
 
-<figures/dh-group_round2.png, id=565, 764.8575pt x 279.0425pt>
+<figures/dh-group_round2.png, id=722, 764.8575pt x 279.0425pt>
 File: figures/dh-group_round2.png Graphic file (type png)
 
 <use figures/dh-group_round2.png>
 Package pdftex.def Info: figures/dh-group_round2.png used on input line 268.
 (pdftex.def)             Requested size: 334.60422pt x 122.07227pt.
- [29 <./figures/dh-group_round1.png> <./figures/dh-group_round2.png>]
+ [32 <./figures/dh-group_round1.png> <./figures/dh-group_round2.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 315--324
 
  []
 
-[30] <figures/dh2parties.png, id=591, 556.0775pt x 167.62625pt>
+[33] <figures/dh2parties.png, id=747, 556.0775pt x 167.62625pt>
 File: figures/dh2parties.png Graphic file (type png)
 
 <use figures/dh2parties.png>
 Package pdftex.def Info: figures/dh2parties.png used on input line 344.
 (pdftex.def)             Requested size: 334.60422pt x 100.86554pt.
 
-<figures/dh3parties.png, id=592, 762.85pt x 299.1175pt>
+<figures/dh3parties.png, id=748, 762.85pt x 299.1175pt>
 File: figures/dh3parties.png Graphic file (type png)
 
 <use figures/dh3parties.png>
 Package pdftex.def Info: figures/dh3parties.png used on input line 350.
 (pdftex.def)             Requested size: 334.60422pt x 131.19676pt.
- [31 <./figures/dh2parties.png> <./figures/dh3parties.png>]) [32] (./chapters/i
-mplementation.tex) [33
+ [34 <./figures/dh2parties.png> <./figures/dh3parties.png>]) [35] (./chapters/i
+mplementation.tex) [36
 
 ] (./chapters/app.tex
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -2114,112 +2150,115 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 16.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 17.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 9.49997pt on input line 17.
- [34
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 18.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 9.49997pt on input line 18.
+ [37
 
-] [35]
-Overfull \hbox (12.65582pt too wide) in paragraph at lines 94--96
+] [38]
+Overfull \hbox (12.65582pt too wide) in paragraph at lines 95--97
 [][]$\T1/pcr/m/n/10.95 https : / / www . auto . tuwien . ac . at / ~mkoegler / 
 pth / pthsem _ 2 . 0 . 8 . tar . gz$[]
  []
 
-[36]
+[39]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\gls' on input line 133.
+(hyperref)                removing `\gls' on input line 134.
 
-<figures/busware.png, id=700, 836.12375pt x 393.47pt>
+<figures/busware.png, id=856, 836.12375pt x 393.47pt>
 File: figures/busware.png Graphic file (type png)
 
 <use figures/busware.png>
-Package pdftex.def Info: figures/busware.png used on input line 167.
+Package pdftex.def Info: figures/busware.png used on input line 168.
 (pdftex.def)             Requested size: 167.22179pt x 78.6926pt.
- [37 <./figures/busware.png>] [38]
+ [40 <./figures/busware.png>] [41]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 181.
+nput line 182.
  (../src/Makefile
-[39
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 14.
 
-]
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 15.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
 File: omsphv.fd 
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 15.
-)) (./thesis.gls [40] [41
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 14.
+ [42
+
+])) (./thesis.gls [43] [44
 
 
-]) [42]
-Overfull \hbox (4.36995pt too wide) in paragraph at lines 203--203
+] [45]) [46]
+Overfull \hbox (4.36995pt too wide) in paragraph at lines 190--190
 []\T1/ptm/m/n/10.95 KNX As-so-ci-a-tion. ``KNX Ap-pli-ca-tions''. \T1/ptm/m/sc/
 10.95 url\T1/ptm/m/n/10.95 : []$\T1/pcr/m/n/10.95 http : / / www . knx . org / 
 fileadmin /
  []
 
 
-Overfull \hbox (18.77843pt too wide) in paragraph at lines 203--203
+Overfull \hbox (18.77843pt too wide) in paragraph at lines 190--190
 \T1/pcr/m/n/10.95 downloads / 08 % 20 -[] %20KNX % 20Flyers / KNX % 20Solutions
  / KNX _ Solutions _
  []
 
-[43
+[47
 
 ]
 
 Class memoir Warning: The material used in the headers is too large
 (77.80435pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
-(in both cases you will find help in the memoir manual). on input line 207.
+(in both cases you will find help in the memoir manual). on input line 191.
 
-[44]
+[48]
 \tf@toc=\write9
 \openout9 = `thesis.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 207.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 207.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 191.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 191.
  (./thesis.aux (./titlepage.aux) (./titlepage_en.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 207.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 207.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 191.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 191.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: D88F6C3E4E533149D3547FFBBD08D90B;1979.
+(rerunfilecheck)             Checksum: 052D33E776252E9F626446FCA19B67EC;2146.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 207.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 191.
  ) 
 Here is how much of TeX's memory you used:
- 31076 strings out of 495059
- 519870 string characters out of 3182030
- 1007503 words of memory out of 3000000
- 33335 multiletter control sequences out of 15000+200000
- 98489 words of font info for 114 fonts, out of 3000000 for 9000
+ 31813 strings out of 495059
+ 530620 string characters out of 3182030
+ 1017800 words of memory out of 3000000
+ 34023 multiletter control sequences out of 15000+200000
+ 97392 words of font info for 113 fonts, out of 3000000 for 9000
  16 hyphenation exceptions out of 8191
  69i,19n,122p,1426b,1969s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8
-a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (52 pages, 1073916 bytes).
+pdfTeX warning (dest): name{glo:crc} has been referenced but does not exist, 
+replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on thesis.pdf (56 pages, 1084824 bytes).
 PDF statistics:
- 975 PDF objects out of 1000 (max. 8388607)
- 864 compressed objects within 9 object streams
- 329 named destinations out of 1000 (max. 500000)
- 384 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1174 PDF objects out of 1200 (max. 8388607)
+ 1054 compressed objects within 11 object streams
+ 366 named destinations out of 1000 (max. 500000)
+ 413 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -2,7 +2,6 @@
 \chapterstyle{veelo}
 
 \usepackage{TUINFDA}
-
 \usepackage{url}
 \usepackage{hyperref}					% links in pdf
 \usepackage{graphicx}            			% Figures
@@ -17,31 +16,29 @@
 %\usepackage[lined,linesnumbered,algochapter]{algorithm2e} % Algorithm-Environment
 \usepackage[lined,linesnumbered,algochapter,norelsize]{algorithm2e} % Algorithm-Environment
 
+
 \usepackage{pgf}					
 \usepackage{tikz}					% tikz graphics
 \usetikzlibrary{arrows,automata}
-
 \usepackage{glossaries}
 
 \makeglossary
 \loadglsentries{acronyms}
 
-\usepackage[backend=bibtex]{biblatex}
+\usepackage[backend=bibtex, soring=none]{biblatex}
 \addbibresource{references.bib}
 
-%\usepackage[ngerman]{babel}
-%\usepackage{bibgerm,cite}       % Deutsche Bezeichnungen, Automatisches Zusammenfassen von Literaturstellen
-%\usepackage[latin1]{inputenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \thesistitle{KNX for Safety Critical Environments}
-\thesissubtitle{Building a secure and dependable Layer} % optional
+%\thesissubtitle{Building a secure and dependable Layer} % optional
 \thesisdate{1.12.2014}
 
 % all titles and designations have to be gender-related!
 \thesisdegree{Diplom-Ingenieur}{Diplom-Ingenieur}
 \thesiscurriculum{Technische Informatik}{Computer Engineering} % your study
 \thesisverfassung{Verfasser} % Verfasser
-\thesisauthor{Harald Glanzer} % your name
+\thesisauthor{B.Sc. Harald Glanzer} % your name
 \thesisauthoraddress{Hardtgasse 25 / 12A, 1190 Wien} % your address
 \thesismatrikelno{0727156} % your registration number
 
@@ -145,32 +142,30 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}
 \label{ch:intro}
+\input{chapters/introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{chapters/introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{State of the art}
+\label{ch:SOAcryptography}
+\input{chapters/SOAbasics}
+\input{chapters/SOAcryptography}
+\input{chapters/SOAsecurityBA}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{KNX}
 \label{ch:knx}
-\input{chapters/knx}
+\input{chapters/knxGeneral}
+\input{chapters/knxLayers}
+\input{chapters/knxSecurity}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\chapter{Mathematical Background}
-%\label{ch:SOAmath}
-%\input{chapters/SOAmath}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Secure and dependable systems}
-\label{ch:SOAcryptography}
-\input{chapters/SOAcryptography}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Concept}
+\chapter{Solution}
 \label{ch:security}
 \input{chapters/securityconcept}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -179,17 +174,10 @@
 \input{chapters/implementation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% BACKMATTER %%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \appendix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \nocite{*}	% generate complete bibliography without corresponding \cites{}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Setup of the base system}
@@ -198,10 +186,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \printglossary
-
 \printbibliography
-
-
-%\end{appendices}
 
 \end{document}

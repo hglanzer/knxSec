@@ -44,11 +44,11 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>proposal_hglanzer_KNXdependability.aux</file>
-      <file>proposal_hglanzer_KNXdependability-blx.bib</file>
+      <file>proposal_hglanzer_KNXavailability.aux</file>
+      <file>proposal_hglanzer_KNXavailability-blx.bib</file>
     </provides>
     <requires type="dynamic">
-      <file>proposal_hglanzer_KNXdependability.bbl</file>
+      <file>proposal_hglanzer_KNXavailability.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-compat.def</file>
@@ -65,20 +65,20 @@
     <cmdline>
       <binary>bibtex</binary>
       <option>-min-crossrefs 2</option>
-      <infile>proposal_hglanzer_KNXdependability</infile>
+      <infile>proposal_hglanzer_KNXavailability</infile>
     </cmdline>
     <input>
-      <file>proposal_hglanzer_KNXdependability.aux</file>
+      <file>proposal_hglanzer_KNXavailability.aux</file>
     </input>
     <output>
-      <file>proposal_hglanzer_KNXdependability.bbl</file>
+      <file>proposal_hglanzer_KNXavailability.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>proposal_hglanzer_KNXdependability.bbl</file>
+      <file>proposal_hglanzer_KNXavailability.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>proposal_hglanzer_KNXdependability.aux</file>
-      <file>proposal_hglanzer_KNXdependability-blx.bib</file>
+      <file>proposal_hglanzer_KNXavailability.aux</file>
+      <file>proposal_hglanzer_KNXavailability-blx.bib</file>
     </requires>
     <requires type="editable">
       <file>references.bib</file>

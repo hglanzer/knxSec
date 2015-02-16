@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  13 JAN 2015 16:37
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  14 FEB 2015 14:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**proposal_hglanzer_KNXdependability.tex
-(./proposal_hglanzer_KNXdependability.tex
+**proposal_hglanzer_KNXavailability.tex
+(./proposal_hglanzer_KNXavailability.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
 aded.
@@ -37,8 +37,8 @@ Package ifluatex Info: LuaTeX not detected.
 Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
 \et@xins=\count81
 )
-(/usr/share/texlive/texmf-dist/tex/latex/memoir/mem12.clo
-File: mem12.clo 2010/10/19 v0.4b memoir class 12pt size option
+(/usr/share/texlive/texmf-dist/tex/latex/memoir/mem11.clo
+File: mem11.clo 2008/01/30 v0.3 memoir class 11pt size option
 )
 \binding=\skip48
 \spinemargin=\skip49
@@ -1106,8 +1106,8 @@ Package biblatex Warning: 'babel' detected but 'csquotes' missing.
 
 \@quotelevel=\count319
 \@quotereset=\count320
-(./proposal_hglanzer_KNXdependability.aux (./titlepage_en.aux))
-\openout1 = `proposal_hglanzer_KNXdependability.aux'.
+(./proposal_hglanzer_KNXavailability.aux (./titlepage_en.aux))
+\openout1 = `proposal_hglanzer_KNXavailability.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
 LaTeX Font Info:    ... okay on input line 39.
@@ -1185,20 +1185,20 @@ ABD: EveryShipout initializing macros
 * driver: pdftex
 * paper: a4paper
 * layout: a4paper
-* switch(es): twoside 
-* h-part:(L,W,R)=(71.70166pt, 418.25368pt, 107.55254pt)
+* switch(es): 
+* h-part:(L,W,R)=(89.62709pt, 418.25368pt, 89.6271pt)
 * v-part:(T,H,B)=(101.40665pt, 591.5302pt, 152.11pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
 * \textwidth=418.25368pt
 * \textheight=591.5302pt
-* \oddsidemargin=-0.56833pt
-* \evensidemargin=35.28255pt
-* \topmargin=-5.23714pt
-* \headheight=14.5pt
+* \oddsidemargin=17.3571pt
+* \evensidemargin=17.3571pt
+* \topmargin=-4.33714pt
+* \headheight=13.6pt
 * \headsep=19.8738pt
-* \footskip=30.0pt
-* \marginparwidth=92.0pt
+* \footskip=27.46295pt
+* \marginparwidth=49.0pt
 * \marginparsep=7.0pt
 * \columnsep=10.0pt
 * \skip\footins=12.0pt plus 4.0pt minus 4.0pt
@@ -1206,8 +1206,8 @@ ABD: EveryShipout initializing macros
 * \voffset=0.0pt
 * \mag=1000
 * \@twocolumnfalse
-* \@twosidetrue
-* \@mparswitchtrue
+* \@twosidefalse
+* \@mparswitchfalse
 * \@reversemarginfalse
 * (1in=72.27pt, 1cm=28.453pt)
 
@@ -1218,22 +1218,11 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Warning: Data encoding is 'utf8'.
 (biblatex)                Use backend=biber.
 
-\openout5 = `proposal_hglanzer_KNXdependability-blx.bib'.
+\openout5 = `proposal_hglanzer_KNXavailability-blx.bib'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'proposal_hglanzer_KNXdependability.bbl' found.
-
-(./proposal_hglanzer_KNXdependability.bbl
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Borisov:2004:OCW:1029179.1029200':
-(biblatex)                - Can't use 'location' + 'address'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'knxsec':
-(biblatex)                - Invalid format of field 'month'.
-
+Package biblatex Info: ... file 'proposal_hglanzer_KNXavailability.bbl' found.
+(./proposal_hglanzer_KNXavailability.bbl
 
 Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'rfc2246':
@@ -1243,6 +1232,11 @@ Package biblatex Warning: BibTeX reported the following issues
 Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with '1055638':
 (biblatex)                - Invalid format of field 'month'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'Borisov:2004:OCW:1029179.1029200':
+(biblatex)                - Can't use 'location' + 'address'.
 
 
 Package biblatex Warning: BibTeX reported the following issues
@@ -1256,7 +1250,22 @@ Package biblatex Warning: BibTeX reported the following issues
 
 
 Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'rfc791':
+(biblatex)                - Invalid format of field 'month'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'rfc4301':
+(biblatex)                - Invalid format of field 'month'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'KraInnosec2013':
+(biblatex)                - Invalid format of field 'month'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'knxsec':
 (biblatex)                - Invalid format of field 'month'.
 
 )
@@ -1269,7 +1278,7 @@ Package biblatex Info: Reference segment=0 on input line 39.
 * driver: pdftex
 * paper: a4paper
 * layout: a4paper
-* switch(es): twoside 
+* switch(es): 
 * h-part:(L,W,R)=(68.28644pt, 460.935pt, 68.28644pt)
 * v-part:(T,H,B)=(56.9055pt, 717.00946pt, 71.13188pt)
 * \paperwidth=597.50787pt
@@ -1278,11 +1287,11 @@ Package biblatex Info: Reference segment=0 on input line 39.
 * \textheight=717.00946pt
 * \oddsidemargin=-3.98355pt
 * \evensidemargin=-3.98355pt
-* \topmargin=-49.73828pt
-* \headheight=14.5pt
+* \topmargin=-48.83829pt
+* \headheight=13.6pt
 * \headsep=19.8738pt
-* \footskip=30.0pt
-* \marginparwidth=92.0pt
+* \footskip=27.46295pt
+* \marginparwidth=49.0pt
 * \marginparsep=7.0pt
 * \columnsep=10.0pt
 * \skip\footins=12.0pt plus 4.0pt minus 4.0pt
@@ -1290,8 +1299,8 @@ Package biblatex Info: Reference segment=0 on input line 39.
 * \voffset=0.0pt
 * \mag=1000
 * \@twocolumnfalse
-* \@twosidetrue
-* \@mparswitchtrue
+* \@twosidefalse
+* \@mparswitchfalse
 * \@reversemarginfalse
 * (1in=72.27pt, 1cm=28.453pt)
 
@@ -1314,19 +1323,16 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 23.63593pt on input line 42.
 
-Overfull \vbox (60.5076pt too high) detected at line 47
+Overfull \vbox (14.5076pt too high) detected at line 47
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 51.
+(Font)              scaled to size 10.40245pt on input line 51.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 16.41594pt on input line 51.
+(Font)              scaled to size 13.67995pt on input line 51.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.44997pt on input line 67.
+(Font)              scaled to size 10.44997pt on input line 69.
 )
-Underfull \vbox (badness 1552) has occurred while \output is active []
-
-
 <figures/titlepage/dokumentenkopf__klein.pdf, id=4, 512.91624pt x 47.17625pt>
 File: figures/titlepage/dokumentenkopf__klein.pdf Graphic file (type pdf)
 
@@ -1345,12 +1351,12 @@ Package pdftex.def Info: figures/titlepage/INF_Logo_typo_grau.pdf used on input
 
 
 Class memoir Warning: The material used in the headers is too large
-(78.7743pt) for the given head height (14.5pt), it is recommended to
+(77.80435pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
 (in both cases you will find help in the memoir manual). on input line 54.
 
 
-Overfull \vbox (64.2743pt too high) has occurred while \output is active []
+Overfull \vbox (64.20435pt too high) has occurred while \output is active []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 13.29996pt on input line 54.
@@ -1371,91 +1377,53 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./figures/titlepage/dokume
 ntenkopf__klein.pdf> <./figures/titlepage/INF_Logo_typo_grau.pdf>]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 61.
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--103
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 63--103
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 63--103
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 107--121
+Underfull \hbox (badness 10000) in paragraph at lines 91--95
 
  []
 
 [2
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 125--131
+] [3]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 314.
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 148--151
-
- []
-
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 178.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 178.
- [3]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 188.
- [4] [5] [6]
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 314.
+ [4]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 326.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 326.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 325.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 325.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-Overfull \hbox (1.96457pt too wide) in paragraph at lines 328--328
-[]\T1/ptm/m/n/12 KNX As-so-ci-a-tion. ``KNX Ap-pli-ca-tions''. \T1/ptm/m/sc/12 
-url\T1/ptm/m/n/12 : $\T1/pcr/m/n/12 http : / / www . knx . org / fileadmin /
- []
-
-
-Overfull \hbox (17.7066pt too wide) in paragraph at lines 328--328
-\T1/pcr/m/n/12 downloads / 08 % 20 -[] %20KNX % 20Flyers / KNX % 20Solutions / 
-KNX _ Solutions _
- []
-
 
 Class memoir Warning: The material used in the headers is too large
-(78.7743pt) for the given head height (14.5pt), it is recommended to
+(77.80435pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
-(in both cases you will find help in the memoir manual). on input line 349.
+(in both cases you will find help in the memoir manual). on input line 327.
 
-[7
+[5
 
-] (./proposal_hglanzer_KNXdependability.aux (./titlepage_en.aux))
-Package logreq Info: Writing requests to 'proposal_hglanzer_KNXdependability.ru
-n.xml'.
-\openout1 = `proposal_hglanzer_KNXdependability.run.xml'.
+] (./proposal_hglanzer_KNXavailability.aux (./titlepage_en.aux))
+Package logreq Info: Writing requests to 'proposal_hglanzer_KNXavailability.run
+.xml'.
+\openout1 = `proposal_hglanzer_KNXavailability.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19652 strings out of 495059
- 334604 string characters out of 3182030
- 499842 words of memory out of 3000000
- 22478 multiletter control sequences out of 15000+200000
- 57788 words of font info for 77 fonts, out of 3000000 for 9000
+ 19656 strings out of 495059
+ 334891 string characters out of 3182030
+ 497756 words of memory out of 3000000
+ 22483 multiletter control sequences out of 15000+200000
+ 53879 words of font info for 74 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 69i,19n,57p,875b,1767s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 69i,19n,57p,874b,1508s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf
@@ -1463,13 +1431,12 @@ f-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf
 ype1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/hel
 vetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/urw/times/utmri8a.pfb>
-Output written on proposal_hglanzer_KNXdependability.pdf (7 pages, 120954 bytes
-).
+exlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on proposal_hglanzer_KNXavailability.pdf (5 pages, 110590 bytes)
+.
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
- 59 compressed objects within 1 object stream
+ 68 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  23 words of extra memory for PDF output out of 10000 (max. 10000000)
 

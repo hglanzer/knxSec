@@ -43,7 +43,7 @@
 \\
 ~
 \\
-Building a Security Gateway for highly available KNX networks
+%Building a Security Gateway for KNX networks with improved availability
 \end{minipage}
 
 {\ \vspace{6cm}}
@@ -51,6 +51,8 @@ Building a Security Gateway for highly available KNX networks
 \vspace{0pt}\raggedright\sffamily\Large
 \begin{minipage}[t][4cm][t]{\textwidth}%
   \begin{tabbing}%
+	     \hspace{40mm} \= \hspace{66mm} \kill
+	    Author:\> BSc Harald Glanzer\\  
 	    \hspace{40mm} \= \hspace{66mm} \kill
 	    Advisor:\> \tuinfthesisbetreins\\
 	    Assistance: \> \tuinfthesisbetrzwei\\
