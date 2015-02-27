@@ -24,186 +24,176 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\chapternumberline {2}State of the art}{4}{chapter.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.1}Basic security}{4}{section.2.1}
+\contentsline {section}{\numberline {2.1}Security}{4}{section.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Attacks}{4}{section.2.2}
+\contentsline {section}{\numberline {2.2}Cryptography}{5}{section.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.3}Mathematical background}{4}{section.2.3}
+\contentsline {subsection}{Kerckhoff's Principle}{6}{section*.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Finite fields}{5}{section*.5}
+\contentsline {section}{\numberline {2.3}Randomness and Probabilistic Theory}{7}{section.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{One Way functions}{5}{section*.6}
+\contentsline {section}{\numberline {2.4}Symmetric vs. Asymmetric Cryptography}{9}{section.2.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.4}Propabilistic Theory}{5}{section.2.4}
+\contentsline {subsection}{Stream Ciphers}{10}{section*.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.5}History of Cryptography}{5}{section.2.5}
+\contentsline {subsubsection}{The Vernam Cipher}{11}{section*.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.6}Definitions and Basic Assumptions}{6}{section.2.6}
+\contentsline {subsubsection}{Stream Ciphers based on \gls {lfsr}}{11}{section*.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.7}Kind of Ciphers}{7}{section.2.7}
+\contentsline {subsection}{Block Ciphers}{11}{section*.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Stream Ciphers}{8}{section*.7}
+\contentsline {subsubsection}{Permutation Blockciphers}{12}{section*.10}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Secure Ciphers - The one time pad}{8}{section*.8}
+\contentsline {subsubsection}{Substitution Blockciphers}{12}{section*.11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Shannons Communication Theory}{8}{section*.9}
+\contentsline {subsubsection}{Product Blockciphers}{12}{section*.12}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Block Ciphers}{8}{section*.10}
+\contentsline {subsection}{Feistel Networks}{12}{section*.13}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Permutation Blockciphers}{9}{section*.11}
+\contentsline {subsection}{Confidentiality}{12}{section*.14}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Substitution Blockciphers}{9}{section*.12}
+\contentsline {subsubsection}{Cipher Block Chaining - CBC}{12}{section*.15}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Product Blockciphers}{9}{section*.13}
+\contentsline {subsubsection}{Counter Mode - CTR}{15}{section*.16}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Feistel Networks}{9}{section*.14}
+\contentsline {subsection}{Authenticity}{15}{section*.17}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Stream Ciphers}{9}{section*.15}
+\contentsline {subsubsection}{OCB}{15}{section*.18}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Block Ciphers}{9}{section*.16}
+\contentsline {subsubsection}{Cipher Block Chaining - CBC}{15}{section*.19}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Confidentiality}{9}{section*.17}
+\contentsline {section}{\numberline {2.5}Authenticated Encryption}{15}{section.2.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Cipher Block Chaining - CBC}{9}{section*.18}
+\contentsline {subsection}{CCM}{15}{section*.20}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Counter Mode - CTR}{11}{section*.19}
+\contentsline {subsubsection}{Generating the MAC}{15}{section*.21}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Authenticity}{11}{section*.20}
+\contentsline {subsubsection}{Encrypting Data and MAC}{16}{section*.22}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{OCB}{11}{section*.21}
+\contentsline {subsubsection}{Decryption and Authenticity Check}{16}{section*.23}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Cipher Block Chaining - CBC}{11}{section*.22}
+\contentsline {subsubsection}{Attacks on CCM}{16}{section*.24}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.8}Authenticated Encryption}{11}{section.2.8}
+\contentsline {section}{\numberline {2.6}Public Key Cryptography}{17}{section.2.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{CCM}{11}{section*.23}
+\contentsline {subsection}{Discrete Logarithm Systems}{17}{section*.25}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Generating the MAC}{11}{section*.24}
+\contentsline {subsection}{Diffie-Hellman based on Elliptic Curves}{18}{section*.26}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Encrypting Data and MAC}{12}{section*.25}
+\contentsline {subsection}{RSA}{18}{section*.27}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Decryption and Authenticity Check}{13}{section*.26}
+\contentsline {section}{\numberline {2.7}Attacks on Ciphers}{18}{section.2.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Attacks on CCM}{13}{section*.27}
+\contentsline {subsection}{Passive Attacks}{18}{section*.28}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.9}Public Key Cryptography}{13}{section.2.9}
+\contentsline {subsection}{Active Attacks}{18}{section*.29}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Discrete Logarithm Systems}{13}{section*.28}
+\contentsline {subsection}{Finite fields}{19}{section*.30}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Diffie-Hellman based on Elliptic Curves}{14}{section*.29}
+\contentsline {subsection}{One Way functions}{19}{section*.31}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{RSA}{14}{section*.30}
+\contentsline {section}{\numberline {2.8}Propabilistic Theory}{19}{section.2.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.10}Random Number Generators}{14}{section.2.10}
+\contentsline {section}{\numberline {2.9}Security in \gls {hba}}{19}{section.2.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Quality / Measurement}{14}{section*.31}
+\contentsline {chapter}{\chapternumberline {3}KNX}{20}{chapter.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Hardware based}{14}{section*.32}
+\contentsline {section}{\numberline {3.1}Introduction}{20}{section.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.11}Attacks on Ciphers}{14}{section.2.11}
+\contentsline {section}{\numberline {3.2}KNX Layers}{21}{section.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Passive Attacks}{14}{section*.33}
+\contentsline {subsection}{Physical Layer}{21}{section*.32}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Active Attacks}{14}{section*.34}
+\contentsline {subsubsection}{TP-1}{22}{section*.33}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.12}Security in \gls {hba}}{14}{section.2.12}
+\contentsline {subsection}{Data Link Layer for TP1}{23}{section*.34}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\chapternumberline {3}KNX}{15}{chapter.3}
+\contentsline {subsubsection}{Standard L\_Data\_Frame}{24}{section*.35}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Introduction}{15}{section.3.1}
+\contentsline {subsubsection}{Extended L\_Data\_Frame}{24}{section*.36}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}KNX Layers}{16}{section.3.2}
+\contentsline {subsubsection}{L\_Poll\_Data Frame}{24}{section*.37}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Physical Layer}{16}{section*.35}
+\contentsline {subsubsection}{Acknowledge Frame}{25}{section*.38}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{TP-1}{17}{section*.36}
+\contentsline {subsection}{KNX addressing scheme}{25}{section*.39}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Data Link Layer for TP1}{18}{section*.37}
+\contentsline {subsection}{Network Layer}{26}{section*.40}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Standard L\_Data\_Frame}{18}{section*.38}
+\contentsline {subsection}{Transport Layer}{26}{section*.41}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Extended L\_Data\_Frame}{19}{section*.39}
+\contentsline {subsection}{Session Layer}{28}{section*.42}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{L\_Poll\_Data Frame}{19}{section*.40}
+\contentsline {subsection}{Presentation Layer}{28}{section*.43}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Acknowledge Frame}{20}{section*.41}
+\contentsline {subsection}{Application Layer}{28}{section*.44}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{KNX addressing scheme}{20}{section*.42}
+\contentsline {section}{\numberline {3.3}KNX security concept}{28}{section.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Network Layer}{20}{section*.43}
+\contentsline {subsection}{KNX Data Security}{29}{section*.45}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Transport Layer}{20}{section*.44}
+\contentsline {subsection}{EIBsec}{30}{section*.46}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Session Layer}{21}{section*.45}
+\contentsline {subsection}{KNX IP Security}{30}{section*.47}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Presentation Layer}{21}{section*.46}
+\contentsline {section}{\numberline {3.4}Summary}{31}{section.3.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Application Layer}{21}{section*.47}
+\contentsline {chapter}{\chapternumberline {4}Solution}{32}{chapter.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}KNX security concept}{22}{section.3.3}
+\contentsline {section}{\numberline {4.1}Basic Assumptions}{32}{section.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{KNX Data Security}{23}{section*.48}
+\contentsline {subsection}{Security Related Architectural Overview}{36}{section*.48}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{EIBsec}{23}{section*.49}
+\contentsline {subsection}{Redundancy Related Architectural Overview}{36}{section*.49}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{KNX IP Security}{24}{section*.50}
+\contentsline {subsection}{Operational Constrains}{37}{section*.50}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\chapternumberline {4}Solution}{25}{chapter.4}
+\contentsline {subsection}{Operation states FIXME}{38}{section*.51}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Basic Assumptions}{25}{section.4.1}
+\contentsline {subsection}{Key Management}{38}{section*.52}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Security Related Architectural Overview}{28}{section*.51}
+\contentsline {subsection}{Discovery of Group Addresses}{39}{section*.53}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Redundancy Related Architectural Overview}{29}{section*.52}
+\contentsline {section}{\numberline {4.2}Key Derivation}{39}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Operational Constrains}{29}{section*.53}
+\contentsline {subsection}{Diffie - Hellman}{40}{section*.54}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Operation states FIXME}{30}{section*.54}
+\contentsline {subsection}{One Secret for all devices}{40}{section*.55}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Key Management}{30}{section*.55}
+\contentsline {subsection}{Secret for all pairs of devices}{41}{section*.56}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Discovery of Group Addresses}{31}{section*.56}
+\contentsline {subsection}{Using the Factory Key}{43}{section*.57}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Key Derivation}{31}{section.4.2}
+\contentsline {subsubsection}{Using a fixed String as Authentication Token}{43}{section*.58}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Diffie - Hellman}{32}{section*.57}
+\contentsline {subsubsection}{Challenge - Response}{43}{section*.59}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{One Secret for all devices}{32}{section*.58}
+\contentsline {subsection}{High Level Cryptography Library}{44}{section*.60}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Secret for all pairs of devices}{33}{section*.59}
+\contentsline {subsubsection}{OpenSSL}{44}{section*.61}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Using the Factory Key}{34}{section*.60}
+\contentsline {subsubsection}{Crypto++}{44}{section*.62}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Using a fixed String as Authentication Token}{34}{section*.61}
+\contentsline {chapter}{\chapternumberline {5}Implementation}{45}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Challenge - Response}{35}{section*.62}
+\contentsline {section}{\numberline {5.1}Master daemon}{45}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{High Level Cryptography Library}{35}{section*.63}
+\contentsline {subsection}{KNX addressing scheme}{45}{section*.63}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{OpenSSL}{35}{section*.64}
+\contentsline {appendix}{\chapternumberline {A}Setup of the base system}{46}{appendix.A}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Crypto++}{35}{section*.65}
+\contentsline {section}{\numberline {A.1}Raspbian}{46}{section.A.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\chapternumberline {5}Implementation}{36}{chapter.5}
+\contentsline {section}{\numberline {A.2}EIBD}{48}{section.A.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Master daemon}{36}{section.5.1}
+\contentsline {section}{\numberline {A.3}Revision control}{49}{section.A.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{KNX addressing scheme}{36}{section*.66}
+\contentsline {section}{\numberline {A.4}Busware \gls {usb} couplers}{49}{section.A.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {A}Setup of the base system}{37}{appendix.A}
+\contentsline {section}{\numberline {A.5}UDEV}{50}{section.A.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}Raspbian}{37}{section.A.1}
+\contentsline {section}{\numberline {A.6}Test setup}{50}{section.A.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.2}EIBD}{38}{section.A.2}
+\contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{51}{appendix.B}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.3}Revision control}{39}{section.A.3}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.4}Busware \gls {usb} couplers}{40}{section.A.4}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.5}UDEV}{40}{section.A.5}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.6}Test setup}{41}{section.A.6}
-\defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{42}{appendix.B}
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliography}{47}{section*.70}
+\contentsline {chapter}{Bibliography}{56}{section*.67}

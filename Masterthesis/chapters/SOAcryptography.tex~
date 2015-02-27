@@ -1,113 +1,29 @@
-%\chapter*{Cryptography}
-A system is an entity that interacts with other entities, which constitute the environment for the system and
-can be other systems, humans or the physical world \cite{1335465}. Fundamental properties of communication systems
-are \textit{functionality, performance, security and dependability}. The system provides services to the user(s) 
-of the system through it's service interface, described by the functional specification. Whenever the provided service
-deviates from correct service a system failure occurs. 
-An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
-dependability consists of the following attributes:
-\textit{Availability}, which means that the system is ready for correct service, \textit{reliability}, the continuity of correct service,
-\textit{safety}, i.e. the avoidance of catastrophic consequences \textit{integrity}, s.t. the system cannot be modified in an unwanted manner
-and \textit{maintainability}, so that the system can be repaired in the case of a failure.
+\section{Cryptography}
 
-In case of a secure system, another important property is \textit{confidentiality}, which means that no information is disclosed to unauthorized 
-entities.
-To achieve 
+The tool to achieve information security is cryptography.
+Cryptography \footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
+is the science of encrypting information. The evolution of cryptography was no linear process. Ciphers were used independently in different
+places, were forgotten and disappeared when the corresponding civilization died. Nevertheless,
+basics are found thousands of years ago, therefore a short time table for prominent events is presented:
+
+One of the oldest witnesses for cryptography are hieroglyphs used in Egypt about 2000 B.C., forming the predecessor
+of a simple substitution cipher. 500 B.C., the "skytale" was used by greek and spartan military leaders, performing a transposition cipher. Another classical
+example was the "Caesar Cipher", used by its inventor about 100 B.C. to hide information by replacing every letter of the alphabet by a letter some fixed number down the alphabet,
+thus performing a substitution cipher. Ahmas al-Qalqashandi, an egypt writer, introduced the frequency analysis, a method for breaking substitution ciphers,
+in the 14th century. About 300 years later, the "Geheime Kabinets-Kanzlei" in Vienna routinely intercepts, copies and 
+ re-seales diplomatic correspondence to embassies, and manages to decrypt a great percentage of the ciphertexts. In the beginning of the 20th century, the 
+ first cryptographic device called "Enigma" \footnote{classical greek for "riddle"} is patented for commercial use and is later used in World War 2 by german troops for 
+ military communication. Successful attacks against the "Enigma" cipher are demonstrated by polish mathematicians even before outbreak of the war, and systematic
+ encryption of "Enigma" - based ciphertexts are conducted in Bleatchley Park, U.K., by using so called "Turing-Bombs", giving the allies invaluable advantages.
+The second half of the 20th century brings the introduction of public key cryptography with it: in 1976 Whitfield Diffie and Martin Hellman specify a 
+protocol for key exchange, based on a public key system developed by Ralph Merkle, and one year later, the RSA public key encryption is found by the american
+mathematicians Rivest, Shamir and Adleman.
 
 
- 
-
-
-Cryptography(classical greek for \textit{krypt\^{o}s}, which means \textit{concealed})
-is the science of encrypting information.
-Related to computer engineering, it is the art of hiding information by turning cleartext
+Cryptography is basically the art of hiding information by turning cleartext
 data into a 
 pseudo-random looking stream or block of bits, called ciphertext, using some kind of
-\textit{key}. This process is called \textit{encryption}.
-Unauthorized parties - lacking the used key - should, by looking at the ciphertext, learn
-absolutely nothing about the hidden cleartext. Authorized parties, on the other hand, are
-able to retrieve the original data out of the ciphertext by using the key, and thus reversing
-the encryption. This reversing process is called \textit{decryption}.
-\\
-
-This way, cryptography is used to provide these objectives:
-
-\begin{itemize}
- \item Privacy / Confidentiality: protected data can only be read by authorized parties
- \item Integrity: ensuring that information has not been altered, or altering can be detected
- \item Authenticity: the origin of the data is genuine
- \item Non-Repudiation: prevent an entity from denying commitments or actions how had been 
- granted earlier
-\end{itemize}
-
-FIXME: comutationally secure vs. unconditionally secure, i.e. one time pad(perfect secrecy?)
-FIXME: MERKLE puzzles
-
-A fundamental goal of cryptography is to provide all of these 4 objectives. Providing these
-objectives only partially will not result in a secure system. For example, providing privacy and
-integrity, but no authenticity, may lead to so called 'replay' attacks, as will be shown.
-FIXME: replay attack
-
-\section{Mathematical background}
-
-To be able to make rigorous statements, it is important to introduce some basic background knowledge, which
-is given in the next chapter:
-
-\begin{itemize}
- \item Divisiblity
- \\
-$a | b \iff \exists z \in \mathbb{Z}: b = z \times a$
- \item Integer Division $r \equiv a \bmod b$ 
- \\
- $ \forall a, b \in \mathbb{Z}, b > 0:  a = z \times b + r $ with $ 0 \leq r < b$
- \item Common Divisor $c$ for $a, b \iff$
- \\
- $c | a \wedge c | b$
- \item Greatest Common Divisor(GCD) $d$:
- \\
- $d | a \wedge d | b$ and whenever $c | a \wedge c | b \rightarrow c | d$
- 
- \item unlimited number of primes
- \item every number has exact 1 factorization 
-\end{itemize}
-
-\subsection{Finite fields}
-
-\subsection{One Way functions}
-
-The idea for this concept was formulated for the first time in the year 1874 by William Stanley Jevons in his book
-'The Principles of Science'(page 144).
-
-\section{Propabilistic Theory}
-
-\section{History of Cryptography}
-FIXME:BIBLOGRAPHY: the codebreakers
-
-The evolution of cryptography was no linear process. Ciphers were used independently in different
-places, were forgotten and disappeared when the corresponding civilization died. Nevertheless,
-basics are found thousands of years ago, therefore a short time line showing some noteable
-events is presented below:
-
-\begin{itemize}
- \item Egypt, about 2000 B.C.: a simple substitution is used to partially replace ordinary hieroglyphs with special ones. 
- \item Sparta, about 500 B.C.: a device called 'skytale' is used to encrypt military messages
- \item Rome, about 100 B.C.: Caesar uses a simple substitution cipher for military correspondence, replacing every
- letter of the alphabet with the letter 4 places further down the alphabet
- \item China, 11th century: for a list of 40 items, the first 40 ideograms of a poem are assigned
- \item Arabia, 14th century: 7 different ciphers and the frequency analysis of letters are
- introduced by Ahmas al-Qalqashandi
- \item Vienna, 17th century: the 'Geheime Kabinets-Kanzlei' routinely intercepts, copies and 
- re-seales diplomatic correspondence to embassies, and manages to decrypt a great percentage of the ciphertexts   
- \item England, 19th century: Samuel F.B. Morse invents the Morse Code
- \item England, 1940: the so called 'Turing Bomb', an electromechanical device, is used to decrypt
- German Enigma-based ciphertexts
- \item USA, 1976: Whitfield Diffie and Martin Hellman specify the a protocol for key exchange,
- based on a public key system developed by Ralph Merkle
- \item USA, 1977: RSA public key encryption is defined
- \end{itemize}
-
- 
-\section{Definitions and Basic Assumptions}
+\textit{key}. This process is called \textit{encryption}. Key, clear- and cipher text all are strings built from the alphabet $\mathcal{A}$. 
 
 \begin{itemize}
  \item $\mathcal{A}$ is a finite set, denoting the alphabet used, for example
@@ -117,53 +33,161 @@ events is presented below:
  underlying alphabet
  \item $\mathcal{C}$ is the ciphertext space, also consisting of the strings from 
  the alphbet
- \item $\mathcal{K}$ is called keyspace, also built from the alphabet. Every element
+$\mathcal{A} = \{0, 1\}$
+
+\item $\mathcal{K}$ is called keyspace, also built from the alphabet. Every element
  $e \in \mathcal{K}$ is called a key and determines the function $\mathcal{M} \rightarrow \mathcal{C}$.
  This function, $E_e$ is called the \textit{encryption function}. 
   \begin{center}
  $ciphertext = E_e(e, cleartext)$
   \end{center}
+\end{itemize}
+
+Unauthorized parties - lacking the used key - should, by looking at the ciphertext, learn
+absolutely nothing about the hidden cleartext beside the length of the origin message. Authorized parties, on the other hand, are
+able to retrieve the original data out of the ciphertext by using the key with polynomial work, thus reversing
+the encryption. This reversing process is called \textit{decryption}.
+
+\begin{itemize}
 
  \item For every key $d \in \mathcal{K}$, $D_d$ denotes the function from $\mathcal{C} \rightarrow
   \mathcal{M}$, and is called \textit{decryption function}.
   \begin{center}
   $cleartext  = D_d(d, ciphertext)$
     \end{center}
- \item The keys $e$ and $d$ are also referred to as \textit{keypair}, written $(e,d)$. 
- 
- \item If it is computationally easy to derive the private key $e$ from the public key $d$(in most cases $e = d$), the encryption scheme
+\end{itemize}
+
+The keys $e$ and $d$ are also referred to as \textit{keypair}, written $(e,d)$. 
+If it is computationally easy to derive the private key $e$ from the public key $d$(in most cases $e = d$), the encryption scheme
  is called \textit{symmetric}, otherwise the scheme is called \textit{asymmetric}.
- \item A cipher(also called \textit{encryption scheme}) defined over $\mathcal{(K,M,C)}$ is a pair of \textit{efficient}
- \footnote{'runs in polynomial time   FIXME: erklären?} algorithms s.t.
+
+Combining this properties yields a cipher or \textit{encryption scheme}) defined over $\mathcal{(K,M,C)}$, which is a pair of \textit{efficient}
+ \footnote{"runs in polynomial time"} algorithms s.t.
  \begin{center}
    $\mathcal{K} \times \mathcal{M} \rightarrow \mathcal{C}$
    \\
    $\mathcal{K} \times \mathcal{C} \rightarrow \mathcal{M}$
- 
  \end{center}
 
- \item Correctness property / Consistency equation: for every pair of $(e,d) \in \mathcal{K}$ and for every message $m \in \mathcal{M}$ it must hold that 
+ The correctness property ensures for every pair of $(e,d) \in \mathcal{K}$ and for every message $m \in \mathcal{M}$ that encryption is reverseable, i.e. 
+ it must hold that 
  \begin{center}  
  $ m = D_d(d, (E_e(e, m))$
   \end{center}
-  
- \item An \textit{advisory} is a entity, not owning the keypair, which is trying to break a cipher, i.e. systematically trying to decode ciphertexts.  
- \item A \textit{secure} cipher is a cipher for which it is provable that no attack in whatsoever form exists on this cipher 
-\end{itemize}
 
-According to \textit{Kerckhoff's Principle}, stated by the dutch cryptographer Auguste Kerckhoff in 1883, a secure system should not rely on the secrecy of
-its components, the only part that should be kept secret is the key alone. Mapped to the definitions above, the sets $\mathcal{M, C, K}$, as well as the
+\subsection{Kerckhoff's Principle}
+
+When designing ciphers, a fundamental question is what components of it must be protected from public knowledge, and what parts can be published without
+compromising the security of the system. A cipher is considered secure if it is not breakable by an adversary in a reasonable time frame \cite{handbook1}, where
+this time frame is a function of the useful timespan of the protected data. This synonymously means that an adversary must spend exponential work.
+It follows that \textit{every} cipher can be broken in principle by
+mounting the "brute-focrce" attack, searching the correct $n$-bit key in the exponential big key space $2^n$. Thus, such an exhaustive search must be rendered impracticable by 
+using a suitable large key space to obtain a secure cipher.
+
+The dutch cryptographer Auguste Kerckhoff added some additional rules for designing a secure cipher.
+According to \textit{Kerckhoff's Principle} stated 1883, among other properties, a secure system should not rely on the secrecy of
+its components, the only part that should be kept secret is the key alone.  
+
+Mapped to the definitions above, the sets $\mathcal{M, C, K}$, as well as the
 transformation functions $E_e$ and $D_d$, must not secret. The only thing that has to be kept private is the keypair $(e, d)$.
 
-FIXME: vergleich security by obscurity
+This separation of key and algorithm allows the publication of the basic cipher methods, benefiting from peer review. The contradicting approach by trying
+to hide the inner workings from public to increase security is also known as "Security by Obscurity".
+\\
 
-\section{Kind of Ciphers}
+Another definition of a secure cipher was introduced by Shannon in 1949 \cite{6769090}, viewed from a communication-theory point of view. Depending on the
+message space, there is a finite number of possible cleartext messages, each occurring with its own \textit{a priori} probability. These messages are encrypted
+and sent to the receiver. An eavesdropper, intercepting messages, can calculate the \textit{a posteriori} probabilities for all possible cleartext messages, 
+leading to the observed cipher text. If booth probabilities are the same, the attacker has learned absolutely nothing from intercepting the cipher text, which
+is defined by Shannon as \textit{perfect secrecy}. A prerequisite for a perfectly secure cipher is that the key space is at least as big as the message space.
+Otherwise there will exist cleartext messages which are mapped to the same cipher texts, and thus a priori and a posteriori probabilities will change.
+\\
 
-Two main kinds of ciphers exist, stream- and blockciphers:
+Because all cryptographic schemes rely on the generation of random numbers, a short introduction to probabilistic theory and \gls{prng} is given,
+followed by a introduction to the most important representatives for symmetric and asymmetric ciphers.
+
+\section{Randomness and Probabilistic Theory}
+
+A basic requirement of all cryptographic schemes is the availability of randomness. \textit{Entropy} is the unit of the unpredictability of a process, and was
+also defined by Shannon. The higher the predictability, or in other words, the more likely an event, the lower its entropy. Flipping a "fair" coin is a canonical 
+example of a process with maximum entropy, because every coin flip hsa a probability of $\frac{1}{2}$, and all flips are independent from each other \cite{1621063}.
+If obtaining heads of the coin is viewed as a logical "0" and tails as a logical "1", a binary string of arbitrary length can be built, where the probability of all possible
+strings of same length is equal, as shown in figure \ref{fig:uniform}, yielding a \textit{uniform distribution}. 
+
+The importance of random numbers in cryptography is founded on the nature of the cipher used, as will be shown in the next sections. For example,
+stream ciphers generate a keystream which is used
+for encryption. If the keystream is predictable by an adversary, the security of the cipher is reduced. Similar arguments are valid for block ciphers, which often
+rely on an initial value called \gls{iv} for encryption. As a last example, many protocols rely on determining a random prime number. Again, if such a prime number
+can be narrowed down within some boarders, this fact may weaken the encryption process.
+
+A fundamental problem in generating random numbers by utilizing computing devices is the deterministic nature of an algorithm:
+\\
+
+\textit{"Anyone who considers arithmetical methods of producing random digits is, of course, in a state of sin."} \footnote{John von Neumann, 1951}
+\\
+
+Such numbers are therefore called \textit{pseudo}random. Lots of cryptographic products suffered serious flaws because of relying on a broken \gls{prng}. A 
+historical example of such a broken random number generator, outputting biased (i.e., not uniformly distributed values) was "RANDU", invented by IBM in the
+1960s. 
+The generator belongs to the class of multiplicative congruential algorithms as proposed by Lehmer \cite{MR0044899}, which can in principle generate random
+numbers of sufficient quality, \textit{if} the correct parameters are chosen.
+Random values can be obtained after setting an initial value for $I_0$, called \textit{seed}, and repeatedly executing the calculation
+
+\begin{center}
+ $I_{j+1} = 65539 * I_j \pmod{2^{31}}$
+\end{center}
+
+One problem 
+is that consecutive values generated by RANDU are not independent, which can be seen in figure \ref{fig:randu}. To obtain the plot, 10000 uniformly distributed 
+random numbers were chosen as initial seeds for $I_i$ and plotted as x-values. $I_{i+1}$ served as y- and $I_{i+2}$ as z-values. While one would suspect that all points
+would be equally distributed in space, a clear pattern is visible, indicating that the values are correlated.
+
+To assess the quality of a \gls{prng}, beside of such spectral tests lots of additional tests are available, see \cite{nistRAND} for details.
+
+To encounter the shortcomings of a \gls{prng}, a \gls{trng} uses a natural process as non-deterministic data source, for example
+thermal noise of a semi conductor, cosmic noise from space or digital oscillators.
+
+The used hardware platform, the RapsberryPi, offers a hardware number generator - the quality of its provided random numbers will be subject
+to various statistical tests, see chapter \ref{FIXME} for the results.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/uniform}
+    \caption{Uniform Distribution of binary string of length 3}
+    \label{fig:uniform}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{figures/randu}
+    \caption{Spectral Plot of RANDU output}
+    \label{fig:randu}
+\end{figure}
+
+
+\section{Symmetric vs. Asymmetric Cryptography}
+
+As stated above, two very fundamental differences regarding the key used in a cryptographic system can be found. Symmetric ciphers, where in the most cases
+the same key is used for encryption and decryption, outperform its asymmetric counterparts in regards of data throughput by a factor of about 1000 \cite{5412055}.
+Additionally, they need shorter keys to achieve the same level of security - both arguments encourage it's use in embedded devices because of its less computing
+and memory demands.
+
+The big disadvantage of symmetric ciphers is that the key must be known to sender
+and receiver of the message \textit{before} secure communication can take place. This constitutes some kind of chicken-egg problem: to be able to send encrypted
+data, the key must be distributed, i.e. a secure channel has to be setup first, but the key can obviously not be sent before this secure channel exists.
+\\
+
+Asymmetric or public key cryptography solves the problem of key distribution by using two different keys, belonging to the same key pair: the \textit{private}
+key must be be protected from disclosure, while the \textit{public} key can be published without harming security. For encryption, the public key of the receiver
+is used, who in turn will use his private key to decrypt the message. 
+
+To be able to take benefit from the advantages of booth schemes, a hybrid approach is possible: at first, public key cryptography is used to negotiate a symmetric session
+key, which then can be used to encrypt the actual, sensitive data.
 
 \subsection{Stream Ciphers}
 
-For encryption, stream ciphers take arbitrary long messages(from the message space $\mathcal{M}$), and encrypt
+Stream ciphers belong to the family of symmetric ciphers, thus $e_i = d_i$.
+For encryption, stream ciphers take arbitrary long messages (from the message space $\mathcal{M}$), and encrypt
 them to the corresponding ciphertext(out of the ciphertext-space $\mathcal{C}$), by applying
 one digit of the message to one digit of the key. It is valid to say that a streamcipher is a block cipher with blocklength 1.
 
@@ -172,24 +196,51 @@ one digit of the message to one digit of the key. It is valid to say that a stre
 \end{itemize}
 
 The encryption function $E_e$ performs the substitution $c_i = E_e(e_i, m_i)$, producing one encrypted symbol at a time. Analogously,
-the decryption function inverts this substitution: $m_i = D_d(d_i, c_i)$, with $e_i = d_i$, which means that this kind of cipher is a
-symmetric one.
+the decryption function inverts this substitution: $m_i = D_d(d_i, c_i)$.
 
-\subsubsection{Secure Ciphers - The one time pad}
+\subsubsection{The Vernam Cipher} 
 
-As a first example of a theoretically secure cipher the so called 'one time pad' is introduced. This cipher was invented
-by Gilbert Vernam in 1970, and belongs to the family of stream ciphers. 
+This cipher, also called \gls{otp}, was invented by Gilbert Vernam in 1918, and belongs to the family of polyalphabetic stream ciphers,
+which means that every character of the origin message is mapped to another character of the same alphabet. In contrast to a monoalphabetical cipher,
+there is no fixed mapping between the input and output characters.
+The substitution is achieved by generating a keystream and by executing 
+a bit-wise XOR operation, as defined in table \ref{table:xor}, of key and message.
 
+\begin{center}
+\begin{tabular}{ l c | r }
+ \label{table:xor}
+   &  & $\bigoplus$ \\ \hline
+  0 & 0 & 0 \\
+  0 & 1 & 1 \\
+  1 & 0 & 1 \\
+  1 & 1 & 0 \\
+\end{tabular}
+\end{center}
 
-\subsection{Shannons Communication Theory}
+Obviously, the security of the cipher heavily depends on the quality of the \gls{prng}. If a truly random source is used to generate the key stream, this cipher
+has perfect secrecy. Nevertheless, the cipher can be completely broken if the same key is used for encrypting more than one cleartext message, allowing to mount
+an attack based on frequency analysis.
+Imagine an attacker is able to intercept a specific amount of different ciphertexts, all encrypted with the same key. Pairwise xor'ing of the ciphertexts
+yields the xor-combination of the corresponding cleartexts, because
+\begin{center}
+ $m_1 \bigoplus m_2 = (c_1 \bigoplus k) \bigoplus (c_2 \bigoplus k) = c_1 \bigoplus c_2 \bigoplus k \bigoplus k = c_1 \bigoplus c_2 \bigoplus 0 = c_1 \bigoplus c_2$
+\end{center}
 
-FALSCH: keylength >= message -> secure
-It is important to state that attacks on any cipher are always possible: the so called
-'Exhaustive Attack' will always find the proper key in the long run, just by trying every
-possible key - no matter what kind of encryption is used. So, this most naive attack will always work, but
-will not finish in feasible time if a proper key(or more concrete: a proper key-length) is used, turning this bruteforce-attack
-impracticable. Nevertheless, this statement says that it is principly impossible to design
-a cipher which can \textit{never} get broken.
+Whenever the same character is present in two different ciphertexts at the same position, the result of the xor operation will be 0x00, allowing to draw
+inferences about the language used. By utilizing frequency analysis, the used key can be determined position by position with effort bounded by $O(n^2)$.
+
+\subsubsection{Stream Ciphers based on \gls{lfsr}}
+
+An disadvantage of the Vernam cipher is that a key of equal length as the message is necessary. To mitigate this problem, a \gls{lfsr} can be used to generate
+a key of proper length from a much short, initial key. Figure \ref{fig:lsfr} shows a 4 stage \gls{lfsr}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{figures/LSFR}
+    \caption{4 Stage LFSR}
+    \label{fig:lsfr}
+\end{figure}
+
 
 \subsection{Block Ciphers}
 
@@ -213,10 +264,6 @@ Three main groups of block cipher exists:
 \subsubsection{Product Blockciphers}
 
 \subsection{Feistel Networks}
-
-\subsection{Stream Ciphers}
-
-\subsection{Block Ciphers}
 
 \subsection{Confidentiality}\label{confidentiality}
 
@@ -413,16 +460,6 @@ $k_A = K_B$  must therefore the Discrete Logarithm Problem. FIXME: security anal
 
 \subsection{RSA}
 
-\section{Random Number Generators}
-
-\subsection{Quality / Measurement}
-
-\subsection{Hardware based}
-
-usb stick: 
-www.entropykey.co.uk
-
-
 \section{Attacks on Ciphers}
 
 \subsection{Passive Attacks}
@@ -430,3 +467,40 @@ www.entropykey.co.uk
 timing attacks - constant time computation
 
 \subsection{Active Attacks}
+
+
+BLABLA:
+\\
+
+Such a cipher as defined above provides confidentiality, i.e. it ensures that only authorized parties are able to decrypt the message. This leads to other
+problems, namely how to determine who is authorized, i.e. how to provide authenticity, and how to assure that the message was not altered when, i.e. how to 
+provide integrity. It turns out that such a cipher is suitable for these purposes
+
+A system is an entity that interacts with other entities, which constitute the environment for the system and
+can be other systems, humans or the physical world \cite{1335465}. Fundamental properties of communication systems
+are \textit{functionality, performance, security and dependability}. The system provides services to the user(s) 
+of the system through it's service interface, described by the functional specification. Whenever the provided service
+deviates from correct service a system failure occurs. 
+An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
+dependability consists of the following attributes:
+\textit{Availability}, which means that the system is ready for correct service, \textit{reliability}, the continuity of correct service,
+\textit{safety}, i.e. the avoidance of catastrophic consequences \textit{integrity}, s.t. the system cannot be modified in an unwanted manner
+and \textit{maintainability}, so that the system can be repaired in the case of a failure.
+
+In case of a secure system, another important property is \textit{confidentiality}, which means that no information is disclosed to unauthorized 
+entities.
+To achieve 
+
+\subsection{Finite fields}
+
+\subsection{One Way functions}
+
+The idea for this concept was formulated for the first time in the year 1874 by William Stanley Jevons in his book
+'The Principles of Science'(page 144).
+
+\section{Propabilistic Theory}
+
+
+
+FIXME: comutationally secure vs. unconditionally secure, i.e. one time pad(perfect secrecy?)
+FIXME: MERKLE puzzles

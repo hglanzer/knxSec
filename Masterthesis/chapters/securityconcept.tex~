@@ -70,11 +70,11 @@ Figure \ref{fig:firewall} shows the logical connections within an KNX network wi
 attack of node $A$ can only compromise keys known to the device, thus effectively separating communication between the nodes $B$, $C$, and $D$ from
 the attacker. 
 
-\begin{center}
+\begin{figure}
  \input{figures/firewall.tex}
- %\caption{Firewall}
+ \caption{Firewall}
  \label{fig:firewall}
-\end{center}
+\end{figure}
 
 
 
@@ -146,7 +146,9 @@ value will be less than the saved value. Nevertheless which package from which s
 every received package: this is done by generating a special acknowledge frame which is sent back to the sending gateway. The payload of this package must
 allow the sending gateway to unambiguously identify the acknowledged package, i.e. it must bear source and destination address of the package generated
 by the client, as well as the used counter value. As a consequence, these acknowledgement frames must be encrypted and authenticated as well.
-If no acknowledgement frame is received within time $t_{ACK}$, a retransmission is done on booth lines.
+If no acknowledgement frame is received within time $t_{ACK}$, a retransmission is done on booth lines. This retransmission simply re-submits the same
+package with the same counter value again. Regarding the security this is no problem because a passive attacker can not learn anything from such a repeated
+package.
 
 
 \subsection{Operational Constrains}

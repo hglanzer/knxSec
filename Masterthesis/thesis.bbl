@@ -16,6 +16,195 @@
   {}
 \endgroup
 
+\entry{stallings}{inbook}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Stallings}{S.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Pearson Education International}%
+  }
+  \strng{namehash}{SW1}
+  \strng{fullhash}{SW1}
+  \field{chapter}{Overview}
+  \field{title}{Computer Security}
+  \list{location}{1}{%
+    {New Jersey}%
+  }
+  \field{year}{2008}
+\endentry
+
+\entry{handbook1}{inbook}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Menezes}{M.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Oorschot}{O.}%
+     {P.}{P.}%
+     {van}{v.}%
+     {}{}}%
+    {{}%
+     {S.}{S.}%
+     {Vanstone}{V.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {CRC Press}%
+  }
+  \strng{namehash}{MJOPvSV1}
+  \strng{fullhash}{MJOPvSV1}
+  \field{chapter}{Overview of Cryptography}
+  \field{title}{Handbook of Applied Cryptography}
+  \list{location}{1}{%
+    {New York}%
+  }
+  \field{year}{1997}
+\endentry
+
+\entry{6769090}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Shannon}{S.}%
+     {C.E.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SC1}
+  \strng{fullhash}{SC1}
+  \verb{doi}
+  \verb 10.1002/j.1538-7305.1949.tb00928.x
+  \endverb
+  \field{issn}{0005-8580}
+  \field{number}{4}
+  \field{pages}{656\bibrangedash 715}
+  \field{title}{Communication theory of secrecy systems}
+  \field{volume}{28}
+  \field{journaltitle}{Bell System Technical Journal, The}
+  \field{year}{1949}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{1621063}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Gennaro}{G.}%
+     {R.}{R.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{cryptography;random processes;communication
+  protection;cryptography;data protection;randomness;Application
+  software;Computer science;Computer
+  security;Cryptography;Entropy;Privacy;Random
+  processes;cryptography;nonce;predictable;randomness}
+  \strng{namehash}{GR1}
+  \strng{fullhash}{GR1}
+  \field{number}{2}
+  \field{pages}{64\bibrangedash 67}
+  \field{title}{Randomness in cryptography}
+  \field{volume}{4}
+  \field{journaltitle}{Security Privacy, IEEE}
+  \field{year}{2006}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{MR0044899}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Lehmer}{L.}%
+     {D.~H.}{D.~H.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Harvard University Press, Cambridge, Mass.}%
+  }
+  \strng{namehash}{LDH1}
+  \strng{fullhash}{LDH1}
+  \field{booktitle}{Proceedings of a {S}econd {S}ymposium on {L}arge-{S}cale
+  {D}igital {C}alculating {M}achinery, 1949}
+  \field{pages}{141\bibrangedash 146}
+  \field{title}{Mathematical methods in large-scale computing units}
+  \field{year}{1951}
+\endentry
+
+\entry{nistRAND}{online}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Standards}{S.}%
+     {National~Institute}{N.~I.}%
+     {of}{o.}%
+     {}{}}%
+    {{}%
+     {Technology}{T.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SNIoT1}
+  \strng{fullhash}{SNIoT1}
+  \field{title}{A Statistical Test Suite for the Validation of Random Number
+  Generators and Pseudo Random Number Generators for Cryptographic Applications
+  {@ONLINE}}
+  \verb{url}
+  \verb http://csrc.nist.gov/groups/ST/toolkit/rng/documents/SP800-22rev1a.pdf
+  \endverb
+  \field{year}{2010}
+\endentry
+
+\entry{5412055}{inproceedings}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Matin}{M.}%
+     {M.A.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hossain}{H.}%
+     {M.M.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Islam}{I.}%
+     {M.F.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Islam}{I.}%
+     {M.N.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hossain}{H.}%
+     {M.M.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{ad hoc networks;cryptography;mobile communication;telecommunication
+  security;wireless LAN;MANET;Rijndael algorithm;WLAN;advance encryption
+  standard;data encryption standard;symmetric encryption algorithm;wireless LAN
+  network;Communication system security;Computer science;Cryptography;Data
+  engineering;Data security;Information security;Mobile ad hoc
+  networks;NIST;Polynomials;Wireless LAN;Block cipher;MANET;random
+  mobility;symmetric encryption}
+  \strng{namehash}{MM+1}
+  \strng{fullhash}{MMHMIMIMHM1}
+  \field{booktitle}{Technical Postgraduates (TECHPOS), 2009 International
+  Conference for}
+  \field{pages}{1\bibrangedash 4}
+  \field{title}{Performance evaluation of symmetric encryption algorithm in
+  MANET and WLAN}
+  \field{year}{2009}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{1335465}{article}{}
   \name{author}{4}{}{%
     {{}%
@@ -167,7 +356,7 @@
      {}{}%
      {}{}}%
   }
-  \strng{namehash}{GW+1}
+  \strng{namehash}{GW+2}
   \strng{fullhash}{GWKWNGPF1}
   \field{title}{Security in Networked Building Automation Systems}
   \field{type}{techreport}
@@ -188,6 +377,44 @@
   \field{title}{{Application Note 158 -- KNX Data Security}}
   \field{month}{05}
   \field{year}{2013}
+\endentry
+
+\entry{5195839}{inproceedings}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Granzer}{G.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Lechner}{L.}%
+     {D.}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Praus}{P.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kastner}{K.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{IP networks;protocols;telecommunication security;IP networks;building
+  automation networks;building automation systems;protocol
+  architecture;securing IP backbones;Automation;Buildings;Communication system
+  security;Data security;Ethernet networks;IP
+  networks;Protection;Protocols;Spine;Tunneling}
+  \strng{namehash}{GW+1}
+  \strng{fullhash}{GWLDPFKW1}
+  \field{booktitle}{Industrial Informatics, 2009. INDIN 2009. 7th IEEE
+  International Conference on}
+  \field{pages}{410\bibrangedash 415}
+  \field{title}{Securing IP backbones in building automation networks}
+  \field{year}{2009}
+  \warn{\item Invalid format of field 'month'}
 \endentry
 
 \entry{WG2006d}{inproceedings}{}
@@ -556,6 +783,37 @@
   \field{title}{Security Flaws Induced by CBC Padding - Applications to SSL,
   IPSEC, WTLS}
   \field{year}{2002}
+\endentry
+
+\entry{Coveyou321371.321379}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Coveyou}{C.}%
+     {R.~R.}{R.~R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Macpherson}{M.}%
+     {R.~D.}{R.~D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \strng{namehash}{CRRMRD1}
+  \strng{fullhash}{CRRMRD1}
+  \field{issn}{0004-5411}
+  \field{number}{1}
+  \field{pages}{100\bibrangedash 119}
+  \field{title}{Fourier Analysis of Uniform Random Number Generators}
+  \field{volume}{14}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{J. ACM}
+  \field{month}{01}
+  \field{year}{1967}
 \endentry
 
 \lossort

@@ -48,7 +48,7 @@ In \gls{knx}, 4 different kinds of devices exist: standard devices, bridges, rou
 An end device is a standard device FIXME
 
 Bridges do not possess their own address and are used for galvanic separation of physical segments and for extension of TP-1-64 segments to allow up to 256 devices.
-Therefore, they acknowledge layer 2 frames received on one side and forward them on their second interface. 
+Therefore, they acknowledge layer 2 frames received on one side and forward them to their second interface. 
 
 Routers have their own address space and only forward packages received on one side if the destination address is located on the other side of the router.
 As well as bridges, they can be used for galvanic separation and they acknowledge frames on layer 2.
@@ -79,7 +79,8 @@ It is often broken into 2 distinct sublayers, namely the \gls{mac} as bus arbite
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/controlfield.png}
+    \includegraphics[width=1\textwidth]{figures/ctrl}
+%    \includegraphics[width=0.5\textwidth]{figures/controlfield.png}
     \caption{Control Field}
     \label{fig:ctrlfield}
 \end{figure}
@@ -88,7 +89,8 @@ Three frame formats are defined: L\_Data frames are used for sending a data payl
 the bus. L\_Poll\_Data frames are used to request data from an individual knx device or a group of devices. Acknowledgement frames are used to provide a reliable
 transport mechanism, i.e. to acknowledge the reception of a frame by a knx device. 
 
-For L\_Data\_Frame, 2 different formats are defined: standard frames \ref{fig:stdframe} and extended frames \ref{fig:extframe}. While standard frames can bear up to
+For L\_Data\_Frame, 2 different formats are defined: standard frames, as shown in figure \ref{fig:stdframe} and extended frames, see figure \ref{fig:extframe}.
+While standard frames can bear up to
 15 bytes of application data, extended frames allow the transmission of up to 254 bytes of data.
 
 \subsubsection{Standard L\_Data\_Frame}
@@ -102,14 +104,14 @@ frame is defined as an odd parity over all preceding bytes, which represents a l
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/standardframe.png}
+    \includegraphics[width=0.8\textwidth]{figures/standardframe}
     \caption{Standard Frame}
     \label{fig:stdframe}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/standardFrame.png}
+    \includegraphics[width=0.8\textwidth]{figures/standardFrame.eps}
     \caption{Standard Frame, in detail}
     \label{fig:stdFrameDetail}
 \end{figure}
@@ -123,22 +125,22 @@ as escape code. After that, the payload and the check byte, as defined above, fo
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/extendedframe.png}
+    \includegraphics[width=0.8\textwidth]{figures/extendedframe}
     \caption{Extended Frame}
     \label{fig:extframe}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/extendedframeCTRLE.png}
+    \includegraphics[width=0.8\textwidth]{figures/CTRLE}
     \caption{Extended Frame CTRLE field}
     \label{fig:ctrle}
 \end{figure}
 
 \subsubsection{L\_Poll\_Data Frame}
 
-These frames serve as data requests of the poll-data master for a maximum of 15 bytes(payload of a standard
-data frame) and start with a control field, as defined, followed by the 2 byte source address
+These frames serve as data requests of the poll-data master for a maximum of 15 bytes
+and start with a control field, as defined, followed by the 2 byte source address
 of the sender(called Poll\_Data Master). The following 2 byte destination address is 
 used to address up to 15 poll slaves, all belonging to the same poll group. The number of
 exptected bytes and the check octet follow.
@@ -156,7 +158,7 @@ of one byte, sent after a fixed timespan after reception of the frame.
 
 Two different kinds of addresses are defined: group- and individual addresses, which type is used is determined by the 'address type' flag in the
 control field of the datagram(0 = individual address). While the source address always is an individual address and must be unique
-within the network, the destination address can be of type group or individual (see figure \ref{fig:knxAddr} for the layout). W
+within the network, the destination address can be of type group or individual (see figure \ref{fig:knxAddr} for the layout).
 
 For poll-data frames, the destination address determines the \textit{poll group address} which must be unique within the physical segment.
 
@@ -164,9 +166,8 @@ Poll data responses as well as acknowledgement frames each just contain 1 byte, 
 
 \begin{figure}
  \centering
- \subfloat[]{\includegraphics[width=2in]{figures/ia.png}}          
- \subfloat[]{\includegraphics[width=2in]{figures/ga.png}}      
- \caption{KNX individual(a) and group(b) addresses} 
+    \includegraphics[width=0.8\textwidth]{figures/addresses}
+ \caption{KNX individual and group addresses} 
 \label{fig:knxAddr}
 %% \subfloat[b]{0.3\textwidth}            
 \end{figure}
@@ -188,7 +189,7 @@ Up to to 3 retransmissions are allowed if the sent datagram is not acknowledged.
 \ref{fig:handshake}.
 
 All other modes are unreliable, i.e. unacknowledged, transport mechanisms and can be used to address individual addresses, group addresses or all devices in the
-network. For broadcasts, the special \gls{knx} address 0x0000 is reserved. 
+network. For the latter mode, the special \gls{knx} broadcast address 0x0000 is reserved. 
 The \gls{tpci}, included in the control field, determines the type of the \gls{tpdu} and also posseses a 4 bit sequence number by which duplicate datagrams, caused by damaged 
 acknowledge-frames, can be discarded.
 

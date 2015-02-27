@@ -1,12 +1,13 @@
-\documentclass[a4paper,11pt,oneside,openany]{memoir}
+\documentclass[a4paper,12pt,oneside,openright]{memoir}
 \chapterstyle{veelo}
+
+%\documentclass[draft,final]{vutinfth} % Remove option 'final' to obtain debug information.
 
 \usepackage{TUINFDA}
 \usepackage{url}
-\usepackage{hyperref}					% links in pdf
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}					% links in pdf
 \usepackage{graphicx}            			% Figures
 \usepackage{verbatim}            			% Code-Environment
-\usepackage{hyperref}
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage{caption}
@@ -25,7 +26,7 @@
 \makeglossary
 \loadglsentries{acronyms}
 
-\usepackage[backend=bibtex, soring=none]{biblatex}
+\usepackage[backend=bibtex, sorting=none]{biblatex}
 \addbibresource{references.bib}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,6 +160,8 @@
 \input{chapters/knxGeneral}
 \input{chapters/knxLayers}
 \input{chapters/knxSecurity}
+\input{chapters/knxConclusion}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

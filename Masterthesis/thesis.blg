@@ -17,47 +17,50 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: thesis-blx.bib
 Database file #2: references.bib
+Warning--string name "april" is undefined
+--line 307 of file references.bib
 Biblatex version: 1.7
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-You've used 20 entries,
+You've used 29 entries,
             6019 wiz_defined-function locations,
-            1259 strings with 12338 characters,
-and the built_in function-call counts, 60821 in all, are:
-= -- 2435
-> -- 2143
-< -- 537
-+ -- 725
-- -- 745
-* -- 4383
-:= -- 3759
+            1325 strings with 14875 characters,
+and the built_in function-call counts, 89675 in all, are:
+= -- 3731
+> -- 3101
+< -- 820
++ -- 1059
+- -- 1044
+* -- 6308
+:= -- 5364
 add.period$ -- 0
-call.type$ -- 20
-change.case$ -- 298
-chr.to.int$ -- 60
-cite$ -- 38
-duplicate$ -- 6796
-empty$ -- 6385
-format.name$ -- 1306
-if$ -- 13782
+call.type$ -- 29
+change.case$ -- 483
+chr.to.int$ -- 70
+cite$ -- 56
+duplicate$ -- 10083
+empty$ -- 9420
+format.name$ -- 1885
+if$ -- 20399
 int.to.chr$ -- 0
-int.to.str$ -- 57
+int.to.str$ -- 83
 missing$ -- 0
-newline$ -- 544
-num.names$ -- 932
-pop$ -- 6103
+newline$ -- 782
+num.names$ -- 1413
+pop$ -- 8934
 preamble$ -- 1
-purify$ -- 376
+purify$ -- 594
 quote$ -- 0
-skip$ -- 3579
+skip$ -- 5356
 stack$ -- 0
-substring$ -- 1445
-swap$ -- 2288
-text.length$ -- 437
+substring$ -- 2284
+swap$ -- 3382
+text.length$ -- 619
 text.prefix$ -- 1
 top$ -- 1
-type$ -- 732
+type$ -- 1074
 warning$ -- 0
-while$ -- 390
+while$ -- 547
 width$ -- 0
-write$ -- 523
+write$ -- 752
+(There was 1 warning)
