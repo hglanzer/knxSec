@@ -205,6 +205,129 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
+\entry{handbookLFSR}{inbook}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Menezes}{M.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Oorschot}{O.}%
+     {P.}{P.}%
+     {van}{v.}%
+     {}{}}%
+    {{}%
+     {S.}{S.}%
+     {Vanstone}{V.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {CRC Press}%
+  }
+  \strng{namehash}{MJOPvSV1}
+  \strng{fullhash}{MJOPvSV1}
+  \field{chapter}{Overview of Cryptography}
+  \field{pages}{196}
+  \field{title}{Handbook of Applied Cryptography}
+  \list{location}{1}{%
+    {New York}%
+  }
+  \field{year}{1997}
+\endentry
+
+\entry{feistel}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Feistel}{F.}%
+     {H.}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{FH1}
+  \strng{fullhash}{FH1}
+  \field{number}{5}
+  \field{pages}{15\bibrangedash 23}
+  \field{title}{Cryptography and Computer Privacy}
+  \field{volume}{228}
+  \field{journaltitle}{Scientific American}
+  \field{year}{1973}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{feistel1974block}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Feistel}{F.}%
+     {H.}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{FH1}
+  \strng{fullhash}{FH1}
+  \field{note}{US Patent 3,798,359}
+  \field{title}{Block cipher cryptographic system}
+  \verb{url}
+  \verb http://www.google.com/patents/US3798359
+  \endverb
+  \field{year}{1974}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{des}{online}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Standards}{S.}%
+     {National~Institute}{N.~I.}%
+     {of}{o.}%
+     {}{}}%
+    {{}%
+     {Technology}{T.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SNIoT1}
+  \strng{fullhash}{SNIoT1}
+  \field{title}{Data Encryption Standard {@ONLINE}}
+  \verb{url}
+  \verb http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf
+  \endverb
+  \field{year}{1979}
+\endentry
+
+\entry{cryptoEng}{inbook}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Ferguson}{F.}%
+     {N.}{N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Schneier}{S.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kohno}{K.}%
+     {T.}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Wiley}%
+  }
+  \strng{namehash}{FNSBKT1}
+  \strng{fullhash}{FNSBKT1}
+  \field{chapter}{Block Cipher Modes}
+  \field{title}{Cryptography Engineering}
+  \list{location}{1}{%
+    {Indianapolis}%
+  }
+  \field{year}{2010}
+\endentry
+
 \entry{1335465}{article}{}
   \name{author}{4}{}{%
     {{}%
@@ -814,6 +937,28 @@
   \field{journaltitle}{J. ACM}
   \field{month}{01}
   \field{year}{1967}
+\endentry
+
+\entry{moo}{online}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Standards}{S.}%
+     {National~Institute}{N.~I.}%
+     {of}{o.}%
+     {}{}}%
+    {{}%
+     {Technology}{T.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SNIoT1}
+  \strng{fullhash}{SNIoT1}
+  \field{title}{Recommendation for Block Cipher Modes of Operation {@ONLINE}}
+  \verb{url}
+  \verb http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf
+  \endverb
+  \field{year}{2001}
 \endentry
 
 \lossort

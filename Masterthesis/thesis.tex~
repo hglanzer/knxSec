@@ -13,6 +13,9 @@
 \usepackage{caption}
 \usepackage{subfig}
 
+\usepackage{float}
+
+
 % hglanzer: problem workstation@labor <--> laptop
 %\usepackage[lined,linesnumbered,algochapter]{algorithm2e} % Algorithm-Environment
 \usepackage[lined,linesnumbered,algochapter,norelsize]{algorithm2e} % Algorithm-Environment
@@ -27,7 +30,7 @@
 \loadglsentries{acronyms}
 
 \usepackage[backend=bibtex, sorting=none]{biblatex}
-\addbibresource{references.bib}
+\addbibresource{refarences.bib}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
