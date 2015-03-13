@@ -297,6 +297,48 @@
   \field{year}{1979}
 \endentry
 
+\entry{moo}{online}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Standards}{S.}%
+     {National~Institute}{N.~I.}%
+     {of}{o.}%
+     {}{}}%
+    {{}%
+     {Technology}{T.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SNIoT1}
+  \strng{fullhash}{SNIoT1}
+  \field{title}{Recommendation for Block Cipher Modes of Operation {@ONLINE}}
+  \verb{url}
+  \verb http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf
+  \endverb
+  \field{year}{2001}
+\endentry
+
+\entry{burda}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Burda}{B.}%
+     {K.}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BK1}
+  \strng{fullhash}{BK1}
+  \field{number}{11}
+  \field{pages}{235\bibrangedash 239}
+  \field{title}{Error Propagation in Various Cipher Block Modes}
+  \field{volume}{6}
+  \field{journaltitle}{International Journal of Computer Science and Network
+  Securit}
+  \field{year}{2006}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{cryptoEng}{inbook}{}
   \name{author}{3}{}{%
     {{}%
@@ -326,6 +368,121 @@
     {Indianapolis}%
   }
   \field{year}{2010}
+\endentry
+
+\entry{Merkle}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Merkle}{M.}%
+     {Ralph~C.}{R.~C.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \strng{namehash}{MRC1}
+  \strng{fullhash}{MRC1}
+  \field{issn}{0001-0782}
+  \field{number}{4}
+  \field{pages}{294\bibrangedash 299}
+  \field{title}{Secure Communications over Insecure Channels}
+  \field{volume}{21}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{Commun. ACM}
+  \field{month}{04}
+  \field{year}{1978}
+\endentry
+
+\entry{Barak09merklepuzzles}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Barak}{B.}%
+     {Boaz}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Mahmoody-ghidary}{M.-g.}%
+     {Mohammad}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{BBMgM1}
+  \strng{fullhash}{BBMgM1}
+  \field{booktitle}{In Advances in Cryptology — Crypto 2009, volume 5677 of
+  LNCS}
+  \field{pages}{374\bibrangedash 390}
+  \field{title}{Merkle puzzles are optimal: An O(n 2 )- query attack on key
+  exchange from a random oracle}
+  \field{year}{2009}
+\endentry
+
+\entry{1055638}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Diffie}{D.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hellman}{H.}%
+     {M.E.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{DWHM1}
+  \strng{fullhash}{DWHM1}
+  \field{number}{6}
+  \field{pages}{644\bibrangedash 654}
+  \field{title}{New directions in cryptography}
+  \field{volume}{22}
+  \field{journaltitle}{Information Theory, IEEE Transactions on}
+  \field{year}{1976}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{RSA}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Rivest}{R.}%
+     {R.~L.}{R.~L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shamir}{S.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Adleman}{A.}%
+     {L.}{L.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{authentication, cryptography, digital signatures, electronic funds
+  transfer, electronic mail, factorization, message-passing, prime number,
+  privacy, public-key cryptosystems, security}
+  \strng{namehash}{RRLSAAL1}
+  \strng{fullhash}{RRLSAAL1}
+  \field{number}{2}
+  \field{pages}{120\bibrangedash 126}
+  \field{title}{A Method for Obtaining Digital Signatures and Public-key
+  Cryptosystems}
+  \field{volume}{21}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{Commun. ACM}
+  \field{month}{02}
+  \field{year}{1978}
 \endentry
 
 \entry{1335465}{article}{}
@@ -564,69 +721,6 @@
   \field{title}{{EIBsec: A Security Extension to KNX/EIB}}
   \field{month}{11}
   \field{year}{2006}
-\endentry
-
-\entry{Rivest:1978:MOD:359340.359342}{article}{}
-  \name{author}{3}{}{%
-    {{}%
-     {Rivest}{R.}%
-     {R.~L.}{R.~L.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Shamir}{S.}%
-     {A.}{A.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Adleman}{A.}%
-     {L.}{L.}%
-     {}{}%
-     {}{}}%
-  }
-  \list{publisher}{1}{%
-    {ACM}%
-  }
-  \keyw{authentication, cryptography, digital signatures, electronic funds
-  transfer, electronic mail, factorization, message-passing, prime number,
-  privacy, public-key cryptosystems, security}
-  \strng{namehash}{RRLSAAL1}
-  \strng{fullhash}{RRLSAAL1}
-  \field{number}{2}
-  \field{pages}{120\bibrangedash 126}
-  \field{title}{A Method for Obtaining Digital Signatures and Public-key
-  Cryptosystems}
-  \field{volume}{21}
-  \list{location}{1}{%
-    {New York, NY, USA}%
-  }
-  \field{journaltitle}{Commun. ACM}
-  \field{month}{02}
-  \field{year}{1978}
-\endentry
-
-\entry{1055638}{article}{}
-  \name{author}{2}{}{%
-    {{}%
-     {Diffie}{D.}%
-     {W.}{W.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Hellman}{H.}%
-     {M.E.}{M.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{DWHM1}
-  \strng{fullhash}{DWHM1}
-  \field{number}{6}
-  \field{pages}{644\bibrangedash 654}
-  \field{title}{New directions in cryptography}
-  \field{volume}{22}
-  \field{journaltitle}{Information Theory, IEEE Transactions on}
-  \field{year}{1976}
-  \warn{\item Invalid format of field 'month'}
 \endentry
 
 \entry{Borisov:2004:OCW:1029179.1029200}{inproceedings}{}
@@ -937,28 +1031,6 @@
   \field{journaltitle}{J. ACM}
   \field{month}{01}
   \field{year}{1967}
-\endentry
-
-\entry{moo}{online}{}
-  \name{author}{2}{}{%
-    {{}%
-     {Standards}{S.}%
-     {National~Institute}{N.~I.}%
-     {of}{o.}%
-     {}{}}%
-    {{}%
-     {Technology}{T.}%
-     {}{}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{SNIoT1}
-  \strng{fullhash}{SNIoT1}
-  \field{title}{Recommendation for Block Cipher Modes of Operation {@ONLINE}}
-  \verb{url}
-  \verb http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf
-  \endverb
-  \field{year}{2001}
 \endentry
 
 \lossort

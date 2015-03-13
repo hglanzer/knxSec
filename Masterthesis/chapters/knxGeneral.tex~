@@ -7,8 +7,9 @@ developed by the KNX association implementing the EN50090 standard for home and 
 To provide platform independence, the standard uses a layered structure, based on the \gls{iso} / \gls{osi}. Different kind of physical backends are supported,
 allowing it to be used in different scenarios.
 
-\gls{eib} already supported interoperability between products from different manufacturers. This was achieved by the definition of \gls{eis}, which standardizes
-the data transported inside the datragrams. \gls{knx} continued this efforts with the introduction of common \gls{dt}, distinguishable through unique ids, thus
+\gls{eib} already supported interoperability between products from different manufacturers. This was achieved by
+the definition of the \gls{eis}, which standardizes
+the data transported inside the datragrams. \gls{knx} continued this efforts with the introduction of common \glspl{dt}, distinguishable through unique ids, thus
 standardizing their encoding, format, range and unit.
 Every \gls{dt} groups related \gls{dpt}, the actual control variables of the network, together, allowing 
 

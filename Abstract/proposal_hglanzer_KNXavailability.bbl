@@ -91,39 +91,6 @@
   \field{year}{2006}
 \endentry
 
-\entry{rfc2246}{report}{}
-  \name{author}{2}{}{%
-    {{}%
-     {Dierks}{D.}%
-     {T.}{T.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Allen}{A.}%
-     {C.}{C.}%
-     {}{}%
-     {}{}}%
-  }
-  \list{publisher}{1}{%
-    {{RFC Editor}}%
-  }
-  \strng{namehash}{DTAC1}
-  \strng{fullhash}{DTAC1}
-  \field{howpublished}{Internet Requests for Comments}
-  \field{number}{2246}
-  \field{pages}{1\bibrangedash 80}
-  \field{title}{{The TLS Protocol Version 1.0}}
-  \verb{url}
-  \verb https://www.ietf.org/rfc/rfc2246.txt
-  \endverb
-  \list{institution}{1}{%
-    {{RFC Editor}}%
-  }
-  \field{type}{{RFC}}
-  \field{year}{1999}
-  \warn{\item Invalid format of field 'month'}
-\endentry
-
 \entry{Rivest:1978:MOD:359340.359342}{article}{}
   \name{author}{3}{}{%
     {{}%
@@ -187,6 +154,39 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
+\entry{rfc2246}{report}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Dierks}{D.}%
+     {T.}{T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Allen}{A.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {{RFC Editor}}%
+  }
+  \strng{namehash}{DTAC1}
+  \strng{fullhash}{DTAC1}
+  \field{howpublished}{Internet Requests for Comments}
+  \field{number}{2246}
+  \field{pages}{1\bibrangedash 80}
+  \field{title}{{The TLS Protocol Version 1.0}}
+  \verb{url}
+  \verb https://www.ietf.org/rfc/rfc2246.txt
+  \endverb
+  \list{institution}{1}{%
+    {{RFC Editor}}%
+  }
+  \field{type}{{RFC}}
+  \field{year}{1999}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{Vaudenay02securityflaws}{inproceedings}{}
   \name{author}{1}{}{%
     {{}%
@@ -205,6 +205,56 @@
   \field{title}{Security Flaws Induced by CBC Padding - Applications to SSL,
   IPSEC, WTLS}
   \field{year}{2002}
+\endentry
+
+\entry{cryptoeprint}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Krawczyk}{K.}%
+     {Hugo}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KH1}
+  \strng{fullhash}{KH1}
+  \field{howpublished}{Cryptology ePrint Archive, Report 2001/045}
+  \field{note}{\url{http://eprint.iacr.org/}}
+  \field{title}{The order of encryption and authentication for protecting
+  communications (Or: how secure is SSL?)}
+  \field{year}{2001}
+\endentry
+
+\entry{ocb}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Rogaway}{R.}%
+     {Phillip}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bellare}{B.}%
+     {Mihir}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Black}{B.}%
+     {John}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \strng{namehash}{RPBMBJ1}
+  \strng{fullhash}{RPBMBJ1}
+  \field{number}{3}
+  \field{pages}{365\bibrangedash 403}
+  \field{title}{OCB: A Block-cipher Mode of Operation for Efficient
+  Authenticated Encryption}
+  \field{volume}{6}
+  \field{journaltitle}{ACM Trans. Inf. Syst. Secur.}
+  \field{month}{08}
+  \field{year}{2003}
 \endentry
 
 \entry{Borisov:2004:OCW:1029179.1029200}{inproceedings}{}
@@ -239,84 +289,6 @@
     {Washington DC, USA}%
   }
   \field{year}{2004}
-  \warn{\item Can't use 'location' + 'address'}
-\endentry
-
-\entry{Goldberg:2009:MOM:1653662.1653705}{inproceedings}{}
-  \name{author}{4}{}{%
-    {{}%
-     {Goldberg}{G.}%
-     {I.}{I.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Ustao\u{g}lu}{U.}%
-     {B.}{B.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Van~Gundy}{V.~G.}%
-     {M.~D.}{M.~D.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Chen}{C.}%
-     {H.}{H.}%
-     {}{}%
-     {}{}}%
-  }
-  \list{publisher}{1}{%
-    {ACM}%
-  }
-  \keyw{deniability, instant messaging, multi-party, privacy}
-  \strng{namehash}{GI+1}
-  \strng{fullhash}{GIUBVGMDCH1}
-  \field{booktitle}{Proceedings of the 16th ACM Conference on Computer and
-  Communications Security}
-  \field{pages}{358\bibrangedash 368}
-  \field{series}{CCS '09}
-  \field{title}{Multi-party Off-the-record Messaging}
-  \list{location}{1}{%
-    {Chicago, Illinois, USA}%
-  }
-  \field{year}{2009}
-  \warn{\item Can't use 'location' + 'address'}
-\endentry
-
-\entry{Liu:2013:IGO:2517840.2517867}{inproceedings}{}
-  \name{author}{3}{}{%
-    {{}%
-     {Hong}{H.}%
-     {L.}{L.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Vasserman}{V.}%
-     {E.~Y.}{E.~Y.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Hopper}{H.}%
-     {N.}{N.}%
-     {}{}%
-     {}{}}%
-  }
-  \list{publisher}{1}{%
-    {ACM}%
-  }
-  \keyw{authentication, group communication, privacy, repudiability,
-  robustness}
-  \strng{namehash}{HLVEYHN1}
-  \strng{fullhash}{HLVEYHN1}
-  \field{booktitle}{Proceedings of the 12th ACM Workshop on Workshop on Privacy
-  in the Electronic Society}
-  \field{pages}{249\bibrangedash 254}
-  \field{series}{WPES '13}
-  \field{title}{Improved Group Off-the-record Messaging}
-  \list{location}{1}{%
-    {Berlin, Germany}%
-  }
-  \field{year}{2013}
   \warn{\item Can't use 'location' + 'address'}
 \endentry
 

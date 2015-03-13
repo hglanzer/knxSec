@@ -43,10 +43,6 @@ PhL \gls{TP}-1-64 and PhL \gls{TP}-1-256, which is backward compatible to the fo
 the connection of up to 64 devices, the latter one allows up to 256 devices connected in a linear, star, tree or
 mixed topology as one physical segment, also called a \textit{line}.
 
-In \gls{knx}, 4 different kinds of devices exist: standard devices, bridges, routers and gateways.
-
-An end device is a standard device FIXME
-
 Bridges do not possess their own address and are used for galvanic separation of physical segments and for extension of TP-1-64 segments to allow up to 256 devices.
 Therefore, they acknowledge layer 2 frames received on one side and forward them to their second interface. 
 
@@ -214,7 +210,7 @@ This layer is responsible for maintaining sessions, i.e. it provides services to
 
 \subsection{Presentation Layer}
 
-This layer allows a system-independent data representation, which is not necessary in KNX because the use of standardized \gls{dt}.
+This layer allows a system-independent data representation, which is not necessary in KNX because the useage of standardized \glspl{dt}.
 
 \subsection{Application Layer}
 

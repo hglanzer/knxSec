@@ -69,7 +69,7 @@ task, i.e. routing traffic, they
 EIBsec uses two different keys: in normal mode, a session with the keyserver is established to retrieve the session key, establishing a secure channel.
 This mode uses encryption-only by utilizing a \gls{psk}, integrity must therefor be guaranteed by the sender of the message. Counter mode is used for transmitting management and
 group data over the secure channel. A simple \gls{crc} is added to the payload before encryption and shall guarantee integrity. Booth modes encrypt the traffic
-on transport level, allowing standard routers to handle the datagrams. As block cipher, \gls{aes} is used in \gls{ctr} mode.
+on transport level, allowing standard routers to handle the datagrams. As block cipher, \gls{aes}-128 is used in \gls{ctr} mode.
 
 FIXME: zitieren / originalpaper...?
 
