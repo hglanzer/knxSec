@@ -76,7 +76,7 @@ or disabling burglar alarms. Passive attackers can monitor the bus traffic to an
 to develop further attack strategies.
 
 %Such attacks can be conducted by passive advisories by replay attacks or eavesdropping, interception, altering and injecting of arbitrary telegrams.
-Availability, in general, can only be achieved by redundancy, i.e. by using replicated resources. Therefore, all
+High availability, in general, can only be achieved by redundancy, i.e. by using replicated resources. Therefore, all
 resources needed for transmitting data between two points must exist redundantly and independently from 
 each other.
 
@@ -106,7 +106,7 @@ improved availability with integrated security mechanisms.
 \section{Expected results}
 
 The overall goal of this work is to develop a concept for a secure and high-available KNX network that also considers interoperability and compatibility, 
-allowing the usage in environments with increased safety-critical requirements. 
+allowing the usage in environments even with increased safety-critical requirements. 
 To achieve this, so called security gateways will be used. These gateways will possess two kinds of KNX interfaces: one kind of interface will be
 connected to standard, unsecured KNX networks.
 The second interface constitutes the entry point to a secured KNX network which is connected to the secure interfaces of other
@@ -142,7 +142,7 @@ KNX lines.
 
 It is important to note that the practical part of this work will only
 handle the twisted-pair media of KNX (i.e. KNX TP-1), although the basic principles can be deployed in a modified manner in
-wireless and power-line networks as well.
+wireless and power line networks as well.
 
 A threat analysis will be conducted to prove that the system can withstand the defined attacks and is robust,
 i.e. that it can recover from erroneous states. This will be done by exposing the demonstration network to the various defined attacks.  
@@ -247,15 +247,15 @@ which outcome is used.
 Modern cryptography, emerged from primitive ciphers over thousands of years, is nowadays a well-studied topic. Basic properties of all cryptographic systems
 are the data format, the kind of keys used, the mode of operation and the maximum lifetime of the keys: 
 
-cryptographic data can be processed in the form of blocks or in the form of continuous
+Cryptographic data can be processed in the form of blocks or in the form of continuous
 data streams. Stream ciphers can be provable "perfect secret" in principle
 and can be implemented as simple as bitwise xor'ing the key and the data (i.e., the one-time pad). 
 
 Block ciphers come in 2 flavors: Pseudo Random Functions (PRF), and Pseudo Random Permutations (PRP). While the latter one is reversible,
-this is not true for the first one. Therefor, PRFs are only used in constructions which do not depend on a reverse function, for
+this is not true for the first one. Therefore, PRFs are only used in constructions which do not depend on a reverse function, for
 example "Feistel Networks". A widely used encryption standard is the Advanced Encryption Standard (AES), derived from a block cipher
 called "Rijndel".
-This construction is reversible (i.e. is a PRP) and is also called a "substitution-permutation-network", named after it's 2 basic building blocks.
+This construction is reversible (i.e. is a PRP) and is also called a "substitution-permutation-network", named after its 2 basic building blocks.
  
  Two kinds of keys are distinguished: until the introduction of public key cryptography, all ciphers were symmetric ciphers.
  Well known examples
@@ -270,7 +270,7 @@ This construction is reversible (i.e. is a PRP) and is also called a "substituti
  %kind of asymmetric key which is used to establish session keys, which can be used in a symmetric manner.
  
  The mode of operation defines how large messages of arbitrary size are processed.
- Modes for encryption and authentication exist, some modes can also be used for booth tasks (i.e. cipher block chaining, CBC). Additionally, this property 
+ Modes for encryption and authentication exist, some modes can also be used for both tasks (i.e. cipher block chaining, CBC). Additionally, this property 
  decides the order of authenticating and encrypting the data. Depending on this ordering and
  what modes are used for authentication and encryption, attacks like padding oracles may be possible \cite{Vaudenay02securityflaws}. Correct ordering
  mitigates such attacks \cite{cryptoeprint} and leads to a combined security scheme called Authenticated Encryption (AE) \cite{ocb}.
@@ -292,10 +292,10 @@ Depending on the mode of operation and the length of the used keys, there exists
 % secure, because a predictable PRNG turns all other cryptographic measurements useless.
 \\
 
-As stated earlier, KNX defines no methods for securing datagrams in the original proposal - a situation comparable to the origin IPv4 \cite{rfc791} standard:
-
-IPv4, which is until today one of the basic building blocks for worldwide internet communication, suffers a serious limitation because it
-does not offer confidentiality and integrity on the network level. The problem was mitigated in 2 ways: one solution was 
+As stated earlier, KNX defines no methods for securing datagrams in the original proposal - a situation comparable to the origin IPv4 \cite{rfc791} standard.
+%IPv4, which is until today one of the basic building blocks for worldwide internet communication, suffers a serious limitation because it
+%does not offer confidentiality and integrity on the network level.
+The problem was mitigated in 2 ways: one solution was 
 the introduction of another layer - TLS -  above the IPv4 layer, responsible for handling security.
 The second way was the design of the IPsec \cite{rfc4301} 
 extension, which authenticates and encrypts data sent with IPv4 by defining two security services,
@@ -304,7 +304,6 @@ Key Exchange (IKE) is used as key negotiating protocol. This way,
 IPsec can provide end-to-end encryption and protect the payload of higher level protocols like TCP or UDP.
 
 For KNX, the following extensions exist:
-
 KNX Application Note 157 specifies an optional security layer for KNX networks \cite{knx_data_sec}, comparable to TLS.
 KNX Application Note 158 improves security for KNX/IP networks \cite{knx_ip_sec}.
 EIBsec uses key servers to provide secure management and group communication and implements a proof of

@@ -590,70 +590,177 @@ $C[0] = O_0 \bigoplus M[0]$\\
 
 \section{Public Key Cryptography}
 
-Public Key Cryptography solves the problem of establishing a secure channel by using an unsecured one.
-Here sender and recipients use two different keys: one for encryption, called \textit{public key}, the other
-for decryption, called \textit{private key}. This key pair belongs together, hence this scheme is also called \textit{asymmetric} encryption. A key requirement
+Public Key Cryptography solves the problem of establishing a secure channel by using an insecure one.
+Here sender and recipient use two different keys: one for encryption, called \textit{public key}, the other
+for decryption, called \textit{private key}. This key pair belongs together, hence this scheme is also called \textit{asymmetric} encryption. A fundamental requirement
 is that it must be hard
 to derive the decryption key from the encryption key. This behavior is achieved by some kind of public known one-way function where it is computationally
 easy to calculate the result of $f(x) = y$, but only given $y$, it is computationally - in the domain of processing power and/or memory - hard
-to reverse this function to get $x$, although the reverse function may exist in mathematical sense. This is even a desired property. Otherwise
-it may facilitate to find the argument that led to the output, i.e. take the constant function, where it is trivial to find the argument.
-By that fact, the encryption or public key can be published in some sort of dictionary without compromising the private key. An entity wanting to
-send an encrypted message to a receiver can then look up the receiver's public key, encrypt the message and send the resulting
-ciphertext to the recipient, who then can decrypt the message. It is remarkable that any algorithm establishing public keys must authenticate it's 
-participants, or it will be vulnerable to man-in-the-middle attacks.
+to reverse this function to get $x$.
+The basic idea for such a one-way function was formulated for the first time in the year 1874 by William Stanley Jevons stating:
+\\
+\\
+\textit{"Can the reader say what two numbers multiplied together will produce the number 8616460799? I think it unlikely that anyone but myself will
+ever know."} \cite{wStanley} 
+\\
+\\
+Although his statement was not related to cryptography at all, and of course factoring of much bigger numbers is doable nowadays, this statement exactly describes
+the spirit of public key systems, and the security of RSA, introduced below, is directly connected to the inability to factor large numbers in reasonable time.
+
+Because disclosure of the public key does not affect the security of the scheme, the public key can be published in some sort of dictionary.
+An entity wanting to send an encrypted message to a receiver can then look up the receiver's public key, encrypt the message and send the resulting
+ciphertext to the recipient, who then can decrypt the message. 
+\\
+\\
+It is remarkable that any algorithm establishing public keys must authenticate it's  participants, or it will be vulnerable to man-in-the-middle attacks.
 
 \subsection{Merkle Puzzles}
 
 In \cite{Merkle}, Ralph C. Merkle developed an algorithm for key exchange between two parties. While the algorithm is based on symmetric ciphers and is
 not practicable, it motivates the usage of public key systems based on algebraic structures and is therefor introduced.
-
+\\
+\\
 The key idea is that the necessary work by the two legitimate parties when negotiating a key is bounded by $O(n)$, while an adversary must spend $O(n^2)$ to 
 also calculate the key, thus generating a quadratic gap. 
 Merkle defines a puzzle as cipher text that is supposed to be broken. This can be achieved by restricting the size of the symmetric key used such that an
-exhaustive search can be finished in feasible time. Every puzzle contains an id and key, booth chosen randomly, as well as a static string,
+exhaustive search can be finished in feasible time. Every puzzle contains an id and a session key, booth chosen randomly, as well as a static string,
 known to all participants.
 
 The party initiating the key exchange, called $X$, generates $n$ such puzzles and sends all of them to the receiver $Y$. $Y$ picks one puzzle at random and
-decrypts it by trying all possible keys. Because of the static string inside the puzzle, $Y$ knows for sure when the correct key has been tried,
-extracts the key and sends the corresponding id back to $X$. Subsequently, booth parties can use the key referenced by the id for encryption.
-An eavesdropper $Z$, monitoring all puzzles, cannot directly determine which of them is containing the returned id and therefor does not know the key the 
+decrypts it by trying all possible keys. Because of the static string inside the puzzle, $Y$ knows for sure when the correct key has been tried.
+$Y$ then extracts the session key and sends the corresponding id back to $X$. Subsequently, booth parties can use the session key referenced by the id for encryption.
+An eavesdropper $Z$, monitoring all puzzles, cannot directly determine which of them is containing the returned id and therefor does not know the session key the 
 two parties agreed on - the only possibility for $Z$ is to attack \textbf{all} puzzles, squaring the effort spent by $X$ and $Y$.
 \\
 
 If, for example, every puzzle can be broken by $2^{32}$ computations, and $2^{32}$ different puzzles are used, $X$ must prepare, save and send $2^{32}$ puzzles
-to $Y$, who in turn must try $2^{32}$ different keys. $Z$ must crack all $2^{32}$, each with effort $2^{32}$, thus resulting in $2^{64}$ processing steps.
+to $Y$, who in turn must try $2^{32}$ different keys. $Z$ must crack all $2^{32}$ puzzles, each with effort $2^{32}$, thus resulting in $2^{64}$ processing steps.
 \\
 
 While this algorithm is very wasteful in regards of processing power, memory and communication capacity, such a protocol would be useful if a more-than-quadratic
 blowup could be achieved, but unfortunately, for all algorithms based on symmetric ciphers, this quadratic gap is the best that can be achieved,
 as shown in \cite{Barak09merklepuzzles}. 
+\\
+  
+In the next sections, two important public key algorithms are introduced: \gls{dh} key exchange and \gls{ecc}. Both of them are based on finite fields,
+therefore a short mathematical introduction is given first.
 
-\subsection{Discrete Logarithm Systems}
+\subsubsection{Finite Fields}\label{finiteFields}
 
-Whitfield Diffie and Martin Hellman who proposed a way to solve the problem for key-exchange based on finite fields
-when they published their paper \textit{New Directions in Cryptography} in the year 1976 \cite{1055638}. The security of this concept
-is based on the hardness of the \textit{Discrete Logarithm Problem}. 
+A field consists of a set $\mathcal{F}$ together with two operations $\cdot$, namely addition "+" and multiplication "*", satisfying the following properties:
 
-With the original Diffie-Hellman algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
+\begin{itemize}
+ \item  Closure: for all elements from $\mathcal{F}$, the set is closed under the defined operations, i.e. applying an operator $\cdot$ to two elements from the set results in an
+element also belonging to the set.
+ \item Associativity and Commutativity hold, i.e. $a \cdot (b \cdot c) = (a \cdot b) \cdot c$ and $a \cdot b = b \cdot a$
+ \item For all elements from the set $\mathcal{F}$ an identity element $e$ exists s.t. $a\cdot e = a$
+ \item For all elements from the set $\mathcal{F} \backslash \{0\}$ an inverse element exists s.t. $a\cdot a^{-1} = e$
+ \item Distributivity holds: $(a+b) \cdot c = a \cdot c + b \cdot c$ for all elements 
+\end{itemize}
+
+For a finite field, the size of the set 
+$\mathcal{F}$ is finite and called \textit{order} of the field, with the identities "0" for addition and "1" for
+multiplication. Inverses can be found to for all
+elements regarding addition s.t. $a + (-a) = e = 0$ and regarding multiplication for all elements except ${0}$ s.t. $a * a^{-1} = e = 1$.
+\\
+\\
+A finite field can be constructed by taking the set of integers $\mathbb{Z}\pmod p$, with $p \in \mathbb{P}$, thus restricting the set of all integers to the set
+$\mathbb{Z}_p = \{0, 1, ..., p-1\}$.
+By choosing $p$ as prime it is ensured that for any elements $a \in \mathcal{F} \backslash\{0\}$, a multiplicative inverse exists: $ a * a^{-1} = 1 \pmod p$.
+The set of numbers for which multiplicative inverses exist is called $\mathbb{Z}{_p}^*$, so for a $p$ being prime, $\mathbb{Z}_p = \mathbb{Z}{_p}^*$.
+\\
+
+By raising an element $a \in \mathbb{Z}_p$ to different powers, a subgroup of $\mathbb{Z}{_p}^*$
+is generated, a fact that follows from Fermat's little theorem stating that for $p$ being prime and raising $a$ to the power $p-1$, the outcome is congruent 1
+modulo p:
+\begin{center}
+ $a^{p-1} \equiv 1 \pmod p $ \\
+\end{center}
+Raising $a$ to higher powers results in:
+\\
+\\
+ $a^{p} \equiv a*a^{p-1} \equiv a \pmod p$ \\
+ ... \\
+ $a^{2p} \equiv a^2 * a^{p-1} * a^{p-1} \equiv a^2 \pmod p$ 
+\\
+\\
+Thus, generating higher powers than $p-1$ does not yield different outcomes. If by raising $a$ to $(p-1)$ different powers all elements from $\mathbb{Z}{_p}^*$ can
+be generated, $a$ is called \textit{primitive root} or \textit{generator}.
+If $p$ is prime it can be shown that at least one such generator $g$ must exist. Conversely this means that for
+all elements from  $\mathbb{Z}{_p}^*$ a unique exponent in the interval $[0, p-1]$ exists, called the \textit{discrete logarithm for the base $ g \pmod p$}. Finding
+the discrete logarithm is considered a hard problem, a fact that is exploited by the \gls{dh} key exchange algorithm.
+\\
+
+\subsection{\gls{dh} Key-Exchange}
+
+Whitfield Diffie and Martin Hellman proposed a way to solve the problem for key-exchange based on finite fields
+when they published their paper \textit{New Directions in Cryptography} in the year 1976 \cite{1055638}. The algorithm enables two entities to agree on a 
+shared secret which never has to be transmitted between them. The security of this concept.
+is based on the hardness of the \textit{Discrete Logarithm Problem}.
+
+With the original \gls{dh} algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
 then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, q, g\}$, where $p$ is a 
 large prime, $q$ is a prime divisor of $p-1$, and $g$ is a generator of the cyclic group ${Z_p}^*$ in the range $[1, p-1]$. These parameters are not secret and
 can thus be sent over an unsecured channel.
-Additionally, each entity randomly chooses an integer $x$ from the interval $[1, q-1]$, and calculates the value  $y = g^x \pmod p$. $x$ is the private key,
+Additionally, each entity randomly chooses an integer $x$ from the interval $[1, q-1]$, and calculates the value $y = g^x \pmod p$. $x$ is the private key,
 $y$, which is computationally easy to calculate, is the public key. $A$ sends its public key $y_A \equiv g^{x_A} \pmod p$ to $B$, and $B$ its public key
-$y_B \equiv g^{x_B} \pmod p$ to $A$. Due to the characteristics of exponentiation, $A$ and $B$ can now easily derive the shared secret by using it's counterpart's
+$y_B \equiv g^{x_B} \pmod p$ to $A$. Due to the characteristics of exponentiation, $A$ and $B$ can now easily derive the shared secret by using its counterpart's
 public key and raising it to the power of it's own private key in the domain of ${Z_p}^*$:
 
 \begin{center}
- $k_B \equiv {y_A}^{x_B} \equiv {g^{x_A}}^{x_B} \equiv g^{x_A*x_B} \pmod p = k_A \equiv {y_B}^{x_A} \equiv g{^{x_B}}^{x_A} \equiv g^{x_B*x_A} \pmod p $
+ $k_B \equiv {y_A}^{x_B} \equiv (g^{x_A})^{x_B} \equiv g^{x_A*x_B} \pmod p $\\
+ $ = $ \\
+ $ k_A \equiv {y_B}^{x_A} \equiv g(^{x_B})^{x_A} \equiv g^{x_B*x_A} \pmod p $
 \end{center}
-
-An eavesdropper that intercepts the initial sent paramter set $\{p, g, q\}$ and the public keys $y_A$ and $y_B$ and that wants to calculate the shared secret
-$k_A = K_B$  must therefore the Discrete Logarithm Problem. FIXME: security analysis of DLP
+An eavesdropper that intercepts the initially sent parameter set $\{p, g, q\}$ and the public keys $y_A$ and $y_B$ and that wants to calculate the shared secret
+$k_A = K_B$  must therefore calculate the discrete logarithm of $y_A$ or $y_B$ to the base $p$, i.e. must solve the \gls{dlp}, a hard problem as shown in
+section \ref{finiteFields}.
 
 \subsection{Diffie-Hellman based on Elliptic Curves}
 
 \subsection{RSA}
+
+RSA, published in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman \cite{RSA}, relies on the hardness of finding the prime factors of a big composite number.
+In contrast to \gls{dh}, RSA is not directly connected to key negotiation, but can instead be used to encrypt \textit{and} sign messages. 
+
+For key generation, 
+two large primes $p, q$, which should be of about same size, are chosen randomly, with $N = pq$. Additionally, a public exponent $e$ and a private exponent $d$ are chosen s.t.
+\begin{align}\label{ed}
+ e * d \equiv 1 \pmod {\varphi(N)}
+\end{align}
+$\varphi(N)$, Euler's totient function, counts the number of integers relatively prime to $N$. For a prime $p$, $\varphi(p) = (p-1)$, therefore for the product
+$p*q$ of two different primes, $\varphi(p*q) = (p-1) * (q-1)$. 
+The public key consists of the pair
+\begin{center}
+ $(N, e)$
+\end{center}
+and the private key of the pair
+\begin{center}
+ $(N, d)$
+\end{center}
+To encrypt, the message $M$ must be converted to an integer. Then, the sender uses the recipients public key and raises $M$ to the power of $e \pmod N$:
+\begin{center}
+ $C \equiv M^e \pmod N$
+\end{center}
+To decrypt, the receiver uses his own private key to raise $C$ to the power of $d \pmod N$:
+\begin{align}\label{decrypt}
+ M' \equiv C^d \equiv M^{d*e} \bmod N
+\end{align}
+From the way $e$ and $d$ have been chosen in \ref{ed} it follows that 
+\begin{align}\label{ed2}
+ e*d = k * \varphi(N) + 1, k \in \mathbb{Z} 
+\end{align}
+Inserting \ref{ed2} in equation \ref{decrypt} yields:
+\begin{align}\label{cong}
+  M' \equiv M^{k * \varphi(N) + 1} \equiv M* M^{k * \varphi(N)} \pmod N
+\end{align}
+with Euler's theorem stating
+\begin{align}
+a^{\varphi(N)} \equiv 1 \pmod N
+\end{align}
+Therefore, \ref{cong}
+
+
 
 \subsection{Authenticity}\label{authenticity}
 
@@ -783,17 +890,3 @@ and \textit{maintainability}, so that the system can be repaired in the case of 
 In case of a secure system, another important property is \textit{confidentiality}, which means that no information is disclosed to unauthorized 
 entities.
 To achieve 
-
-\subsection{Finite fields}
-
-\subsection{One Way functions}
-
-The idea for this concept was formulated for the first time in the year 1874 by William Stanley Jevons in his book
-'The Principles of Science'(page 144).
-
-\section{Propabilistic Theory}
-
-
-
-FIXME: comutationally secure vs. unconditionally secure, i.e. one time pad(perfect secrecy?)
-FIXME: MERKLE puzzles

@@ -30,7 +30,7 @@
 \loadglsentries{acronyms}
 
 \usepackage[backend=bibtex, sorting=none]{biblatex}
-\addbibresource{refarences.bib}
+\addbibresource{references.bib}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

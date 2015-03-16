@@ -370,6 +370,24 @@
   \field{year}{2010}
 \endentry
 
+\entry{wStanley}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Stanley~Jevons}{S.~J.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SJW1}
+  \strng{fullhash}{SJW1}
+  \field{pages}{144}
+  \field{title}{The Principles of Science"}
+  \list{location}{1}{%
+    {London}%
+  }
+  \field{year}{1913}
+\endentry
+
 \entry{Merkle}{article}{}
   \name{author}{1}{}{%
     {{}%
