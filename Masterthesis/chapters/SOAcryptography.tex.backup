@@ -720,16 +720,23 @@ section \ref{finiteFields}.
 
 \subsection{RSA}
 
-RSA, published in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman \cite{RSA}, relies on the hardness of finding the prime factors of a big composite number.
+RSA, published in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman \cite{RSA} and formalized in \cite{pkcs1},
+relies on the hardness of finding the prime factors of a big composite number.
 In contrast to \gls{dh}, RSA is not directly connected to key negotiation, but can instead be used to encrypt \textit{and} sign messages. 
 
 For key generation, 
-two large primes $p, q$, which should be of about same size, are chosen randomly, with $N = pq$. Additionally, a public exponent $e$ and a private exponent $d$ are chosen s.t.
+two large primes $p, q$, which should be of about same size, are chosen randomly, with $N = pq$. Additionally, a public exponent $e$ and a private exponent
+$d$ are chosen s.t. they are multiplicative inverses to each other in $\pmod{\varphi(N)}$:
 \begin{align}\label{ed}
  e * d \equiv 1 \pmod {\varphi(N)}
 \end{align}
-$\varphi(N)$, Euler's totient function, counts the number of integers relatively prime to $N$. For a prime $p$, $\varphi(p) = (p-1)$, therefore for the product
-$p*q$ of two different primes, $\varphi(p*q) = (p-1) * (q-1)$. 
+$\varphi(N)$, Euler's totient function, counts the number of integers in the interval $[1, N]$ which are relatively prime to $N$.
+For a prime $p$, $\varphi(p) = (p-1)$, therefore for the product
+$p*q$ of two different primes, $\varphi(p*q) = (p-1) * (q-1)$.
+Additionally, Euler's theorem is used:
+\begin{align}\label{euler}
+a^{\varphi(N)} \equiv 1 \pmod N
+\end{align}
 The public key consists of the pair
 \begin{center}
  $(N, e)$
@@ -738,6 +745,9 @@ and the private key of the pair
 \begin{center}
  $(N, d)$
 \end{center}
+
+\subsubsection{Encrypting of messages}
+
 To encrypt, the message $M$ must be converted to an integer. Then, the sender uses the recipients public key and raises $M$ to the power of $e \pmod N$:
 \begin{center}
  $C \equiv M^e \pmod N$
@@ -754,11 +764,22 @@ Inserting \ref{ed2} in equation \ref{decrypt} yields:
 \begin{align}\label{cong}
   M' \equiv M^{k * \varphi(N) + 1} \equiv M* M^{k * \varphi(N)} \pmod N
 \end{align}
-with Euler's theorem stating
-\begin{align}
-a^{\varphi(N)} \equiv 1 \pmod N
-\end{align}
-Therefore, \ref{cong}
+By using Euler's theorem \ref{euler}, expression \ref{cong} shows that $M=M'$, i.e. decryption yields the correct value because
+\begin{align*}
+ M' \equiv M* M^{k * \varphi(N)} \equiv M* (M^{ \varphi(N)})^k \equiv M * 1^k \equiv M \pmod N
+\end{align*} 
+
+\subsubsection{Signing of messages}
+
+With the same set of keys it is also possible to generate signatures of a message, providing the authenticity of the message.
+This is achieved by generating a hash value of the message and \textit{encrypting} that hash with the \textit{private} key. The signature is then attached to the
+message. Afterwards, every entity can verify the authenticity by \textit{decrypting} the signature with the \textit{public} key of the sender, calculating of
+the hash of the message and comparing it to the decrypted hash.
+
+\subsubsection{Security of RSA}
+
+
+
 
 
 

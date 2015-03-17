@@ -503,6 +503,38 @@
   \field{year}{1978}
 \endentry
 
+\entry{pkcs1}{report}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Jonsson}{J.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kaliski}{K.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {RFC Editor}%
+  }
+  \strng{namehash}{JJKB1}
+  \strng{fullhash}{JJKB1}
+  \field{howpublished}{Internet Requests for Comments}
+  \field{number}{3447}
+  \field{title}{Public-Key Cryptography Standards (PKCS)1: RSA Cryptography}
+  \verb{url}
+  \verb http://tools.ietf.org/html/rfc3447
+  \endverb
+  \list{institution}{1}{%
+    {RFC Editor}%
+  }
+  \field{type}{RFC}
+  \field{year}{2003}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{1335465}{article}{}
   \name{author}{4}{}{%
     {{}%

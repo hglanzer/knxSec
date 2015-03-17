@@ -664,8 +664,8 @@ multiplication. Inverses can be found to for all
 elements regarding addition s.t. $a + (-a) = e = 0$ and regarding multiplication for all elements except ${0}$ s.t. $a * a^{-1} = e = 1$.
 \\
 \\
-A finite field can be constructed by taking the set of integers $\mathbb{Z}\pmod p$, with $p \in \mathbb{P}$, thus restricting the set of all integers to the set
-$\mathbb{Z}_p = \{0, 1, ..., p-1\}$.
+A specific example of a finite field is a prime file, which can be constructed by taking the set of integers $\mathbb{Z}\pmod p$, with $p \in \mathbb{P}$, thus
+restricting the set of all integers to the set $\mathbb{Z}_p = \{0, 1, ..., p-1\}$.
 By choosing $p$ as prime it is ensured that for any elements $a \in \mathcal{F} \backslash\{0\}$, a multiplicative inverse exists: $ a * a^{-1} = 1 \pmod p$.
 The set of numbers for which multiplicative inverses exist is called $\mathbb{Z}{_p}^*$, so for a $p$ being prime, $\mathbb{Z}_p = \mathbb{Z}{_p}^*$.
 \\
@@ -716,19 +716,23 @@ An eavesdropper that intercepts the initially sent parameter set $\{p, g, q\}$ a
 $k_A = K_B$  must therefore calculate the discrete logarithm of $y_A$ or $y_B$ to the base $p$, i.e. must solve the \gls{dlp}, a hard problem as shown in
 section \ref{finiteFields}.
 
-\subsection{Diffie-Hellman based on Elliptic Curves}
+\subsection{\gls{ecdh}}
+
 
 \subsection{RSA}
 
-RSA, published in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman \cite{RSA}, relies on the hardness of finding the prime factors of a big composite number.
+RSA, published in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman \cite{RSA} and formalized in \cite{pkcs1},
+relies on the hardness of finding the prime factors of a big composite number.
 In contrast to \gls{dh}, RSA is not directly connected to key negotiation, but can instead be used to encrypt \textit{and} sign messages. 
 
 For key generation, 
-two large primes $p, q$, which should be of about same size, are chosen randomly, with $N = pq$. Additionally, a public exponent $e$ and a private exponent $d$ are chosen s.t.
+two large primes $p, q$, which should be of about same size, are chosen randomly, with $N = pq$. Additionally, a public exponent $e$ and a private exponent
+$d$ are chosen s.t. they are multiplicative inverses to each other in $\pmod{\varphi(N)}$:
 \begin{align}\label{ed}
  e * d \equiv 1 \pmod {\varphi(N)}
 \end{align}
-$\varphi(N)$, Euler's totient function, counts the number of integers relatively prime to $N$. For a prime $p$, $\varphi(p) = (p-1)$, therefore for the product
+$\varphi(N)$, Euler's totient function, counts the number of integers in the interval $[1, N]$ which are relatively prime to $N$.
+For a prime $p$, $\varphi(p) = (p-1)$, therefore for the product
 $p*q$ of two different primes, $\varphi(p*q) = (p-1) * (q-1)$.
 Additionally, Euler's theorem is used:
 \begin{align}\label{euler}
@@ -742,6 +746,9 @@ and the private key of the pair
 \begin{center}
  $(N, d)$
 \end{center}
+
+\subsubsection{Encrypting of messages}
+
 To encrypt, the message $M$ must be converted to an integer. Then, the sender uses the recipients public key and raises $M$ to the power of $e \pmod N$:
 \begin{center}
  $C \equiv M^e \pmod N$
@@ -763,6 +770,14 @@ By using Euler's theorem \ref{euler}, expression \ref{cong} shows that $M=M'$, i
  M' \equiv M* M^{k * \varphi(N)} \equiv M* (M^{ \varphi(N)})^k \equiv M * 1^k \equiv M \pmod N
 \end{align*} 
 
+\subsubsection{Signing of messages}
+
+With the same set of keys it is also possible to generate signatures of a message, providing the authenticity of the message.
+This is achieved by generating a hash value of the message and \textit{encrypting} that hash with the \textit{private} key. The signature is then attached to the
+message. Afterwards, every entity can verify the authenticity by \textit{decrypting} the signature with the \textit{public} key of the sender, calculating of
+the hash of the message and comparing it to the decrypted hash.
+
+%\subsubsection{Security of RSA}
 
 \subsection{Authenticity}\label{authenticity}
 

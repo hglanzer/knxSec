@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  16 MAR 2015 22:39
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  17 MAR 2015 12:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1728,6 +1728,11 @@ Package biblatex Warning: BibTeX reported the following issues
 
 
 Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with 'pkcs1':
+(biblatex)                - Invalid format of field 'month'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with '1335465':
 (biblatex)                - Invalid format of field 'month'.
 
@@ -2376,15 +2381,15 @@ Package epstopdf Info: Source file: <figures/CBCMac.eps>
 (epstopdf)                    size: 7130 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/CBCMac-eps-convert
 ed-to.pdf figures/CBCMac.eps>
-(epstopdf)             \includegraphics on input line 775.
+(epstopdf)             \includegraphics on input line 789.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/CBCMac-eps-converted-to.pdf, id=622, 1306.8825pt x 428.60126pt>
+<figures/CBCMac-eps-converted-to.pdf, id=626, 1306.8825pt x 428.60126pt>
 File: figures/CBCMac-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/CBCMac-eps-converted-to.pdf>
 Package pdftex.def Info: figures/CBCMac-eps-converted-to.pdf used on input line
- 775.
+ 789.
 (pdftex.def)             Requested size: 418.25368pt x 137.16827pt.
 Package epstopdf Info: Source file: <figures/CBCIVFlags.eps>
 (epstopdf)                    date: 2015-03-06 19:07:36
@@ -2394,35 +2399,35 @@ Package epstopdf Info: Source file: <figures/CBCIVFlags.eps>
 (epstopdf)                    size: 5339 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/CBCIVFlags-eps-con
 verted-to.pdf figures/CBCIVFlags.eps>
-(epstopdf)             \includegraphics on input line 782.
+(epstopdf)             \includegraphics on input line 796.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/CBCIVFlags-eps-converted-to.pdf, id=623, 460.72125pt x 78.2925pt>
+<figures/CBCIVFlags-eps-converted-to.pdf, id=627, 460.72125pt x 78.2925pt>
 File: figures/CBCIVFlags-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/CBCIVFlags-eps-converted-to.pdf>
 Package pdftex.def Info: figures/CBCIVFlags-eps-converted-to.pdf used on input 
-line 782.
+line 796.
 (pdftex.def)             Requested size: 209.12683pt x 35.53711pt.
- [24 <./figures/CBCMac-eps-converted-to.pdf>] [25 <./figures/CBCIVFlags-eps-con
+ [24] [25 <./figures/CBCMac-eps-converted-to.pdf> <./figures/CBCIVFlags-eps-con
 verted-to.pdf>]
-<figures/"CCM CBC IV".png, id=665, 654.445pt x 63.23625pt>
+<figures/"CCM CBC IV".png, id=669, 654.445pt x 63.23625pt>
 File: figures/"CCM CBC IV".png Graphic file (type png)
 
 <use figures/"CCM CBC IV".png>
-Package pdftex.def Info: figures/"CCM CBC IV".png used on input line 818.
+Package pdftex.def Info: figures/"CCM CBC IV".png used on input line 832.
 (pdftex.def)             Requested size: 209.12683pt x 20.20706pt.
  [26 <./figures/CCM CBC IV.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 875--877
+Underfull \hbox (badness 10000) in paragraph at lines 889--891
 
  []
 
-) (./chapters/SOAsecurityBA.tex
+[27]) (./chapters/SOAsecurityBA.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\gls' on input line 1.
 
-) [27] (./chapters/knxGeneral.tex) (./chapters/knxLayers.tex [28
+) [28] (./chapters/knxGeneral.tex) (./chapters/knxLayers.tex [29
 
 ]
 Package epstopdf Info: Source file: <figures/KNXvsISO.eps>
@@ -2436,7 +2441,7 @@ rted-to.pdf figures/KNXvsISO.eps>
 (epstopdf)             \includegraphics on input line 15.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/KNXvsISO-eps-converted-to.pdf, id=722, 709.65125pt x 391.4625pt>
+<figures/KNXvsISO-eps-converted-to.pdf, id=733, 709.65125pt x 391.4625pt>
 File: figures/KNXvsISO-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/KNXvsISO-eps-converted-to.pdf>
@@ -2448,15 +2453,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--32
 
  []
 
-[29 <./figures/KNXvsISO-eps-converted-to.pdf>] [30]
-<figures/ctrl.pdf, id=788, 413.11198pt x 119.6485pt>
+[30 <./figures/KNXvsISO-eps-converted-to.pdf>] [31]
+<figures/ctrl.pdf, id=798, 413.11198pt x 119.6485pt>
 File: figures/ctrl.pdf Graphic file (type pdf)
  <use figures/ctrl.pdf>
 Package pdftex.def Info: figures/ctrl.pdf used on input line 78.
 (pdftex.def)             Requested size: 418.25368pt x 121.1416pt.
 
-[31 <./figures/ctrl.pdf>]
-<figures/standardframe.pdf, id=1001, 279.32355pt x 57.19156pt>
+[32 <./figures/ctrl.pdf>]
+<figures/standardframe.pdf, id=1011, 279.32355pt x 57.19156pt>
 File: figures/standardframe.pdf Graphic file (type pdf)
 
 <use figures/standardframe.pdf>
@@ -2474,7 +2479,7 @@ converted-to.pdf figures/standardFrame.eps>
 (epstopdf)             \includegraphics on input line 110.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/standardFrame-eps-converted-to.pdf, id=1002, 948.54375pt x 302.12875pt
+<figures/standardFrame-eps-converted-to.pdf, id=1012, 948.54375pt x 302.12875pt
 >
 File: figures/standardFrame-eps-converted-to.pdf Graphic file (type pdf)
  <use figures/standardFrame-eps-converted-to.pdf>
@@ -2482,25 +2487,25 @@ Package pdftex.def Info: figures/standardFrame-eps-converted-to.pdf used on inp
 ut line 110.
 (pdftex.def)             Requested size: 334.60422pt x 106.57646pt.
 
-<figures/extendedframe.pdf, id=1005, 321.96286pt x 36.47417pt>
+<figures/extendedframe.pdf, id=1015, 321.96286pt x 36.47417pt>
 File: figures/extendedframe.pdf Graphic file (type pdf)
 
 <use figures/extendedframe.pdf>
 Package pdftex.def Info: figures/extendedframe.pdf used on input line 124.
 (pdftex.def)             Requested size: 334.60422pt x 37.90884pt.
 
-<figures/CTRLE.pdf, id=1006, 328.75067pt x 152.89265pt>
+<figures/CTRLE.pdf, id=1016, 328.75067pt x 152.89265pt>
 File: figures/CTRLE.pdf Graphic file (type pdf)
 
 <use figures/CTRLE.pdf>
 Package pdftex.def Info: figures/CTRLE.pdf used on input line 131.
 (pdftex.def)             Requested size: 334.60422pt x 155.62881pt.
- [32 <./figures/standardframe.pdf> <./figures/standardFrame-eps-converted-to.pd
-f>] [33 <./figures/extendedframe.pdf> <./figures/CTRLE.pdf
+ [33 <./figures/standardframe.pdf> <./figures/standardFrame-eps-converted-to.pd
+f>] [34 <./figures/extendedframe.pdf> <./figures/CTRLE.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./figures/CTRLE.pdf): PDF inclusion: mu
 ltiple pdfs with page group included in a single page
->] <figures/addresses.pdf, id=1246, 473.65155pt x 93.46921pt>
+>] <figures/addresses.pdf, id=1256, 473.65155pt x 93.46921pt>
 File: figures/addresses.pdf Graphic file (type pdf)
 
 <use figures/addresses.pdf>
@@ -2518,7 +2523,7 @@ o.pdf>
 (epstopdf)             \includegraphics on input line 194.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/TransportHandshake-eps-converted-to.pdf, id=1259, 428.60126pt x 424.58
+<figures/TransportHandshake-eps-converted-to.pdf, id=1269, 428.60126pt x 424.58
 624pt>
 File: figures/TransportHandshake-eps-converted-to.pdf Graphic file (type pdf)
  <use figures/TransportHandshake-eps-converted-to.pdf>
@@ -2526,13 +2531,13 @@ Package pdftex.def Info: figures/TransportHandshake-eps-converted-to.pdf used o
 n input line 194.
 (pdftex.def)             Requested size: 209.12683pt x 207.16798pt.
 
-<figures/"transport flags".png, id=1260, 646.415pt x 473.77pt>
+<figures/"transport flags".png, id=1270, 646.415pt x 473.77pt>
 File: figures/"transport flags".png Graphic file (type png)
 
 <use figures/"transport flags".png>
 Package pdftex.def Info: figures/"transport flags".png used on input line 201.
 (pdftex.def)             Requested size: 334.60422pt x 245.23407pt.
- [34 <./figures/addresses.pdf>] [35 <./figures/TransportHandshake-eps-converted
+ [35 <./figures/addresses.pdf>] [36 <./figures/TransportHandshake-eps-converted
 -to.pdf> <./figures/transport flags.png>])
 (./chapters/knxSecurity.tex
 Underfull \hbox (badness 10000) in paragraph at lines 9--11
@@ -2544,8 +2549,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--17
 
  []
 
-[36] [37] [38]) (./chapters/knxConclusion.tex) [39]
-(./chapters/securityconcept.tex [40
+[37] [38] [39]) (./chapters/knxConclusion.tex) [40]
+(./chapters/securityconcept.tex [41
 
 ]
 Package epstopdf Info: Source file: <figures/SecureArea.eps>
@@ -2559,49 +2564,49 @@ verted-to.pdf figures/SecureArea.eps>
 (epstopdf)             \includegraphics on input line 37.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/SecureArea-eps-converted-to.pdf, id=1415, 924.45375pt x 414.54875pt>
+<figures/SecureArea-eps-converted-to.pdf, id=1426, 924.45375pt x 414.54875pt>
 File: figures/SecureArea-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/SecureArea-eps-converted-to.pdf>
 Package pdftex.def Info: figures/SecureArea-eps-converted-to.pdf used on input 
 line 37.
 (pdftex.def)             Requested size: 334.60422pt x 150.04709pt.
- [41 <./figures/SecureArea-eps-converted-to.pdf>] (./figures/firewall.tex
+ [42 <./figures/SecureArea-eps-converted-to.pdf>] (./figures/firewall.tex
 \du=\skip261
-) [42] [43] [44] [45] [46] [47]
-<figures/dh-group_round1.png, id=1465, 764.8575pt x 291.0875pt>
+) [43] [44] [45] [46] [47] [48]
+<figures/dh-group_round1.png, id=1475, 764.8575pt x 291.0875pt>
 File: figures/dh-group_round1.png Graphic file (type png)
 
 <use figures/dh-group_round1.png>
 Package pdftex.def Info: figures/dh-group_round1.png used on input line 261.
 (pdftex.def)             Requested size: 334.60422pt x 127.34157pt.
 
-<figures/dh-group_round2.png, id=1466, 764.8575pt x 279.0425pt>
+<figures/dh-group_round2.png, id=1476, 764.8575pt x 279.0425pt>
 File: figures/dh-group_round2.png Graphic file (type png)
 
 <use figures/dh-group_round2.png>
 Package pdftex.def Info: figures/dh-group_round2.png used on input line 268.
 (pdftex.def)             Requested size: 334.60422pt x 122.07227pt.
- [48 <./figures/dh-group_round1.png> <./figures/dh-group_round2.png>]
+ [49 <./figures/dh-group_round1.png> <./figures/dh-group_round2.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 315--324
 
  []
 
-[49] <figures/dh2parties.png, id=1490, 556.0775pt x 167.62625pt>
+[50] <figures/dh2parties.png, id=1500, 556.0775pt x 167.62625pt>
 File: figures/dh2parties.png Graphic file (type png)
 
 <use figures/dh2parties.png>
 Package pdftex.def Info: figures/dh2parties.png used on input line 344.
 (pdftex.def)             Requested size: 334.60422pt x 100.86554pt.
 
-<figures/dh3parties.png, id=1491, 762.85pt x 299.1175pt>
+<figures/dh3parties.png, id=1501, 762.85pt x 299.1175pt>
 File: figures/dh3parties.png Graphic file (type png)
 
 <use figures/dh3parties.png>
 Package pdftex.def Info: figures/dh3parties.png used on input line 350.
 (pdftex.def)             Requested size: 334.60422pt x 131.19676pt.
- [50 <./figures/dh2parties.png> <./figures/dh3parties.png>] [51]) [52] (./chapt
-ers/implementation.tex) [53
+ [51 <./figures/dh2parties.png> <./figures/dh3parties.png>] [52]) [53] (./chapt
+ers/implementation.tex) [54
 
 ] (./chapters/app.tex
 LaTeX Font Info:    Try loading font information for T1+pcr on input line 11.
@@ -2626,9 +2631,9 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 18.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 10.40245pt on input line 18.
- [54
+ [55
 
-] [55]
+] [56]
 Overfull \hbox (9.77097pt too wide) in paragraph at lines 95--97
 [][][]$\T1/pcr/m/n/12 https : / / www . auto . tuwien . ac . at / ~mkoegler / p
 th / pthsem _ 2 . 0 . 8 .
@@ -2640,22 +2645,22 @@ Overfull \hbox (1.44205pt too wide) in paragraph at lines 98--100
  thread-ing with semaphores,
  []
 
-[56]
+[57]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\gls' on input line 134.
 
-[57] <figures/busware.png, id=1620, 836.12375pt x 393.47pt>
+[58] <figures/busware.png, id=1630, 836.12375pt x 393.47pt>
 File: figures/busware.png Graphic file (type png)
 
 <use figures/busware.png>
 Package pdftex.def Info: figures/busware.png used on input line 168.
 (pdftex.def)             Requested size: 167.22179pt x 78.6926pt.
- [58 <./figures/busware.png>]
+ [59 <./figures/busware.png>]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 182.
  (../src/Makefile
-[59
+[60
 
 ]
 LaTeX Font Info:    Try loading font information for OMS+phv on input line 14.
@@ -2664,10 +2669,10 @@ File: omsphv.fd
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 14.
-)) (./thesis.gls [60] [61
+)) (./thesis.gls [61] [62
 
 
-] [62] [63]) [64]
+] [63] [64]) [65]
 Overfull \hbox (0.11446pt too wide) in paragraph at lines 198--198
 []\T1/ptm/m/n/12 C.E. Shan-non. ``Com-mu-ni-ca-tion the-ory of se-crecy sys-tem
 s''. In: \T1/ptm/m/it/12 Bell Sys-tem Tech-
@@ -2691,7 +2696,7 @@ Overfull \hbox (0.62143pt too wide) in paragraph at lines 198--198
 /it/12 Data En-cryp-tion Stan-dard @ON-
  []
 
-[65
+[66
 
 ]
 Overfull \hbox (9.92923pt too wide) in paragraph at lines 198--198
@@ -2699,7 +2704,7 @@ Overfull \hbox (9.92923pt too wide) in paragraph at lines 198--198
 tan-dard''. In: \T1/ptm/m/it/12 Tagungs-
  []
 
-[66]
+[67]
 Overfull \hbox (31.58794pt too wide) in paragraph at lines 198--198
 \T1/pcr/m/n/12 fileadmin / downloads / 08 % 20 -[] %20KNX % 20Flyers / KNX % 20
 Solutions /
@@ -2717,7 +2722,7 @@ Class memoir Warning: The material used in the headers is too large
 either increase the head height or redesign the header
 (in both cases you will find help in the memoir manual). on input line 199.
 
-[67]
+[68]
 \tf@toc=\write9
 \openout9 = `thesis.toc'.
 
@@ -2727,7 +2732,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 199.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 199.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 199.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 3CA19873A6B466F154507DF8E8F672F1;1808.
+(rerunfilecheck)             Checksum: 4B7A4D79C3649BE84F87F771517FBEAA;1808.
 
 
 LaTeX Warning: There were undefined references.
@@ -2738,34 +2743,37 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 199.
  ) 
 Here is how much of TeX's memory you used:
- 33171 strings out of 495059
- 550015 string characters out of 3182030
- 1038399 words of memory out of 3000000
- 35283 multiletter control sequences out of 15000+200000
+ 33206 strings out of 495059
+ 550520 string characters out of 3182030
+ 1038902 words of memory out of 3000000
+ 35313 multiletter control sequences out of 15000+200000
  92929 words of font info for 110 fonts, out of 3000000 for 9000
  16 hyphenation exceptions out of 8191
  69i,19n,122p,1426b,1978s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/time
-s/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (75 pages, 1364056 bytes).
+pdfTeX warning (dest): name{glo:ecdh} has been referenced but does not exist,
+ replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/
+utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on thesis.pdf (76 pages, 1365187 bytes).
 PDF statistics:
- 2015 PDF objects out of 2073 (max. 8388607)
- 1710 compressed objects within 18 object streams
- 430 named destinations out of 1000 (max. 500000)
+ 2030 PDF objects out of 2073 (max. 8388607)
+ 1724 compressed objects within 18 object streams
+ 435 named destinations out of 1000 (max. 500000)
  413 words of extra memory for PDF output out of 10000 (max. 10000000)
 
