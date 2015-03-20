@@ -535,6 +535,31 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
+\entry{891000}{article}{}
+  \verb{doi}
+  \verb 10.1109/IEEESTD.2000.92292
+  \endverb
+  \field{pages}{1\bibrangedash 228}
+  \field{title}{IEEE Standard Specifications for Public-Key Cryptography}
+  \field{journaltitle}{IEEE Std 1363-2000}
+  \field{year}{2000}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{Lenstra04keylength}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Lenstra}{L.}%
+     {Arjen~K.}{A.~K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{LAK1}
+  \strng{fullhash}{LAK1}
+  \field{title}{Key Length}
+  \field{year}{2004}
+\endentry
+
 \entry{1335465}{article}{}
   \name{author}{4}{}{%
     {{}%

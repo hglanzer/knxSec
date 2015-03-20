@@ -23,45 +23,45 @@ Warning--string name "april" is undefined
 Biblatex version: 1.7
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-You've used 40 entries,
+You've used 42 entries,
             6019 wiz_defined-function locations,
-            1391 strings with 16090 characters,
-and the built_in function-call counts, 122899 in all, are:
-= -- 5081
-> -- 4289
-< -- 1124
-+ -- 1423
-- -- 1437
-* -- 8528
-:= -- 7298
+            1402 strings with 16270 characters,
+and the built_in function-call counts, 126705 in all, are:
+= -- 5205
+> -- 4363
+< -- 1149
++ -- 1438
+- -- 1460
+* -- 8708
+:= -- 7459
 add.period$ -- 0
-call.type$ -- 40
-change.case$ -- 656
-chr.to.int$ -- 82
-cite$ -- 78
-duplicate$ -- 13839
-empty$ -- 12951
-format.name$ -- 2582
-if$ -- 28035
+call.type$ -- 42
+change.case$ -- 666
+chr.to.int$ -- 83
+cite$ -- 82
+duplicate$ -- 14320
+empty$ -- 13475
+format.name$ -- 2627
+if$ -- 28931
 int.to.chr$ -- 0
-int.to.str$ -- 123
+int.to.str$ -- 126
 missing$ -- 0
-newline$ -- 1046
-num.names$ -- 1971
-pop$ -- 12373
+newline$ -- 1071
+num.names$ -- 2009
+pop$ -- 12997
 preamble$ -- 1
-purify$ -- 805
+purify$ -- 817
 quote$ -- 0
-skip$ -- 7439
+skip$ -- 7658
 stack$ -- 0
-substring$ -- 3006
-swap$ -- 4608
-text.length$ -- 848
+substring$ -- 3043
+swap$ -- 4748
+text.length$ -- 873
 text.prefix$ -- 1
 top$ -- 1
-type$ -- 1487
+type$ -- 1563
 warning$ -- 0
-while$ -- 742
+while$ -- 761
 width$ -- 0
-write$ -- 1005
+write$ -- 1028
 (There was 1 warning)
