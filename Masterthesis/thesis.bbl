@@ -91,6 +91,26 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
+\entry{6773024}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Shannon}{S.}%
+     {C.E.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SC1}
+  \strng{fullhash}{SC1}
+  \field{issn}{0005-8580}
+  \field{number}{3}
+  \field{pages}{379\bibrangedash 423}
+  \field{title}{A mathematical theory of communication}
+  \field{volume}{27}
+  \field{journaltitle}{Bell System Technical Journal, The}
+  \field{year}{1948}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{1621063}{article}{}
   \name{author}{1}{}{%
     {{}%
@@ -370,6 +390,160 @@
   \field{year}{2010}
 \endentry
 
+\entry{zalewskissh}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Zalewski}{Z.}%
+     {M}{M}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{ZM1}
+  \strng{fullhash}{ZM1}
+  \field{title}{SSH CRC-32 compensation attack detector vulnerability (2001)}
+\endentry
+
+\entry{6732428}{inproceedings}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Gligoroski}{G.}%
+     {Danilo}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Knapskog}{K.}%
+     {Svein~Johan}{S.~J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Amundsen}{A.}%
+     {Jorn}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Jensen}{J.}%
+     {Rune~Erlend}{R.~E.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{Computer aided software engineering;Cryptography;NIST;Cryptographic
+  hash functions;Information security;International standardization}
+  \strng{namehash}{GD+1}
+  \strng{fullhash}{GDKSJAJJRE1}
+  \field{booktitle}{Security and Cryptography (SECRYPT), 2011 Proceedings of
+  the International Conference on}
+  \field{pages}{426\bibrangedash 433}
+  \field{title}{Internationally standardized efficient cryptographic hash
+  function}
+  \field{year}{2011}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{handbookCR}{inbook}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Menezes}{M.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Oorschot}{O.}%
+     {P.}{P.}%
+     {van}{v.}%
+     {}{}}%
+    {{}%
+     {S.}{S.}%
+     {Vanstone}{V.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {CRC Press}%
+  }
+  \strng{namehash}{MJOPvSV1}
+  \strng{fullhash}{MJOPvSV1}
+  \field{chapter}{Overview of Cryptography}
+  \field{pages}{329}
+  \field{title}{Handbook of Applied Cryptography}
+  \list{location}{1}{%
+    {New York}%
+  }
+  \field{year}{1997}
+\endentry
+
+\entry{nistSHA}{online}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Standards}{S.}%
+     {National~Institute}{N.~I.}%
+     {of}{o.}%
+     {}{}}%
+    {{}%
+     {Technology}{T.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SNIoT1}
+  \strng{fullhash}{SNIoT1}
+  \field{title}{Secure Hash Standard {@ONLINE}}
+  \verb{url}
+  \verb http://csrc.nist.gov/publications/fips/fips180-4/fips-180-4.pdf
+  \endverb
+  \field{year}{2012}
+\endentry
+
+\entry{hmac}{report}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Krawczyk}{K.}%
+     {H.}{H.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bellare}{B.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Canetti}{C.}%
+     {R.}{R.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {RFC Editor}%
+  }
+  \strng{namehash}{KHBMCR1}
+  \strng{fullhash}{KHBMCR1}
+  \field{howpublished}{Internet Requests for Comments}
+  \field{number}{2104}
+  \field{title}{HMAC: Keyed-Hashing for Message Authentication}
+  \verb{url}
+  \verb http://tools.ietf.org/html/rfc2104
+  \endverb
+  \list{institution}{1}{%
+    {RFC Editor}%
+  }
+  \field{type}{RFC}
+  \field{year}{1997}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{Lenstra04keylength}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Lenstra}{L.}%
+     {Arjen~K.}{A.~K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{LAK1}
+  \strng{fullhash}{LAK1}
+  \field{title}{Key Length}
+  \field{year}{2004}
+\endentry
+
 \entry{wStanley}{book}{}
   \name{author}{1}{}{%
     {{}%
@@ -440,6 +614,60 @@
   \field{year}{2009}
 \endentry
 
+\entry{primitiveRoot}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Dwivedi}{D.}%
+     {S.P.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{group theory;number theory;finite cyclic group;generator root;least
+  positive integer;logarithmic improvement;multiplicative order;primitive
+  root;Algebra;Algorithm design and analysis;Context;Educational
+  institutions;Finite element analysis;Generators;Presses;Algorithm;Group
+  Theory;Number Theory;Primitive Root}
+  \strng{namehash}{DS1}
+  \strng{fullhash}{DS1}
+  \field{booktitle}{Contemporary Computing (IC3), 2014 Seventh International
+  Conference on}
+  \verb{doi}
+  \verb 10.1109/IC3.2014.6897161
+  \endverb
+  \field{pages}{130\bibrangedash 134}
+  \field{title}{Computing multiplicative order and primitive root in finite
+  cyclic group}
+  \field{year}{2014}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{5199978}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Zhang}{Z.}%
+     {Jim}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Chen}{C.}%
+     {Li-Qun}{L.-Q.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{ZJCLQ1}
+  \strng{fullhash}{ZJCLQ1}
+  \field{booktitle}{Environmental Science and Information Application
+  Technology, 2009. ESIAT 2009. International Conference on}
+  \verb{doi}
+  \verb 10.1109/ESIAT.2009.457
+  \endverb
+  \field{pages}{658\bibrangedash 661}
+  \field{title}{An Improved Algorithm for Discrete Logarithm Problem}
+  \field{volume}{2}
+  \field{year}{2009}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{1055638}{article}{}
   \name{author}{2}{}{%
     {{}%
@@ -462,6 +690,79 @@
   \field{journaltitle}{Information Theory, IEEE Transactions on}
   \field{year}{1976}
   \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{eccKoblitz}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Koblitz}{K.}%
+     {N.}{N.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KN1}
+  \strng{fullhash}{KN1}
+  \field{number}{177}
+  \field{pages}{203\bibrangedash 209}
+  \field{title}{Elliptic curve cryptosystems}
+  \field{volume}{48}
+  \field{journaltitle}{Mathematics of Computation}
+  \field{year}{1987}
+\endentry
+
+\entry{eccMiller}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Miller}{M.}%
+     {Victor~S}{V.~S.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer-Verlag New York, Inc.}%
+  }
+  \strng{namehash}{MVS1}
+  \strng{fullhash}{MVS1}
+  \field{booktitle}{Lecture Notes in Computer Sciences; 218 on Advances in
+  cryptology---CRYPTO 85}
+  \field{pages}{417\bibrangedash 426}
+  \field{title}{Use of Elliptic Curves in Cryptography}
+  \list{location}{1}{%
+    {Santa Barbara, California, USA}%
+  }
+  \field{year}{1986}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{ecdlp}{book}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Hankerson}{H.}%
+     {D}{D}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Menezes}{M.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vanstone}{V.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{HDMAVS1}
+  \strng{fullhash}{HDMAVS1}
+  \field{pages}{153}
+  \field{title}{Guid to Elliptic Curve Cryptopgraphy}
+  \list{location}{1}{%
+    {New York}%
+  }
+  \field{year}{2004}
 \endentry
 
 \entry{RSA}{article}{}
@@ -544,20 +845,6 @@
   \field{journaltitle}{IEEE Std 1363-2000}
   \field{year}{2000}
   \warn{\item Invalid format of field 'month'}
-\endentry
-
-\entry{Lenstra04keylength}{misc}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Lenstra}{L.}%
-     {Arjen~K.}{A.~K.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{LAK1}
-  \strng{fullhash}{LAK1}
-  \field{title}{Key Length}
-  \field{year}{2004}
 \endentry
 
 \entry{1335465}{article}{}

@@ -23,8 +23,11 @@ mathematicians Rivest, Shamir and Adleman.
 Cryptography is basically the art of hiding information by turning cleartext
 data into a pseudo-random looking stream or block of bits, called ciphertext, using some kind of
 \textit{key}. This process is referred to as \textit{encryption} in general, but it is important to note that for many block ciphers, this encryption process
-can also be used to generate a special tag called \gls{mac2}, providing authenticity, as explained in section \ref{modeofoperation}.
-
+can also be used to generate a special tag called \gls{mac2}, providing integrity. The next sections deal with how to achieve confidentiality, the 
+concepts how to achieve integrity are partially based on the confidentiality methods and are introduced in section \ref{Integrity}
+\ref{Integrity}. 
+\\
+\\
 Key, clear- and cipher text all are strings built from the alphabet $\mathcal{A}$. 
 
 \begin{itemize}
@@ -63,7 +66,7 @@ The keys $e$ and $d$ are also referred to as \textit{keypair}, written $(e,d)$.
 If it is computationally easy to derive the private key $e$ from the public key $d$ (in most cases $e = d$), the encryption scheme
  is called \textit{symmetric}, otherwise the scheme is called \textit{asymmetric}.
 
-Combining this properties yields a cipher or \textit{encryption scheme}) defined over $\mathcal{(K,M,C)}$, which is a pair of \textit{efficient}
+Combining this properties yields a cipher or \textit{encryption scheme} defined over $\mathcal{(K,M,C)}$, which is a pair of \textit{efficient}
  \footnote{"runs in polynomial time"} algorithms s.t.
  \begin{center}
    $\mathcal{K} \times \mathcal{M} \rightarrow \mathcal{C}$
@@ -79,7 +82,7 @@ Combining this properties yields a cipher or \textit{encryption scheme}) defined
 
 \subsection{Kerckhoff's Principle}
 
-When designing ciphers, a fundamental question is what components of it must be protected from public knowledge, and what parts can be published without
+When designing cryptographic systems, a fundamental question is what components of it must be protected from public knowledge, and what parts can be published without
 compromising the security of the system. A cipher is considered secure if it is not breakable by an adversary in a reasonable time frame \cite{handbook1}, where
 this time frame is a function of the useful timespan of the protected data. This synonymously means that an adversary must spend exponential work.
 It follows that \textit{every} cipher can be broken in principle by
@@ -91,7 +94,7 @@ According to \textit{Kerckhoff's Principle} stated 1883, among other properties,
 its components, the only part that should be kept secret is the key alone.  
 
 Mapped to the definitions above, the sets $\mathcal{M, C, K}$, as well as the
-transformation functions $E_e$ and $D_d$, must not secret. The only thing that has to be kept private is the keypair $(e, d)$.
+transformation functions $E_e$ and $D_d$, must not secret. The only thing that has to be kept private is the decryption key $d$.
 
 This separation of key and algorithm allows the publication of the basic cipher methods, benefiting from peer review. The contradicting approach by trying
 to hide the inner workings from public to increase security is also known as "Security by Obscurity".
@@ -102,23 +105,34 @@ message space, there is a finite number of possible cleartext messages, each occ
 and sent to the receiver. An eavesdropper, intercepting messages, can calculate the \textit{a posteriori} probabilities for all possible cleartext messages, 
 leading to the observed cipher text. If booth probabilities are the same, the attacker has learned absolutely nothing from intercepting the cipher text, which
 is defined by Shannon as \textit{perfect secrecy}. A prerequisite for a perfectly secure cipher is that the key space is at least as big as the message space.
-Otherwise there will exist cleartext messages which are mapped to the same cipher texts, and thus a priori and a posteriori probabilities will change.
+Otherwise there will exist cleartext messages which are mapped to the same cipher texts, and thus a priori and a posteriori probabilities will be different,
+allowing the attacker to get knowledge he should not have gotten.
 \\
 
 In contrast, \textit{semantic} security can be seen as a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
 processing powers.
+\\
 
 Because all cryptographic schemes rely on the generation of random numbers, a short introduction to probabilistic theory and \gls{prng} is given,
 followed by a introduction to the most important representatives for symmetric and asymmetric ciphers.
 
 \section{Randomness and Probabilistic Theory}
 
-A basic requirement of all cryptographic schemes is the availability of randomness. \textit{Entropy} is the unit of the unpredictability of a process, and was
-also defined by Shannon. The higher the predictability, or in other words, the more likely an event, the lower its entropy. Flipping a "fair" coin is a canonical 
-example of a process with maximum entropy, because every coin flip has a probability of $\frac{1}{2}$, and all flips are independent from each other \cite{1621063}.
-If obtaining heads of the coin is viewed as a logical "0" and tails as a logical "1", a binary string of arbitrary length can be built, where the probability of all possible
-strings of same length is equal, as shown in figure \ref{fig:uniform}, yielding an \textit{uniform distribution}. 
+A basic requirement of all cryptographic schemes is the availability of randomness. \textit{Entropy}, denoted $H$, is the unit of the unpredictability of a process, as
+ defined by Shannon in \cite{6773024}:
+ 
+\begin{align}
+ H(X) = - \sum_{x \in X}^{} p(x) * ln(p(x))
+\end{align}
 
+
+The higher the predictability, or in other words, the more likely an event, the lower its entropy. Flipping a "fair" coin is a canonical 
+example of a process with maximum entropy, because every coin flip has a probability of $\frac{1}{2}$, and all flips are independent from each other \cite{1621063}.
+If obtaining heads of the coin is viewed as a logical "0" and tails as a logical "1", a binary string of length $n$ can be built, where the probability of all possible
+strings of same length is equal, as shown in figure \ref{fig:uniform}, yielding an \textit{uniform distribution}, with
+$H = 2^n*\frac{1}{2^n}*ln(2^n) = n$ bit. 
+\\
+\\
 The importance of random numbers in cryptography is founded on the nature of the cipher used, as will be shown in the next sections. For example,
 stream ciphers generate a keystream which is used
 for encryption. If the keystream is predictable by an adversary, the security of the cipher is reduced. Similar arguments are valid for block ciphers, which often
@@ -173,7 +187,7 @@ to various statistical tests, see chapter \ref{FIXME} for the results.
 
 \section{Symmetric vs. Asymmetric Cryptography}
 
-As stated above, two very fundamental differences regarding the key used in a cryptographic system can be found. Symmetric ciphers, where in the most cases
+As stated above, two very fundamental differences regarding the key used in a cryptographic system can be found. Symmetric ciphers, where 
 the same key is used for encryption and decryption, outperform its asymmetric counterparts in regards of data throughput by a factor of about 1000 \cite{5412055}.
 Additionally, they need shorter keys to achieve the same level of security - both arguments encourage it's use in embedded devices because of its less computing
 and memory demands.
@@ -311,7 +325,7 @@ nonlinear generator.
   15 & 0& 1& 1& 0\\
 \end{tabular}
 \end{minipage}
-\end{center}1
+\end{center}
 
 \subsection{Block Ciphers}
 
@@ -569,7 +583,7 @@ To decrypt, the same encryption function, \gls{iv} and key is used to retrieve o
 
 This mode is very similar to \gls{cfb}, but here the $s$ bit output from the encryption function is used directly to update the space caused by the \gls{iv} 
 left shift. This avoids error propagation in case a transmission unit was damaged on transmit and thus a bit changed its value:
-\gls{ofb} one or more bit errors in one ciphertext character only affects the decryption of this character. In contrast, one bit error in \gls{cfb} affects
+for \gls{ofb} encryption systems, one or more bit errors in one ciphertext character only affects the decryption of this character. In contrast, one bit error in \gls{cfb} affects
 decryption of all following characters.
 \\
 \\
@@ -589,248 +603,70 @@ $C[0] = O_0 \bigoplus M[0]$\\
     \label{fig:ofb}
 \end{figure}
 
-\section{Public Key Cryptography}
+\subsubsection{Integrity}\label{Integrity}
 
-Public Key Cryptography solves the problem of establishing a secure channel by using an insecure one.
-Here sender and recipient use two different keys: one for encryption, called \textit{public key}, the other
-for decryption, called \textit{private key}. This key pair belongs together, hence this scheme is also called \textit{asymmetric} encryption. A fundamental requirement
-is that it must be hard
-to derive the decryption key from the encryption key. This behavior is achieved by some kind of public known one-way function where it is computationally
-easy to calculate the result of $f(x) = y$, but only given $y$, it is computationally - in the domain of processing power and/or memory - hard
-to reverse this function to get $x$.
-The basic idea for such a one-way function was formulated for the first time in the year 1874 by William Stanley Jevons stating:
+All modes of operation introduced so far are used to provide confidentiality only. To provide the second column of information security, i.e. integrity, in general
+\glspl{mac2} or digital signatures are used.
+Digital signatures are based on public key cryptography and are introduced in section \ref{digitalSignatures}. In contrast, \glspl{mac2} use symmetric keys,
+providing integrity and authenticity. Integrity means that a data unit is 
+protected from tampering by third parties in a way that such a modification by an unauthorized entity is detectable. Authenticity means that the receiver of
+a message can verify that the message really was sent from the sender and not by an illegitimate third entity. Obviously, this two concepts are semantically
+related: checking the integrity implicitly checks authenticity.
+Vice versa, authenticating the sender of a message is only useful if the message itself cannot be modified by an adversary, i.e. integrity is guaranteed. To
+avoid confusion, the term integrity is used if the meaning is clear from the context.
 \\
 \\
-\textit{"Can the reader say what two numbers multiplied together will produce the number 8616460799? I think it unlikely that anyone but myself will
-ever know."} \cite{wStanley} 
+In contrast to confidentiality modes, which should always be combined with a method to guarantee integrity (as shown in FIXME), 
+integrity-only modes do have a right to exist. For example, archives containing source code for open source project, available from the internet, must not be
+encrypted but should be secured against modification. For example, the UNIX based operating system "FreeBSD" uses asymmetric keys to protect it's package
+management system from adversary modification.
 \\
 \\
-Although his statement was not related to cryptography at all, and of course factoring of much bigger numbers is doable nowadays, this statement exactly describes
-the spirit of public key systems, and the security of RSA, introduced below, is directly connected to the inability to factor large numbers in reasonable time.
-
-Because disclosure of the public key does not affect the security of the scheme, the public key can be published in some sort of dictionary.
-An entity wanting to send an encrypted message to a receiver can then look up the receiver's public key, encrypt the message and send the resulting
-ciphertext to the recipient, who then can decrypt the message. 
+Combining integrity and confidentiality in a security scheme called \gls{ae} will be handled in section \ref{authEncrypt}.
 \\
 \\
-It is remarkable that any algorithm establishing public keys must authenticate it's  participants, or it will be vulnerable to man-in-the-middle attacks.
-
-\subsection{Merkle Puzzles}
-
-In \cite{Merkle}, Ralph C. Merkle developed an algorithm for key exchange between two parties. While the algorithm is based on symmetric ciphers and is
-not practicable, it motivates the usage of public key systems based on algebraic structures and is therefor introduced.
+The basic way to protect a data unit - be it a message traveling from sender to recipient or a file saved for later usage - from modification by a third party is to
+generate a tag $t$, also called \gls{mac2}, and concatenating this tag to the message, as shown in figure \ref{fig:tag}.
+Verifying the integrity is done by re-generating the tag and comparing it to the saved on. 
 \\
 \\
-The key idea is that the necessary work by the two legitimate parties when negotiating a key is bounded by $O(n)$, while an adversary must spend $O(n^2)$ to 
-also calculate the key, thus generating a quadratic gap. 
-Merkle defines a puzzle as cipher text that is supposed to be broken. This can be achieved by restricting the size of the symmetric key used such that an
-exhaustive search can be finished in feasible time. Every puzzle contains an id and a session key, booth chosen randomly, as well as a static string,
-known to all participants.
-
-The party initiating the key exchange, called $X$, generates $n$ such puzzles and sends all of them to the receiver $Y$. $Y$ picks one puzzle at random and
-decrypts it by trying all possible keys. Because of the static string inside the puzzle, $Y$ knows for sure when the correct key has been tried.
-$Y$ then extracts the session key and sends the corresponding id back to $X$. Subsequently, booth parties can use the session key referenced by the id for encryption.
-An eavesdropper $Z$, monitoring all puzzles, cannot directly determine which of them is containing the returned id and therefor does not know the session key the 
-two parties agreed on - the only possibility for $Z$ is to attack \textbf{all} puzzles, squaring the effort spent by $X$ and $Y$.
-\\
-
-If, for example, every puzzle can be broken by $2^{32}$ computations, and $2^{32}$ different puzzles are used, $X$ must prepare, save and send $2^{32}$ puzzles
-to $Y$, who in turn must try $2^{32}$ different keys. $Z$ must crack all $2^{32}$ puzzles, each with effort $2^{32}$, thus resulting in $2^{64}$ processing steps.
-\\
-
-While this algorithm is very wasteful in regards of processing power, memory and communication capacity, such a protocol would be useful if a more-than-quadratic
-blowup could be achieved, but unfortunately, for all algorithms based on symmetric ciphers, this quadratic gap is the best that can be achieved,
-as shown in \cite{Barak09merklepuzzles}. 
-\\
-  
-In the next sections, two important public key algorithms are introduced: \gls{dh} key exchange and \gls{ecc}. Both of them are based on finite fields,
-therefore a short mathematical introduction is given first.
-
-\subsubsection{Finite Fields}\label{finiteFields}
-
-A field consists of a set $\mathcal{F}$ together with two operations $\cdot$, namely addition "+" and multiplication "*", satisfying the following properties:
-
-\begin{itemize}
- \item  Closure: for all elements from $\mathcal{F}$, the set is closed under the defined operations, i.e. applying an operator $\cdot$ to two elements from the set results in an
-element also belonging to the set.
- \item Associativity and Commutativity hold, i.e. $a \cdot (b \cdot c) = (a \cdot b) \cdot c$ and $a \cdot b = b \cdot a$
- \item For both operations and all elements from the set $\mathcal{F}$ an identity element $e$ exists s.t. $a\cdot e = a$
- \item For both operations and all elements from the set $\mathcal{F} \backslash \{0\}$ an inverse element exists s.t. $a\cdot a^{-1} = e$
- \item Distributivity holds: $(a+b) \cdot c = a \cdot c + b \cdot c$ for all elements 
-\end{itemize}
-
-For a finite field, the size of the set 
-$\mathcal{F}$ is finite and called \textit{order} of the field, with the identities "0" for addition and "1" for
-multiplication. Inverses can be found to for all
-elements regarding addition s.t. $a + (-a) = e = 0$ and regarding multiplication for all elements except ${0}$ s.t. $a * a^{-1} = e = 1$.
+As tag generation and tag verification algorithms, keyed or unkeyed cryptographic secure hash functions are used.
+For integrity-only, keyed hash functions must be used, or
+otherwise an arbitrary entity can modify the message undetectable by regenerating the correct tag. Therefor, a simple checksum like a \gls{crc} or an unkeyed 
+hash function can not provide integrity only, simply because the function value can be re-generated by an adversary modifying the message, allowing to mount
+an attacker called \gls{mac2} forgery.
+Nevertheless, in combination with a confidentiality mode such an unkeyed function \textit{may} be secure, although it's use is discouraged because many applications operating
+this way are broken and can be attacked (i.e. \gls{ssh} version 1 \cite{zalewskissh}).
 \\
 \\
-A specific example of a finite field is a prime file, which can be constructed by taking the set of integers $\mathbb{Z}\pmod p$, with $p \in \mathbb{P}$, thus
-restricting the set of all integers to the set $\mathbb{Z}_p = \{0, 1, ..., p-1\}$.
-By choosing $p$ as prime it is ensured that for any element $a \in \mathcal{F} \backslash\{0\}$, a multiplicative inverse exists: $ a * a^{-1} = 1 \pmod p$.
-The set of numbers for which multiplicative inverses exist is called $\mathbb{Z}{_p}^*$, so for a $p$ being prime, $\mathbb{Z}_p = \mathbb{Z}{_p}^*$.
+A hash functions takes as input an arbitrary large message $\mathcal{M}$ and generates a hash value $t = h(\mathcal{M})$ of fixed size, therefor $|M| >> |t|$. This many-to-one
+mapping implies the existence of collisions, i.e. the existence of distinct messages $m_1, m_2$ which are mapped to the same tag $t$.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/tag.eps}
+    \caption{Tag generation}
+    \label{fig:tag}
+\end{figure}
 \\
-
-By raising an element $a \in \mathbb{Z}_p$ to different powers, a subgroup of $\mathbb{Z}{_p}^*$
-is generated, a fact that follows from Fermat's little theorem stating that for $p$ being prime and raising $a$ to the power $p-1$, the outcome is congruent 1
-modulo p:
-\begin{center}
- $a^{p-1} \equiv 1 \pmod p $ \\
-\end{center}
-Raising $a$ to higher powers results in:
+To be cryptographically secure, a hash function must fulfill specific properties \cite{6732428}: firstly, while it should be easy to generate the tag
+by calculating $t = h(m)$, reversing the process to get $m$ by executing $h(t)^{-1}$ should be hard, a property called \textit{preimage resistance}. 
+Additionally, \textit{2nd-preimage resistance} assures that for any given message $m$ and corresponding tag $t$, it must be infeasible to find a second message
+that maps to the same tag. Finally, \textit{(strong) collision resistance} states that it also must be infeasible to find any two messages generating
+the same tag, therefore collision resistance implies 2nd-preimage resistance \cite{handbookCR}.
 \\
+Important representatives of cryptographically secure hash functions are the family of \glspl{sha}, with variants providing hashes of 128, 256, 384 or 512 bit 
+length, defined by \gls{nist} \cite{nistSHA}.
 \\
- $a^{p} \equiv a*a^{p-1} \equiv a \pmod p$ \\
- ... \\
- $a^{2p} \equiv a^2 * a^{p-1} * a^{p-1} \equiv a^2 \pmod p$ 
-\\
-\\
-Thus, generating higher powers than $p-1$ does not yield different outcomes. If by raising $a$ to $(p-1)$ different powers all elements from $\mathbb{Z}{_p}^*$ can
-be generated, $a$ is called \textit{primitive root} or \textit{generator}, generating a cyclic group.
-If $p$ is prime it can be shown that at least one such generator $g$ must exist. Conversely this means that for
-all elements from  $\mathbb{Z}{_p}^*$ a unique exponent in the interval $[0, p-1]$ exists, called the \textit{discrete logarithm for the base $ g \pmod p$}. Finding
-the discrete logarithm is considered a hard problem, a fact that is exploited by the \gls{dh} key exchange algorithm.
-\\
+Because these hash functions lack a secret key and therefor would allow \gls{mac2} forgery, a construction called \gls{hmac} can be used, which takes 
+additionally to the message $m$ as input a key $k$, and $ipad$ and $opad$ being constant values \cite{hmac}.
 
-\subsection{\gls{dh} Key-Exchange}
-
-Whitfield Diffie and Martin Hellman proposed a way to solve the problem for key-exchange based on finite fields
-when they published their paper \textit{New Directions in Cryptography} in the year 1976 \cite{1055638}. The algorithm enables two entities to agree on a 
-shared secret which never has to be transmitted between them. The security of their original algorithm
-is based on the hardness of the \textit{Discrete Logarithm Problem}.
-
-With the original \gls{dh} algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
-then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, q, g\}$, where $p$ is a 
-large prime, $q$ is a prime divisor of $p-1$, and $g$ is a generator of the cyclic group ${Z_p}^*$ in the range $[1, p-1]$. These parameters are not secret and
-can thus be sent over an unsecured channel.
-Additionally, each entity randomly chooses an integer $x$ from the interval $[1, q-1]$, and calculates the value $y = g^x \pmod p$. $x$ is the private key,
-$y$, which is computationally easy to calculate, is the public key. $A$ sends its public key $y_A \equiv g^{x_A} \pmod p$ to $B$, and $B$ its public key
-$y_B \equiv g^{x_B} \pmod p$ to $A$. Due to the characteristics of exponentiation, $A$ and $B$ can now easily derive the shared secret by using its counterpart's
-public key and raising it to the power of it's own private key in the domain of ${Z_p}^*$:
-
-\begin{center}
- $k_B \equiv {y_A}^{x_B} \equiv (g^{x_A})^{x_B} \equiv g^{x_A*x_B} \pmod p $\\
- $ = $ \\
- $ k_A \equiv {y_B}^{x_A} \equiv g(^{x_B})^{x_A} \equiv g^{x_B*x_A} \pmod p $
-\end{center}
-An eavesdropper that intercepts the initially sent parameter set $\{p, g, q\}$ and the public keys $y_A$ and $y_B$ and that wants to calculate the shared secret
-$k_A = K_B$  must therefore calculate the discrete logarithm of $y_A$ or $y_B$ to the base $p$, i.e. must solve the \gls{dlp}, a hard problem as shown in
-section \ref{finiteFields}.
-\\
-
-% FIXME: EL GAMAL scheme vorstellen??
-
-
-\subsection{\gls{ecdh}}
-
-The \gls{dh} protocol can be based on a different kind of cyclic groups, namely groups based on \glspl{ec}. An \gls{ec} is basically the set of all points
-satisfying an equation with the form as shown in \ref{basicEC}:
-
-\begin{align}\label{basicEC}
- y^2 = x^3 + ax +b
+\begin{align}
+ t = S(k, m) = h((k \bigoplus opad) || h((k \bigoplus ipad) || m)) 
 \end{align}
-
-\begin{minipage}{\linewidth}
- %     \centering
-      \begin{minipage}{0.5\linewidth}
-          \begin{figure}[H]
-              \includegraphics[width=\linewidth]{figures/ecAdd.eps}
-              \caption{Adding two points}
-              \label{fig:ecAdd}
-          \end{figure}
-      \end{minipage}
-     % \hspace{0.05\linewidth}
-      \begin{minipage}{0.5\linewidth}
-          \begin{figure}[H]
-              \includegraphics[width=\linewidth]{figures/doubleEC.eps}
-              \caption{Doubling a point}
-              \label{fig:ecDouble}
-          \end{figure}
-      \end{minipage}
-  \end{minipage}
-
-By defining an \gls{ec} over $\mathbb{Z}_p$, with $a, b \in \mathbb{Z}_p$, a cyclic group can be generated. The addition operation that "adds" two points on
-this curve is defined by a "chord-and-tangent" rule together with an imaginary point "in infinity" serving as additive neutral element. Figure \ref{fig:ecAdd}
-shows addition of two points, while \ref{fig:ecDouble} shows adding a point to itself. It is important to note that this representation is shown in the domain
-$\mathbb{R}$ for visualization - in real \gls{ec} cryptography, only elements from $\mathbb{Z}_p$ are allowed. Addition is defined as connecting points $A$ and 
-$Q$, finding the intersection of the line with the \gls{ec} ($R'$) and reflecting that point across the x-axis to obtain the result $R$.
-Point-doubling of $P$ is achieved in a similar way by determining the tangent of $P$, finding the intersection and reflection.
-
-Multiplication is defined as successive addition of a point to it self in the way
-
-\begin{center}
- $k*P = \underbrace{P+P+...+P}_{k-times}$
-\end{center}
-
-
-
-\subsection{RSA}
-
-RSA, published in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman \cite{RSA} and formalized in \cite{pkcs1},
-relies on the hardness of finding the prime factors of a big composite number.
-In contrast to \gls{dh}, RSA is not directly connected to key negotiation, but can instead be used to encrypt \textit{and} sign messages. 
-
-For key generation, 
-two large primes $p, q$, which should be of about same size, are chosen randomly, with $N = pq$. Additionally, a public exponent $e$ and a private exponent
-$d$ are chosen s.t. they are multiplicative inverses to each other in $\pmod{\varphi(N)}$:
-\begin{align}\label{ed}
- e * d \equiv 1 \pmod {\varphi(N)}
-\end{align}
-$\varphi(N)$, Euler's totient function, counts the number of integers in the interval $[1, N]$ which are relatively prime to $N$.
-For a prime $p$, $\varphi(p) = (p-1)$, therefore for the product
-$p*q$ of two different primes, $\varphi(p*q) = (p-1) * (q-1)$.
-Additionally, Euler's theorem is used:
-\begin{align}\label{euler}
-a^{\varphi(N)} \equiv 1 \pmod N
-\end{align}
-The public key consists of the pair
-\begin{center}
- $(N, e)$
-\end{center}
-and the private key of the pair
-\begin{center}
- $(N, d)$
-\end{center}
-
-In practice, for the public exponent $e$ the numbers 3, 5, 17, 257 or 65537 are suggested \cite{891000}, a suitable $d$ satisfying \ref{ed} can then be found
-by using the extended Euclidean algorithm.
-
-\subsubsection{Encrypting of messages}
-
-To encrypt, the message $M$ must be converted to an integer. Then, the sender uses the recipients public key and raises $M$ to the power of $e \pmod N$:
-\begin{center}
- $C \equiv M^e \pmod N$
-\end{center}
-To decrypt, the receiver uses his own private key to raise $C$ to the power of $d \pmod N$:
-\begin{align}\label{decrypt}
- M' \equiv C^d \equiv M^{d*e} \bmod N
-\end{align}
-From the way $e$ and $d$ have been chosen in \ref{ed} it follows that 
-\begin{align}\label{ed2}
- e*d = k * \varphi(N) + 1, k \in \mathbb{Z} 
-\end{align}
-Inserting \ref{ed2} in equation \ref{decrypt} yields:
-\begin{align}\label{cong}
-  M' \equiv M^{k * \varphi(N) + 1} \equiv M* M^{k * \varphi(N)} \pmod N
-\end{align}
-By using Euler's theorem \ref{euler}, expression \ref{cong} shows that $M=M'$, i.e. decryption yields the correct value because
-\begin{align*}
- M' \equiv M* M^{k * \varphi(N)} \equiv M* (M^{ \varphi(N)})^k \equiv M * 1^k \equiv M \pmod N
-\end{align*} 
-
-\subsubsection{Signing of messages}
-
-With the same set of keys it is also possible to generate signatures of a message, providing the authenticity of the message.
-This is achieved by generating a hash value of the message and \textit{encrypting} that hash with the \textit{private} key. The signature is then attached to the
-message. Afterwards, every entity can verify the authenticity by \textit{decrypting} the signature with the \textit{public} key of the sender, calculating of
-the hash of the message and comparing it to the decrypted hash.
-
-%\subsubsection{Security of RSA}
-
-\subsection{Authenticity}\label{authenticity}
-
-\subsubsection{Cipher Block Chaining - CBC}\label{cbcAuth}
-
+\\
+\\
+A different way for tag-generation, called \gls{cbc}-\gls{mac2}, is based on block ciphers, utilizing a construction similar to \gls{cbc} mode encryption,
+shown in figure \ref{fig:cbc_MAC} 
 
 \begin{figure}\label{cbcMAC}
     \centering
@@ -921,6 +757,290 @@ keyblocks are then concatenated and trimmed to the proper length(=length of the 
 is then bitwise \gls{xor}'ed with the cleartextmessage(which consists of the data and the MAC), yielding the final encryption.
 
 
+\section{Public Key Cryptography}
+
+Public Key Cryptography solves the problem of establishing a secure channel by using an insecure one.
+Here sender and recipient use two different keys: one for encryption, called \textit{public key}, the other
+for decryption, called \textit{private key}. This key pair belongs together, hence this scheme is also called \textit{asymmetric} encryption. A fundamental requirement
+is that it must be hard
+to derive the decryption key from the encryption key. This behavior is achieved by some kind of public known one-way function where it is computationally
+easy to calculate the result of $f(x) = y$, but only given $y$, it is computationally - in the domain of processing power and/or memory - hard
+to reverse this function to get $x$.
+The basic idea for such a one-way function was formulated for the first time in the year 1874 by William Stanley Jevons stating:
+\\
+\\
+\textit{"Can the reader say what two numbers multiplied together will produce the number 8616460799? I think it unlikely that anyone but myself will
+ever know."} \cite{wStanley} 
+\\
+\\
+Although his statement was not related to cryptography at all, and of course factoring of much bigger numbers is doable nowadays, this statement exactly describes
+the spirit of public key systems, and the security of RSA, introduced below, is directly connected to the inability to factor large numbers in reasonable time.
+
+Because disclosure of the public key does not affect the security of the scheme, the public key can be published in some sort of dictionary.
+An entity wanting to send an encrypted message to a receiver can then look up the receiver's public key, encrypt the message and send the resulting
+ciphertext to the recipient, who then can decrypt the message. 
+\\
+\\
+It is remarkable that any algorithm establishing public keys must authenticate it's  participants, or it will be vulnerable to man-in-the-middle attacks.
+
+\subsection{Merkle Puzzles}
+
+In \cite{Merkle}, Ralph C. Merkle developed an algorithm for key exchange between two parties. While the algorithm is based on symmetric ciphers and is
+not practicable, it motivates the usage of public key systems based on algebraic structures and is therefor introduced.
+\\
+\\
+The key idea is that the necessary work by the two legitimate parties when negotiating a key is bounded by $O(n)$, while an adversary must spend $O(n^2)$ to 
+also calculate the key, thus generating a quadratic gap. 
+Merkle defines a puzzle as cipher text that is supposed to be broken. This can be achieved by restricting the size of the symmetric key used such that an
+exhaustive search can be finished in feasible time. Every puzzle contains an id and a session key, booth chosen randomly, as well as a static string,
+known to all participants.
+
+The party initiating the key exchange, called $X$, generates $n$ such puzzles and sends all of them to the receiver $Y$. $Y$ picks one puzzle at random and
+decrypts it by trying all possible keys. Because of the static string inside the puzzle, $Y$ knows for sure when the correct key has been tried.
+$Y$ then extracts the session key and sends the corresponding id back to $X$. Subsequently, booth parties can use the session key referenced by the id for encryption.
+An eavesdropper $Z$, monitoring all puzzles, cannot directly determine which of them is containing the returned id and therefor does not know the session key the 
+two parties agreed on - the only possibility for $Z$ is to attack \textbf{all} puzzles, squaring the effort spent by $X$ and $Y$.
+\\
+
+If, for example, every puzzle can be broken by $2^{32}$ computations, and $2^{32}$ different puzzles are used, $X$ must prepare, save and send $2^{32}$ puzzles
+to $Y$, who in turn must try $2^{32}$ different keys. $Z$ must crack all $2^{32}$ puzzles, each with effort $2^{32}$, thus resulting in $2^{64}$ processing steps.
+\\
+
+While this algorithm is very wasteful in regards of processing power, memory and communication capacity, such a protocol would be useful if a more-than-quadratic
+blowup could be achieved, but unfortunately, for all algorithms based on symmetric ciphers, this quadratic gap is the best that can be achieved,
+as shown in \cite{Barak09merklepuzzles}.   
+\\
+ 
+To further increase the effort an attacker has to spend a different approach has to be found. It turns out that hard mathematical problems exist that are 
+suitable for such a purpose. 
+Therefor, in the next sections three important public key algorithms are introduced: \gls{dh} key exchange, based on prime fields, \gls{ecc}, and RSA.
+The former 2 of them are based on finite fields, therefore a short mathematical introduction is given first.
+
+\subsubsection{Finite Fields}\label{finiteFields}
+
+A field consists of a set $\mathcal{F}$ together with two operations $\cdot$, namely addition "+" and multiplication "*", satisfying the following properties:
+
+\begin{itemize}
+ \item  Closure: for all elements from $\mathcal{F}$, the set is closed under the defined operations, i.e. applying an operator $\cdot$ to two elements from the set results in an
+element also belonging to the set.
+ \item Associativity and Commutativity hold, i.e. $a \cdot (b \cdot c) = (a \cdot b) \cdot c$ and $a \cdot b = b \cdot a$
+ \item For both operations and all elements from the set $\mathcal{F}$ an identity element $e$ exists s.t. $a\cdot e = a$
+ \item For both operations and all elements from the set $\mathcal{F} \backslash \{0\}$ an inverse element exists s.t. $a\cdot a^{-1} = e$
+ \item Distributivity holds: $(a+b) \cdot c = a \cdot c + b \cdot c$ for all elements 
+\end{itemize}
+
+For a finite field, the size of the set 
+$\mathcal{F}$ is finite and called \textit{order} of the field, with the identities "0" for addition and "1" for
+multiplication. Inverses can be found to for all
+elements regarding addition s.t. $a + (-a) = e = 0$ and regarding multiplication for all elements except ${0}$ s.t. $a * a^{-1} = e = 1$.
+\\
+\\
+A specific example of a finite field is a prime file, which can be constructed by taking the set of integers $\mathbb{Z}\pmod p$, with $p \in \mathbb{P}$, thus
+restricting the set of all integers to the set $\mathbb{Z}_p = \{0, 1, ..., p-1\}$.
+By choosing $p$ as prime it is ensured that for any element $a \in \mathcal{F} \backslash\{0\}$, a multiplicative inverse exists: $ a * a^{-1} = 1 \pmod p$.
+The set of numbers for which multiplicative inverses exist is called $\mathbb{Z}{_p}^*$, so for $p$ being prime, $\mathbb{Z}_p \backslash \{0\} = \mathbb{Z}{_p}^*$.
+\\
+
+By raising an element $a \in \mathbb{Z}_p$ to different powers, a subgroup of $\mathbb{Z}{_p}^*$
+is generated, a fact that follows from Fermat's little theorem stating that for $p$ being prime and raising $a$ to the power $p-1$, the outcome is congruent 1
+modulo p:
+\begin{center}
+ $a^{p-1} \equiv 1 \pmod p $ \\
+\end{center}
+Raising $a$ to higher powers results in:
+\\
+\\
+ $a^{p} \equiv a*a^{p-1} \equiv a \pmod p$ \\
+ ... \\
+ $a^{2p} \equiv a^2 * a^{p-1} * a^{p-1} \equiv a^2 \pmod p$ 
+\\
+\\
+Thus, generating higher powers than $(p-1)$ does not yield different outcomes. If by raising $a$ to $(p-1)$ different powers all elements from $\mathbb{Z}{_p}^*$ can
+be generated, $a$ is called \textit{primitive root} or \textit{generator}, generating a cyclic group.
+If $p$ is prime it can be shown that at least one such generator $g$ must exist and can be found efficiently \cite{primitiveRoot}.
+Conversely this means that for all elements from  $\mathbb{Z}{_p}^*$ a unique exponent in the interval $[0, p-1]$ exists,
+called the \textit{discrete logarithm for the base $ g \pmod p$}.
+
+To find
+the discrete logarithm, several algorithms exist. The most naive method conducts an exhaustive search, so for a prime of $n$ bits length, $2^n$ search operations
+are necessary. More efficient algorithms exist, with the best methods finishing after about $2^{\frac{n}{2}}$ steps \cite{5199978}. 
+Therefore, by choosing a sufficient large prime, finding the discrete logarithm is considered a hard problem, a fact
+that is exploited by the \gls{dh} key exchange algorithm.
+
+\subsection{\gls{dh} Key-Exchange}
+
+Whitfield Diffie and Martin Hellman proposed a way to solve the problem for key-exchange based on finite fields
+when they published their paper \textit{New Directions in Cryptography} in the year 1976 \cite{1055638}. The algorithm enables two entities to agree on a 
+shared secret which never has to be transmitted between them. The security of their original algorithm
+is based on the hardness of the \textit{Discrete Logarithm Problem}.
+
+With the original \gls{dh} algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
+then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, q, g\}$, where $p$ is a 
+large prime, $q$ is a prime divisor of $p-1$, and $g$ is a generator of the cyclic group ${Z_p}^*$ in the range $[1, p-1]$. These parameters are not secret and
+can thus be sent over an unsecured channel.
+Additionally, each entity randomly chooses an integer $x$ from the interval $[1, q-2]$, and calculates the value $y = g^x \pmod p$. $x$ is the private key,
+$y$, which is computationally easy to calculate, is the public key. $A$ sends its public key $y_A \equiv g^{x_A} \pmod p$ to $B$, and $B$ its public key
+$y_B \equiv g^{x_B} \pmod p$ to $A$. Due to the characteristics of exponentiation, $A$ and $B$ can now easily derive the shared secret by using its counterpart's
+public key and raising it to the power of it's own private key in the domain of ${Z_p}^*$:
+
+\begin{center}
+ $k_B \equiv {y_A}^{x_B} \equiv (g^{x_A})^{x_B} \equiv g^{x_A*x_B} \pmod p $\\
+ $ = $ \\
+ $ k_A \equiv {y_B}^{x_A} \equiv g(^{x_B})^{x_A} \equiv g^{x_B*x_A} \pmod p $
+\end{center}
+An eavesdropper that intercepts the initially sent parameter set $\{p, g, q\}$ and the public keys $y_A$ and $y_B$ and that wants to calculate the shared secret
+$k_A = K_B$  must therefore calculate the discrete logarithm of $y_A$ or $y_B$ to the base $p$, i.e. must solve the \gls{dlp}, a hard problem as shown in
+section \ref{finiteFields}.
+\\
+
+% FIXME: EL GAMAL scheme vorstellen??
+
+
+\subsection{\gls{ecdh}}
+
+The \gls{dh} protocol can be based on different kinds of cyclic groups. Koblitz and Miller independently proposed the usage of cyclic groups based on
+\glspl{ec} \cite{eccKoblitz} \cite{eccMiller}.
+This cyclic groups are receiving increased importance in cryptography because they allow the usage
+of shorter keys compared to \gls{dh} over prime fields or RSA, while providing the same level of secrecy.
+
+An \gls{ec} is basically the set of all points
+satisfying an equation with the form as shown in \ref{basicEC}:
+
+\begin{align}\label{basicEC}
+ y^2 = x^3 + ax +b
+\end{align}
+
+\begin{minipage}{\linewidth}
+ %     \centering
+      \begin{minipage}{0.5\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/ecAdd.eps}
+              \caption{Adding two points}
+              \label{fig:ecAdd}
+          \end{figure}
+      \end{minipage}
+     % \hspace{0.05\linewidth}
+      \begin{minipage}{0.5\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/doubleEC.eps}
+              \caption{Doubling a point}
+              \label{fig:ecDouble}
+          \end{figure}
+      \end{minipage}
+  \end{minipage}
+
+By defining an \gls{ec} over $\mathbb{Z}_p$, with $a, b \in \mathbb{Z}_p$, a cyclic group can be generated. The addition operation that "adds" two points on
+this curve is defined by a "chord-and-tangent" rule. Figure \ref{fig:ecAdd}
+shows addition of two points, while \ref{fig:ecDouble} shows adding a point to itself. It is important to note that this representation is shown in the domain
+$\mathbb{R}$ for visualization - in real \gls{ec} cryptography, only elements from $\mathbb{Z}_p$ are allowed. Addition is defined as connecting points $A$ and 
+$Q$, finding the intersection of the line with the \gls{ec} ($R'$) and reflecting that point across the x-axis to obtain the result $R$.
+Point-doubling of $P$ is achieved in a similar way by determining the tangent of $P$, finding the intersection and reflection. Formulae to calculate x- and y-coordinates for the resulting points
+for point addition $R=P+Q$ and point doubling $R=P+P$ are shown in equations \ref{adding} and \ref{doubling} respectively:
+
+\begin{align}\label{adding}
+ x_3 = (\frac{y_2-y_1}{x_2-x_1})^2-x_1-x_2, y_3=\frac{y_2-y_1}{x_2-x_1}(x_1-x_3)-y_1
+\end{align}
+
+\begin{align}\label{doubling}
+ x_3 = (\frac{3x_1^2 +a}{2y_1})^2 - 2x_1, y_3=\frac{3x_1^2+a}{2y_1}(x_1-x_3)-y_1
+\end{align}
+
+Multiplication is defined as successive addition of a point to it self in the way
+
+\begin{center}
+ $kP = \underbrace{P+P+...+P}_{k-times}$
+\end{center}
+
+An imaginary point "in infinity", denoted $\infty$, serves as additive neutral element, and also belongs to the \gls{ec} by definition:
+
+\begin{center}
+ $P + \infty = \infty + P = P$
+\end{center}
+
+Negatives can be calculated easily due to the symmetric nature of the curves by swapping the sign of the y-coordinate of the point. For point $P$ with coordinates $(x, y)$, $-P$ is defined as
+$(x,-y)$, thus satisfying $P + (-P) = \infty$.
+\\
+\\
+With these prerequisites, the \gls{ecdlp} \cite{ecdlp} can be defined as following: given an \gls{ec} $E$ over the finite field $\mathcal{F}_p$ and 2 points $P,Q$ on this curve, %FIXME: "P of order n...???"
+find the integer $k$ s.t. $Q = kP$. $k$ is called the discrete logarithm of $Q$ to the base $P$.
+\\
+To build a public key system, two users $A$ and $B$ initially agree on a set of public parameters, called \textit{domain parameters}, including a representation
+of the curve and a point $P$ belonging to the curve, called \textit{base point}. Then $A$ selects a randomly chosen integer $k_A$, calculates $P_A = k_A*P$ and sends
+this point to $B$, who in turn randomly chooses $k_B$ and sends $P_B = k_B*P$ to $A$. Subsequently, booth can calculate the point $k_A*k_B*P$, which can be used
+to derive a key.
+
+\subsection{RSA}
+
+RSA, published in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman \cite{RSA} and formalized in \cite{pkcs1},
+relies on the hardness of finding the prime factors of a big composite number.
+In contrast to \gls{dh}, RSA is not directly connected to key negotiation, but can instead be used to encrypt \textit{and} sign messages. 
+
+For key generation, 
+two large primes $p, q$, which should be of about same size, are chosen randomly, with $N = pq$. Additionally, a public exponent $e$ and a private exponent
+$d$ are chosen s.t. they are multiplicative inverses to each other in $\pmod{\varphi(N)}$:
+\begin{align}\label{ed}
+ e * d \equiv 1 \pmod {\varphi(N)}
+\end{align}
+$\varphi(N)$, Euler's totient function, counts the number of integers in the interval $[1, N]$ which are relatively prime to $N$.
+For a prime $p$, $\varphi(p) = (p-1)$, therefore for the product
+$p*q$ of two different primes, $\varphi(p*q) = (p-1) * (q-1)$.
+Additionally, Euler's theorem is used:
+\begin{align}\label{euler}
+a^{\varphi(N)} \equiv 1 \pmod N
+\end{align}
+The public key consists of the pair
+\begin{center}
+ $(N, e)$
+\end{center}
+and the private key of the pair
+\begin{center}
+ $(N, d)$
+\end{center}
+
+In practice, for the public exponent $e$ the numbers 3, 5, 17, 257 or 65537 are suggested \cite{891000}, a suitable $d$ satisfying \ref{ed} can then be found
+by using the extended Euclidean algorithm.
+
+\subsubsection{Encrypting of messages}
+
+To encrypt, the message $M$ must be converted to an integer. Then, the sender uses the recipients public key and raises $M$ to the power of $e \pmod N$:
+\begin{center}
+ $C \equiv M^e \pmod N$
+\end{center}
+To decrypt, the receiver uses his own private key to raise $C$ to the power of $d \pmod N$:
+\begin{align}\label{decrypt}
+ M' \equiv C^d \equiv M^{d*e} \bmod N
+\end{align}
+From the way $e$ and $d$ have been chosen in \ref{ed} it follows that 
+\begin{align}\label{ed2}
+ e*d = k * \varphi(N) + 1, k \in \mathbb{Z} 
+\end{align}
+Inserting \ref{ed2} in equation \ref{decrypt} yields:
+\begin{align}\label{cong}
+  M' \equiv M^{k * \varphi(N) + 1} \equiv M* M^{k * \varphi(N)} \pmod N
+\end{align}
+By using Euler's theorem \ref{euler}, expression \ref{cong} shows that $M=M'$, i.e. decryption yields the correct value because
+\begin{align*}
+ M' \equiv M* M^{k * \varphi(N)} \equiv M* (M^{ \varphi(N)})^k \equiv M * 1^k \equiv M \pmod N
+\end{align*} 
+
+\subsection{Digital Signatures}\label{digitalSignatures}
+
+Digital signatures can also, in contrast to its symmetric-key \glspl{mac2} counterparts
+additionally to integrity and authenticity, provide non-repudiation. This property allows to 
+convince an unbiased "judge" that a message, signed by the sender, was indeed sent by this sender, i.e. the message was not forged by a third party.
+ 
+
+\subsubsection{RSA - Signing of messages}
+
+With the same set of keys it is also possible to generate signatures of a message, providing the authenticity of the message.
+This is achieved by generating a hash value of the message and \textit{encrypting} that hash with the \textit{private} key. The signature is then attached to the
+message. Afterwards, every entity can verify the authenticity by \textit{decrypting} the signature with the \textit{public} key of the sender, calculating of
+the hash of the message and comparing it to the decrypted hash.
+
+%\subsubsection{Security of RSA}
+
+
+
 \subsubsection{Decryption and Authenticity Check}
 
 \subsubsection{Attacks on CCM}
@@ -929,6 +1049,14 @@ FIXME: meet in the middle attack, siehe rfc 3610
 
 
 \section{Attacks on Ciphers}
+
+ciphertext-only
+
+known-plaintext
+
+chosen plaintext
+
+chosen ciphertext
 
 \subsection{Passive Attacks}
 

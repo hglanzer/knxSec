@@ -247,6 +247,15 @@ keywords={IP networks;protocols;telecommunication security;IP networks;building 
   publisher= {CRC Press},
   address= {New York}, 
 }
+@inbook{handbookCR,
+  author={Menezes, J. and van Oorschot, P. and Vanstone S.},
+  year= 1997, 
+  pages={329},
+  chapter={Overview of Cryptography}, 
+  title= {Handbook of Applied Cryptography}, 
+  publisher= {CRC Press},
+  address= {New York}, 
+}
 @inbook{handbookLFSR,
   author={Menezes, J. and van Oorschot, P. and Vanstone S.},
   year= 1997, 
@@ -318,6 +327,13 @@ MRREVIEWER = {R. Hamming},
  address = {New York, NY, USA},
 } 
 
+@ONLINE{nistSHA,
+author = {National Institute of Standards and Technology},
+title = {Secure Hash Standard {@ONLINE}},
+month = March,
+year = {2012},
+url = {http://csrc.nist.gov/publications/fips/fips180-4/fips-180-4.pdf}
+}
 @ONLINE{nistRAND,
 author = {National Institute of Standards and Technology},
 title = {A Statistical Test Suite for the Validation of Random Number Generators and Pseudo Random Number Generators for Cryptographic Applications {@ONLINE}},
@@ -398,6 +414,15 @@ pages = {235-239},
     publisher = {Springer}
 }
 
+@BOOK{ecdlp,
+  AUTHOR       = {Hankerson, D and Menezes, A. and Vanstone, S.},
+  TITLE        = {Guid to Elliptic Curve Cryptopgraphy},
+  YEAR         = {2004},
+  PAGEs	       = {153},
+  ADDRESS      = {New York},
+  publisher = {Springer},
+}
+
 @BOOK{wStanley,
   AUTHOR       = {Stanley Jevons, W.},
   TITLE        = {The Principles of Science"},
@@ -405,6 +430,19 @@ pages = {235-239},
   PAGEs	       = {144},
   ADDRESS      = {London},
 }
+
+@techreport{hmac,
+   AUTHOR = {Krawczyk, H. and Bellare, M. and Canetti, R.},
+   TITLE = {HMAC: Keyed-Hashing for Message Authentication},
+   HOWPUBLISHED = {Internet Requests for Comments},
+   TYPE={RFC},
+   NUMBER={2104},
+   YEAR = {1997},
+   MONTH = {Feb},
+   PUBLISHER = {RFC Editor},
+   INSTITUTION = {RFC Editor},
+   URL={http://tools.ietf.org/html/rfc2104},
+   }
 
 @techreport{pkcs1,
    AUTHOR = {Jonsson, J. and Kaliski, B.},
@@ -433,3 +471,71 @@ doi={10.1109/IEEESTD.2000.92292},}
     title = {Key Length},
     year = {2004}
 }
+
+@ARTICLE{eccKoblitz,
+title={Elliptic curve cryptosystems},
+author={Koblitz, N.},
+journal={Mathematics of Computation},
+volume={48},
+number={177},
+year={1987}, 
+pages={203-209},
+}
+
+@inproceedings{eccMiller,
+ author = {Miller, Victor S},
+ title = {Use of Elliptic Curves in Cryptography},
+ booktitle = {Lecture Notes in Computer Sciences; 218 on Advances in cryptology---CRYPTO 85},
+ year = {1986},
+ location = {Santa Barbara, California, USA},
+ pages = {417--426},
+ numpages = {10},
+ acmid = {25413},
+ publisher = {Springer-Verlag New York, Inc.},
+ address = {New York, NY, USA},
+} 
+
+@ARTICLE{6773024,
+author={Shannon, C.E.},
+journal={Bell System Technical Journal, The},
+title={A mathematical theory of communication},
+year={1948},
+month={July},
+volume={27},
+number={3},
+pages={379-423},
+ISSN={0005-8580},}
+
+@INPROCEEDINGS{primitiveRoot,
+author={Dwivedi, S.P.},
+booktitle={Contemporary Computing (IC3), 2014 Seventh International Conference on},
+title={Computing multiplicative order and primitive root in finite cyclic group},
+year={2014},
+month={Aug},
+pages={130-134},
+keywords={group theory;number theory;finite cyclic group;generator root;least positive integer;logarithmic improvement;multiplicative order;primitive root;Algebra;Algorithm design and analysis;Context;Educational institutions;Finite element analysis;Generators;Presses;Algorithm;Group Theory;Number Theory;Primitive Root},
+doi={10.1109/IC3.2014.6897161},}
+
+@INPROCEEDINGS{5199978,
+author={Jim Zhang and Li-Qun Chen},
+booktitle={Environmental Science and Information Application Technology, 2009. ESIAT 2009. International Conference on},
+title={An Improved Algorithm for Discrete Logarithm Problem},
+year={2009},
+month={July},
+volume={2},
+pages={658-661},
+doi={10.1109/ESIAT.2009.457},}
+
+@misc{zalewskissh,
+  title={SSH CRC-32 compensation attack detector vulnerability (2001)},
+  author={Zalewski, M}
+}
+
+@INPROCEEDINGS{6732428,
+author={Gligoroski, Danilo and Knapskog, Svein Johan and Amundsen, Jorn and Jensen, Rune Erlend},
+booktitle={Security and Cryptography (SECRYPT), 2011 Proceedings of the International Conference on},
+title={Internationally standardized efficient cryptographic hash function},
+year={2011},
+month={July},
+pages={426-433},
+keywords={Computer aided software engineering;Cryptography;NIST;Cryptographic hash functions;Information security;International standardization},}
