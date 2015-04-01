@@ -15,7 +15,7 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated field_info (elt_size=4) to 10712 items from 5000.
+Reallocated field_info (elt_size=4) to 10984 items from 5000.
 Database file #1: thesis-blx.bib
 Database file #2: references.bib
 Warning--string name "march" is undefined
@@ -25,45 +25,45 @@ Warning--string name "april" is undefined
 Biblatex version: 1.7
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-You've used 53 entries,
+You've used 56 entries,
             6019 wiz_defined-function locations,
-            1468 strings with 18229 characters,
-and the built_in function-call counts, 161110 in all, are:
-= -- 6667
-> -- 5569
-< -- 1471
-+ -- 1832
-- -- 1864
-* -- 11046
-:= -- 9441
+            1487 strings with 18897 characters,
+and the built_in function-call counts, 170420 in all, are:
+= -- 7070
+> -- 5887
+< -- 1565
++ -- 1938
+- -- 1963
+* -- 11647
+:= -- 9962
 add.period$ -- 0
-call.type$ -- 53
-change.case$ -- 859
-chr.to.int$ -- 88
-cite$ -- 104
-duplicate$ -- 18186
-empty$ -- 17092
-format.name$ -- 3350
-if$ -- 36838
+call.type$ -- 56
+change.case$ -- 918
+chr.to.int$ -- 94
+cite$ -- 110
+duplicate$ -- 19245
+empty$ -- 18073
+format.name$ -- 3529
+if$ -- 38981
 int.to.chr$ -- 0
-int.to.str$ -- 162
+int.to.str$ -- 172
 missing$ -- 0
-newline$ -- 1347
-num.names$ -- 2578
-pop$ -- 16460
+newline$ -- 1420
+num.names$ -- 2738
+pop$ -- 17394
 preamble$ -- 1
-purify$ -- 1051
+purify$ -- 1120
 quote$ -- 0
-skip$ -- 9790
+skip$ -- 10377
 stack$ -- 0
-substring$ -- 3913
-swap$ -- 6018
-text.length$ -- 1105
+substring$ -- 4162
+swap$ -- 6368
+text.length$ -- 1168
 text.prefix$ -- 3
 top$ -- 1
-type$ -- 1976
+type$ -- 2090
 warning$ -- 0
-while$ -- 952
+while$ -- 1005
 width$ -- 0
-write$ -- 1293
+write$ -- 1363
 (There were 2 warnings)

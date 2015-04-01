@@ -1,18 +1,19 @@
 \section{Cryptography}
 
-The tool to achieve information security is cryptography.
-Cryptography \footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
-is the science of encrypting information. The evolution of cryptography was no linear process. Ciphers were used independently in different
-places, were forgotten and disappeared when the corresponding civilization died. Nevertheless,
-basics are found thousands of years ago, therefore a short time table for prominent events is presented:
-
+Cryptography\footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
+is the science of encrypting information - it's evolution was no linear process. Ciphers were used independently in different
+places, were forgotten and disappeared when the corresponding civilization died.
+A short time table for prominent events is presented below; for a comprehensive outline of cryptographic history, "The Codebreakers", written by David Kahn,
+is suggested \cite{codebreakers}.
+\\
+\\
 One of the oldest witnesses for cryptography are hieroglyphs used in Egypt about 2000 B.C., forming the predecessor
 of a simple substitution cipher. 500 B.C., the "skytale" was used by greek and spartan military leaders, performing a transposition cipher. Another classical
 example was the "Caesar Cipher", used by its inventor about 100 B.C. to hide information by replacing every letter of the alphabet by a letter some fixed number down the alphabet,
 thus performing a substitution cipher. Ahmas al-Qalqashandi, an egypt writer, introduced the frequency analysis, a method for breaking substitution ciphers,
 in the 14th century. About 300 years later, the "Geheime Kabinets-Kanzlei" in Vienna routinely intercepts, copies and 
  re-seales diplomatic correspondence to embassies, and manages to decrypt a great percentage of the ciphertexts. In the beginning of the 20th century, the 
- first cryptographic device called "Enigma" \footnote{classical greek for "riddle"} is patented for commercial use and is later used in World War 2 by german troops for 
+ first cryptographic device called "Enigma"\footnote{classical greek for "riddle"} is patented for commercial use and is later used in World War 2 by german troops for 
  military communication. Successful attacks against the "Enigma" cipher are demonstrated by polish mathematicians even before outbreak of the war, and systematic
  decryption of "Enigma" - based ciphertexts are conducted in Bleatchley Park, U.K., by using so called "Turing-Bombs", giving the allies invaluable advantages.
 The second half of the 20th century brings the introduction of public key cryptography with it: in 1976 Whitfield Diffie and Martin Hellman specify a 
@@ -21,7 +22,7 @@ mathematicians Rivest, Shamir and Adleman.
 \\
 
 Cryptography is basically the art of hiding information by turning cleartext
-data into a pseudo-random looking stream or block of bits, called ciphertext, using some kind of
+data into a random looking stream or block of bits, called ciphertext, using some kind of
 \textit{key}. This process is referred to as \textit{encryption} in general, but it is important to note that for many block ciphers, this encryption process
 can also be used to generate a special tag called \gls{mac2}, providing integrity. The next sections deal with how to achieve confidentiality, the 
 concepts how to achieve integrity are partially based on the confidentiality methods and are introduced in section \ref{Integrity}
@@ -80,14 +81,27 @@ Combining this properties yields a cipher or \textit{encryption scheme} defined 
  $ m = D_d(d, (E_e(e, m))$
   \end{center}
 
-\subsection{Kerckhoff's Principle}
+\subsection{Security of a cipher}
 
-When designing cryptographic systems, a fundamental question is what components of it must be protected from public knowledge, and what parts can be published without
-compromising the security of the system. A cipher is considered secure if it is not breakable by an adversary in a reasonable time frame \cite{handbook1}, where
-this time frame is a function of the useful timespan of the protected data. This synonymously means that an adversary must spend exponential work.
-It follows that \textit{every} cipher can be broken in principle by
+A formal definition of a secure cipher was introduced by Shannon in 1949 \cite{6769090}, viewed from a communication-theory point of view, as follows:
+depending on the message space, there is a finite number of possible cleartext messages, each occurring with its own \textit{a priori} probability. These messages are encrypted
+and sent to the receiver. An eavesdropper, intercepting messages, can calculate the \textit{a posteriori} probabilities for all possible cleartext messages, 
+leading to the observed cipher text. If booth probabilities are the same, the attacker has learned absolutely nothing from intercepting the cipher text, which
+is defined by Shannon as \textit{perfect secrecy}. A prerequisite for a perfectly secure cipher is that the key space is at least as big as the message space.
+Otherwise there will exist cleartext messages which are mapped to the same cipher texts, and thus a priori and a posteriori probabilities will be different,
+allowing the attacker to get knowledge he should not have gotten.
+\\
+Another definition of a secure cipher is a cipher that is \textit{semantically secure}, i.e. which is not breakable by an adversary in a reasonable time
+frame \cite{handbook1}, where this time frame is a function of the useful timespan of the protected data. This synonymously means for a secure cipher that an adversary must be forced to spend
+exponential time work to be able to break it. It follows that \textit{every} semantically secure cipher can be broken in principle by
 mounting the "brute-focrce" attack, searching the correct $n$-bit key in the exponential big key space $2^n$. Thus, such an exhaustive search must be rendered impracticable by 
 using a suitable large key space to obtain a secure cipher.
+Semantic security is therefor a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
+processing powers.
+\\
+\\
+When designing cryptographic systems, a fundamental question is what components of it must be protected from public knowledge, and what parts can be
+published without compromising the security of the system. 
 
 The dutch cryptographer Auguste Kerckhoff added some additional rules for designing a secure cipher.
 According to \textit{Kerckhoff's Principle} stated 1883, among other properties, a secure system should not rely on the secrecy of
@@ -99,20 +113,7 @@ transformation functions $E_e$ and $D_d$, must not secret. The only thing that h
 This separation of key and algorithm allows the publication of the basic cipher methods, benefiting from peer review. The contradicting approach by trying
 to hide the inner workings from public to increase security is also known as "Security by Obscurity".
 \\
-
-Another definition of a secure cipher was introduced by Shannon in 1949 \cite{6769090}, viewed from a communication-theory point of view. Depending on the
-message space, there is a finite number of possible cleartext messages, each occurring with its own \textit{a priori} probability. These messages are encrypted
-and sent to the receiver. An eavesdropper, intercepting messages, can calculate the \textit{a posteriori} probabilities for all possible cleartext messages, 
-leading to the observed cipher text. If booth probabilities are the same, the attacker has learned absolutely nothing from intercepting the cipher text, which
-is defined by Shannon as \textit{perfect secrecy}. A prerequisite for a perfectly secure cipher is that the key space is at least as big as the message space.
-Otherwise there will exist cleartext messages which are mapped to the same cipher texts, and thus a priori and a posteriori probabilities will be different,
-allowing the attacker to get knowledge he should not have gotten.
 \\
-
-In contrast, \textit{semantic} security can be seen as a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
-processing powers.
-\\
-
 Because all cryptographic schemes rely on the generation of random numbers, a short introduction to probabilistic theory and \gls{prng} is given,
 followed by a introduction to the most important representatives for symmetric and asymmetric ciphers.
 
@@ -608,10 +609,18 @@ $C[0] = O_0 \bigoplus M[0]$\\
 All modes of operation introduced so far are used to provide confidentiality only. To provide the second column of information security, i.e. integrity, in general
 \glspl{mac2} or digital signatures are used.
 Digital signatures are based on public key cryptography and are introduced in section \ref{digitalSignatures}. In contrast, \glspl{mac2} use symmetric keys,
-providing integrity and authenticity. Integrity means that a data unit is 
+providing integrity and authenticity. 
+\\
+The basic way to protect a data unit - be it a message traveling from sender to recipient or a file saved for later usage - from modification by a third party is to
+generate a tag $t$, also called \gls{mac2}, and concatenating this tag to the message, as shown in figure \ref{fig:tag}.
+Verifying the integrity is done by re-generating the tag and comparing it to the saved on. 
+\\
+\\
+Integrity means that a data unit is 
 protected from tampering by third parties in a way that such a modification by an unauthorized entity is detectable. Authenticity means that the receiver of
 a message can verify that the message really was sent from the sender and not by an illegitimate third entity. Obviously, this two concepts are semantically
-related: checking the integrity implicitly checks authenticity.
+related: checking the integrity implicitly checks authenticity, provided that the key used to generate the tag is only known to authentic entities.
+\\
 Vice versa, authenticating the sender of a message is only useful if the message itself cannot be modified by an adversary, i.e. integrity is guaranteed. To
 avoid confusion, the term integrity is used if the meaning is clear from the context.
 \\
@@ -625,16 +634,11 @@ management system from adversary modification.
 Combining integrity and confidentiality in a security scheme called \gls{ae} will be handled in section \ref{authEncrypt}.
 \\
 \\
-The basic way to protect a data unit - be it a message traveling from sender to recipient or a file saved for later usage - from modification by a third party is to
-generate a tag $t$, also called \gls{mac2}, and concatenating this tag to the message, as shown in figure \ref{fig:tag}.
-Verifying the integrity is done by re-generating the tag and comparing it to the saved on. 
-\\
-\\
 As tag generation and tag verification algorithms, keyed or unkeyed cryptographic secure hash functions are used.
 For integrity-only, keyed hash functions must be used, or
 otherwise an arbitrary entity can modify the message undetectable by regenerating the correct tag. Therefor, a simple checksum like a \gls{crc} or an unkeyed 
 hash function can not provide integrity only, simply because the function value can be re-generated by an adversary modifying the message, allowing to mount
-an attacker called \gls{mac2} forgery.
+an attack called \gls{mac2} forgery.
 Nevertheless, in combination with a confidentiality mode such an unkeyed function \textit{may} be secure, although it's use is discouraged because many applications operating
 this way are broken and can be attacked (i.e. \gls{ssh} version 1 \cite{zalewskissh}).
 \\
@@ -648,11 +652,13 @@ mapping implies the existence of collisions, i.e. the existence of distinct mess
     \label{fig:tag}
 \end{figure}
 \\
+\\
 To be cryptographically secure, a hash function must fulfill specific properties \cite{6732428}: firstly, while it should be easy to generate the tag
 by calculating $t = h(m)$, reversing the process to get $m$ by executing $h(t)^{-1}$ should be hard, a property called \textit{preimage resistance}. 
 Additionally, \textit{2nd-preimage resistance} assures that for any given message $m$ and corresponding tag $t$, it must be infeasible to find a second message
 that maps to the same tag. Finally, \textit{(strong) collision resistance} states that it also must be infeasible to find any two messages generating
 the same tag, therefore collision resistance implies 2nd-preimage resistance \cite{handbookCR}.
+\\
 \\
 Important representatives of cryptographically secure hash functions are the family of \glspl{sha}, with variants providing hashes of 128, 256, 384 or 512 bit 
 length, defined by \gls{nist} \cite{nistSHA}.
@@ -663,11 +669,10 @@ additionally to the message $m$ as input a key $k$, and $ipad$ and $opad$ being 
 \begin{align}
  t = S(k, m) = h((k \bigoplus opad) || h((k \bigoplus ipad) || m)) 
 \end{align}
-
-
-
-\subsubsection{\gls{cbc}-\gls{mac2}}\label{cbcAuth}
-
+\\
+\\
+A different way for tag-generation, called \gls{cbc}-\gls{mac2}, is based on block ciphers, utilizing a construction similar to \gls{cbc} mode encryption,
+shown in figure \ref{fig:cbc_MAC}. 
 
 \begin{figure}\label{cbcMAC}
     \centering
@@ -688,6 +693,47 @@ additionally to the message $m$ as input a key $k$, and $ipad$ and $opad$ being 
 \cite{Lenstra04keylength}
 
 \section{Authenticated Encryption}\label{authEncrypt}
+
+Many applications demand the integration of confidentiality \textit{and} integrity modes. The need for confidentiality is self explaining in systems where
+submitted data must be protected from a passive adversary. One example would be a password for logging into a remote computer, sent over a network connection
+- just by monitoring the connection, an attacker can steal the password and gain illegitimate access to the system.
+\\
+\\
+The need to additionally provide integrity and authenticity measurements is maybe not that obvious, but can be motivated in various ways. For example, two entities
+sharing an initial key known to booth of them which want to negotiate a temporary session key could randomly choose the temporary key, encrypt it and send it
+to the other side. Even if a passive adversary knows that the package he monitors will be used as session key he cannot derive it, provided a secure cipher is
+used.  In contrast, an active attacker can intercept and modify the encrypted session key, and afterwards inject the modified message. The receiver
+would then decrypt the package, thus obtaining a modified session key. After all, the two entities would use two different keeps, crippling their communication.
+\\
+More precise arguments can be found for different modes of operation, as introduced above. FIXME: ENCRYPTION ONLY ATTACKS
+\\
+\\
+To avoid that attacks, methods to provide encryption and integrity are combined. Basically, 3 different ways how this can be achieved exist:
+
+\begin{itemize}
+ \item "encrypt-and-mac" encrypts the message $m$ and appends the tag $t$ of the cleartext message
+ \begin{align}\label{encAndMac}
+  c = E(k_e, m) || h(k_h, m)
+ \end{align}
+ \item "mac-then-encrypt" generates the tag for the cleartext message $m$, appends it and afterwards encrypts cleartext + tag to get ciphertext $c$:
+ \begin{align}\label{macThenEnc}
+  c = E(k_e, m || h(k_h, m))
+ \end{align}
+ \item "encrypt-then-mac" encrypts the message $m$ first, and afterwards appends the tag $t$ of the encrypted message to obtain $c$
+ \begin{align}\label{encThenMac}
+  c = E(k_e, m) || h(k_h, E(k_e, m))
+ \end{align}
+\end{itemize}
+
+For all 3 schemes, $E(k, m)$ must be a semantically secure encryption function, and $h(k, m)$ denotes a keyed, cryptographically secure hash function.
+The latter is of particular importance for \ref{encAndMac}, because this scheme otherwise directly leaks information about the plaintext in the tag. 
+\\
+Under these assumptions, only \ref{encThenMac} is considered generically secure against chosen plaintext attacks.
+In contrast, "encrypt-and-mac" \cite{sshBellare}, used in \gls{ssh}, is considered generically
+insecure. For "mac-then-encrypt", used in \gls{ssl}, the same holds true, but this scheme can be used in a secure manner if \gls{cbc} or a stream cipher like 
+\gls{ctr} mode is used for encryption. 
+\\
+Informally, 
 
 \subsection{CCM}
 
@@ -758,7 +804,7 @@ keyblocks are then concatenated and trimmed to the proper length(=length of the 
 is then bitwise \gls{xor}'ed with the cleartextmessage(which consists of the data and the MAC), yielding the final encryption.
 
 
-\section{Public Key Cryptography}
+\section{Public Key Cryptography}\label{pkc}
 
 Public Key Cryptography solves the problem of establishing a secure channel by using an insecure one.
 Here sender and recipient use two different keys: one for encryption, called \textit{public key}, the other

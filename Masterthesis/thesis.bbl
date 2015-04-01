@@ -37,6 +37,50 @@
   \field{year}{2008}
 \endentry
 
+\entry{codebreakers}{inbook}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Kahn}{K.}%
+     {D.}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Scribner}%
+  }
+  \strng{namehash}{KD1}
+  \strng{fullhash}{KD1}
+  \field{title}{The Codebreakers: The Comprehensive History of Secret
+  Communication from Ancient Times to the Internet}
+  \list{location}{1}{%
+    {New York}%
+  }
+  \field{year}{1996}
+\endentry
+
+\entry{6769090}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Shannon}{S.}%
+     {C.E.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SC1}
+  \strng{fullhash}{SC1}
+  \verb{doi}
+  \verb 10.1002/j.1538-7305.1949.tb00928.x
+  \endverb
+  \field{issn}{0005-8580}
+  \field{number}{4}
+  \field{pages}{656\bibrangedash 715}
+  \field{title}{Communication theory of secrecy systems}
+  \field{volume}{28}
+  \field{journaltitle}{Bell System Technical Journal, The}
+  \field{year}{1949}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{handbook1}{inbook}{}
   \name{author}{3}{}{%
     {{}%
@@ -66,29 +110,6 @@
     {New York}%
   }
   \field{year}{1997}
-\endentry
-
-\entry{6769090}{article}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Shannon}{S.}%
-     {C.E.}{C.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{SC1}
-  \strng{fullhash}{SC1}
-  \verb{doi}
-  \verb 10.1002/j.1538-7305.1949.tb00928.x
-  \endverb
-  \field{issn}{0005-8580}
-  \field{number}{4}
-  \field{pages}{656\bibrangedash 715}
-  \field{title}{Communication theory of secrecy systems}
-  \field{volume}{28}
-  \field{journaltitle}{Bell System Technical Journal, The}
-  \field{year}{1949}
-  \warn{\item Invalid format of field 'month'}
 \endentry
 
 \entry{6773024}{article}{}
@@ -541,6 +562,45 @@
   \strng{namehash}{LAK1}
   \strng{fullhash}{LAK1}
   \field{title}{Key Length}
+  \field{year}{2004}
+\endentry
+
+\entry{sshBellare}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Bellare}{B.}%
+     {Mihir}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kohno}{K.}%
+     {Tadayoshi}{T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Namprempre}{N.}%
+     {Chanathip}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{Authenticated encryption, secure shell, security proofs, stateful
+  decryption}
+  \strng{namehash}{BMKTNC1}
+  \strng{fullhash}{BMKTNC1}
+  \field{issn}{1094-9224}
+  \field{number}{2}
+  \field{pages}{206\bibrangedash 241}
+  \field{title}{Breaking and Provably Repairing the SSH Authenticated
+  Encryption Scheme: A Case Study of the Encode-then-Encrypt-and-MAC Paradigm}
+  \field{volume}{7}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{ACM Trans. Inf. Syst. Secur.}
+  \field{month}{05}
   \field{year}{2004}
 \endentry
 
@@ -1393,6 +1453,23 @@
   \field{journaltitle}{J. ACM}
   \field{month}{01}
   \field{year}{1967}
+\endentry
+
+\entry{orderMacEnc}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Krawczyk}{K.}%
+     {Hugo}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KH1}
+  \strng{fullhash}{KH1}
+  \field{howpublished}{Cryptology ePrint Archive, Report 2001/045}
+  \field{note}{\url{http://eprint.iacr.org/}}
+  \field{title}{The order of encryption and authentication for protecting
+  communications (Or: how secure is SSL?)}
+  \field{year}{2001}
 \endentry
 
 \lossort
