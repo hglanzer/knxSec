@@ -8,8 +8,9 @@ struct threadEnvSec_t
 	char *socket;
 	int Read2MasterPipe[2];
 	uint8_t state;
-	uint8_t PSK[PSKSIZE];
-	uint8_t kGlobal[KSIZE];
 	uint8_t retryCount;
 	uint32_t globalCount;
+	// used keys
+	uint8_t PSK[PSKSIZE];
+	uint8_t globalKey[GKSIZE];
 };

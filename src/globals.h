@@ -16,6 +16,7 @@
 #include<sys/select.h>
 #include<string.h>
 #include<errno.h>
+#include <openssl/rand.h>
 
 #include "master.h"
 #include "cls.h"

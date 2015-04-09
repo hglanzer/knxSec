@@ -7,6 +7,11 @@ uint8_t secBufferWr[SECLINES][BUFSIZE];
 
 uint8_t	secINIT = 0;
 
+//FIXME: this is very insecure.
+//	maybe better:
+//	read from file to memory, securely delete file, delete buffer after initial phase...?
+uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x30\x31";
+
 /*
 	LAYOUT OF FRAMES USED:
 
@@ -19,31 +24,15 @@ uint8_t	secINIT = 0;
 	|--------------------------------------------------------------------------------
 
 	SEC - sync RESPONSE:
-		-> authenticated response to syncronize requester
-	|---------------------------------------------------------------------------------------------------------------------------------
-	|	 |        |	   	    |		     |	      |	       |			|			|	 |
-	|   CTRL |CTRL-EXT| Source Address  | DestinationAddr| LENGTH |  SECH  | Global Sequence Counter|      MAC (k_PSK)	|   FC   |  
-	|	 | 	  | 	   	    |		     |	      |	       |	4-6 Byte	|	4-6 Byte	|	 |
-	|---------------------------------------------------------------------------------------------------------------------------------
+		-> authenticated/encrypted(PSK) response to syncronize requester with global counter + global key
+	|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+	|	 |        |	   	    |		     |	      |	       |			|			|			|	 |
+	|   CTRL |CTRL-EXT| Source Address  | DestinationAddr| LENGTH |  SECH  | Global Sequence Counter|	GLOBAL KEY	|      MAC (k_PSK)	|   FC   |  
+	|	 | 	  | 	   	    |		     |	      |	       |	4-6 Byte	|	32 BYTE		|	4-6 Byte	|	 |
+	|--------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 	
-	SEC - join REQUEST
-		-> request to obtain the actual, globally used key
-	|---------------------------------------------------------------------------------------------------------------------------------
-	|	 |        |	   	    |		     |	      |	       |			|			|	 |
-	|   CTRL |CTRL-EXT| Source Address  | DestinationAddr| LENGTH |  SECH  | Global Sequence Counter|      MAC (k_PSK)	|   FC   |  
-	|	 | 	  | 	   	    |		     |	      |	       |	4-6 Byte	|	4-6 Byte	|	 |
-	|---------------------------------------------------------------------------------------------------------------------------------
-
-	SEC - join RESPONSE
-		-> response to submit the actual, globally used key to requester
-	|---------------------------------------------------------------------------------------------------------------------------------
-	|	 |        |	   	    |		     |	      |	       |			|			|	 |
-	|   CTRL |CTRL-EXT| Source Address  | DestinationAddr| LENGTH |  SECH  | Global Sequence Counter|      MAC (k_PSK)	|   FC   |  
-	|	 | 	  | 	   	    |		     |	      |	       |	4-6 Byte	|	4-6 Byte	|	 |
-	|---------------------------------------------------------------------------------------------------------------------------------
-
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 */
@@ -54,6 +43,18 @@ EIBConnection *secFD[SECLINES];
 	harald glanzer
 	secure line thread
 */
+
+void printKey(uint8_t *key, uint8_t keysize)
+{
+	int i = 0;
+	
+	printf("0x");
+	for(i = 0; i < keysize; i++)
+	{
+		printf("%X", key[i]);
+	}
+	printf("\n");
+}
 
 /*
 	gets pointer to dataframe
@@ -216,9 +217,14 @@ void keyInit(void *env)
 
 			// looks like this node is alone - reset global counter and choose global key randomly from key space
 			case CHOOSE_KEY:
-				debug("key Master: set globalCtr = 0, choose key", pthread_self());
 				thisEnv->globalCount = 0;
 				thisEnv->state = READY;
+				if(RAND_bytes(thisEnv->globalKey, GKSIZE) != 1)
+				{
+					debug("key Master: KEY SELECT FAILED!", pthread_self());
+				}
+				printKey(thisEnv->globalKey, GKSIZE);
+				debug("key Master: set globalCtr = 0, choose key", pthread_self());
 			break;
 
 			// node is ready to process datagrams

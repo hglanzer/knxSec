@@ -97,35 +97,29 @@ int initClr(void *env)
 	clrRecvThreadfPtr = &clrReceive;
 
 	pthread_t clrRecvThread, clrSendThread;
-	
+
+	debug("THIS IS **CLR**", pthread_self());
 	clrFD = EIBSocketURL(arg->socket);
-	#ifdef DEBUG
-		debug("clr opening socket", pthread_self());
-	#endif
 	
-	if (clrFD != NULL)
+	if (!clrFD)
 	{
-		#ifdef DEBUG
-			printf("OK - clr socket opened\n");
-		#endif
-	}
-	else
-	{
+		printf("%s", arg->socket);
 		debug("CLR: EIBSocketURL() failed", pthread_self());
 		return -1;
 	}
+	#ifdef DEBUG
+		printf("OK - clr socket opened\n");
+	#endif
 	
-	if(EIBOpenBusmonitor(clrFD) == 0)
-	{
-		#ifdef DEBUG
-			printf("OK - busmonitor started\n");
-		#endif
-	}
-	else
+	if(EIBOpenBusmonitor(clrFD) == -1)
 	{
 		printf("cannot open KNX Connection\n");
 		return -1;
 	}
+
+	#ifdef DEBUG
+		printf("OK - busmonitor started\n");
+	#endif
 
 	if((pthread_create(&clrSendThread, NULL, (void *)clrSendThreadfPtr, NULL)) != 0)
 	{

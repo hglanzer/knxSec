@@ -1,5 +1,5 @@
 CFLAGS=-Wall
-LIBS=-leibclient
+LIBS=-leibclient -lcrypto
 #LIBS=-lgmp -lcrypto -llibeibclient
 
 all:	clean update
@@ -7,7 +7,7 @@ all:	clean update
 	#gcc $(CFLAGS) master.c sec.c cls.c -o master /usr/lib/libeibclient.so.0 -pthread
 
 debug: clean
-	gcc $(CFLAGS) master.c sec.c cls.c -o master /usr/lib/libeibclient.so.0 -pthread -DDEBUG 
+	gcc $(CFLAGS) $(LIBS) master.c sec.c cls.c -o master -pthread -DDEBUG 
 
 clean:
 	clear

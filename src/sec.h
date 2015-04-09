@@ -9,8 +9,8 @@ void keyInit(void *);
 #define JOIN_RETRIES 3
 
 #define BUFSIZE		256
-#define PSKSIZE		256	// preshared key size
-#define KSIZE		256	// global key size
+#define PSKSIZE		32	// preshared key size
+#define GKSIZE		32	// global key size [byte]
 
 #define SECLINES	2
 
