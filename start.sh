@@ -1,5 +1,14 @@
 #!/bin/bash
 
+
+if [ -a /dev/knxCLR ] && [ -a /dev/knxSEC1 ] && [ -a /dev/knxSEC2 ]
+then
+	echo "device files exist - OK"
+else
+	echo "device file(s) missing / abort"
+	exit 1
+fi
+
 if [ $# -eq 1 ]
 then
 	if [ "$1" -gt "0" ] && [ "$1" -lt "16" ]
