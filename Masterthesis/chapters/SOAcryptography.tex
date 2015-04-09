@@ -84,12 +84,23 @@ Combining this properties yields a cipher or \textit{encryption scheme} defined 
 \subsection{Security of a cipher}
 
 A formal definition of a secure cipher was introduced by Shannon in 1949 \cite{6769090}, viewed from a communication-theory point of view, as follows:
-depending on the message space, there is a finite number of possible cleartext messages, each occurring with its own \textit{a priori} probability. These messages are encrypted
-and sent to the receiver. An eavesdropper, intercepting messages, can calculate the \textit{a posteriori} probabilities for all possible cleartext messages, 
-leading to the observed cipher text. If booth probabilities are the same, the attacker has learned absolutely nothing from intercepting the cipher text, which
-is defined by Shannon as \textit{perfect secrecy}. A prerequisite for a perfectly secure cipher is that the key space is at least as big as the message space.
+given a finite message space, every possible cleartext message has it's own \textit{a priori} probability (for example, the distribution of letters in a 
+specific language). Additionally, every key can be chosen with specific probability. It is assumed that these
+two probabilities constitute the a priori knowledge of an attacker.
+\\
+A message is picked, encrypted
+and sent to the receiver. The eavesdropper, intercepting the message, can calculate the \textit{a posteriori} probabilities for all possible cleartext messages, 
+leading to the observed cipher text - this are the conditional properties that under a fixed key, encrypting the cleartext message lead to the
+observed ciphertext message.
+\\
+If the a posteriori probabilities for all possible encryptions are the same as all a priory probabilities, the attacker has learned absolutely
+nothing from intercepting the cipher text, which is defined by Shannon as \textit{perfect secrecy}. Such a cipher cannot be broken by a ciphertext-only-attack,
+even by an adversary with unlimited time and processing power.
+\\
+Shannon proofed that for a perfectly secure cipher, the key space must be at least as big as the message space.
 Otherwise there will exist cleartext messages which are mapped to the same cipher texts, and thus a priori and a posteriori probabilities will be different,
-allowing the attacker to get knowledge he should not have gotten.
+allowing the attacker to get knowledge he should not have gotten. 
+\\
 \\
 Another definition of the security of a cipher, based on complexity theory, is \textit{semantic security}.
 To be semantically secure, a cipher must not be breakable by an adversary in a reasonable time
@@ -98,21 +109,22 @@ cipher that an adversary must be forced to spend super-polynomial time to be abl
 can be broken in principle by mounting the "brute-focrce" attack, searching the correct $n$-bit key in the exponential big key space $2^n$. Thus, such an
 exhaustive search must be rendered impracticable by using a suitable large key space to obtain a secure cipher.
 Semantic security is therefor a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
-processing powers.
+processing powers \cite{GoldwasserMicali}.
 \\
 \\
 When designing cryptographic systems, a fundamental question is what components of it must be protected from public knowledge, and what parts can be
 published without compromising the security of the system. 
 \\
-The dutch cryptographer Auguste Kerckhoff added some additional rules for designing a secure cipher.
+The dutch cryptographer Auguste Kerckhoff stated rules for designing a secure cipher.
 According to \textit{Kerckhoff's Principle} stated 1883, among other properties, a secure system should not rely on the secrecy of
-its components, the only part that should be kept secret is the key alone.  
+its components, the only part that should be kept secret is the key alone. Shannon acknowledged these assumptions to be "pessimistic and hence safe, but 
+in the long run realistic, since one must expect the system to be found out eventually".
 \\
 \\
 Mapped to the definitions above, the sets $\mathcal{M, C, K}$, as well as the
 transformation functions $E_e$ and $D_d$, must not secret. The only thing that has to be kept private is the decryption key $d$.
-This separation of key and algorithm allows the publication of the basic cipher methods, benefiting from peer review. The contradicting approach by trying
-to hide the inner workings from public to increase security is also known as "Security by Obscurity".
+This separation of key and algorithm allows the publication of the basic cipher methods, benefiting from peer review. A contradicting approach, 
+trying to strengthen the safety of a cryptographic system by hiding the inner workings of it from public is also known as "Security by Obscurity". FIXME: SCHLECHT!
 \\
 \\
 Because all cryptographic schemes rely on the generation of random numbers, a short introduction to probabilistic theory and \gls{prng} is given,
@@ -483,7 +495,7 @@ figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor this mode should be avoi
 \subsubsection{\gls{cbc}}
 
 This mode uses an \gls{iv} and can therefor be used for encryption of same messages without changing the key. Additionally, \gls{cbc} can also be used
-for \gls{mac2} generation, as explained in section \ref{cbcAuth}.
+for \gls{mac2} generation, as shown in section \ref{Integrity}.
 
 Encrypting a message is shown in figure \ref{fig:cbc_encrypt}.
 
@@ -661,8 +673,9 @@ that maps to the same tag. Finally, \textit{(strong) collision resistance} state
 the same tag, therefore collision resistance implies 2nd-preimage resistance \cite{handbookCR}.
 \\
 \\
-Important representatives of cryptographically secure hash functions are the family of \glspl{sha}, with variants providing hashes of 128, 256, 384 or 512 bit 
-length, defined by \gls{nist} \cite{nistSHA}.
+Important representatives of cryptographically secure hash functions are the family of \glspl{sha}, with variants providing hashes of 160, 256, 384 or 512 bit 
+length, defined by \gls{nist} \cite{nistSHA}. For \gls{sha}-1, an attack to find collisions was found \cite{Wang05findingcollisions} and should therefor not
+be used anymore.
 \\
 Because these hash functions lack a secret key and therefor would allow \gls{mac2} forgery, a construction called \gls{hmac} can be used, which takes 
 additionally to the message $m$ as input a key $k$, and $ipad$ and $opad$ being constant values \cite{hmac}.
@@ -801,8 +814,8 @@ length, and then applying the \gls{xor} operation to the keystream and the data,
 
 
 First, keyblocks with 16 byte length each are generated by encrypting the nounce, a flag and a counter with the key. These 
-keyblocks are then concatenated and trimmed to the proper length(=length of the message to encrypt). This obtained keystream
-is then bitwise \gls{xor}'ed with the cleartextmessage(which consists of the data and the MAC), yielding the final encryption.
+keyblocks are then concatenated and trimmed to the proper length (i.e., the length of the message to encrypt). This obtained keystream
+is then bitwise \gls{xor}'ed with the cleartextmessage (which consists of the data and the MAC), yielding the final encryption.
 
 
 \section{Public Key Cryptography}\label{pkc}
@@ -878,9 +891,9 @@ element also belonging to the set.
 \end{itemize}
 
 For a finite field, the size of the set 
-$\mathcal{F}$ is finite and called \textit{order} of the field, with the identities "0" for addition and "1" for
+$\mathcal{F}$ is finite and called \textit{order} of the field, with neutral elements for addition and
 multiplication. Inverses can be found to for all
-elements regarding addition s.t. $a + (-a) = e = 0$ and regarding multiplication for all elements except ${0}$ s.t. $a * a^{-1} = e = 1$.
+elements regarding addition s.t. $a + (-a) = e$ and regarding multiplication for all elements except ${0}$ s.t. $a * a^{-1} = e$.
 \\
 \\
 A specific example of a finite field is a prime file, which can be constructed by taking the set of integers $\mathbb{Z}\pmod p$, with $p \in \mathbb{P}$, thus
@@ -896,19 +909,19 @@ modulo p:
  $a^{p-1} \equiv 1 \pmod p $ \\
 \end{center}
 Raising $a$ to higher powers results in:
-\\
-\\
+
+\begin{center}
  $a^{p} \equiv a*a^{p-1} \equiv a \pmod p$ \\
- ... \\
- $a^{2p} \equiv a^2 * a^{p-1} * a^{p-1} \equiv a^2 \pmod p$ 
-\\
-\\
+ $...$ \\
+ $a^{2p} \equiv a^2 * a^{p-1} * a^{p-1} \equiv a^2 \pmod p$
+\end{center}
 Thus, generating higher powers than $(p-1)$ does not yield different outcomes. If by raising $a$ to $(p-1)$ different powers all elements from $\mathbb{Z}{_p}^*$ can
 be generated, $a$ is called \textit{primitive root} or \textit{generator}, generating a cyclic group.
 If $p$ is prime it can be shown that at least one such generator $g$ must exist and can be found efficiently \cite{primitiveRoot}.
 Conversely this means that for all elements from  $\mathbb{Z}{_p}^*$ a unique exponent in the interval $[0, p-1]$ exists,
 called the \textit{discrete logarithm for the base $ g \pmod p$}.
-
+\\
+\\
 To find
 the discrete logarithm, several algorithms exist. The most naive method conducts an exhaustive search, so for a prime of $n$ bits length, $2^n$ search operations
 are necessary. More efficient algorithms exist, with the best methods finishing after about $2^{\frac{n}{2}}$ steps \cite{5199978}. 
@@ -923,10 +936,10 @@ shared secret which never has to be transmitted between them. The security of th
 is based on the hardness of the \textit{Discrete Logarithm Problem}.
 
 With the original \gls{dh} algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
-then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, q, g\}$, where $p$ is a 
-large prime, $q$ is a prime divisor of $p-1$, and $g$ is a generator of the cyclic group ${Z_p}^*$ in the range $[1, p-1]$. These parameters are not secret and
+then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, g\}$, where $p$ is a 
+large prime and $g$ is a generator of the cyclic group ${Z_p}^*$. These parameters are not secret and
 can thus be sent over an unsecured channel.
-Additionally, each entity randomly chooses an integer $x$ from the interval $[1, q-2]$, and calculates the value $y = g^x \pmod p$. $x$ is the private key,
+Additionally, each entity randomly chooses an integer $x$ from the interval $(1, q-2]$, and calculates the value $y = g^x \pmod p$. $x$ is the private key,
 $y$, which is computationally easy to calculate, is the public key. $A$ sends its public key $y_A \equiv g^{x_A} \pmod p$ to $B$, and $B$ its public key
 $y_B \equiv g^{x_B} \pmod p$ to $A$. Due to the characteristics of exponentiation, $A$ and $B$ can now easily derive the shared secret by using its counterpart's
 public key and raising it to the power of it's own private key in the domain of ${Z_p}^*$:
@@ -941,10 +954,8 @@ $k_A = K_B$  must therefore calculate the discrete logarithm of $y_A$ or $y_B$ t
 section \ref{finiteFields}.
 \\
 
-% FIXME: EL GAMAL scheme vorstellen??
-
-
-\subsection{\gls{ecdh}}
+%FIXME el gamal??
+\subsection{\gls{ecc}}
 
 The \gls{dh} protocol can be based on different kinds of cyclic groups. Koblitz and Miller independently proposed the usage of cyclic groups based on
 \glspl{ec} \cite{eccKoblitz} \cite{eccMiller}.
@@ -952,11 +963,16 @@ This cyclic groups are receiving increased importance in cryptography because th
 of shorter keys compared to \gls{dh} over prime fields or RSA, while providing the same level of secrecy.
 
 An \gls{ec} is basically the set of all points
-satisfying an equation with the form as shown in \ref{basicEC}:
+satisfying an equation with the form as shown in \ref{basicEC}, called "Weierstraß" equation:
 
 \begin{align}\label{basicEC}
  y^2 = x^3 + ax +b
 \end{align}
+with
+\begin{align}
+ 4a^3 + 27b^3 \neq 0
+\end{align}
+
 
 \begin{minipage}{\linewidth}
  %     \centering
@@ -980,7 +996,8 @@ satisfying an equation with the form as shown in \ref{basicEC}:
 By defining an \gls{ec} over $\mathbb{Z}_p$, with $a, b \in \mathbb{Z}_p$, a cyclic group can be generated. The addition operation that "adds" two points on
 this curve is defined by a "chord-and-tangent" rule. Figure \ref{fig:ecAdd}
 shows addition of two points, while \ref{fig:ecDouble} shows adding a point to itself. It is important to note that this representation is shown in the domain
-$\mathbb{R}$ for visualization - in real \gls{ec} cryptography, only elements from $\mathbb{Z}_p$ are allowed. Addition is defined as connecting points $A$ and 
+$\mathbb{R}$ for visualization - in real \gls{ec} cryptography, only elements $\pmod p$ (i.e. from the set $\mathbb{Z}_p$)
+are allowed. Addition is defined as connecting points $A$ and 
 $Q$, finding the intersection of the line with the \gls{ec} ($R'$) and reflecting that point across the x-axis to obtain the result $R$.
 Point-doubling of $P$ is achieved in a similar way by determining the tangent of $P$, finding the intersection and reflection. Formulae to calculate x- and y-coordinates for the resulting points
 for point addition $R=P+Q$ and point doubling $R=P+P$ are shown in equations \ref{adding} and \ref{doubling} respectively:
@@ -1007,15 +1024,49 @@ An imaginary point "in infinity", denoted $\infty$, serves as additive neutral e
 
 Negatives can be calculated easily due to the symmetric nature of the curves by swapping the sign of the y-coordinate of the point. For point $P$ with coordinates $(x, y)$, $-P$ is defined as
 $(x,-y)$, thus satisfying $P + (-P) = \infty$.
-\\
-\\
-With these prerequisites, the \gls{ecdlp} \cite{ecdlp} can be defined as following: given an \gls{ec} $E$ over the finite field $\mathcal{F}_p$ and 2 points $P,Q$ on this curve, %FIXME: "P of order n...???"
+
+\subsubsection{\gls{ecdlp}}\label{ecdp}
+
+Based on this group operations, the \gls{ecdlp} \cite{ecdlp} can be defined as following: given an \gls{ec} $E$ over the finite field $\mathcal{F}_p$ and 2 points $P,Q$ on this curve, %FIXME: "P of order n...???"
 find the integer $k$ s.t. $Q = kP$. $k$ is called the discrete logarithm of $Q$ to the base $P$.
 \\
-To build a public key system, two users $A$ and $B$ initially agree on a set of public parameters, called \textit{domain parameters}, including a representation
-of the curve and a point $P$ belonging to the curve, called \textit{base point}. Then $A$ selects a randomly chosen integer $k_A$, calculates $P_A = k_A*P$ and sends
+To build a public key system, two users $A$ and $B$ initially agree on a set of public \textit{domain parameters}. The most important parameters are \cite{ecDP}
+
+\begin{itemize}
+ \item the order of the field, $q$
+ \item the coefficients $a, b \in \mathcal{F}_p$, defining the \gls{ec}
+ \item the coordinates $(x_p, y_p \in \mathcal{F}_p)$ of the \textit{base point} $P$, 
+ \item the order of $P$, denoted $n$
+\end{itemize}
+
+After agreeing on this set, $A$ selects a randomly chosen integer $k_A$, calculates $P_A = k_A*P$ and sends
 this point to $B$, who in turn randomly chooses $k_B$ and sends $P_B = k_B*P$ to $A$. Subsequently, booth can calculate the point $k_A*k_B*P$, which can be used
 to derive a key.
+
+\subsection{Key establishment more communication partners}
+\gls{dh} and therefor also the \gls{ecdlp} can be generalized to $n$ parties, obtaining one key in common. The key negotiation procedure for 3 parties, using
+classical \gls{dh}, is
+shown in figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all 3 parties $A$, $B$ and $C$ already agreed upon $(p,g)$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/dh-group_round1.eps}
+    \caption{DH Round 1}
+    \label{fig:dh1}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/dh-group_round2.eps}
+    \caption{DH Round 2}
+    \label{fig:dh2}
+\end{figure}
+After finishing the second communication round, every party raises the last received value to it's own private key and thus derives the shared secret.
+
+\begin{align}
+ ((g^b)^c)^a = ((g^c)^a)^b = ((g^a)^b)^c = g^{a*b*c}
+\end{align}
+This algorithm can be generalized to $n$ parties, using $(n-1)$ communication rounds. 
 
 \subsection{RSA}
 
@@ -1073,21 +1124,44 @@ By using Euler's theorem \ref{euler}, expression \ref{cong} shows that $M=M'$, i
 
 \subsection{Digital Signatures}\label{digitalSignatures}
 
-Digital signatures can also, in contrast to its symmetric-key \glspl{mac2} counterparts
-additionally to integrity and authenticity, provide non-repudiation. This property allows to 
-convince an unbiased "judge" that a message, signed by the sender, was indeed sent by this sender, i.e. the message was not forged by a third party.
- 
+Digital signatures are, as its symmetric-key \glspl{mac2} counterparts, used to provide integrity. Most digital signature schemes are based on
+cryptographically secure hash functions, so the same requirements as listed in \ref{Integrity} must also hold here.
+\\
+\\
+Nevertheless, due to the use of asymmetric keys, an important semantic difference between \glspl{mac2} and digital signatures emerges: for a \gls{mac2} 
+a key is shared by at least 2 entities. A digital signature, in contrast, is generated by utilizing the private key of an entity. Therefor,
+digital signatures can also provide non-repudiation.
+This property allows to convince an unbiased "judge" that a message, signed by the sender, was indeed sent by this sender, i.e. the message was not
+forged by a third party. This is an important difference to \glspl{mac2}, where such a behavior is not possible.
 
-\subsubsection{RSA - Signing of messages}
+\subsubsection{RSA}
 
-With the same set of keys it is also possible to generate signatures of a message, providing the authenticity of the message.
-This is achieved by generating a hash value of the message and \textit{encrypting} that hash with the \textit{private} key. The signature is then attached to the
-message. Afterwards, every entity can verify the authenticity by \textit{decrypting} the signature with the \textit{public} key of the sender, calculating of
+By 'reversing' the encryption process, the RSA algorithm can also be used to generate signatures of a message.
+This is typically achieved by generating a hash value of the message and \textit{encrypting} that hash with the \textit{private} key. The signature is then attached to the
+message. Afterwards, every entity can verify the integrity by \textit{decrypting} the signature with the \textit{public} key of the sender, calculating of
 the hash of the message and comparing it to the decrypted hash.
 
-%\subsubsection{Security of RSA}
+\subsubsection{\gls{ecdsa}}
 
+FIXME Based on the idea of Scott Vanstone, this signature algorithm is the \gls{ecc} variant of the \gls{dsa}, standardized by \gls{nist} \cite{nistECDSA}.
+Analog to the \gls{ecdlp}, as shown in section \ref{ecdp}, the domain parameters are public knowledge. The signer of the message chooses a random integer $k$ and
+computes the coordinates $(x_Q, y_Q)$ of a new point $Q$ by multiplying $k*P = Q$. Afterwards, $x_Q$ is converted to an integer, obtaining $r = x_Q' \pmod n$. Finally,
+by using his private key $d$, $s$ is calculated:
 
+\begin{align}\label{ecdsLabel}
+s \equiv k^{-1}(h(m)+dr) \pmod n
+\end{align}
+This results in the tuple $(r,s)$, i.e. the signature of $m$.
+\\
+\\
+The receiver of the message can use the domain parameters and signature to verify the integrity by calculating:
+
+\begin{align*}
+ x' \equiv s^{-1}(h(m)P + rQ) \pmod n\\
+ x' \equiv s^{-1}(h(m)P + rkP) \pmod n\\
+ x' \equiv P \underbrace{(s^{-1}(h(m) + rk))}_{k'} \pmod n
+\end{align*}
+$x'$ is converted to an integer an reduced $\pmod$ to obtain $r'$. If $r = r'$, the signature is accepted, proofing the integrity of the message.
 
 \subsubsection{Decryption and Authenticity Check}
 

@@ -112,6 +112,27 @@
   \field{year}{1997}
 \endentry
 
+\entry{GoldwasserMicali}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Goldwasser}{G.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Micali}{M.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GSMS1}
+  \strng{fullhash}{GSMS1}
+  \field{pages}{270\bibrangedash 299}
+  \field{title}{Probabilistic Encryption}
+  \field{journaltitle}{Journal of Computer and System Science}
+  \field{year}{1984}
+\endentry
+
 \entry{6773024}{article}{}
   \name{author}{1}{}{%
     {{}%
@@ -514,6 +535,35 @@
   \field{year}{2012}
 \endentry
 
+\entry{Wang05findingcollisions}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Wang}{W.}%
+     {Xiaoyun}{X.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Yin}{Y.}%
+     {Yiqun~Lisa}{Y.~L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Yu}{Y.}%
+     {Hongbo}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{WXYYLYH1}
+  \strng{fullhash}{WXYYLYH1}
+  \field{booktitle}{In Proceedings of Crypto}
+  \field{pages}{17\bibrangedash 36}
+  \field{title}{Finding Collisions in the Full SHA-1}
+  \field{year}{2005}
+\endentry
+
 \entry{hmac}{report}{}
   \name{author}{3}{}{%
     {{}%
@@ -825,6 +875,37 @@
   \field{year}{2004}
 \endentry
 
+\entry{ecDP}{book}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Hankerson}{H.}%
+     {D}{D}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Menezes}{M.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vanstone}{V.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{HDMAVS1}
+  \strng{fullhash}{HDMAVS1}
+  \field{pages}{172}
+  \field{title}{Guid to Elliptic Curve Cryptopgraphy}
+  \list{location}{1}{%
+    {New York}%
+  }
+  \field{year}{2004}
+\endentry
+
 \entry{RSA}{article}{}
   \name{author}{3}{}{%
     {{}%
@@ -905,6 +986,28 @@
   \field{journaltitle}{IEEE Std 1363-2000}
   \field{year}{2000}
   \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{nistECDSA}{online}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Standards}{S.}%
+     {National~Institute}{N.~I.}%
+     {of}{o.}%
+     {}{}}%
+    {{}%
+     {Technology}{T.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SNIoT1}
+  \strng{fullhash}{SNIoT1}
+  \field{title}{DIGITAL SIGNATURE STANDARD {@ONLINE}}
+  \verb{url}
+  \verb http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf
+  \endverb
+  \field{year}{2013}
 \endentry
 
 \entry{1335465}{article}{}
