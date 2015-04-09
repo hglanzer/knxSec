@@ -1,0 +1,62 @@
+This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: proposal_hglanzer_KNXavailability.aux
+The style file: biblatex.bst
+A level-1 auxiliary file: titlepage_en.aux
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: proposal_hglanzer_KNXavailability-blx.bib
+Database file #2: references.bib
+Biblatex version: 1.7
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+You've used 17 entries,
+            6019 wiz_defined-function locations,
+            1238 strings with 11492 characters,
+and the built_in function-call counts, 49795 in all, are:
+= -- 1982
+> -- 1734
+< -- 438
++ -- 567
+- -- 586
+* -- 3432
+:= -- 3100
+add.period$ -- 0
+call.type$ -- 17
+change.case$ -- 238
+chr.to.int$ -- 64
+cite$ -- 32
+duplicate$ -- 5557
+empty$ -- 5307
+format.name$ -- 1016
+if$ -- 11313
+int.to.chr$ -- 0
+int.to.str$ -- 48
+missing$ -- 0
+newline$ -- 438
+num.names$ -- 772
+pop$ -- 5114
+preamble$ -- 1
+purify$ -- 296
+quote$ -- 0
+skip$ -- 2945
+stack$ -- 0
+substring$ -- 1186
+swap$ -- 1866
+text.length$ -- 361
+text.prefix$ -- 0
+top$ -- 1
+type$ -- 619
+warning$ -- 0
+while$ -- 345
+width$ -- 0
+write$ -- 420

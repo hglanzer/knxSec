@@ -1,0 +1,454 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 1.7 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{knxapps}{unpublished}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Association}{A.}%
+     {KNX}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AK1}
+  \strng{fullhash}{AK1}
+  \field{title}{KNX Applications}
+  \verb{url}
+  \verb http://www.knx.org/fileadmin/downloads/08%20-%20KNX%20Flyers/KNX%20Solu
+  \verb tions/KNX_Solutions_English.pdf
+  \endverb
+\endentry
+
+\entry{knxSpec}{unpublished}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Association}{A.}%
+     {KNX}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AK1}
+  \strng{fullhash}{AK1}
+  \field{pages}{11}
+  \field{title}{System Specifications, Overview}
+  \verb{url}
+  \verb http://www.knx.org/knx-en/knx/technology/specifications/index.php
+  \endverb
+\endentry
+
+\entry{granzer2006security}{inproceedings}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Granzer}{G.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kastner}{K.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Neugschwandtner}{N.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Praus}{P.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{Automatic control;Automation;Communication system control;Communication
+  system security;Control systems;Data security;Daylighting;Intelligent
+  networks;Protocols;Spine}
+  \strng{namehash}{GW+1}
+  \strng{fullhash}{GWKWNGPF1}
+  \field{abstract}{%
+  Not Available%
+  }
+  \field{booktitle}{Proceedings of the IEEE International Workshop on Factory
+  Communication Systems (WFCS)}
+  \verb{doi}
+  \verb 10.1109/WFCS.2006.1704168
+  \endverb
+  \field{pages}{283\bibrangedash 292}
+  \field{title}{{Security in networked building automation systems}}
+  \field{year}{2006}
+\endentry
+
+\entry{Rivest:1978:MOD:359340.359342}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Rivest}{R.}%
+     {R.~L.}{R.~L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shamir}{S.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Adleman}{A.}%
+     {L.}{L.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{authentication, cryptography, digital signatures, electronic funds
+  transfer, electronic mail, factorization, message-passing, prime number,
+  privacy, public-key cryptosystems, security}
+  \strng{namehash}{RRLSAAL1}
+  \strng{fullhash}{RRLSAAL1}
+  \field{number}{2}
+  \field{pages}{120\bibrangedash 126}
+  \field{title}{A Method for Obtaining Digital Signatures and Public-key
+  Cryptosystems}
+  \field{volume}{21}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{Commun. ACM}
+  \field{month}{02}
+  \field{year}{1978}
+\endentry
+
+\entry{1055638}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Diffie}{D.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hellman}{H.}%
+     {M.E.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{DWHM1}
+  \strng{fullhash}{DWHM1}
+  \field{number}{6}
+  \field{pages}{644\bibrangedash 654}
+  \field{title}{New directions in cryptography}
+  \field{volume}{22}
+  \field{journaltitle}{Information Theory, IEEE Transactions on}
+  \field{year}{1976}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{rfc2246}{report}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Dierks}{D.}%
+     {T.}{T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Allen}{A.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {{RFC Editor}}%
+  }
+  \strng{namehash}{DTAC1}
+  \strng{fullhash}{DTAC1}
+  \field{howpublished}{Internet Requests for Comments}
+  \field{number}{2246}
+  \field{pages}{1\bibrangedash 80}
+  \field{title}{{The TLS Protocol Version 1.0}}
+  \verb{url}
+  \verb https://www.ietf.org/rfc/rfc2246.txt
+  \endverb
+  \list{institution}{1}{%
+    {{RFC Editor}}%
+  }
+  \field{type}{{RFC}}
+  \field{year}{1999}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{Vaudenay02securityflaws}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Vaudenay}{V.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer-Verlag}%
+  }
+  \strng{namehash}{VS1}
+  \strng{fullhash}{VS1}
+  \field{booktitle}{Proceedings of In Advances in Cryptology}
+  \field{pages}{534\bibrangedash 546}
+  \field{title}{Security Flaws Induced by CBC Padding - Applications to SSL,
+  IPSEC, WTLS}
+  \field{year}{2002}
+\endentry
+
+\entry{cryptoeprint}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Krawczyk}{K.}%
+     {Hugo}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KH1}
+  \strng{fullhash}{KH1}
+  \field{howpublished}{Cryptology ePrint Archive, Report 2001/045}
+  \field{note}{\url{http://eprint.iacr.org/}}
+  \field{title}{The order of encryption and authentication for protecting
+  communications (Or: how secure is SSL?)}
+  \field{year}{2001}
+\endentry
+
+\entry{ocb}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Rogaway}{R.}%
+     {Phillip}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bellare}{B.}%
+     {Mihir}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Black}{B.}%
+     {John}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \strng{namehash}{RPBMBJ1}
+  \strng{fullhash}{RPBMBJ1}
+  \field{number}{3}
+  \field{pages}{365\bibrangedash 403}
+  \field{title}{OCB: A Block-cipher Mode of Operation for Efficient
+  Authenticated Encryption}
+  \field{volume}{6}
+  \field{journaltitle}{ACM Trans. Inf. Syst. Secur.}
+  \field{month}{08}
+  \field{year}{2003}
+\endentry
+
+\entry{Borisov:2004:OCW:1029179.1029200}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Borisov}{B.}%
+     {N.}{N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Goldberg}{G.}%
+     {I.}{I.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Brewer}{B.}%
+     {E.}{E.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{deniability, perfect forward secrecy, private communication}
+  \strng{namehash}{BNGIBE1}
+  \strng{fullhash}{BNGIBE1}
+  \field{booktitle}{Proceedings of the 2004 ACM Workshop on Privacy in the
+  Electronic Society}
+  \field{pages}{77\bibrangedash 84}
+  \field{title}{Off-the-record Communication, or, Why Not to Use PGP}
+  \list{location}{1}{%
+    {Washington DC, USA}%
+  }
+  \field{year}{2004}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{rfc791}{report}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Postel}{P.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {{RFC Editor}}%
+  }
+  \strng{namehash}{PJ1}
+  \strng{fullhash}{PJ1}
+  \field{howpublished}{Internet Requests for Comments}
+  \field{number}{791}
+  \field{pages}{1\bibrangedash 44}
+  \field{title}{{INTERNET PROTOCOL}}
+  \verb{url}
+  \verb https://tools.ietf.org/html/rfc791
+  \endverb
+  \list{institution}{1}{%
+    {{RFC Editor}}%
+  }
+  \field{type}{{RFC}}
+  \field{year}{1981}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{rfc4301}{report}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Kent}{K.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Seo}{S.}%
+     {K.}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {{RFC Editor}}%
+  }
+  \strng{namehash}{KSSK1}
+  \strng{fullhash}{KSSK1}
+  \field{howpublished}{Internet Requests for Comments}
+  \field{number}{4301}
+  \field{pages}{1\bibrangedash 101}
+  \field{title}{{Security Architecture for the Internet Protocol}}
+  \verb{url}
+  \verb http://tools.ietf.org/html/rfc4301
+  \endverb
+  \list{institution}{1}{%
+    {{RFC Editor}}%
+  }
+  \field{type}{{RFC}}
+  \field{year}{2005}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{knx_data_sec}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {{KNX Association}}{K.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{K1}
+  \strng{fullhash}{K1}
+  \field{note}{{Status: Draft Proposal}}
+  \field{title}{{Application Note 158 -- KNX Data Security}}
+  \field{month}{05}
+  \field{year}{2013}
+\endentry
+
+\entry{knx_ip_sec}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {{KNX Association}}{K.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{K1}
+  \strng{fullhash}{K1}
+  \field{note}{{Status: Draft Proposal}}
+  \field{title}{{Application Note 159 -- KNXnet/IP Secure}}
+  \field{month}{05}
+  \field{year}{2013}
+\endentry
+
+\entry{KraInnosec2013}{inproceedings}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Krammer}{K.}%
+     {Lukas}{L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bruyne}{B.}%
+     {Steven~De}{S.~D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kastner}{K.}%
+     {Wolfgang}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Granzer}{G.}%
+     {Wolfgang}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KL+1}
+  \strng{fullhash}{KLBSDKWGW1}
+  \field{booktitle}{Tagungsband -- innosecure 2013 -- Kongress mit Ausstellung
+  fuer Innovationen in den Sicherheitstechnologien Velbert Heiligenhaus}
+  \field{note}{german}
+  \field{pages}{31\bibrangedash 39}
+  \field{title}{{Security Erweiterung fuer den KNX Standard}}
+  \field{year}{2013}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{knxsec}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Cavalieri}{C.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cutuli}{C.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{building management systems;cryptography;home automation;AES
+  algorithm;Diffie-Hellman algorithm;KNX communication system;building
+  automation;data authentication;data encryption;home
+  automation;Authentication;Cryptography;Network-on-a-chip}
+  \strng{namehash}{CSCG1}
+  \strng{fullhash}{CSCG1}
+  \field{booktitle}{Industrial Electronics, 2009. IECON '09. 35th Annual
+  Conference of IEEE}
+  \field{issn}{1553-572X}
+  \field{pages}{2459\bibrangedash 2464}
+  \field{title}{Implementing encryption and authentication in KNX using
+  Diffie-Hellman and AES algorithms}
+  \field{year}{2009}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput

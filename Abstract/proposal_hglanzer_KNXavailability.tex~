@@ -1,0 +1,334 @@
+\documentclass[a4paper,11pt,oneside]{memoir}
+
+\usepackage{TUINFDA}
+
+\thesistitle{Proposal}
+%\thesissubtitle{KNX For Safety Critical Environments} % optional
+\thesissubtitle{Highly available KNX networks}
+\thesisdate{25.8.2014}
+
+% all titles and designations have to be gender-related!
+\thesisdegree{Diplom-Ingenieurin}{Diplom-Ingenieurin}
+\thesiscurriculum{Technische Inforumatik}{Computer Engineering} % your study
+\thesisverfassung{Verfasserin} % Verfasser
+\thesisauthor{Harald Glanzer} % your name
+\thesisauthoraddress{Hardtgasse 25/12A, 1190 Wien} % your address
+\thesismatrikelno{0727156} % your registration number
+
+\thesisbetreins{Ao.Univ.Prof. Dr. techn. Wolfgang Kastner}
+\thesisbetrzwei{Dr. techn. Lukas Krammer}
+
+% define page numbering styles
+\makepagestyle{numberCorner}
+
+
+%\makeevenfoot{numberCorner}{\thepage}{}{}
+%\makeevenfoot{numberCorner}{}{}{\thepage}
+%\makeoddfoot{numberCorner}{}{}{\thepage}
+
+% define custom macros for specific formats or names
+\newcommand{\uml}[1]{\texttt{#1}}
+\newcommand{\cd}{\textsf{Class Diagram}}
+
+\usepackage[backend=bibtex, sorting=none]{biblatex}
+\addbibresource{references.bib}
+
+
+%\RequirePackage[backend=bibtex]{biblatex}
+
+\begin{document}
+
+\captionnamefont{\bfseries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   FRONTMATTER    %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+\pagenumbering{normal}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   TITLEPAGES    %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% an english translation may follow
+\include{titlepage_en} % optional
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   ABSTARCT    %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problem statement}
+
+KNX is an open communications protocol for Building Automation (BA).
+It uses a layered structure and supports wired communication over twisted pair
+and powerline as well as wireless communication by radio transmission. 
+Additionally, it supports communication with TCP/IP hosts by special gateways. 
+As such, it can be used for controlling traditional services like Heating, Ventilation and Air Conditioning (HVAC), but also for more
+sophisticated applications 
+like surveillance or fire alarm systems of buildings \cite{knxapps}.
+\\
+Given these potential applications, a wide range of attacks would be possible. For example, Denial of Service (DOS) attacks to disable all directly connected
+KNX devices can be conducted by simply physically shortcutting a line
+connection, rendering the corresponding network segment unavailable.
+Replay attacks by intercepting and replaying datagrams are also possible, allowing an adversary to introduce arbitrary KNX traffic, switching doors
+or disabling burglar alarms. Passive attackers can monitor the bus traffic to analyze the types of KNX devices within the network, gathering knowledge that can be used
+to develop further attack strategies.
+
+%Such attacks can be conducted by passive advisories by replay attacks or eavesdropping, interception, altering and injecting of arbitrary telegrams.
+High availability, in general, can only be achieved by redundancy, i.e. by using replicated resources. Therefore, all
+resources needed for transmitting data between two points must exist redundantly and independently from 
+each other.
+
+The countermeasure against eavesdropping and replay attacks, providing integrity, confidentiality and authenticity, consists of authentication
+between the sender and receiver of a message, and encryption of these messages, combined in a security scheme
+called Authenticated Encryption (AE).
+%To gain confidentiality, block or stream ciphers are used to garble the cleartext message into a block respectively stream
+%of pseudo-random binary zeros and ones. Without possessing the key, the encryption must not
+%be reversible in feasible time to protect the secret message from unauthorized entities.
+%Integrity, on the other side, is achieved by taking blocks of input data and producing a short (compared
+%to the data itself, which can consist of an arbitrarily large number of blocks) Message Authentication Code (MAC)
+%for this data, which will be sent along with the data. The MAC function is some kind
+%of one-way-function and must be 'difficult' to reverse, i.e. find parts or the whole block 
+%which was feed to the function to obtain the given MAC.
+%This way, altering of the sent data can be
+%detected and the corresponding datagram can be discarded. Analog to encryption,
+%it must be infeasible to find other MACs for the same message.  
+\\
+
+The basic KNX Standard is regarded as insufficient because the standard simply doesn't provide any encryption, authentication 
+or availability mechanisms \cite{knxSpec}. To address the cryptographic issues, extensions are available, but no solution is disposable for 
+improved availability with integrated security mechanisms.
+
+%This work's overall topic is to propose a solution for KNX networks with a higher level of availability, compared to standard KNX networks.
+%To allow the deployment in safety critical environments, cryptographic measurements to provide confidentiality and integrity will be integrated as well.
+
+\section{Expected results}
+
+The overall goal of this work is to develop a concept for a secure and high-available KNX network that also considers interoperability and compatibility, 
+allowing the usage in environments with increased safety-critical requirements. 
+To achieve this, so called security gateways will be used. These gateways will possess two kinds of KNX interfaces: one kind of interface will be
+connected to standard, unsecured KNX networks.
+The second interface constitutes the entry point to a secured KNX network which is connected to the secure interfaces of other
+security gateways. To achieve higher availability, these secure interfaces and the respective communication lines must exist redundantly. This ensures that
+even in case of a DOS attack, communication within the segment is possible.
+
+To show the feasibility of the solution by a proof of concept, a demonstration network  shall be built.
+For the security gateways, RaspberryPis in combination with KNX-USB-dongles will be used. Therefore, the RasperryPis
+are acting as gateways between the secure and the insecure KNX networks, each of them running a master daemon responsible
+for reading datagrams from the KNX insecure world, encrypting and authenticating them and sending them over the secure
+KNX lines.
+
+%\\
+%It will be shown that booth concepts must go hand in hand to achieve confidentiality. 
+%Consequently, the security layer will use strong encryption \textit{and} authentication to guard
+%against attacks.
+%\\
+
+%To gain availability, a handshake protocol will be used, as well as some kind of 'heartbeat' mechanism to
+%detect outages of one communication line as soon as possible, allowing to switch to the replicated line 
+%instantaneously
+
+%For gaining availability, it would be possible to define some kind of 'heartbeat' protocol which checks the status
+%of the 2 lines, and switches the line in case of a failure. A disadvantage of this approach is that a considerable
+%amount of bus load is generated. Alternatively, it is possible to just copy every KNX message to booth lines
+%(after encrypting it), and use some kind of counter to remove duplicates on the receiving side. This solution
+%needs no additional traffic, and is also 'faster' because no fail over recognition time is needed. 
+
+%While it would be possible to encrypt and authenticate only the actual payloads, and leave the status
+%datagrams unencrypted, a cleaner and more elegant solution is to encrypt and authenticate booth message 
+%types. This makes it possible to use the concept of \textit{divide et impera} in an uncompromising way.
+%Additionally, attacks against the heartbeat - mechanism become impossible.
+
+It is important to note that the practical part of this work will only
+handle the twisted-pair media of KNX (i.e. KNX TP-1), although the basic principles can be deployed in a modified manner in
+wireless and powerline networks as well.
+
+A threat analysis will be conducted to prove that the system can withstand the defined attacks and is robust,
+i.e. that it can recover from erroneous states. This will be done by exposing the demonstration network to the various defined attacks.  
+
+\section{Methodological approach}
+
+Every secure system will just work within some defined barriers - it is impossible to build a system that
+is secure under all circumstances. So, the very first step will be to define a realistic
+threat scenario by studying typical attacks against Building Automation Systems (BAS) \cite{granzer2006security}.
+Ensuring security in a network is a complex and comprehensive topic. Fortunately, canonical ways how to employ authenticated
+encryption exist. 
+Therefore, the next step is to research state-of-the-art techniques in order to decide which ciphers should be used. After that, the key exchange mechanism
+must be defined, as well as the message format used. 
+
+Also, a reasonable concept has to be found how
+to guarantee high availability, considering the limited resources of standard KNX devices and the limited bandwidth of KNX TP-1.
+
+Following the design paradigm of "divide et impera", security and availability related tasks will be implemented by two distinct layers. This design 
+allows the modification of one layer without the need to modify the other layer.
+
+%To implement the real-world testing environment, a master daemon will be written, consisting of a stack composed of EIBD (a C++ daemon for communication
+%with different KNX backends through an API), the security / key exchange layer in combination with a cryptographic library and the availability layer. The master daemon will be written
+%in C, and a GNU/Linux based operating system named Raspbian will be used for the RaspberryPis. 
+
+After implementation, it is evaluated whether the demonstration network withstands the defined attacks,
+and whether the protocol works in practice.
+ 
+
+% \section{Structure of the work}
+% \begin{enumerate}
+%   \item Introduction
+%   \item KNX
+%   \begin{itemize}
+%     \item Specification
+%     \item Overview of the defined layers
+%     \item Attacks on KNX
+%   \end{itemize}
+%  
+%   \item State of the art
+%       \begin{itemize}
+%   
+%   \item Computer Security
+%   \begin{itemize}
+%     \item Definition of Security
+%     \item Types of Attacks
+%     \item Basic Concepts of Number Theory used(Fermat, Euler)
+%     \item Basic Concepts of Probability Theory used
+%     \item Encryption Schemes
+%     \item Authentication Schemes
+%     \item Authenticated Encryption
+%     \item Distribution of Keys
+%     \item Symmetric vs. Asymmetric Encryption
+%     \item Random Number Generators
+%   \end{itemize}
+% 
+%   \item Availability
+%   \begin{itemize}
+%     \item Requirements for Availability
+%     \item Protocol Used
+%     \item Resynchronization
+%   \end{itemize}
+%     \end{itemize}
+% 
+%   \item Security Concept
+%   \begin{itemize}
+%     \item Key Generation and Distribution
+%     \item Definition of the Status Messages
+%     \item Definition of the MAC
+%     \item Definition of the Cipher
+%     \item Definition of the Tunneling Mode
+%     
+%     \item Evaluation
+%   \begin{itemize}
+%     \item Implemenation 
+%     \item Performance
+%     \item Threat analysis
+%   \end{itemize}
+%   \end{itemize}
+%   
+%   
+%  
+%   \item Critical Reflections
+% 
+% \end{enumerate}
+  
+\section{State of the art}
+
+%While these 2 approaches try to bring confidentiality to KNX, this work will also add availability to KNX, as stated 
+%above. Additionally, this work will not rely on key servers, thus eliminating the need for a single 'point of trust'.
+%Last but not least, the work of Salvatore Cavalieri and Giovanni Cutuli contains a serious design flaw by delegating 
+%the task of key generation to a so called 'controller' with a fixed KNX address, which will be used to negotiate a key,
+%thus using the KNX address as authentication property. If it is possible to deploy a malicious knx device into the network
+%which responds 'faster' than the controller, the whole architecture is rendered useless. \cite{knxsecExt} by these authors
+%addresses this shortcoming, but again, just makes theoretical assumptions.
+
+The rapid growth of electronic data processing and digital communication enforces the need for secure and available systems.
+Information security, consisting of the triad confidentiality, integrity and availability, tries to achieve such systems. 
+Cryptography uses ciphers to achieve integrity and confidentiality and is also a prerequisite for availability. To improve the latter one,
+replication is used. A replicated service uses redundant components, providing multiple outcomes. A voter mechanism is used to determine
+which outcome is used.
+
+Modern cryptography, emerged from primitive ciphers over thousands of years, is nowadays a well-studied topic. Basic properties of all cryptographic systems
+are the data format, the kind of keys used, the mode of operation and the maximum lifetime of the keys: 
+
+Cryptographic data can be processed in the form of blocks or in the form of continuous
+data streams. Stream ciphers can be provable "perfect secret" in principle
+and can be implemented as simple as bitwise xor'ing the key and the data (i.e., the one-time pad). 
+
+Block ciphers come in 2 flavors: Pseudo Random Functions (PRF), and Pseudo Random Permutations (PRP). While the latter one is reversible,
+this is not true for the first one. Therefore, PRFs are only used in constructions which do not depend on a reverse function, for
+example "Feistel Networks". A widely used encryption standard is the Advanced Encryption Standard (AES), derived from a block cipher
+called "Rijndel".
+This construction is reversible (i.e. is a PRP) and is also called a "substitution-permutation-network", named after its 2 basic building blocks.
+ 
+ Two kinds of keys are distinguished: until the introduction of public key cryptography, all ciphers were symmetric ciphers.
+ Well known examples
+ of asymmetric or public key ciphers are "RSA" \cite{Rivest:1978:MOD:359340.359342} and Diffie-Helmann (DH) \cite{1055638}. 
+ While DH was originally based on exponentiation,
+ a new method based on elliptic curves has been found which can achieve the same level of security with shorter keys.
+ Prominent protocols like TLS \cite{rfc2246} use a mixture of symmetric and asymmetric ciphers.
+ 
+ %The key exchange algorithm defines how the keys get distributed to all devices which are part of the secure network.
+ %It would be possible to fix a key, place this key on all devices and use this Pre Shared Key (PSK) for symmetric
+ %encryption, but this key cannot be changed at a later point without direct interaction on all devices. A better way is to use some
+ %kind of asymmetric key which is used to establish session keys, which can be used in a symmetric manner.
+ 
+ The mode of operation defines how large messages of arbitrary size are processed.
+ Modes for encryption and authentication exist, some modes can also be used for both tasks (i.e. cipher block chaining, CBC). Additionally, this property 
+ decides the order of authenticating and encrypting the data. Depending on this ordering and
+ what modes are used for authentication and encryption, attacks like padding oracles may be possible \cite{Vaudenay02securityflaws}. Correct ordering
+ mitigates such attacks \cite{cryptoeprint} and leads to a combined security scheme called Authenticated Encryption (AE) \cite{ocb}.
+ 
+Open source, high-level APIs like OpenSSL or Crypto++ offer a wide range of authentication, encryption and key exchange modes.
+These libraries are widely used and actively maintained, so there is no need to reimplement these primitives.
+
+Depending on the mode of operation and the length of the used keys, there exists an upper bound on
+ how many messages can be sent securely without changing the key. Therefore, it must be either made sure that this number 
+ cannot be achieved in a reasonable time, or some kind of key-renegotiation has to be used, which is the task of the key management algorithm.
+ Nevertheless, if a session key and the corresponding traffic gets known to an adversary, all the past data will be disclosed (and all future traffic
+ if no new key is used). Protocols like Off The Record Messaging (OTR) \cite{Borisov:2004:OCW:1029179.1029200} avoid this problem by using short term session keys,
+ thus providing Perfect Forward Secrecy (PFS). This property ensures that, even if a key is known to an adversary, no future and no past messages can be decrypted (beside of
+ one single message).
+ %Problematic about OTR is its lack of support for multi-party conversations, a feature that is tried to be achieved with
+ %Multi Party OTR (mpOTR) \cite{Goldberg:2009:MOM:1653662.1653705,}\cite{Liu:2013:IGO:2517840.2517867}.
+% Finally, a critical prerequisite is the used Pseudo Random Number Generator (PRNG).
+% While the used platform contains a hardware based PRNG, is has to be examined if the provided entropy can be considered
+% secure, because a predictable PRNG turns all other cryptographic measurements useless.
+\\
+
+As stated earlier, KNX defines no methods for securing datagrams in the original proposal - a situation comparable to the origin IPv4 \cite{rfc791} standard.
+%IPv4, which is until today one of the basic building blocks for worldwide internet communication, suffers a serious limitation because it
+%does not offer confidentiality and integrity on the network level.
+The problem was mitigated in 2 ways: one solution was 
+the introduction of another layer - TLS -  above the IPv4 layer, responsible for handling security.
+The second way was the design of the IPsec \cite{rfc4301} 
+extension, which authenticates and encrypts data sent with IPv4 by defining two security services,
+namely the Authentication Header (AH) to provide authenticity, and the Encapsulating Security Payload (ESP) for confidentiality. Internet
+Key Exchange (IKE) is used as key negotiating protocol. This way,
+IPsec can provide end-to-end encryption and protect the payload of higher level protocols like TCP or UDP.
+
+For KNX, the following extensions exist:
+KNX Application Note 157 specifies an optional security layer for KNX networks \cite{knx_data_sec}, comparable to TLS.
+KNX Application Note 158 improves security for KNX/IP networks \cite{knx_ip_sec}.
+EIBsec uses key servers to provide secure management and group communication and implements a proof of
+concept \cite{KraInnosec2013}. Salvatore Cavalieri and Giovanni Cutuli propose another way how to authenticate and encrypt KNX traffic \cite{knxsec}.
+
+\section{Relatedness to Computer Engineering}
+
+Modern cryptography relies heavily on number theory and probabilistic theory and is the basis of this work.
+The practical work will be to implement the multi-threaded daemons on the RaspberryPis, written in the low-level programming language
+C, by using the C++ API offered by EIBD.
+
+Related lectures:
+
+\begin{itemize}
+ \item 104.271 VO Discrete Mathematics 
+ \item 104.272 UE Discrete Mathematics 
+ \item 184.189 VU Cryptography 
+ \item 182.721 VO Embedded Systems Engineering 
+ \item 182.722 LU Embedded Systems Engineering 
+ %\item 389.152 VO Network Security 
+ \item 389.166 VU Signal Processing 1
+ \item 183.624 VU Home and Building Automation 
+
+\end{itemize}
+
+\printbibliography
+
+\end{document}

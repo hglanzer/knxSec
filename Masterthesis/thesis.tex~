@@ -1,44 +1,50 @@
-\documentclass[a4paper,11pt,oneside,openany]{memoir}
+\documentclass[a4paper,12pt,oneside,openright]{memoir}
 \chapterstyle{veelo}
 
-\usepackage{TUINFDA}
+%\documentclass[draft,final]{vutinfth} % Remove option 'final' to obtain debug information.
 
+\usepackage{TUINFDA}
 \usepackage{url}
-\usepackage{hyperref}					% links in pdf
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}					% links in pdf
 \usepackage{graphicx}            			% Figures
 \usepackage{verbatim}            			% Code-Environment
-\usepackage{hyperref}
 \usepackage{listings}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subfig}
+
+\usepackage{float}
+
+\usepackage{amsmath}
+
 
 % hglanzer: problem workstation@labor <--> laptop
 %\usepackage[lined,linesnumbered,algochapter]{algorithm2e} % Algorithm-Environment
 \usepackage[lined,linesnumbered,algochapter,norelsize]{algorithm2e} % Algorithm-Environment
 
+
 \usepackage{pgf}					
 \usepackage{tikz}					% tikz graphics
 \usetikzlibrary{arrows,automata}
-
 \usepackage{glossaries}
 
 \makeglossary
 \loadglsentries{acronyms}
 
-\usepackage[backend=bibtex]{biblatex}
+\usepackage[backend=bibtex, sorting=none]{biblatex}
 \addbibresource{references.bib}
 
-%\usepackage[ngerman]{babel}
-%\usepackage{bibgerm,cite}       % Deutsche Bezeichnungen, Automatisches Zusammenfassen von Literaturstellen
-%\usepackage[latin1]{inputenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \thesistitle{KNX for Safety Critical Environments}
-\thesissubtitle{Building a secure and dependable Layer} % optional
+%\thesissubtitle{Building a secure and dependable Layer} % optional
 \thesisdate{1.12.2014}
 
 % all titles and designations have to be gender-related!
 \thesisdegree{Diplom-Ingenieur}{Diplom-Ingenieur}
 \thesiscurriculum{Technische Informatik}{Computer Engineering} % your study
 \thesisverfassung{Verfasser} % Verfasser
-\thesisauthor{Harald Glanzer} % your name
+\thesisauthor{B.Sc. Harald Glanzer} % your name
 \thesisauthoraddress{Hardtgasse 25 / 12A, 1190 Wien} % your address
 \thesismatrikelno{0727156} % your registration number
 
@@ -69,7 +75,8 @@
   columns=fullflexible,
   backgroundcolor=\color{yellow!20},
   linewidth=0.9\linewidth,
-  xleftmargin=0.1\linewidth
+  xleftmargin=0.1\linewidth,
+  breaklines=true
 }
 
 \begin{document}
@@ -141,32 +148,32 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}
 \label{ch:intro}
+\input{chapters/introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{chapters/introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{State of the art}
+\label{ch:SOAcryptography}
+\input{chapters/SOAbasics}
+\input{chapters/SOAcryptography}
+\input{chapters/SOAsecurityBA}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{KNX}
 \label{ch:knx}
-\input{chapters/knx}
+\input{chapters/knxGeneral}
+\input{chapters/knxLayers}
+\input{chapters/knxSecurity}
+\input{chapters/knxConclusion}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Mathematical Background}
-\label{ch:SOAmath}
-\input{chapters/SOAmath}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Cryptopgraphy}
-\label{ch:SOAcryptography}
-\input{chapters/SOAcryptography}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Security Concept}
+\chapter{Solution}
 \label{ch:security}
 \input{chapters/securityconcept}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -175,40 +182,18 @@
 \input{chapters/implementation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% BACKMATTER %%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \appendix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \nocite{*}	% generate complete bibliography without corresponding \cites{}
-\printbibliography
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Setup of the base system}
+\label{ch:basesystem}
+\input{chapters/app.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \printglossary
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Code snippets and configuration files}
-
-\begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for static ip address},label=lst:staticIP]
-# device: eth0
-  auto  eth0
-  iface eth0 inet static
-  address   192.168.0.2
-  broadcast 192.168.0.255
-  netmask   255.255.255.0
-  gateway   192.168.0.1
-\end{lstlisting}
-
-\begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for dynamic ip address},label=lst:dynamicIP]
-# device: eth0
-  iface eth0 inet dhcp
-\end{lstlisting}
-
-\lstinputlisting[style=BashInputStyle,caption={Makefile for the master daemon},label=lst:makefile]{../src/Makefile}
-
-%\end{appendices}
+\printbibliography
 
 \end{document}
