@@ -936,10 +936,10 @@ shared secret which never has to be transmitted between them. The security of th
 is based on the hardness of the \textit{Discrete Logarithm Problem}.
 
 With the original \gls{dh} algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
-then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, q, g\}$, where $p$ is a 
-large prime, $q$ is a prime divisor of $p-1$, and $g$ is a generator of the cyclic group ${Z_p}^*$ in the range $[1, p-1]$. These parameters are not secret and
+then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, g\}$, where $p$ is a 
+large prime and $g$ is a generator of the cyclic group ${Z_p}^*$. These parameters are not secret and
 can thus be sent over an unsecured channel.
-Additionally, each entity randomly chooses an integer $x$ from the interval $[1, q-2]$, and calculates the value $y = g^x \pmod p$. $x$ is the private key,
+Additionally, each entity randomly chooses an integer $x$ from the interval $(1, q-2]$, and calculates the value $y = g^x \pmod p$. $x$ is the private key,
 $y$, which is computationally easy to calculate, is the public key. $A$ sends its public key $y_A \equiv g^{x_A} \pmod p$ to $B$, and $B$ its public key
 $y_B \equiv g^{x_B} \pmod p$ to $A$. Due to the characteristics of exponentiation, $A$ and $B$ can now easily derive the shared secret by using its counterpart's
 public key and raising it to the power of it's own private key in the domain of ${Z_p}^*$:
@@ -1009,19 +1009,16 @@ for point addition $R=P+Q$ and point doubling $R=P+P$ are shown in equations \re
 \begin{align}\label{doubling}
  x_3 = (\frac{3x_1^2 +a}{2y_1})^2 - 2x_1, y_3=\frac{3x_1^2+a}{2y_1}(x_1-x_3)-y_1
 \end{align}
-
 Multiplication is defined as successive addition of a point to it self in the way
 
 \begin{center}
  $kP = \underbrace{P+P+...+P}_{k-times}$
 \end{center}
-
 An imaginary point "in infinity", denoted $\infty$, serves as additive neutral element, and also belongs to the \gls{ec} by definition:
 
 \begin{center}
  $P + \infty = \infty + P = P$
 \end{center}
-
 Negatives can be calculated easily due to the symmetric nature of the curves by swapping the sign of the y-coordinate of the point. For point $P$ with coordinates $(x, y)$, $-P$ is defined as
 $(x,-y)$, thus satisfying $P + (-P) = \infty$.
 
@@ -1029,6 +1026,7 @@ $(x,-y)$, thus satisfying $P + (-P) = \infty$.
 
 Based on this group operations, the \gls{ecdlp} \cite{ecdlp} can be defined as following: given an \gls{ec} $E$ over the finite field $\mathcal{F}_p$ and 2 points $P,Q$ on this curve, %FIXME: "P of order n...???"
 find the integer $k$ s.t. $Q = kP$. $k$ is called the discrete logarithm of $Q$ to the base $P$.
+\\
 \\
 To build a public key system, two users $A$ and $B$ initially agree on a set of public \textit{domain parameters}. The most important parameters are \cite{ecDP}
 
@@ -1038,60 +1036,37 @@ To build a public key system, two users $A$ and $B$ initially agree on a set of 
  \item the coordinates $(x_p, y_p \in \mathcal{F}_p)$ of the \textit{base point} $P$, 
  \item the order of $P$, denoted $n$
 \end{itemize}
-
 After agreeing on this set, $A$ selects a randomly chosen integer $k_A$, calculates $P_A = k_A*P$ and sends
 this point to $B$, who in turn randomly chooses $k_B$ and sends $P_B = k_B*P$ to $A$. Subsequently, booth can calculate the point $k_A*k_B*P$, which can be used
 to derive a key.
 
-\subsection{Key establishment more communication partners}
-\gls{dh} and therefor also the \gls{ecdlp} can be generalized to $n$ parties, obtaining one key in common.
-
-parties A, B, C, with one known generator g
+\subsection{Key establishment with more communication partners}
+\gls{dh} and therefor also the \gls{ecdlp} can be generalized to $n$ parties, obtaining one key in common. The key negotiation procedure for 3 parties, using
+classical \gls{dh}, is
+shown in figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all 3 parties $A$, $B$ and $C$ already agreed upon $(p,g)$.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/dh-group_round1.png}
+    \includegraphics[width=0.8\textwidth]{figures/dh-group_round1.eps}
     \caption{DH Round 1}
     \label{fig:dh1}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/dh-group_round2.png}
+    \includegraphics[width=0.8\textwidth]{figures/dh-group_round2.eps}
     \caption{DH Round 2}
     \label{fig:dh2}
 \end{figure}
+After finishing the second communication round, every party raises the last received value to it's own private key and thus derives the shared secret.
 
-\begin{enumerate}
- \item first iteration, see \ref{fig:dh1}:
+\begin{align}
+ ((g^b)^c)^a = ((g^c)^a)^b = ((g^a)^b)^c = g^{a*b*c}
+\end{align}
+This algorithm can be generalized to $n$ parties, using $(n-1)$ communication rounds. Obviously, this algorithm may not be practicable for a large $n$. Additionally,
+a new run must be executed whenever a new node joins.
 
-A: chooses private key a, calcs $x_a = g^a$, send to B ENC(PKS, $x_a$)
-\\
-B: chooses private key b, calcs $x_b = g^b$, send to C ENC(PSK, $x_b$)
-\\
-C: chooses private key c, calcs $x_c = g^c$, send to A ENC(PSK, $x_c$)
-\item second iteration, see \ref{fig:dh2}
-
-A: calc $(g^c)^a$, send to B
-\\
-B: calc $(g^a)^b$, send to C
-\\
-C: calc $(g^b)^c$, send to A
-
-\item third iteration: calulcate shared secret
-
-A: calc $((g^b)^c)^a$
-\\
-B: calc $((g^c)^a)^b$
-\\
-c: calc $((g^a)^b)^c$
-
-\end{enumerate}
-$((g^a)^b)^c = g^{a*b*c} = KEY$
-one shared key for all parties
-  Contra: for every new joining party, the whole key derivation rounds have to be done
-  Contra: if one node is not reachable temporary or leaves network and another party wants to join, a new 
- key is derived. if temporary unavailable node is reachable or again, new key has to be derived too.
+Additionally, this key agreement mechanism (as well as all others presented so far) uses not authentication and is therefor 
 
 \subsection{RSA}
 

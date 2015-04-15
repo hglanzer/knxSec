@@ -601,20 +601,6 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
-\entry{Lenstra04keylength}{misc}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Lenstra}{L.}%
-     {Arjen~K.}{A.~K.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{LAK1}
-  \strng{fullhash}{LAK1}
-  \field{title}{Key Length}
-  \field{year}{2004}
-\endentry
-
 \entry{sshBellare}{article}{}
   \name{author}{3}{}{%
     {{}%
@@ -1010,39 +996,18 @@
   \field{year}{2013}
 \endentry
 
-\entry{1335465}{article}{}
-  \name{author}{4}{}{%
+\entry{Lenstra04keylength}{misc}{}
+  \name{author}{1}{}{%
     {{}%
-     {Avizienis}{A.}%
-     {A.}{A.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Laprie}{L.}%
-     {J.-C.}{J.-C.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Randell}{R.}%
-     {B.}{B.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Landwehr}{L.}%
-     {C.}{C.}%
+     {Lenstra}{L.}%
+     {Arjen~K.}{A.~K.}%
      {}{}%
      {}{}}%
   }
-  \strng{namehash}{AA+1}
-  \strng{fullhash}{AALJCRBLC1}
-  \field{issn}{1545-5971}
-  \field{number}{1}
-  \field{pages}{11\bibrangedash 33}
-  \field{title}{Basic concepts and taxonomy of dependable and secure computing}
-  \field{volume}{1}
-  \field{journaltitle}{Dependable and Secure Computing, IEEE Transactions on}
+  \strng{namehash}{LAK1}
+  \strng{fullhash}{LAK1}
+  \field{title}{Key Length}
   \field{year}{2004}
-  \warn{\item Invalid format of field 'month'}
 \endentry
 
 \entry{KraInnosec2013}{inproceedings}{}
@@ -1525,6 +1490,41 @@
   \field{title}{Security Flaws Induced by CBC Padding - Applications to SSL,
   IPSEC, WTLS}
   \field{year}{2002}
+\endentry
+
+\entry{1335465}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Avizienis}{A.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Laprie}{L.}%
+     {J.-C.}{J.-C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Randell}{R.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Landwehr}{L.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AA+1}
+  \strng{fullhash}{AALJCRBLC1}
+  \field{issn}{1545-5971}
+  \field{number}{1}
+  \field{pages}{11\bibrangedash 33}
+  \field{title}{Basic concepts and taxonomy of dependable and secure computing}
+  \field{volume}{1}
+  \field{journaltitle}{Dependable and Secure Computing, IEEE Transactions on}
+  \field{year}{2004}
+  \warn{\item Invalid format of field 'month'}
 \endentry
 
 \entry{Coveyou321371.321379}{article}{}

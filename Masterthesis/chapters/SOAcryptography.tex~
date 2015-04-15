@@ -702,10 +702,6 @@ shown in figure \ref{fig:cbc_MAC}.
     \label{fig:cbc_Flags}
 \end{figure}
 
-\subsection{Key lenghts}
-
-\cite{Lenstra04keylength}
-
 \section{Authenticated Encryption}\label{authEncrypt}
 
 Many applications demand the integration of confidentiality \textit{and} integrity modes. The need for confidentiality is self explaining in systems where
@@ -1009,19 +1005,16 @@ for point addition $R=P+Q$ and point doubling $R=P+P$ are shown in equations \re
 \begin{align}\label{doubling}
  x_3 = (\frac{3x_1^2 +a}{2y_1})^2 - 2x_1, y_3=\frac{3x_1^2+a}{2y_1}(x_1-x_3)-y_1
 \end{align}
-
 Multiplication is defined as successive addition of a point to it self in the way
 
 \begin{center}
  $kP = \underbrace{P+P+...+P}_{k-times}$
 \end{center}
-
 An imaginary point "in infinity", denoted $\infty$, serves as additive neutral element, and also belongs to the \gls{ec} by definition:
 
 \begin{center}
  $P + \infty = \infty + P = P$
 \end{center}
-
 Negatives can be calculated easily due to the symmetric nature of the curves by swapping the sign of the y-coordinate of the point. For point $P$ with coordinates $(x, y)$, $-P$ is defined as
 $(x,-y)$, thus satisfying $P + (-P) = \infty$.
 
@@ -1029,6 +1022,7 @@ $(x,-y)$, thus satisfying $P + (-P) = \infty$.
 
 Based on this group operations, the \gls{ecdlp} \cite{ecdlp} can be defined as following: given an \gls{ec} $E$ over the finite field $\mathcal{F}_p$ and 2 points $P,Q$ on this curve, %FIXME: "P of order n...???"
 find the integer $k$ s.t. $Q = kP$. $k$ is called the discrete logarithm of $Q$ to the base $P$.
+\\
 \\
 To build a public key system, two users $A$ and $B$ initially agree on a set of public \textit{domain parameters}. The most important parameters are \cite{ecDP}
 
@@ -1038,12 +1032,11 @@ To build a public key system, two users $A$ and $B$ initially agree on a set of 
  \item the coordinates $(x_p, y_p \in \mathcal{F}_p)$ of the \textit{base point} $P$, 
  \item the order of $P$, denoted $n$
 \end{itemize}
-
 After agreeing on this set, $A$ selects a randomly chosen integer $k_A$, calculates $P_A = k_A*P$ and sends
 this point to $B$, who in turn randomly chooses $k_B$ and sends $P_B = k_B*P$ to $A$. Subsequently, booth can calculate the point $k_A*k_B*P$, which can be used
 to derive a key.
 
-\subsection{Key establishment more communication partners}
+\subsection{Key establishment with more communication partners}
 \gls{dh} and therefor also the \gls{ecdlp} can be generalized to $n$ parties, obtaining one key in common. The key negotiation procedure for 3 parties, using
 classical \gls{dh}, is
 shown in figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all 3 parties $A$, $B$ and $C$ already agreed upon $(p,g)$.
@@ -1066,14 +1059,17 @@ After finishing the second communication round, every party raises the last rece
 \begin{align}
  ((g^b)^c)^a = ((g^c)^a)^b = ((g^a)^b)^c = g^{a*b*c}
 \end{align}
-This algorithm can be generalized to $n$ parties, using $(n-1)$ communication rounds. 
+This algorithm can be generalized to $n$ parties, using $(n-1)$ communication rounds. Obviously, this algorithm may not be practicable for a large $n$. Additionally,
+a new run must be executed whenever a new node joins.
+
+Additionally, this key agreement mechanism (as well as all others presented so far) uses not authentication and is therefor vulnerable to active attacks.
 
 \subsection{RSA}
 
 RSA, published in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman \cite{RSA} and formalized in \cite{pkcs1},
 relies on the hardness of finding the prime factors of a big composite number.
-In contrast to \gls{dh}, RSA is not directly connected to key negotiation, but can instead be used to encrypt \textit{and} sign messages. 
-
+In contrast to \gls{dh}, RSA is no to key agreement algorithm but can instead be used to encrypt \textit{and} sign messages. 
+\\
 For key generation, 
 two large primes $p, q$, which should be of about same size, are chosen randomly, with $N = pq$. Additionally, a public exponent $e$ and a private exponent
 $d$ are chosen s.t. they are multiplicative inverses to each other in $\pmod{\varphi(N)}$:
@@ -1169,6 +1165,11 @@ $x'$ is converted to an integer an reduced $\pmod$ to obtain $r'$. If $r = r'$, 
 
 FIXME: meet in the middle attack, siehe rfc 3610
 
+\subsection{Key lenghts}
+
+\cite{Lenstra04keylength}
+
+TODO: BIRTHDAY PARADOXON
 
 \section{Attacks on Ciphers}
 
@@ -1186,25 +1187,21 @@ timing attacks - constant time computation
 
 \subsection{Active Attacks}
 
-
-BLABLA:
-\\
-
-Such a cipher as defined above provides confidentiality, i.e. it ensures that only authorized parties are able to decrypt the message. This leads to other
-problems, namely how to determine who is authorized, i.e. how to provide authenticity, and how to assure that the message was not altered when, i.e. how to 
-provide integrity. It turns out that such a cipher is suitable for these purposes
-
-A system is an entity that interacts with other entities, which constitute the environment for the system and
-can be other systems, humans or the physical world \cite{1335465}. Fundamental properties of communication systems
-are \textit{functionality, performance, security and dependability}. The system provides services to the user(s) 
-of the system through it's service interface, described by the functional specification. Whenever the provided service
-deviates from correct service a system failure occurs. 
-An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
-dependability consists of the following attributes:
-\textit{Availability}, which means that the system is ready for correct service, \textit{reliability}, the continuity of correct service,
-\textit{safety}, i.e. the avoidance of catastrophic consequences \textit{integrity}, s.t. the system cannot be modified in an unwanted manner
-and \textit{maintainability}, so that the system can be repaired in the case of a failure.
-
-In case of a secure system, another important property is \textit{confidentiality}, which means that no information is disclosed to unauthorized 
-entities.
-To achieve 
+% Such a cipher as defined above provides confidentiality, i.e. it ensures that only authorized parties are able to decrypt the message. This leads to other
+% problems, namely how to determine who is authorized, i.e. how to provide authenticity, and how to assure that the message was not altered when, i.e. how to 
+% provide integrity. It turns out that such a cipher is suitable for these purposes
+% 
+% A system is an entity that interacts with other entities, which constitute the environment for the system and
+% can be other systems, humans or the physical world \cite{1335465}. Fundamental properties of communication systems
+% are \textit{functionality, performance, security and dependability}. The system provides services to the user(s) 
+% of the system through it's service interface, described by the functional specification. Whenever the provided service
+% deviates from correct service a system failure occurs. 
+% An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
+% dependability consists of the following attributes:
+% \textit{Availability}, which means that the system is ready for correct service, \textit{reliability}, the continuity of correct service,
+% \textit{safety}, i.e. the avoidance of catastrophic consequences \textit{integrity}, s.t. the system cannot be modified in an unwanted manner
+% and \textit{maintainability}, so that the system can be repaired in the case of a failure.
+% 
+% In case of a secure system, another important property is \textit{confidentiality}, which means that no information is disclosed to unauthorized 
+% entities.
+% To achieve 
