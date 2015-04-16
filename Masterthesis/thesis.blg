@@ -15,7 +15,7 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated field_info (elt_size=4) to 11392 items from 5000.
+Reallocated field_info (elt_size=4) to 11664 items from 5000.
 Database file #1: thesis-blx.bib
 Database file #2: references.bib
 Warning--string name "july" is undefined
@@ -27,45 +27,45 @@ Warning--string name "april" is undefined
 Biblatex version: 1.7
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-You've used 60 entries,
+You've used 62 entries,
             6019 wiz_defined-function locations,
-            1507 strings with 19310 characters,
-and the built_in function-call counts, 183225 in all, are:
-= -- 7556
-> -- 6400
-< -- 1677
-+ -- 2106
-- -- 2162
-* -- 12609
-:= -- 10763
+            1517 strings with 19652 characters,
+and the built_in function-call counts, 188037 in all, are:
+= -- 7728
+> -- 6548
+< -- 1711
++ -- 2134
+- -- 2204
+* -- 12899
+:= -- 11033
 add.period$ -- 0
-call.type$ -- 60
-change.case$ -- 973
-chr.to.int$ -- 94
-cite$ -- 118
-duplicate$ -- 20650
-empty$ -- 19363
-format.name$ -- 3850
-if$ -- 41908
+call.type$ -- 62
+change.case$ -- 987
+chr.to.int$ -- 96
+cite$ -- 122
+duplicate$ -- 21222
+empty$ -- 19941
+format.name$ -- 3940
+if$ -- 43016
 int.to.chr$ -- 0
-int.to.str$ -- 187
+int.to.str$ -- 191
 missing$ -- 0
-newline$ -- 1523
-num.names$ -- 2935
-pop$ -- 18672
+newline$ -- 1557
+num.names$ -- 3011
+pop$ -- 19296
 preamble$ -- 1
-purify$ -- 1195
+purify$ -- 1213
 quote$ -- 0
-skip$ -- 11172
+skip$ -- 11464
 stack$ -- 0
-substring$ -- 4394
-swap$ -- 6807
-text.length$ -- 1267
+substring$ -- 4450
+swap$ -- 6985
+text.length$ -- 1301
 text.prefix$ -- 4
 top$ -- 1
-type$ -- 2242
+type$ -- 2318
 warning$ -- 0
-while$ -- 1074
+while$ -- 1108
 width$ -- 0
-write$ -- 1462
+write$ -- 1494
 (There were 3 warnings)

@@ -1010,6 +1010,43 @@
   \field{year}{2004}
 \endentry
 
+\entry{1007998}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Knight}{K.}%
+     {J.C.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KJ1}
+  \strng{fullhash}{KJ1}
+  \field{booktitle}{Software Engineering, 2002. ICSE 2002. Proceedings of the
+  24rd International Conference on}
+  \field{pages}{547\bibrangedash 550}
+  \field{title}{Safety critical systems: challenges and directions}
+  \field{year}{2002}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{5784222}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Axelrod}{A.}%
+     {C.W.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AC1}
+  \strng{fullhash}{AC1}
+  \field{booktitle}{Systems, Applications and Technology Conference (LISAT),
+  2011 IEEE Long Island}
+  \field{pages}{1\bibrangedash 6}
+  \field{title}{Applying lessons from safety-critical systems to
+  security-critical software}
+  \field{year}{2011}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{KraInnosec2013}{inproceedings}{}
   \name{author}{4}{}{%
     {{}%
