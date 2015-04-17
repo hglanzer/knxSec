@@ -8,15 +8,19 @@ Availability measures the delivery of correct service as a fraction of the time 
 The services provided by the system through it's service interface to the user(s) 
 is described by the functional specification. Whenever the provided service
 deviates from correct service a system failure, called \textit{outage} or \textit{downtime}\footnote{in contrast, \textit{uptime} does not guarantee correct
-service - for example, a server can be 'up' but unreachable} occurs. Therefor, availability is measured subjectively from the system user's point
-of view.
-While an optimal system may have availability of 1,
-this value is only of theoretical value.
+service - for example, a server can be 'up' but unreachable} occurs. A failure is defined to be caused originally by a fault inside the system, which may be 
+dormant. Under special conditions, the fault may become apparent and lead to an error. Faults can be categorized into hardware and software faults:
+for example, a memory cell could be damaged, but the fault may be hidden because the cell is not used. Similar arguments hold for a software bug, which only 
+triggers an error under special inputs. The error then causes a deviation from the required operation of the system or a subsystem. Finally, the error can 
+cause a failure if the system fails to provide the correct service.
+\\
+Availability is measured subjectively from the system user's point of view.
+While an optimal system may have availability of 1, this value is only of theoretical value.
 \\
 \\
 In practice, system failures are inevitable, and availability is often given in \textit{x-9s}\footnote{read 'one-nine', 'two-nines', ...} notation, denoting the 
 number of nines in the time fraction the system delivers correct service, as shown in table \ref{table:x-9}.
-The availability is normally asserted by the provider of the system to customer by an
+The availability is normally asserted by the provider of the system to the customer by an
 \gls{sla} - if the \gls{sla} is violated, the provider may be fined.
 \begin{figure}
     \centering
@@ -80,10 +84,11 @@ possible to restore correct service, otherwise risking human lives. On the contr
 if not working, but no more serious consequences are to be assumed.
 \\
 \\
-This work's focus lies on security-critical systems, trying to increase availability of KNX networks, but restricting it's deployment to uncritical
-environments. Thus, safety criticality is neglected here because of it's most stringent demands, as needed in avionics or weapons systems.
+This work's focus lies on security-critical systems, trying to increase availability of KNX networks, but restricting it's deployment to
+environments without safety-critical needs. Thus, safety criticality is neglected here because of it's most stringent demands, as needed in avionics
+or weapons systems.
 The difference between safety-critical and security-critical systems can be given as follows \cite{5784222}: safety means that software must not be harm the 
-world, while security means that the world must not harm software. 
+world (i.e. containment), while security means that the world must not harm software (i.e. protection). 
 \\
 \\
 Every system will most likely consist of different and distinct components, each with it's own reliability and failure rates. Finally, the system
@@ -120,11 +125,13 @@ as shown in figure \ref{fig:mixedSys}.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/mixedSys.eps}
-    \caption{Model of a mixed system}
+    \caption{Condensing a mixed system}
     \label{fig:mixedSys}
 \end{figure}
-Looking at parallel system, it is clear that usage of redundant devices can improve availability, with the paradox situation that adding components also adds
+\\
+\\
+Examining parallel system, it is clear that usage of redundant devices can improve availability, with the paradox situation that adding components also adds
 complexity and can therefor worsen reliability and availability.
 
 
-MARKOV AVAILABILITY
+MARKOV model??

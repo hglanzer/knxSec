@@ -8,15 +8,20 @@ Availability measures the delivery of correct service as a fraction of the time 
 The services provided by the system through it's service interface to the user(s) 
 is described by the functional specification. Whenever the provided service
 deviates from correct service a system failure, called \textit{outage} or \textit{downtime}\footnote{in contrast, \textit{uptime} does not guarantee correct
-service - for example, a server can be 'up' but unreachable} occurs. Therefor, availability is measured subjectively from the system user's point
-of view.
-While an optimal system may have availability of 1,
-this value is only of theoretical value.
+service - for example, a server can be 'up' but unreachable} occurs. A failure is defined to be caused originally by a fault inside the system, which may be 
+dormant. Under special conditions, the fault \textit{may} become apparent and lead to an error. Faults can be categorized into random and systematic faults:
+random faults are unpredictable and concern hardware: for example, because of aging, a memory cell can be damaged, but the fault may be hidden because the cell
+is not used. Software and design faults belong to systematic faults. Similar to the damaged memory cell, a software bug may only 
+trigger an error under special inputs. In both cases, the error then causes a deviation from the required operation of the system or a subsystem. Finally, the 
+error can cause a failure if the system fails to provide the correct service.
+\\
+Availability is measured subjectively from the system user's point of view.
+While an optimal system may have availability of 1, this value is only of theoretical value.
 \\
 \\
 In practice, system failures are inevitable, and availability is often given in \textit{x-9s}\footnote{read 'one-nine', 'two-nines', ...} notation, denoting the 
 number of nines in the time fraction the system delivers correct service, as shown in table \ref{table:x-9}.
-The availability is normally asserted by the provider of the system to customer by an
+The availability is normally asserted by the provider of the system to the customer by an
 \gls{sla} - if the \gls{sla} is violated, the provider may be fined.
 \begin{figure}
     \centering
@@ -121,13 +126,13 @@ as shown in figure \ref{fig:mixedSys}.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/mixedSys.eps}
-    \caption{Model of a mixed system}
+    \caption{Condensing a mixed system}
     \label{fig:mixedSys}
 \end{figure}
 \\
 \\
-Looking at parallel system, it is clear that usage of redundant devices can improve availability, with the paradox situation that adding components also adds
+Examining parallel system, it is clear that usage of redundant devices can improve availability, with the paradox situation that adding components also adds
 complexity and can therefor worsen reliability and availability.
 
 
-MARKOV AVAILABILITY
+MARKOV model??
