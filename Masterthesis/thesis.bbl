@@ -1047,6 +1047,108 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
+\entry{544479}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Brasileiro}{B.}%
+     {F.V.}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Ezhilchelvan}{E.}%
+     {P.D.}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shrivastava}{S.}%
+     {S.K.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Speirs}{S.}%
+     {N.A.}{N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Tao}{T.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BF+1}
+  \strng{fullhash}{BFEPSSSNTS1}
+  \field{number}{11}
+  \field{pages}{1226\bibrangedash 1238}
+  \field{title}{Implementing fail-silent nodes for distributed systems}
+  \field{volume}{45}
+  \field{journaltitle}{Computers, IEEE Transactions on}
+  \field{year}{1996}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{vN56}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Neumann}{N.}%
+     {J.}{J.}%
+     {von}{v.}%
+     {}{}}%
+  }
+  \name{editor}{2}{}{%
+    {{}%
+     {Shannon}{S.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {McCarthy}{M.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Princeton University Press}%
+  }
+  \strng{namehash}{NJv1}
+  \strng{fullhash}{NJv1}
+  \field{booktitle}{Automata Studies}
+  \field{pages}{43\bibrangedash 98}
+  \field{title}{Probabilistic logics and synthesis of reliable organisms from
+  unreliable components}
+  \field{year}{1956}
+\endentry
+
+\entry{Lyons:1962:UTR:1661979.1661984}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Lyons}{L.}%
+     {R.~E.}{R.~E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vanderkulk}{V.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IBM Corp.}%
+  }
+  \strng{namehash}{LREVW1}
+  \strng{fullhash}{LREVW1}
+  \field{number}{2}
+  \field{pages}{200\bibrangedash 209}
+  \field{title}{The Use of Triple-modular Redundancy to Improve Computer
+  Reliability}
+  \field{volume}{6}
+  \list{location}{1}{%
+    {Riverton, NJ, USA}%
+  }
+  \field{journaltitle}{IBM J. Res. Dev.}
+  \field{month}{04}
+  \field{year}{1962}
+\endentry
+
 \entry{KraInnosec2013}{inproceedings}{}
   \name{author}{4}{}{%
     {{}%

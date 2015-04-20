@@ -9,18 +9,22 @@ The services provided by the system through it's service interface to the user(s
 is described by the functional specification. Whenever the provided service
 deviates from correct service a system failure, called \textit{outage} or \textit{downtime}\footnote{in contrast, \textit{uptime} does not guarantee correct
 service - for example, a server can be 'up' but unreachable} occurs. A failure is defined to be caused originally by a fault inside the system, which may be 
-dormant. Under special conditions, the fault may become apparent and lead to an error. Faults can be categorized into hardware and software faults:
-for example, a memory cell could be damaged, but the fault may be hidden because the cell is not used. Similar arguments hold for a software bug, which only 
-triggers an error under special inputs. The error then causes a deviation from the required operation of the system or a subsystem. Finally, the error can 
-cause a failure if the system fails to provide the correct service.
-\\
+dormant. Under special conditions, the fault \textit{may} become apparent and lead to an error. Faults can be categorized into random and systematic faults:
+random faults are unpredictable and concern hardware: for example, because of aging, a memory cell can be damaged, but the fault may be hidden because the cell
+is not used. Software and design faults belong to systematic faults. Similar to the damaged memory cell, a software bug may only 
+trigger an error under special inputs. In both cases, the error then causes a deviation from the required operation of the system or a subsystem. Finally, the 
+error can cause a failure if the system fails to provide the correct service:
+\begin{align*}
+ fault \rightarrow error \rightarrow failure
+\end{align*}
+
+FIXME: types of faults
+
 Availability is measured subjectively from the system user's point of view.
-While an optimal system may have availability of 1, this value is only of theoretical value.
-\\
-\\
-In practice, system failures are inevitable, and availability is often given in \textit{x-9s}\footnote{read 'one-nine', 'two-nines', ...} notation, denoting the 
+While an optimal system may have availability of 1, this value is only of theoretical value because random faults can not be ruled out. Therefor,
+system failures are inevitable, and availability is often given in \textit{x-9s}\footnote{read 'one-nine', 'two-nines', ...} notation, denoting the 
 number of nines in the time fraction the system delivers correct service, as shown in table \ref{table:x-9}.
-The availability is normally asserted by the provider of the system to the customer by an
+The availability may be asserted by the provider of the system to the customer by an
 \gls{sla} - if the \gls{sla} is violated, the provider may be fined.
 \begin{figure}
     \centering
@@ -70,28 +74,7 @@ called \gls{mttf}. Reliability can also be expressed in terms of \textit{un}reli
 Maintainability measures the time that is needed to repair a system, with $\mu$ denoting the repair rate and $\frac{1}{\mu}$ called \gls{mttr}.
 \\
 \\
-\gls{ha} characterizes a system that is designed in a way to avoid outages, or in case of a failure that can be repaired in shortest possible time. 
-The level of the needed availability depends on the environment of the system and must be weighted against the additional costs, introduced by improving availability.
-Therefor, no hard definition for \gls{ha} can be given - it is a design goal and depends on the context. Availability requirements will most certainly be higher
-for systems in safety-critical requirements. A safety-critical system must not fail, otherwise endangering human lives or 
-causing substantial economic loss or environmental damage \cite{1007998}.
-On the other side, systems that will produce only minor costs when not operating correctly
-will maybe have to meet less stringent availability levels.
-\\
-For example, our society heavily depends on electric power supply, an outage
-is nearly unacceptable. On the other side, it is impossible to guarantee 100\% availability, so \textit{if} a power outage occurs, the system must be fixed as soon as
-possible to restore correct service, otherwise risking human lives. On the contrary, a booking system will obviously result in financial losses for the company 
-if not working, but no more serious consequences are to be assumed.
-\\
-\\
-This work's focus lies on security-critical systems, trying to increase availability of KNX networks, but restricting it's deployment to
-environments without safety-critical needs. Thus, safety criticality is neglected here because of it's most stringent demands, as needed in avionics
-or weapons systems.
-The difference between safety-critical and security-critical systems can be given as follows \cite{5784222}: safety means that software must not be harm the 
-world (i.e. containment), while security means that the world must not harm software (i.e. protection). 
-\\
-\\
-Every system will most likely consist of different and distinct components, each with it's own reliability and failure rates. Finally, the system
+Every system will most likely consist of different and distinct components, each with it's own reliability and failure rates. The final system
 will possess an overall reliability, determining it's availability. To model the resulting system, the components will be put together in a mixture of
 serial and parallel systems.
 \begin{figure}
@@ -102,12 +85,10 @@ serial and parallel systems.
 \end{figure}
 For example, if all $i$ components, ranging from $1$ to $N$, are necessary to work correctly for the overall system to deliver correct service, this can be modeled as
 a series system, see figure \ref{fig:serSys}. This does not mean that the components are necessarily connected in a serial way, it just stresses that failure
-of one single components breaks the whole system. System's reliability equals the product of all component's reliabilities:
+of one single components breaks the whole system. System's reliability then equals the product of all component's reliabilities:
 \begin{align}
 R_{system}(t) = \prod_{i=1}^{N} R_{i}(t) 
 \end{align}
-\\
-\\
 In contrast, a system containing redundant components, failure of one such component must not produce an outage of the overall system. This can be modeled as
 a parallel system \ref{fig:parallelSys}. Here, the overall reliability can be calculated as given in \ref{parallelSysEqu}.
 \begin{figure}
@@ -130,8 +111,79 @@ as shown in figure \ref{fig:mixedSys}.
 \end{figure}
 \\
 \\
-Examining parallel system, it is clear that usage of redundant devices can improve availability, with the paradox situation that adding components also adds
-complexity and can therefor worsen reliability and availability.
+\gls{ha} characterizes a system that is designed in a way to avoid outages, or in case of a failure that can be repaired in shortest possible time. 
+The level of the needed availability depends on the environment of the system and must be weighted against the additional costs, introduced by improving availability.
+Therefor, no hard definition for \gls{ha} can be given - it is a design goal and depends on the context. Availability requirements will most certainly be higher
+for systems in safety-critical requirements. A safety-critical system must not fail, otherwise endangering human lives or 
+causing substantial economic loss or environmental damage \cite{1007998}.
+On the other side, systems that will produce only minor costs when not operating correctly
+will maybe have to meet less stringent availability levels.
+\\
+For example, our society heavily depends on electric power supply, an outage
+is nearly unacceptable. On the other side, it is impossible to guarantee 100\% availability, so \textit{if} a power outage occurs, the system must be fixed as soon as
+possible to restore correct service, otherwise risking human lives. On the contrary, a booking system will obviously result in financial losses for the company 
+if not working, but no more serious consequences are to be assumed.
+\\
+To avoid failures, different strategies exist to handle faults, as they are:
+\begin{itemize}
+ \item Fault avoidance is used at design stage and based on formal methods. The system to be built is described on precise rules, allowing verification with 
+ automatic tests.
+ \item Fault removal tries to identify faults by testing hard- and software before it's deployment.
+ \item Fault detection aims at identifying faulty states of a running service to minimize their effects.
+ \item Fault tolerance relies on fault detection an utilizes redundancy, trying to ensure correct service despite the occurrence of faults. 
+\end{itemize}
+This work's focus lies on security-critical systems, trying to increase availability of KNX networks, but restricting it's
+deployment to environments without safety-critical needs. Thus, safety criticality is neglected here because of it's most stringent demands, as needed in
+avionics or weapons systems.
+The difference between safety-critical and security-critical systems can be given as follows \cite{5784222}: safety means that software must not be harm the 
+world (i.e. containment), while security means that the world must not harm software (i.e. protection). 
+\\
+\\
+The proposed solution will be based on fault tolerance to achieve \gls{ha}, therefor a short introduction to fault tolerant techniques follows.
+It is argued that fault tolerance is the only practical way to guarantee availability
+in a hostile environment (i.e. an environment where active attackers are assumed to exist and therefor \gls{dos} attacks cannot be ruled out), as well as to
+protect against random hardware errors.
+
+\subsection{Fault tolerance}
+Fault tolerance is achieved through error detection and subsequent system recovery. To enable error detection, redundancy is added to a system and thereby the 
+system's complexity is increased. This can be achieved booth in the domain of hardware
+and software.
+
+\subsubsection{Hardware based fault tolerance}
+A basic form of fault tolerance can be achieved based on \textit{fail-silent} components. This means that each
+module either works correctly, i.e. outputs correct values, or does not output any values at all \cite{544479}. By duplicating such a module and comparing the
+outputs, fault tolerance can be achieved.
+\\
+This method is used for example for data storage, called \gls{raid}.
+For \gls{raid} level 1, all data to be stored are duplicated to two independent disks. In case of one drive hardware failure, the data can be accessed from the
+second drive. 
+\\
+\\
+A \gls{tmr} system, see figure \ref{fig:tmr}, is composed out of 3 modules or \textit{black boxes}, all performing the same task,	
+and one \textit{majoriy organ} $V$, as proposed by Von Neumann \cite{vN56}. The latter element
+is also called \textit{voter} because out of it's 3 inputs, it chooses the 'correct' output based on majority voting. As long as at least 2 black boxes do not
+fail, the system can provide correct service. If it is assumed that the voting element has perfect reliability = 1 and all black boxes $M$ are independent from
+each other and have reliability $R_M$, the overall, time-invariant system's reliability is given in \ref{tmrEq} \cite{Lyons:1962:UTR:1661979.1661984} and plotted in graph \ref{fig:tmrGrp}
+\begin{align}\label{tmrEq}
+ R_{system} = {R_M}^3 + 3{R_M}^2(1-R_M) = 3{R_M}^2 - 2{R_M}^3
+\end{align}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/tmr.eps}
+    \caption{Non-redundant operation vs. \gls{tmr}}
+    \label{fig:tmr}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/tmrGraph.eps}
+    \caption{Reliability of resulting system}
+    \label{fig:tmrGrp}
+\end{figure}
+It can be seen that if $R_M \leq 0.5$ overall reliability even worses, while for components reliabilities nearly being unit, very high system reliability can
+be achieved.
+\\
+\\
+The concept of \gls{tmr} can be generalized to $n$ devices performing
+the same operation. In most cases $n$ will be odd, so failure of at least $\frac{n-1}{2}$ modules can be tolerated.
 
 
-MARKOV model??
