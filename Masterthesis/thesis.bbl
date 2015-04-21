@@ -1086,6 +1086,69 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
+\entry{4416946}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Kirrmann}{K.}%
+     {H.}{H.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hansson}{H.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Muri}{M.}%
+     {P.}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KHHMMP1}
+  \strng{fullhash}{KHHMMP1}
+  \field{booktitle}{Emerging Technologies and Factory Automation, 2007. ETFA.
+  IEEE Conference on}
+  \field{pages}{1396\bibrangedash 1399}
+  \field{title}{IEC 62439 PRP: Bumpless recovery for highly available, hard
+  real-time industrial networks}
+  \field{year}{2007}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{4447112}{inproceedings}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Pallos}{P.}%
+     {R.}{R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Farkas}{F.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Moldovan}{M.}%
+     {I.}{I.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Lukovszki}{L.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{PR+1}
+  \strng{fullhash}{PRFJMILC1}
+  \field{booktitle}{Access Networks Workshops, 2007. AccessNets '07. Second
+  International Conference on}
+  \field{pages}{1\bibrangedash 8}
+  \field{title}{Performance of rapid spanning tree protocol in access and metro
+  networks}
+  \field{year}{2007}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{vN56}{inproceedings}{}
   \name{author}{1}{}{%
     {{}%

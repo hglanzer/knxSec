@@ -1157,7 +1157,7 @@ The receiver of the message can use the domain parameters and signature to verif
  x' \equiv s^{-1}(h(m)P + rkP) \pmod n\\
  x' \equiv P \underbrace{(s^{-1}(h(m) + rk))}_{k'} \pmod n
 \end{align*}
-$x'$ is converted to an integer an reduced $\pmod$ to obtain $r'$. If $r = r'$, the signature is accepted, proofing the integrity of the message.
+$x'$ is converted to an integer an reduced $\pmod$ to obtain $r'$. If $r = r'$, the signature is accepted, proofing the authenticity of the message.
 
 \subsubsection{Decryption and Authenticity Check}
 
