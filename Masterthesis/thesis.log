@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  21 APR 2015 19:07
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  22 APR 2015 15:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1783,12 +1783,17 @@ Package biblatex Warning: BibTeX reported the following issues
 
 
 Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with '4416946':
+(biblatex)                with '4447112':
 (biblatex)                - Invalid format of field 'month'.
 
 
 Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with '4447112':
+(biblatex)                with '6145654':
+(biblatex)                - Invalid format of field 'month'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with '4416946':
 (biblatex)                - Invalid format of field 'month'.
 
 
@@ -2786,6 +2791,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 135--146
  []
 
 [40]
+Underfull \hbox (badness 10000) in paragraph at lines 165--189
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 165--189
+
+ []
+
+[41]
 Package epstopdf Info: Source file: <figures/tmr.eps>
 (epstopdf)                    date: 2015-04-20 19:12:07
 (epstopdf)                    size: 14824 bytes
@@ -2794,14 +2809,14 @@ Package epstopdf Info: Source file: <figures/tmr.eps>
 (epstopdf)                    size: 4186 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/tmr-eps-converted-
 to.pdf figures/tmr.eps>
-(epstopdf)             \includegraphics on input line 190.
+(epstopdf)             \includegraphics on input line 213.
 Package epstopdf Info: Output file is already uptodate.
- <figures/tmr-eps-converted-to.pdf, id=1021, 602.25pt x 230.8625pt>
+ <figures/tmr-eps-converted-to.pdf, id=1048, 602.25pt x 230.8625pt>
 File: figures/tmr-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/tmr-eps-converted-to.pdf>
-Package pdftex.def Info: figures/tmr-eps-converted-to.pdf used on input line 19
-0.
+Package pdftex.def Info: figures/tmr-eps-converted-to.pdf used on input line 21
+3.
 (pdftex.def)             Requested size: 334.60422pt x 128.2711pt.
 Package epstopdf Info: Source file: <figures/tmrGraph.eps>
 (epstopdf)                    date: 2015-04-20 13:37:05
@@ -2811,18 +2826,18 @@ Package epstopdf Info: Source file: <figures/tmrGraph.eps>
 (epstopdf)                    size: 10340 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/tmrGraph-eps-conve
 rted-to.pdf figures/tmrGraph.eps>
-(epstopdf)             \includegraphics on input line 196.
+(epstopdf)             \includegraphics on input line 219.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/tmrGraph-eps-converted-to.pdf, id=1024, 361.35pt x 252.945pt>
+<figures/tmrGraph-eps-converted-to.pdf, id=1051, 361.35pt x 252.945pt>
 File: figures/tmrGraph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/tmrGraph-eps-converted-to.pdf>
 Package pdftex.def Info: figures/tmrGraph-eps-converted-to.pdf used on input li
-ne 196.
+ne 219.
 (pdftex.def)             Requested size: 334.60422pt x 234.22519pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 187--206
+Underfull \hbox (badness 10000) in paragraph at lines 210--229
 
  []
 
@@ -2831,8 +2846,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 187--206
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\gls' on input line 1.
 
-) [41] [42 <./figures/tmr-eps-converted-to.pdf> <./figures/tmrGraph-eps-convert
-ed-to.pdf>] [43] (./chapters/knxGeneral.tex) (./chapters/knxLayers.tex [44
+) [42 <./figures/tmr-eps-converted-to.pdf>] [43 <./figures/tmrGraph-eps-convert
+ed-to.pdf>] (./chapters/knxGeneral.tex) (./chapters/knxLayers.tex [44
 
 ]
 Package epstopdf Info: Source file: <figures/KNXvsISO.eps>
@@ -2846,7 +2861,7 @@ rted-to.pdf figures/KNXvsISO.eps>
 (epstopdf)             \includegraphics on input line 15.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/KNXvsISO-eps-converted-to.pdf, id=1102, 709.65125pt x 391.4625pt>
+<figures/KNXvsISO-eps-converted-to.pdf, id=1119, 709.65125pt x 391.4625pt>
 File: figures/KNXvsISO-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/KNXvsISO-eps-converted-to.pdf>
@@ -2859,14 +2874,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--32
  []
 
 [45 <./figures/KNXvsISO-eps-converted-to.pdf>] [46]
-<figures/ctrl.pdf, id=1168, 413.11198pt x 119.6485pt>
+<figures/ctrl.pdf, id=1184, 413.11198pt x 119.6485pt>
 File: figures/ctrl.pdf Graphic file (type pdf)
  <use figures/ctrl.pdf>
 Package pdftex.def Info: figures/ctrl.pdf used on input line 78.
 (pdftex.def)             Requested size: 418.25368pt x 121.1416pt.
 
 [47 <./figures/ctrl.pdf>]
-<figures/standardframe.pdf, id=1381, 279.32355pt x 57.19156pt>
+<figures/standardframe.pdf, id=1398, 279.32355pt x 57.19156pt>
 File: figures/standardframe.pdf Graphic file (type pdf)
 
 <use figures/standardframe.pdf>
@@ -2884,7 +2899,7 @@ converted-to.pdf figures/standardFrame.eps>
 (epstopdf)             \includegraphics on input line 110.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/standardFrame-eps-converted-to.pdf, id=1382, 948.54375pt x 302.12875pt
+<figures/standardFrame-eps-converted-to.pdf, id=1399, 948.54375pt x 302.12875pt
 >
 File: figures/standardFrame-eps-converted-to.pdf Graphic file (type pdf)
  <use figures/standardFrame-eps-converted-to.pdf>
@@ -2892,14 +2907,14 @@ Package pdftex.def Info: figures/standardFrame-eps-converted-to.pdf used on inp
 ut line 110.
 (pdftex.def)             Requested size: 334.60422pt x 106.57646pt.
 
-<figures/extendedframe.pdf, id=1385, 321.96286pt x 36.47417pt>
+<figures/extendedframe.pdf, id=1402, 321.96286pt x 36.47417pt>
 File: figures/extendedframe.pdf Graphic file (type pdf)
 
 <use figures/extendedframe.pdf>
 Package pdftex.def Info: figures/extendedframe.pdf used on input line 124.
 (pdftex.def)             Requested size: 334.60422pt x 37.90884pt.
 
-<figures/CTRLE.pdf, id=1386, 328.75067pt x 152.89265pt>
+<figures/CTRLE.pdf, id=1403, 328.75067pt x 152.89265pt>
 File: figures/CTRLE.pdf Graphic file (type pdf)
 
 <use figures/CTRLE.pdf>
@@ -2910,7 +2925,7 @@ f>] [49 <./figures/extendedframe.pdf> <./figures/CTRLE.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./figures/CTRLE.pdf): PDF inclusion: mu
 ltiple pdfs with page group included in a single page
->] <figures/addresses.pdf, id=1627, 473.65155pt x 93.46921pt>
+>] <figures/addresses.pdf, id=1643, 473.65155pt x 93.46921pt>
 File: figures/addresses.pdf Graphic file (type pdf)
 
 <use figures/addresses.pdf>
@@ -2928,7 +2943,7 @@ o.pdf>
 (epstopdf)             \includegraphics on input line 194.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/TransportHandshake-eps-converted-to.pdf, id=1640, 428.60126pt x 424.58
+<figures/TransportHandshake-eps-converted-to.pdf, id=1656, 428.60126pt x 424.58
 624pt>
 File: figures/TransportHandshake-eps-converted-to.pdf Graphic file (type pdf)
  <use figures/TransportHandshake-eps-converted-to.pdf>
@@ -2936,7 +2951,7 @@ Package pdftex.def Info: figures/TransportHandshake-eps-converted-to.pdf used o
 n input line 194.
 (pdftex.def)             Requested size: 209.12683pt x 207.16798pt.
 
-<figures/"transport flags".png, id=1641, 646.415pt x 473.77pt>
+<figures/"transport flags".png, id=1657, 646.415pt x 473.77pt>
 File: figures/"transport flags".png Graphic file (type png)
 
 <use figures/"transport flags".png>
@@ -2970,7 +2985,7 @@ Package epstopdf Info: Source file: <figures/SecureArea.eps>
 verted-to.pdf figures/SecureArea.eps>
 (epstopdf)             \includegraphics on input line 35.
 Package epstopdf Info: Output file is already uptodate.
-<figures/SecureArea-eps-converted-to.pdf, id=1789, 924.45375pt x 414.54875pt>
+<figures/SecureArea-eps-converted-to.pdf, id=1805, 924.45375pt x 414.54875pt>
 File: figures/SecureArea-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/SecureArea-eps-converted-to.pdf>
@@ -2988,7 +3003,7 @@ erted-to.pdf figures/firewall2.eps>
 (epstopdf)             \includegraphics on input line 73.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/firewall2-eps-converted-to.pdf, id=1793, 613.29124pt x 355.3275pt>
+<figures/firewall2-eps-converted-to.pdf, id=1809, 613.29124pt x 355.3275pt>
 File: figures/firewall2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/firewall2-eps-converted-to.pdf>
@@ -3071,7 +3086,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 92--101
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\gls' on input line 133.
 
-[68] <figures/busware.png, id=1954, 836.12375pt x 393.47pt>
+[68] <figures/busware.png, id=1970, 836.12375pt x 393.47pt>
 File: figures/busware.png Graphic file (type png)
 
 <use figures/busware.png>
@@ -3138,6 +3153,12 @@ Overfull \hbox (1.08144pt too wide) in paragraph at lines 199--199
  []
 
 [78]
+Overfull \hbox (2.83029pt too wide) in paragraph at lines 199--199
+[]\T1/ptm/m/n/12 A. Gior-getti et al. ``Per-for-mance Anal-y-sis of Me-dia Re-d
+un-dancy Pro-to-col (MRP)''.
+ []
+
+
 Overfull \hbox (9.92923pt too wide) in paragraph at lines 199--199
 []\T1/ptm/m/n/12 Lukas Kram-mer et al. ``Se-cu-rity Er-weiterung fuer den KNX S
 tan-dard''. In: \T1/ptm/m/it/12 Tagungs-
@@ -3161,13 +3182,14 @@ Overfull \hbox (9.35255pt too wide) in paragraph at lines 199--199
 l-ogy ePrint Archive, Re-port 2001/045.
  []
 
+[80]
 
 Class memoir Warning: The material used in the headers is too large
 (78.7743pt) for the given head height (14.5pt), it is recommended to
 either increase the head height or redesign the header
 (in both cases you will find help in the memoir manual). on input line 200.
 
-[80]
+[81]
 \tf@toc=\write9
 \openout9 = `thesis.toc'.
 
@@ -3188,38 +3210,35 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 200.
  ) 
 Here is how much of TeX's memory you used:
- 33960 strings out of 495059
- 562928 string characters out of 3182030
- 1038932 words of memory out of 3000000
- 35982 multiletter control sequences out of 15000+200000
+ 34055 strings out of 495059
+ 564283 string characters out of 3182030
+ 1040110 words of memory out of 3000000
+ 36071 multiletter control sequences out of 15000+200000
  92929 words of font info for 110 fonts, out of 3000000 for 9000
  16 hyphenation exceptions out of 8191
  69i,19n,122p,1426b,1985s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{glo:danp} has been referenced but does not exist,
- replaced by a fixed one
-
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf
--dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/he
-lvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (88 pages, 1527580 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/font
+s/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
+helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8
+a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on thesis.pdf (89 pages, 1529966 bytes).
 PDF statistics:
- 2437 PDF objects out of 2487 (max. 8388607)
- 2086 compressed objects within 21 object streams
- 512 named destinations out of 1000 (max. 500000)
+ 2465 PDF objects out of 2487 (max. 8388607)
+ 2112 compressed objects within 22 object streams
+ 518 named destinations out of 1000 (max. 500000)
  466 words of extra memory for PDF output out of 10000 (max. 10000000)
 

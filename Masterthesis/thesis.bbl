@@ -1086,35 +1086,6 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
-\entry{4416946}{inproceedings}{}
-  \name{author}{3}{}{%
-    {{}%
-     {Kirrmann}{K.}%
-     {H.}{H.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Hansson}{H.}%
-     {M.}{M.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Muri}{M.}%
-     {P.}{P.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{KHHMMP1}
-  \strng{fullhash}{KHHMMP1}
-  \field{booktitle}{Emerging Technologies and Factory Automation, 2007. ETFA.
-  IEEE Conference on}
-  \field{pages}{1396\bibrangedash 1399}
-  \field{title}{IEC 62439 PRP: Bumpless recovery for highly available, hard
-  real-time industrial networks}
-  \field{year}{2007}
-  \warn{\item Invalid format of field 'month'}
-\endentry
-
 \entry{4447112}{inproceedings}{}
   \name{author}{4}{}{%
     {{}%
@@ -1145,6 +1116,96 @@
   \field{pages}{1\bibrangedash 8}
   \field{title}{Performance of rapid spanning tree protocol in access and metro
   networks}
+  \field{year}{2007}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{1704183}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Prytz}{P.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{PG1}
+  \strng{fullhash}{PG1}
+  \field{booktitle}{Factory Communication Systems, 2006 IEEE International
+  Workshop on}
+  \field{pages}{380\bibrangedash 385}
+  \field{title}{Redundancy in Industrial Ethernet Networks}
+  \field{year}{2006}
+\endentry
+
+\entry{6145654}{article}{}
+  \name{author}{6}{}{%
+    {{}%
+     {Giorgetti}{G.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cugini}{C.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Paolucci}{P.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Valcarenghi}{V.}%
+     {L.}{L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pistone}{P.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Castoldi}{C.}%
+     {P.}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GA+1}
+  \strng{fullhash}{GACFPFVLPACP1}
+  \field{number}{1}
+  \field{pages}{218\bibrangedash 227}
+  \field{title}{Performance Analysis of Media Redundancy Protocol (MRP)}
+  \field{volume}{9}
+  \field{journaltitle}{Industrial Informatics, IEEE Transactions on}
+  \field{year}{2013}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{4416946}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Kirrmann}{K.}%
+     {H.}{H.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hansson}{H.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Muri}{M.}%
+     {P.}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KHHMMP1}
+  \strng{fullhash}{KHHMMP1}
+  \field{booktitle}{Emerging Technologies and Factory Automation, 2007. ETFA.
+  IEEE Conference on}
+  \field{pages}{1396\bibrangedash 1399}
+  \field{title}{IEC 62439 PRP: Bumpless recovery for highly available, hard
+  real-time industrial networks}
   \field{year}{2007}
   \warn{\item Invalid format of field 'month'}
 \endentry

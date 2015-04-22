@@ -114,11 +114,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{Fail-silent fault tolerance}{40}{section*.42}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\gls {prp}}{41}{section*.43}
+\contentsline {subsubsection}{IEC 62439}{41}{section*.43}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\gls {hsr}}{41}{section*.44}
+\contentsline {subsubsection}{\gls {hsr}}{42}{section*.44}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\gls {tmr}}{41}{section*.45}
+\contentsline {subsubsection}{\gls {tmr}}{42}{section*.45}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.10}Security in \gls {hba}}{43}{section.2.10}
 \defcounter {refsection}{0}\relax 

@@ -149,16 +149,24 @@
 \glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
-\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{OSI?\glossaryentryfield{osi}{\glsnamefont{OSI}}{Open System Intercommunication Model}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
-\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
-\glossaryentry{DANP?\glossaryentryfield{danp}{\glsnamefont{DANP}}{Doubly Attached Node with PRP}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
-\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
-\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
-\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
-\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{RSTP?\glossaryentryfield{rstp}{\glsnamefont{RSTP}}{Rapid Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{MRP?\glossaryentryfield{mrp}{\glsnamefont{MRP}}{Media Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{MRP?\glossaryentryfield{mrp}{\glsnamefont{MRP}}{Media Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{RSTP?\glossaryentryfield{rstp}{\glsnamefont{RSTP}}{Rapid Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{DANP?\glossaryentryfield{danp}{\glsnamefont{DANP}}{Doubly Attached Node with PRP}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
 \glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
 \glossaryentry{HBA?\glossaryentryfield{hba}{\glsnamefont{HBA}}{home and building automation}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
