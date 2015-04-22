@@ -1,7 +1,7 @@
 This is makeindex, version 2.15 [TeX Live 2012] (kpathsea + Thai support).
 Scanning style file ./thesis.ist...........................done (27 attributes redefined, 0 ignored).
-Scanning input file thesis.glo....done (310 entries accepted, 0 rejected).
-Sorting entries.....done (2750 comparisons).
+Scanning input file thesis.glo....done (312 entries accepted, 0 rejected).
+Sorting entries.....done (2829 comparisons).
 Generating output file thesis.gls....done (249 lines written, 0 warnings).
 Output written in thesis.gls.
 Transcript written in thesis.glg.

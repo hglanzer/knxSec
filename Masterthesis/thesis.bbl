@@ -1086,6 +1086,69 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
+\entry{vN56}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Neumann}{N.}%
+     {J.}{J.}%
+     {von}{v.}%
+     {}{}}%
+  }
+  \name{editor}{2}{}{%
+    {{}%
+     {Shannon}{S.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {McCarthy}{M.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Princeton University Press}%
+  }
+  \strng{namehash}{NJv1}
+  \strng{fullhash}{NJv1}
+  \field{booktitle}{Automata Studies}
+  \field{pages}{43\bibrangedash 98}
+  \field{title}{Probabilistic logics and synthesis of reliable organisms from
+  unreliable components}
+  \field{year}{1956}
+\endentry
+
+\entry{Lyons:1962:UTR:1661979.1661984}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Lyons}{L.}%
+     {R.~E.}{R.~E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vanderkulk}{V.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IBM Corp.}%
+  }
+  \strng{namehash}{LREVW1}
+  \strng{fullhash}{LREVW1}
+  \field{number}{2}
+  \field{pages}{200\bibrangedash 209}
+  \field{title}{The Use of Triple-modular Redundancy to Improve Computer
+  Reliability}
+  \field{volume}{6}
+  \list{location}{1}{%
+    {Riverton, NJ, USA}%
+  }
+  \field{journaltitle}{IBM J. Res. Dev.}
+  \field{month}{04}
+  \field{year}{1962}
+\endentry
+
 \entry{4447112}{inproceedings}{}
   \name{author}{4}{}{%
     {{}%
@@ -1210,67 +1273,28 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
-\entry{vN56}{inproceedings}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Neumann}{N.}%
-     {J.}{J.}%
-     {von}{v.}%
-     {}{}}%
-  }
-  \name{editor}{2}{}{%
-    {{}%
-     {Shannon}{S.}%
-     {C.}{C.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {McCarthy}{M.}%
-     {J.}{J.}%
-     {}{}%
-     {}{}}%
-  }
-  \list{publisher}{1}{%
-    {Princeton University Press}%
-  }
-  \strng{namehash}{NJv1}
-  \strng{fullhash}{NJv1}
-  \field{booktitle}{Automata Studies}
-  \field{pages}{43\bibrangedash 98}
-  \field{title}{Probabilistic logics and synthesis of reliable organisms from
-  unreliable components}
-  \field{year}{1956}
-\endentry
-
-\entry{Lyons:1962:UTR:1661979.1661984}{article}{}
+\entry{6174793}{inproceedings}{}
   \name{author}{2}{}{%
     {{}%
-     {Lyons}{L.}%
-     {R.~E.}{R.~E.}%
+     {Nsaif}{N.}%
+     {S.A.}{S.}%
      {}{}%
      {}{}}%
     {{}%
-     {Vanderkulk}{V.}%
-     {W.}{W.}%
+     {Rhee}{R.}%
+     {Jong~Myung}{J.~M.}%
      {}{}%
      {}{}}%
   }
-  \list{publisher}{1}{%
-    {IBM Corp.}%
-  }
-  \strng{namehash}{LREVW1}
-  \strng{fullhash}{LREVW1}
-  \field{number}{2}
-  \field{pages}{200\bibrangedash 209}
-  \field{title}{The Use of Triple-modular Redundancy to Improve Computer
-  Reliability}
-  \field{volume}{6}
-  \list{location}{1}{%
-    {Riverton, NJ, USA}%
-  }
-  \field{journaltitle}{IBM J. Res. Dev.}
-  \field{month}{04}
-  \field{year}{1962}
+  \strng{namehash}{NSRJM1}
+  \strng{fullhash}{NSRJM1}
+  \field{booktitle}{Advanced Communication Technology (ICACT), 2012 14th
+  International Conference on}
+  \field{pages}{814\bibrangedash 819}
+  \field{title}{Improvement of high-availability Seamless Redundancy (HSR)
+  traffic performance}
+  \field{year}{2012}
+  \warn{\item Invalid format of field 'month'}
 \endentry
 
 \entry{KraInnosec2013}{inproceedings}{}

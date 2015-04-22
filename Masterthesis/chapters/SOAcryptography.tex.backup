@@ -702,10 +702,6 @@ shown in figure \ref{fig:cbc_MAC}.
     \label{fig:cbc_Flags}
 \end{figure}
 
-\subsection{Key lenghts}
-
-\cite{Lenstra04keylength}
-
 \section{Authenticated Encryption}\label{authEncrypt}
 
 Many applications demand the integration of confidentiality \textit{and} integrity modes. The need for confidentiality is self explaining in systems where
@@ -997,7 +993,11 @@ By defining an \gls{ec} over $\mathbb{Z}_p$, with $a, b \in \mathbb{Z}_p$, a cyc
 this curve is defined by a "chord-and-tangent" rule. Figure \ref{fig:ecAdd}
 shows addition of two points, while \ref{fig:ecDouble} shows adding a point to itself. It is important to note that this representation is shown in the domain
 $\mathbb{R}$ for visualization - in real \gls{ec} cryptography, only elements $\pmod p$ (i.e. from the set $\mathbb{Z}_p$)
-are allowed. Addition is defined as connecting points $A$ and 
+are allowed. 
+
+FIXME: praktische gruende warum nur finite fields statt real domain: rounding errors, only finite number of points
+
+Addition is defined as connecting points $A$ and 
 $Q$, finding the intersection of the line with the \gls{ec} ($R'$) and reflecting that point across the x-axis to obtain the result $R$.
 Point-doubling of $P$ is achieved in a similar way by determining the tangent of $P$, finding the intersection and reflection. Formulae to calculate x- and y-coordinates for the resulting points
 for point addition $R=P+Q$ and point doubling $R=P+P$ are shown in equations \ref{adding} and \ref{doubling} respectively:
@@ -1064,16 +1064,16 @@ After finishing the second communication round, every party raises the last rece
  ((g^b)^c)^a = ((g^c)^a)^b = ((g^a)^b)^c = g^{a*b*c}
 \end{align}
 This algorithm can be generalized to $n$ parties, using $(n-1)$ communication rounds. Obviously, this algorithm may not be practicable for a large $n$. Additionally,
-a new run must be executed whenever a new node joins.
+a complete new run must be executed whenever a new node joins.
 
-Additionally, this key agreement mechanism (as well as all others presented so far) uses not authentication and is therefor 
+Additionally, this key agreement mechanism (as well as all others presented so far) uses not authentication and is therefor vulnerable to active attacks.
 
 \subsection{RSA}
 
 RSA, published in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman \cite{RSA} and formalized in \cite{pkcs1},
 relies on the hardness of finding the prime factors of a big composite number.
-In contrast to \gls{dh}, RSA is not directly connected to key negotiation, but can instead be used to encrypt \textit{and} sign messages. 
-
+In contrast to \gls{dh}, RSA is no to key agreement algorithm but can instead be used to encrypt \textit{and} sign messages. 
+\\
 For key generation, 
 two large primes $p, q$, which should be of about same size, are chosen randomly, with $N = pq$. Additionally, a public exponent $e$ and a private exponent
 $d$ are chosen s.t. they are multiplicative inverses to each other in $\pmod{\varphi(N)}$:
@@ -1161,7 +1161,7 @@ The receiver of the message can use the domain parameters and signature to verif
  x' \equiv s^{-1}(h(m)P + rkP) \pmod n\\
  x' \equiv P \underbrace{(s^{-1}(h(m) + rk))}_{k'} \pmod n
 \end{align*}
-$x'$ is converted to an integer an reduced $\pmod$ to obtain $r'$. If $r = r'$, the signature is accepted, proofing the integrity of the message.
+$x'$ is converted to an integer an reduced $\pmod$ to obtain $r'$. If $r = r'$, the signature is accepted, proofing the authenticity of the message.
 
 \subsubsection{Decryption and Authenticity Check}
 
@@ -1169,6 +1169,11 @@ $x'$ is converted to an integer an reduced $\pmod$ to obtain $r'$. If $r = r'$, 
 
 FIXME: meet in the middle attack, siehe rfc 3610
 
+\subsection{Key lenghts}
+
+\cite{Lenstra04keylength}
+
+TODO: BIRTHDAY PARADOXON
 
 \section{Attacks on Ciphers}
 
@@ -1186,25 +1191,21 @@ timing attacks - constant time computation
 
 \subsection{Active Attacks}
 
-
-BLABLA:
-\\
-
-Such a cipher as defined above provides confidentiality, i.e. it ensures that only authorized parties are able to decrypt the message. This leads to other
-problems, namely how to determine who is authorized, i.e. how to provide authenticity, and how to assure that the message was not altered when, i.e. how to 
-provide integrity. It turns out that such a cipher is suitable for these purposes
-
-A system is an entity that interacts with other entities, which constitute the environment for the system and
-can be other systems, humans or the physical world \cite{1335465}. Fundamental properties of communication systems
-are \textit{functionality, performance, security and dependability}. The system provides services to the user(s) 
-of the system through it's service interface, described by the functional specification. Whenever the provided service
-deviates from correct service a system failure occurs. 
-An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
-dependability consists of the following attributes:
-\textit{Availability}, which means that the system is ready for correct service, \textit{reliability}, the continuity of correct service,
-\textit{safety}, i.e. the avoidance of catastrophic consequences \textit{integrity}, s.t. the system cannot be modified in an unwanted manner
-and \textit{maintainability}, so that the system can be repaired in the case of a failure.
-
-In case of a secure system, another important property is \textit{confidentiality}, which means that no information is disclosed to unauthorized 
-entities.
-To achieve 
+% Such a cipher as defined above provides confidentiality, i.e. it ensures that only authorized parties are able to decrypt the message. This leads to other
+% problems, namely how to determine who is authorized, i.e. how to provide authenticity, and how to assure that the message was not altered when, i.e. how to 
+% provide integrity. It turns out that such a cipher is suitable for these purposes
+% 
+% A system is an entity that interacts with other entities, which constitute the environment for the system and
+% can be other systems, humans or the physical world \cite{1335465}. Fundamental properties of communication systems
+% are \textit{functionality, performance, security and dependability}. The system provides services to the user(s) 
+% of the system through it's service interface, described by the functional specification. Whenever the provided service
+% deviates from correct service a system failure occurs. 
+% An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
+% dependability consists of the following attributes:
+% \textit{Availability}, which means that the system is ready for correct service, \textit{reliability}, the continuity of correct service,
+% \textit{safety}, i.e. the avoidance of catastrophic consequences \textit{integrity}, s.t. the system cannot be modified in an unwanted manner
+% and \textit{maintainability}, so that the system can be repaired in the case of a failure.
+% 
+% In case of a secure system, another important property is \textit{confidentiality}, which means that no information is disclosed to unauthorized 
+% entities.
+% To achieve 

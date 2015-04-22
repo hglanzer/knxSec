@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  22 APR 2015 15:33
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  22 APR 2015 19:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1798,6 +1798,11 @@ Package biblatex Warning: BibTeX reported the following issues
 
 
 Package biblatex Warning: BibTeX reported the following issues
+(biblatex)                with '6174793':
+(biblatex)                - Invalid format of field 'month'.
+
+
+Package biblatex Warning: BibTeX reported the following issues
 (biblatex)                with 'KraInnosec2013':
 (biblatex)                - Invalid format of field 'month'.
 
@@ -2066,7 +2071,7 @@ Package epstopdf Info: Source file: <figures/attacks.eps>
 (epstopdf)                    date: 2015-04-01 19:24:40
 (epstopdf)                    size: 15407 bytes
 (epstopdf)             Output file: <figures/attacks-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-04-01 19:24:47
+(epstopdf)                    date: 2015-04-22 17:02:14
 (epstopdf)                    size: 5220 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/attacks-eps-conver
 ted-to.pdf figures/attacks.eps>
@@ -2162,7 +2167,7 @@ Package epstopdf Info: Source file: <figures/uniform.eps>
 (epstopdf)                    date: 2015-02-26 22:27:53
 (epstopdf)                    size: 17466 bytes
 (epstopdf)             Output file: <figures/uniform-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-21 17:18:42
+(epstopdf)                    date: 2015-04-22 17:02:14
 (epstopdf)                    size: 5367 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/uniform-eps-conver
 ted-to.pdf figures/uniform.eps>
@@ -2179,7 +2184,7 @@ Package epstopdf Info: Source file: <figures/randu.eps>
 (epstopdf)                    date: 2015-02-27 13:47:14
 (epstopdf)                    size: 157700 bytes
 (epstopdf)             Output file: <figures/randu-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-21 17:18:43
+(epstopdf)                    date: 2015-04-22 17:02:15
 (epstopdf)                    size: 207141 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/randu-eps-converte
 d-to.pdf figures/randu.eps>
@@ -2203,7 +2208,7 @@ Package epstopdf Info: Source file: <figures/LSFR.eps>
 (epstopdf)                    date: 2015-02-28 17:12:55
 (epstopdf)                    size: 14621 bytes
 (epstopdf)             Output file: <figures/LSFR-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-15 19:26:33
+(epstopdf)                    date: 2015-04-22 17:02:16
 (epstopdf)                    size: 4923 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/LSFR-eps-converted
 -to.pdf figures/LSFR.eps>
@@ -2236,7 +2241,7 @@ Package epstopdf Info: Source file: <figures/feistel.eps>
 (epstopdf)                    date: 2015-03-05 17:25:18
 (epstopdf)                    size: 21237 bytes
 (epstopdf)             Output file: <figures/feistel-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-21 17:18:44
+(epstopdf)                    date: 2015-04-22 17:02:16
 (epstopdf)                    size: 7583 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/feistel-eps-conver
 ted-to.pdf figures/feistel.eps>
@@ -2254,7 +2259,7 @@ Package epstopdf Info: Source file: <figures/aesEnc.eps>
 (epstopdf)                    date: 2015-04-02 13:02:41
 (epstopdf)                    size: 20250 bytes
 (epstopdf)             Output file: <figures/aesEnc-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-04-02 13:25:30
+(epstopdf)                    date: 2015-04-22 17:02:17
 (epstopdf)                    size: 8084 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/aesEnc-eps-convert
 ed-to.pdf figures/aesEnc.eps>
@@ -2301,7 +2306,7 @@ Package epstopdf Info: Source file: <figures/CBCencrypt.eps>
 (epstopdf)                    date: 2015-03-30 22:59:39
 (epstopdf)                    size: 20268 bytes
 (epstopdf)             Output file: <figures/CBCencrypt-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-30 22:59:46
+(epstopdf)                    date: 2015-04-22 17:02:18
 (epstopdf)                    size: 7262 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/CBCencrypt-eps-con
 verted-to.pdf figures/CBCencrypt.eps>
@@ -2318,7 +2323,7 @@ Package epstopdf Info: Source file: <figures/CBCdecrypt.eps>
 (epstopdf)                    date: 2015-03-30 23:01:14
 (epstopdf)                    size: 18855 bytes
 (epstopdf)             Output file: <figures/CBCdecrypt-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-30 23:01:19
+(epstopdf)                    date: 2015-04-22 17:02:18
 (epstopdf)                    size: 7281 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/CBCdecrypt-eps-con
 verted-to.pdf figures/CBCdecrypt.eps>
@@ -2336,7 +2341,7 @@ Package epstopdf Info: Source file: <figures/CTR.eps>
 (epstopdf)                    date: 2015-03-13 19:53:04
 (epstopdf)                    size: 16376 bytes
 (epstopdf)             Output file: <figures/CTR-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-15 19:26:36
+(epstopdf)                    date: 2015-04-22 17:02:19
 (epstopdf)                    size: 6930 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/CTR-eps-converted-
 to.pdf figures/CTR.eps>
@@ -2371,7 +2376,7 @@ Package epstopdf Info: Source file: <figures/CFB.eps>
 (epstopdf)                    date: 2015-03-13 13:22:28
 (epstopdf)                    size: 21093 bytes
 (epstopdf)             Output file: <figures/CFB-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-21 17:18:46
+(epstopdf)                    date: 2015-04-22 17:02:20
 (epstopdf)                    size: 7024 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/CFB-eps-converted-
 to.pdf figures/CFB.eps>
@@ -2405,7 +2410,7 @@ Package epstopdf Info: Source file: <figures/OFB.eps>
 (epstopdf)                    date: 2015-03-13 14:18:41
 (epstopdf)                    size: 22429 bytes
 (epstopdf)             Output file: <figures/OFB-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-15 19:26:37
+(epstopdf)                    date: 2015-04-22 17:02:20
 (epstopdf)                    size: 7017 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/OFB-eps-converted-
 to.pdf figures/OFB.eps>
@@ -2423,7 +2428,7 @@ Package epstopdf Info: Source file: <figures/tag.eps>
 (epstopdf)                    date: 2015-03-30 23:56:04
 (epstopdf)                    size: 12287 bytes
 (epstopdf)             Output file: <figures/tag-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-31 11:47:54
+(epstopdf)                    date: 2015-04-22 17:02:21
 (epstopdf)                    size: 4847 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/tag-eps-converted-
 to.pdf figures/tag.eps>
@@ -2482,7 +2487,7 @@ Package epstopdf Info: Source file: <figures/CBCMac.eps>
 (epstopdf)                    date: 2015-03-30 23:49:27
 (epstopdf)                    size: 18227 bytes
 (epstopdf)             Output file: <figures/CBCMac-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-30 23:53:54
+(epstopdf)                    date: 2015-04-22 17:02:22
 (epstopdf)                    size: 6993 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/CBCMac-eps-convert
 ed-to.pdf figures/CBCMac.eps>
@@ -2500,7 +2505,7 @@ Package epstopdf Info: Source file: <figures/CBCIVFlags.eps>
 (epstopdf)                    date: 2015-03-06 19:07:36
 (epstopdf)                    size: 12529 bytes
 (epstopdf)             Output file: <figures/CBCIVFlags-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-21 17:18:54
+(epstopdf)                    date: 2015-04-22 17:02:22
 (epstopdf)                    size: 5339 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/CBCIVFlags-eps-con
 verted-to.pdf figures/CBCIVFlags.eps>
@@ -2596,7 +2601,7 @@ Package epstopdf Info: Source file: <figures/ecAdd.eps>
 (epstopdf)                    date: 2015-03-21 19:14:01
 (epstopdf)                    size: 3218966 bytes
 (epstopdf)             Output file: <figures/ecAdd-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-21 19:14:11
+(epstopdf)                    date: 2015-04-22 17:02:29
 (epstopdf)                    size: 96978 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/ecAdd-eps-converte
 d-to.pdf figures/ecAdd.eps>
@@ -2613,7 +2618,7 @@ Package epstopdf Info: Source file: <figures/doubleEC.eps>
 (epstopdf)                    date: 2015-03-21 19:13:19
 (epstopdf)                    size: 2990135 bytes
 (epstopdf)             Output file: <figures/doubleEC-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-21 19:14:18
+(epstopdf)                    date: 2015-04-22 17:02:36
 (epstopdf)                    size: 77092 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/doubleEC-eps-conve
 rted-to.pdf figures/doubleEC.eps>
@@ -2649,7 +2654,7 @@ Package epstopdf Info: Source file: <figures/dh-group_round1.eps>
 (epstopdf)                    size: 12682 bytes
 (epstopdf)             Output file: <figures/dh-group_round1-eps-converted-to.p
 df>
-(epstopdf)                    date: 2015-04-07 17:22:46
+(epstopdf)                    date: 2015-04-22 17:02:36
 (epstopdf)                    size: 6510 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/dh-group_round1-ep
 s-converted-to.pdf figures/dh-group_round1.eps>
@@ -2668,7 +2673,7 @@ Package epstopdf Info: Source file: <figures/dh-group_round2.eps>
 (epstopdf)                    size: 12513 bytes
 (epstopdf)             Output file: <figures/dh-group_round2-eps-converted-to.p
 df>
-(epstopdf)                    date: 2015-04-07 17:32:28
+(epstopdf)                    date: 2015-04-22 17:02:37
 (epstopdf)                    size: 6357 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/dh-group_round2-ep
 s-converted-to.pdf figures/dh-group_round2.eps>
@@ -2700,7 +2705,7 @@ Package epstopdf Info: Source file: <figures/availability.eps>
 (epstopdf)                    size: 13593 bytes
 (epstopdf)             Output file: <figures/availability-eps-converted-to.pdf>
 
-(epstopdf)                    date: 2015-04-15 17:24:20
+(epstopdf)                    date: 2015-04-22 17:02:37
 (epstopdf)                    size: 6001 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/availability-eps-c
 onverted-to.pdf figures/availability.eps>
@@ -2724,7 +2729,7 @@ Package epstopdf Info: Source file: <figures/seriesSystem.eps>
 (epstopdf)                    size: 10470 bytes
 (epstopdf)             Output file: <figures/seriesSystem-eps-converted-to.pdf>
 
-(epstopdf)                    date: 2015-04-16 19:34:21
+(epstopdf)                    date: 2015-04-22 17:02:38
 (epstopdf)                    size: 4552 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/seriesSystem-eps-c
 onverted-to.pdf figures/seriesSystem.eps>
@@ -2747,7 +2752,7 @@ Package epstopdf Info: Source file: <figures/parallelSys.eps>
 (epstopdf)                    date: 2015-04-16 18:12:43
 (epstopdf)                    size: 11218 bytes
 (epstopdf)             Output file: <figures/parallelSys-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-04-16 19:34:21
+(epstopdf)                    date: 2015-04-22 17:02:38
 (epstopdf)                    size: 4584 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/parallelSys-eps-co
 nverted-to.pdf figures/parallelSys.eps>
@@ -2765,7 +2770,7 @@ Package epstopdf Info: Source file: <figures/mixedSys.eps>
 (epstopdf)                    date: 2015-04-16 18:19:24
 (epstopdf)                    size: 19350 bytes
 (epstopdf)             Output file: <figures/mixedSys-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-04-16 19:34:22
+(epstopdf)                    date: 2015-04-22 17:02:38
 (epstopdf)                    size: 7356 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/mixedSys-eps-conve
 rted-to.pdf figures/mixedSys.eps>
@@ -2791,77 +2796,92 @@ Underfull \hbox (badness 10000) in paragraph at lines 135--146
  []
 
 [40]
-Underfull \hbox (badness 10000) in paragraph at lines 165--189
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 165--189
-
- []
-
-[41]
 Package epstopdf Info: Source file: <figures/tmr.eps>
 (epstopdf)                    date: 2015-04-20 19:12:07
 (epstopdf)                    size: 14824 bytes
 (epstopdf)             Output file: <figures/tmr-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-04-20 19:12:12
+(epstopdf)                    date: 2015-04-22 17:02:39
 (epstopdf)                    size: 4186 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/tmr-eps-converted-
 to.pdf figures/tmr.eps>
-(epstopdf)             \includegraphics on input line 213.
+(epstopdf)             \includegraphics on input line 174.
 Package epstopdf Info: Output file is already uptodate.
- <figures/tmr-eps-converted-to.pdf, id=1048, 602.25pt x 230.8625pt>
+ <figures/tmr-eps-converted-to.pdf, id=1011, 602.25pt x 230.8625pt>
 File: figures/tmr-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/tmr-eps-converted-to.pdf>
-Package pdftex.def Info: figures/tmr-eps-converted-to.pdf used on input line 21
-3.
+Package pdftex.def Info: figures/tmr-eps-converted-to.pdf used on input line 17
+4.
 (pdftex.def)             Requested size: 334.60422pt x 128.2711pt.
 Package epstopdf Info: Source file: <figures/tmrGraph.eps>
 (epstopdf)                    date: 2015-04-20 13:37:05
 (epstopdf)                    size: 31460 bytes
 (epstopdf)             Output file: <figures/tmrGraph-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-04-20 16:22:08
+(epstopdf)                    date: 2015-04-22 17:02:39
 (epstopdf)                    size: 10340 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/tmrGraph-eps-conve
 rted-to.pdf figures/tmrGraph.eps>
-(epstopdf)             \includegraphics on input line 219.
+(epstopdf)             \includegraphics on input line 180.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/tmrGraph-eps-converted-to.pdf, id=1051, 361.35pt x 252.945pt>
+<figures/tmrGraph-eps-converted-to.pdf, id=1014, 361.35pt x 252.945pt>
 File: figures/tmrGraph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/tmrGraph-eps-converted-to.pdf>
 Package pdftex.def Info: figures/tmrGraph-eps-converted-to.pdf used on input li
-ne 219.
+ne 180.
 (pdftex.def)             Requested size: 334.60422pt x 234.22519pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 210--229
+Underfull \hbox (badness 10000) in paragraph at lines 171--190
 
  []
 
-) (./chapters/SOAsecurityBA.tex
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--239
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--239
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--239
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--239
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--239
+
+ []
+
+[41 <./figures/tmr-eps-converted-to.pdf>] [42 <./figures/tmrGraph-eps-converted
+-to.pdf>]) (./chapters/SOAsecurityBA.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\gls' on input line 1.
 
-) [42 <./figures/tmr-eps-converted-to.pdf>] [43 <./figures/tmrGraph-eps-convert
-ed-to.pdf>] (./chapters/knxGeneral.tex) (./chapters/knxLayers.tex [44
+) [43] (./chapters/knxGeneral.tex) (./chapters/knxLayers.tex [44
 
 ]
 Package epstopdf Info: Source file: <figures/KNXvsISO.eps>
 (epstopdf)                    date: 2015-02-14 17:18:26
 (epstopdf)                    size: 15878 bytes
 (epstopdf)             Output file: <figures/KNXvsISO-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-15 19:26:39
+(epstopdf)                    date: 2015-04-22 17:02:40
 (epstopdf)                    size: 5735 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/KNXvsISO-eps-conve
 rted-to.pdf figures/KNXvsISO.eps>
 (epstopdf)             \includegraphics on input line 15.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/KNXvsISO-eps-converted-to.pdf, id=1119, 709.65125pt x 391.4625pt>
+<figures/KNXvsISO-eps-converted-to.pdf, id=1124, 709.65125pt x 391.4625pt>
 File: figures/KNXvsISO-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/KNXvsISO-eps-converted-to.pdf>
@@ -2874,14 +2894,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--32
  []
 
 [45 <./figures/KNXvsISO-eps-converted-to.pdf>] [46]
-<figures/ctrl.pdf, id=1184, 413.11198pt x 119.6485pt>
+<figures/ctrl.pdf, id=1189, 413.11198pt x 119.6485pt>
 File: figures/ctrl.pdf Graphic file (type pdf)
  <use figures/ctrl.pdf>
 Package pdftex.def Info: figures/ctrl.pdf used on input line 78.
 (pdftex.def)             Requested size: 418.25368pt x 121.1416pt.
 
 [47 <./figures/ctrl.pdf>]
-<figures/standardframe.pdf, id=1398, 279.32355pt x 57.19156pt>
+<figures/standardframe.pdf, id=1403, 279.32355pt x 57.19156pt>
 File: figures/standardframe.pdf Graphic file (type pdf)
 
 <use figures/standardframe.pdf>
@@ -2892,14 +2912,14 @@ Package epstopdf Info: Source file: <figures/standardFrame.eps>
 (epstopdf)                    size: 18909 bytes
 (epstopdf)             Output file: <figures/standardFrame-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2015-03-21 17:18:55
+(epstopdf)                    date: 2015-04-22 17:02:41
 (epstopdf)                    size: 7715 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/standardFrame-eps-
 converted-to.pdf figures/standardFrame.eps>
 (epstopdf)             \includegraphics on input line 110.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/standardFrame-eps-converted-to.pdf, id=1399, 948.54375pt x 302.12875pt
+<figures/standardFrame-eps-converted-to.pdf, id=1404, 948.54375pt x 302.12875pt
 >
 File: figures/standardFrame-eps-converted-to.pdf Graphic file (type pdf)
  <use figures/standardFrame-eps-converted-to.pdf>
@@ -2907,14 +2927,14 @@ Package pdftex.def Info: figures/standardFrame-eps-converted-to.pdf used on inp
 ut line 110.
 (pdftex.def)             Requested size: 334.60422pt x 106.57646pt.
 
-<figures/extendedframe.pdf, id=1402, 321.96286pt x 36.47417pt>
+<figures/extendedframe.pdf, id=1407, 321.96286pt x 36.47417pt>
 File: figures/extendedframe.pdf Graphic file (type pdf)
 
 <use figures/extendedframe.pdf>
 Package pdftex.def Info: figures/extendedframe.pdf used on input line 124.
 (pdftex.def)             Requested size: 334.60422pt x 37.90884pt.
 
-<figures/CTRLE.pdf, id=1403, 328.75067pt x 152.89265pt>
+<figures/CTRLE.pdf, id=1408, 328.75067pt x 152.89265pt>
 File: figures/CTRLE.pdf Graphic file (type pdf)
 
 <use figures/CTRLE.pdf>
@@ -2925,7 +2945,7 @@ f>] [49 <./figures/extendedframe.pdf> <./figures/CTRLE.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./figures/CTRLE.pdf): PDF inclusion: mu
 ltiple pdfs with page group included in a single page
->] <figures/addresses.pdf, id=1643, 473.65155pt x 93.46921pt>
+>] <figures/addresses.pdf, id=1648, 473.65155pt x 93.46921pt>
 File: figures/addresses.pdf Graphic file (type pdf)
 
 <use figures/addresses.pdf>
@@ -2936,14 +2956,14 @@ Package epstopdf Info: Source file: <figures/TransportHandshake.eps>
 (epstopdf)                    size: 12015 bytes
 (epstopdf)             Output file: <figures/TransportHandshake-eps-converted-t
 o.pdf>
-(epstopdf)                    date: 2015-03-15 19:26:41
+(epstopdf)                    date: 2015-04-22 17:02:41
 (epstopdf)                    size: 5950 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/TransportHandshake
 -eps-converted-to.pdf figures/TransportHandshake.eps>
 (epstopdf)             \includegraphics on input line 194.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/TransportHandshake-eps-converted-to.pdf, id=1656, 428.60126pt x 424.58
+<figures/TransportHandshake-eps-converted-to.pdf, id=1661, 428.60126pt x 424.58
 624pt>
 File: figures/TransportHandshake-eps-converted-to.pdf Graphic file (type pdf)
  <use figures/TransportHandshake-eps-converted-to.pdf>
@@ -2951,7 +2971,7 @@ Package pdftex.def Info: figures/TransportHandshake-eps-converted-to.pdf used o
 n input line 194.
 (pdftex.def)             Requested size: 209.12683pt x 207.16798pt.
 
-<figures/"transport flags".png, id=1657, 646.415pt x 473.77pt>
+<figures/"transport flags".png, id=1662, 646.415pt x 473.77pt>
 File: figures/"transport flags".png Graphic file (type png)
 
 <use figures/"transport flags".png>
@@ -2979,13 +2999,13 @@ Package epstopdf Info: Source file: <figures/SecureArea.eps>
 (epstopdf)                    date: 2015-03-15 19:30:24
 (epstopdf)                    size: 13681 bytes
 (epstopdf)             Output file: <figures/SecureArea-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-03-15 19:30:29
+(epstopdf)                    date: 2015-04-22 17:02:42
 (epstopdf)                    size: 6327 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/SecureArea-eps-con
 verted-to.pdf figures/SecureArea.eps>
 (epstopdf)             \includegraphics on input line 35.
 Package epstopdf Info: Output file is already uptodate.
-<figures/SecureArea-eps-converted-to.pdf, id=1805, 924.45375pt x 414.54875pt>
+<figures/SecureArea-eps-converted-to.pdf, id=1810, 924.45375pt x 414.54875pt>
 File: figures/SecureArea-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/SecureArea-eps-converted-to.pdf>
@@ -2996,14 +3016,14 @@ Package epstopdf Info: Source file: <figures/firewall2.eps>
 (epstopdf)                    date: 2015-04-08 16:09:39
 (epstopdf)                    size: 15157 bytes
 (epstopdf)             Output file: <figures/firewall2-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-04-10 11:48:34
+(epstopdf)                    date: 2015-04-22 17:02:43
 (epstopdf)                    size: 5957 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/firewall2-eps-conv
 erted-to.pdf figures/firewall2.eps>
 (epstopdf)             \includegraphics on input line 73.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/firewall2-eps-converted-to.pdf, id=1809, 613.29124pt x 355.3275pt>
+<figures/firewall2-eps-converted-to.pdf, id=1814, 613.29124pt x 355.3275pt>
 File: figures/firewall2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/firewall2-eps-converted-to.pdf>
@@ -3086,7 +3106,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 92--101
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\gls' on input line 133.
 
-[68] <figures/busware.png, id=1970, 836.12375pt x 393.47pt>
+[68] <figures/busware.png, id=1975, 836.12375pt x 393.47pt>
 File: figures/busware.png Graphic file (type png)
 
 <use figures/busware.png>
@@ -3176,13 +3196,12 @@ Overfull \hbox (13.49458pt too wide) in paragraph at lines 199--199
 2 In-dus-trial Elec-tron-ics, 2009. IECON
  []
 
-
+[80]
 Overfull \hbox (9.35255pt too wide) in paragraph at lines 199--199
 \T1/ptm/m/it/12 mu-ni-ca-tions (Or: how se-cure is SSL?) \T1/ptm/m/n/12 Cryp-to
 l-ogy ePrint Archive, Re-port 2001/045.
  []
 
-[80]
 
 Class memoir Warning: The material used in the headers is too large
 (78.7743pt) for the given head height (14.5pt), it is recommended to
@@ -3199,7 +3218,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 200.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 200.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 200.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 68F436158DF508F8E9D51A6B2BED72FE;1881.
+(rerunfilecheck)             Checksum: 13BFF4CC8396AAF093E89DCF16C7FC22;1881.
 
 
 LaTeX Warning: There were undefined references.
@@ -3210,10 +3229,10 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 200.
  ) 
 Here is how much of TeX's memory you used:
- 34055 strings out of 495059
- 564283 string characters out of 3182030
+ 34056 strings out of 495059
+ 564304 string characters out of 3182030
  1040110 words of memory out of 3000000
- 36071 multiletter control sequences out of 15000+200000
+ 36072 multiletter control sequences out of 15000+200000
  92929 words of font info for 110 fonts, out of 3000000 for 9000
  16 hyphenation exceptions out of 8191
  69i,19n,122p,1426b,1985s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -3235,10 +3254,10 @@ s/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8
 a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (89 pages, 1529966 bytes).
+Output written on thesis.pdf (89 pages, 1531240 bytes).
 PDF statistics:
- 2465 PDF objects out of 2487 (max. 8388607)
- 2112 compressed objects within 22 object streams
+ 2468 PDF objects out of 2487 (max. 8388607)
+ 2115 compressed objects within 22 object streams
  518 named destinations out of 1000 (max. 500000)
  466 words of extra memory for PDF output out of 10000 (max. 10000000)
 

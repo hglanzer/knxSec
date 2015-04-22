@@ -147,7 +147,7 @@ protect against random hardware errors.
 \section{Fault tolerance}
 Fault tolerance is achieved through error detection and subsequent system recovery. To enable error detection, redundancy is added to a system and thereby the 
 system's complexity is increased. This can be achieved booth in the domain of hardware
-and software.
+and software. 
 
 \subsection{Fail-silent fault tolerance}
 A basic form of fault tolerance can be achieved based on \textit{fail-silent} components. A fail-silent component
@@ -160,46 +160,7 @@ For \gls{raid} level 1, all data to be stored are duplicated to two independent 
 from the second drive. This method does obviously not work if booth drives seem operable, but one drive outputs bogus data, i.e. it is not acting fail-silent.
 To handle this situation, higher redundancy levels are needed, as implemented for example in \gls{tmr}. 
 
-\subsection{IEC 62439}
-
-The family of IEC 62439 standards defines a set of ethernet extensions, allowing it's deployment in industrial communication networks, assuring high availability.
-Despite \gls{ieee} 802.3 ethernet already provided basic fault tolerance mechanisms based on the \gls{ieee} 802.1D \gls{stp}, \gls{ieee} 802.3 was 
-not designed with high availability in mind and therefor extensions were necessary.
-\\
-\\
-In typical ethernet installations, depending on the network topology different
-nodes may be reachable through different paths, i.e. physical loops may exist. Switches, operating at \gls{osi} layer 2, are responsible for loop detection and
-loop prevention and must logically disconnect such loops by blocking the corresponding ports to protect the network from broadcast flooding, as required by the ethernet specification.
-If a connection is lost and an ethernet segment is not 
-reachable any more, the \gls{stp}, although not primarily designed for that tasks, can also be used to reconfigure the network by
-un-blocking a port, thus establishing a different path, re-connecting the lost segment and providing some level of availability.
-A big drawback of this mechanism is the topology-dependent
-time needed for network re-organization. While in simulations delays of millisecond magnitude can be achieved \cite{4447112}, in practice this time has magnitude of seconds
-until a new path is established , which is not acceptable for many industrial environments. An improvement was achieved with \gls{ieee} 802.1w \gls{rstp} and
-a magnitude of different proprietary protocols, not compatible to each other, but still no sufficient recovery times were achieved \cite{1704183}.
-
-\subsubsection{\gls{mrp}}
-After IEC 62439-1 specifying basic definitions, the second draft specified \gls{mrp} which confines network outages to less than 500ms \cite{6145654}.
-This is achieved by restricting the valid topologies to ring-only, so all members are connected to the network by 2 interfaces. All nodes beside the ring manager
-forward all traffic received, while the ring manager opens the loop logically. The ring manager detects a failure by periodically sending test messages in booth
-directions. Additionally every node can detect a link failure on it's local ports. It then sets the port to blocking  and signals that to the
-ring manager which opens his second port and therefore reconnects the unreachable segment.
-
-
-\subsubsection{\gls{prp}}
-
-
-a situation not acceptable for hard-realtime environments.
-\\
-\gls{prp} can tolerate a link fault without package loss by introducing two networks in parallel, redundantly connecting \glspl{danp}. Higher level application
-data is sent on booth lines
-
-in hard real-time systems \footnote{hard real-time characterizes a system
-where missing of a dead line may result in a catastrophic event} \cite{4416946}. 
-\subsubsection{\gls{hsr}}
-
-
-\subsubsection{\gls{tmr}}
+\subsection{\gls{tmr}}
 A \gls{tmr} system, see figure \ref{fig:tmr}, is composed out of 3 modules or \textit{black boxes}, all performing the same task,	
 and one \textit{majoriy organ} $V$, as proposed by Von Neumann \cite{vN56}. The latter element
 is also called \textit{voter} because out of it's 3 inputs, it chooses the 'correct' output based on majority voting. As long as at least 2 black boxes do not
@@ -226,5 +187,53 @@ be achieved.
 \\
 The concept of \gls{tmr} can be generalized to $n$ devices performing
 the same operation. In most cases $n$ will be odd, so failure of at least $\frac{n-1}{2}$ modules can be tolerated.
+
+\subsection{IEC 62439}
+In this section communication protocols based on ethernet, satisfying the needs of industrial communication networks, are examined. Industrial production lines
+are sensitive against network disruptions - while short interruptions in the range of milliseconds to seconds may be tolerable, depending on the application 
+domain, longer outages will force emergency stops or even cause damage.
+
+The widely used \gls{ieee} 802.3 ethernet standard was not designed with high availability in mind.
+Nevertheless, it already provided basic fault tolerance mechanisms based on the \gls{ieee} 802.1D \gls{stp}, but it turned out this mechanisms were not 
+sufficient for many applications. Therefor, the family of IEC 62439 standards defines a set of ethernet extensions, assuring high availability and enabling
+its deployment in industrial applications.
+\\
+\\
+In typical ethernet installations, depending on the network topology different
+nodes may be reachable through different paths, i.e. physical loops may exist. Switches, operating at \gls{osi} layer 2, are responsible for loop detection and
+loop prevention and must logically disconnect such loops by blocking the corresponding ports to protect the network from broadcast flooding, as required by the ethernet specification.
+If a connection is lost and an ethernet segment is not 
+reachable any more, the \gls{stp}, although not primarily designed for that tasks, can also be used to reconfigure the network by
+un-blocking a port, thus establishing a different path, re-connecting the lost segment and providing some level of availability.
+A big drawback of this mechanism is the topology-dependent
+time needed for network re-organization. While in simulations delays of millisecond magnitude can be achieved \cite{4447112}, in practice link recovery
+can take up to one minute which is not acceptable for many industrial environments. An improvement was achieved with \gls{ieee} 802.1w \gls{rstp} and
+a variety of different proprietary protocols, not compatible to each other, but still no sufficient recovery times were achieved \cite{1704183}.
+\\
+\\
+After IEC 62439-1 specifying basic definitions, the second draft introduced \gls{mrp} which confines network outages to less than 500ms \cite{6145654}.
+This is achieved by restricting the valid topologies to ring-only, so all switches are connected to the network by 2 interfaces. All switches beside the ring manager
+forward all traffic received, while the ring manager opens the loop logically by setting one of it's interfaces to blocking mode. In this mode,
+all packages except management messages are discarded. The ring manager detects a failure by periodically sending test messages in booth
+directions. Additionally every node can detect a link failure on it's local ports. It then sets the port to blocking and signals that to the
+ring manager which opens his second port and therefore reconnects the unreachable segment.
+\\
+\gls{mrp} does not rule out package loss in case of a failure, therefor it can be seen as improved \gls{rstp} for ring topologies, utilizing intrinsic network
+redundancy.
+\\
+\\
+In 2010, the third draft regarding IEC 62439 defined a first version of {\gls{prp}} and \gls{hsr}, booth suitable for hard real-time
+systems \footnote{hard real-time characterizes a system where missing of a dead line may result in a catastrophic event} \cite{4416946}.
+\\
+\\
+\gls{prp} can tolerate a link fault without package loss by utilizing two redundant and independent networks. \glspl{danp} are connected to both networks,
+upper level application data is duplicated and sent on booth lines. On the receiving side the duplicated frames are discarded by utilizing sequence numbers.
+\\
+\\
+\gls{hsr} is based on ring-topology, but it also allows to connect different rings or even to build a ring of rings. Every node is connected
+to the network by two interfaces, duplicating data from higher layers and sending one copy in clockwise, the other copy in counter-clockwise direction,
+thus eliminating the need for duplicated networks but wasting about half of the available bandwidth. 
+\\
+In 2012, IEC 62439-3 was revised, which defined a new version of \gls{prp} and introduced \gls{hsr}. 
 
 
