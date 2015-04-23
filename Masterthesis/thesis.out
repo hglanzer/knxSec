@@ -10,7 +10,7 @@
 \BOOKMARK [1][-]{section.2.7}{Attacks on Ciphers}{chapter.2}% 10
 \BOOKMARK [1][-]{section.2.8}{Availability}{chapter.2}% 11
 \BOOKMARK [1][-]{section.2.9}{Fault tolerance}{chapter.2}% 12
-\BOOKMARK [1][-]{section.2.10}{Security in hba}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.10}{Security in hbas}{chapter.2}% 13
 \BOOKMARK [0][-]{chapter.3}{KNX}{}% 14
 \BOOKMARK [1][-]{section.3.1}{Introduction}{chapter.3}% 15
 \BOOKMARK [1][-]{section.3.2}{KNX Layers}{chapter.3}% 16
@@ -18,14 +18,17 @@
 \BOOKMARK [1][-]{section.3.4}{Summary}{chapter.3}% 18
 \BOOKMARK [0][-]{chapter.4}{Solution}{}% 19
 \BOOKMARK [1][-]{section.4.1}{Basic Assumptions}{chapter.4}% 20
-\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 21
-\BOOKMARK [1][-]{section.5.1}{Master daemon}{chapter.5}% 22
-\BOOKMARK [0][-]{appendix.A}{Setup of the base system}{}% 23
-\BOOKMARK [1][-]{section.A.1}{Raspbian}{appendix.A}% 24
-\BOOKMARK [1][-]{section.A.2}{EIBD}{appendix.A}% 25
-\BOOKMARK [1][-]{section.A.3}{Revision control}{appendix.A}% 26
-\BOOKMARK [1][-]{section.A.4}{Busware usb couplers}{appendix.A}% 27
-\BOOKMARK [1][-]{section.A.5}{UDEV}{appendix.A}% 28
-\BOOKMARK [1][-]{section.A.6}{Test setup}{appendix.A}% 29
-\BOOKMARK [0][-]{appendix.B}{Code snippets and configuration files}{}% 30
-\BOOKMARK [0][-]{section*.73}{Bibliography}{}% 31
+\BOOKMARK [1][-]{section.4.2}{Security Related Architectural Overview}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.3}{Redundancy Related Architectural Overview}{chapter.4}% 22
+\BOOKMARK [1][-]{section.4.4}{Operational Constraints}{chapter.4}% 23
+\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 24
+\BOOKMARK [1][-]{section.5.1}{Master daemon}{chapter.5}% 25
+\BOOKMARK [0][-]{appendix.A}{Setup of the base system}{}% 26
+\BOOKMARK [1][-]{section.A.1}{Raspbian}{appendix.A}% 27
+\BOOKMARK [1][-]{section.A.2}{EIBD}{appendix.A}% 28
+\BOOKMARK [1][-]{section.A.3}{Revision control}{appendix.A}% 29
+\BOOKMARK [1][-]{section.A.4}{Busware usb couplers}{appendix.A}% 30
+\BOOKMARK [1][-]{section.A.5}{UDEV}{appendix.A}% 31
+\BOOKMARK [1][-]{section.A.6}{Test setup}{appendix.A}% 32
+\BOOKMARK [0][-]{appendix.B}{Code snippets and configuration files}{}% 33
+\BOOKMARK [0][-]{section*.73}{Bibliography}{}% 34

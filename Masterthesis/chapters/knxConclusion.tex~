@@ -1,5 +1,7 @@
 \section{Summary}
-
-
-
-
+Examining the security measurements shows up parallels to the \gls{ipv4} world. As with \gls{knx}, no security measurements were foreseen in the
+original standard too. The problem was
+fixed here in two ways: \gls{tls} was added as a sublayer between \gls{osi} layers 4 and 5, allowing application-transparent encryption and authentication, 
+similar to KNX Application Note 158, as described above. The second solution was the introduction of \gls{ipsec}, extending \gls{ipv4} and thus enabling authentication and encryption on \gls{ip} level.
+\\
+\\

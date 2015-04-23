@@ -189,9 +189,10 @@ The concept of \gls{tmr} can be generalized to $n$ devices performing
 the same operation. In most cases $n$ will be odd, so failure of at least $\frac{n-1}{2}$ modules can be tolerated.
 
 \subsection{IEC 62439}
-In this section communication protocols based on ethernet, satisfying the needs of industrial communication networks, are examined. Industrial production lines
-are sensitive against network disruptions - while short interruptions in the range of milliseconds to seconds may be tolerable, depending on the application 
-domain, longer outages will force emergency stops or even cause damage.
+In this section communication protocols based on ethernet, satisfying the needs of industrial communication networks, are examined. Beside the need for high availability,
+industrial production lines
+are sensitive against network disruptions. While, depending on the application domain short interruptions in the range of milliseconds to seconds may be
+tolerable, longer outages will force emergency stops or even cause damage.
 
 The widely used \gls{ieee} 802.3 ethernet standard was not designed with high availability in mind.
 Nevertheless, it already provided basic fault tolerance mechanisms based on the \gls{ieee} 802.1D \gls{stp}, but it turned out this mechanisms were not 
@@ -209,8 +210,8 @@ A big drawback of this mechanism is the topology-dependent
 time needed for network re-organization. While in simulations delays of millisecond magnitude can be achieved \cite{4447112}, in practice link recovery
 can take up to one minute which is not acceptable for many industrial environments. An improvement was achieved with \gls{ieee} 802.1w \gls{rstp} and
 a variety of different proprietary protocols, not compatible to each other, but still no sufficient recovery times were achieved \cite{1704183}.
-\\
-\\
+
+\subsubsection{\gls{mrp}}
 After IEC 62439-1 specifying basic definitions, the second draft introduced \gls{mrp} which confines network outages to less than 500ms \cite{6145654}.
 This is achieved by restricting the valid topologies to ring-only, so all switches are connected to the network by 2 interfaces. All switches beside the ring manager
 forward all traffic received, while the ring manager opens the loop logically by setting one of it's interfaces to blocking mode. In this mode,
@@ -220,20 +221,43 @@ ring manager which opens his second port and therefore reconnects the unreachabl
 \\
 \gls{mrp} does not rule out package loss in case of a failure, therefor it can be seen as improved \gls{rstp} for ring topologies, utilizing intrinsic network
 redundancy.
-\\
-\\
-In 2010, the third draft regarding IEC 62439 defined a first version of {\gls{prp}} and \gls{hsr}, booth suitable for hard real-time
+\subsubsection{\gls{prp}}
+In 2010, IEC 62439-3 defined a first version of {\gls{prp}} and \gls{hsr}, booth suitable for hard real-time
 systems \footnote{hard real-time characterizes a system where missing of a dead line may result in a catastrophic event} \cite{4416946}.
 \\
+In 2012, IEC 62439-3 was revised, which defined a new versions of \gls{prp} and \gls{hsr}. The basic ideas behind booth protocols remained
+unchanged, so the latest versions are described below.
 \\
-\gls{prp} can tolerate a link fault without package loss by utilizing two redundant and independent networks. \glspl{danp} are connected to both networks,
-upper level application data is duplicated and sent on booth lines. On the receiving side the duplicated frames are discarded by utilizing sequence numbers.
 \\
+\gls{prp} can tolerate a link fault without package loss by utilizing two redundant and independent \glspls{lan}.
+Nodes needing high availability, called \gls{danp}, are connected to both networks by two interfaces, sharing the same \gls{mac} and \gls{ip} addresses.
+Additionally, standard ethernet devices called \gls{san} can be connected to only one network, enabling communication with devices on the same \gls{lan} only.
+An example of such a network is shown in figure \ref{fig:prp}.
 \\
+To support redundant connections for \glspl{danp}, a sub-layer on \gls{osi}-layer 2 (i.e. the link layer), called \gls{lre} is defined. 
+Upper level data arriving at the \gls{lre} of a \gls{danp} is duplicated and equipped with 6 bytes of control information, containing a 2 byte sequence number,
+\gls{lan} number, length information and a static suffix identifying the \gls{lsdu} as \gls{prp} traffic. The sequence number is used for duplicate detection: 
+every node uses one global counter $Ctr_{global}$ for outgoing messages, not discriminating the receiver. For every package sent, the sequence number is incremented.
+Additionally, every node maintains distinct counter values $Ctr_{source}$ for every unicast source-address it receives messages from, as well as for multicast
+and broadcast messages.
+\\
+On the receiving side the \gls{prp} traffic is detected because of the suffix, duplicates can be discarded by utilizing the sequence number \cite{6699852}.
+The standard does not dictate how this must be achieved, it only demands that legitimate packages must not be discarded. Because of the short global outgoing 
+sequence number, duplicates may not be detected as such - responsibility for final detection is delegated to upper layers.
+%If the received number is higher than the saved one $C_{source}$, the package is forwarded to the upper layer and the received sequence number is saved as $C_{source}$.
+%Therefor, the package transmitted over the alternate line (i.e. the delayed package) will contain a sequence number smaller than the number saved for the 
+%corresponding source address and can safely be discarded, thus preventing the processing of duplicate frames by the upper level.  
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/prp.eps}
+    \caption{\gls{prp} network}
+    \label{fig:prp}
+\end{figure}
+
+\subsubsection{\gls{hsr}}
 \gls{hsr} is based on ring-topology, but it also allows to connect different rings or even to build a ring of rings. Every node is connected
-to the network by two interfaces, duplicating data from higher layers and sending one copy in clockwise, the other copy in counter-clockwise direction,
-thus eliminating the need for duplicated networks but wasting about half of the available bandwidth. 
+to the network by two interfaces, duplicating data from upper layers and sending one copy in clockwise, the other copy in counter-clockwise direction,
+thus eliminating the need for duplicated networks but wasting about half of the available bandwidth \cite{6174793}. 
 \\
-In 2012, IEC 62439-3 was revised, which defined a new version of \gls{prp} and introduced \gls{hsr}. 
 
 

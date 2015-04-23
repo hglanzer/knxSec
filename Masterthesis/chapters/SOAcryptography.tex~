@@ -742,8 +742,6 @@ Under these assumptions, only \ref{encThenMac} is considered generically secure 
 In contrast, "encrypt-and-mac" \cite{sshBellare}, used in \gls{ssh}, is considered generically
 insecure. For "mac-then-encrypt", used in \gls{ssl}, the same holds true, but this scheme can be used in a secure manner if \gls{cbc} or a stream cipher like 
 \gls{ctr} mode is used for encryption. 
-\\
-Informally, 
 
 \subsection{CCM}
 
@@ -838,10 +836,9 @@ An entity wanting to send an encrypted message to a receiver can then look up th
 ciphertext to the recipient, who then can decrypt the message. 
 \\
 \\
-It is remarkable that any algorithm establishing public keys must authenticate it's  participants, or it will be vulnerable to man-in-the-middle attacks.
+It is remarkable that any algorithm establishing public keys must authenticate it's participants, or it will be vulnerable to man-in-the-middle attacks.
 
 \subsection{Merkle Puzzles}
-
 In \cite{Merkle}, Ralph C. Merkle developed an algorithm for key exchange between two parties. While the algorithm is based on symmetric ciphers and is
 not practicable, it motivates the usage of public key systems based on algebraic structures and is therefor introduced.
 \\
@@ -851,18 +848,16 @@ also calculate the key, thus generating a quadratic gap.
 Merkle defines a puzzle as cipher text that is supposed to be broken. This can be achieved by restricting the size of the symmetric key used such that an
 exhaustive search can be finished in feasible time. Every puzzle contains an id and a session key, booth chosen randomly, as well as a static string,
 known to all participants.
-
+\\
 The party initiating the key exchange, called $X$, generates $n$ such puzzles and sends all of them to the receiver $Y$. $Y$ picks one puzzle at random and
 decrypts it by trying all possible keys. Because of the static string inside the puzzle, $Y$ knows for sure when the correct key has been tried.
 $Y$ then extracts the session key and sends the corresponding id back to $X$. Subsequently, booth parties can use the session key referenced by the id for encryption.
 An eavesdropper $Z$, monitoring all puzzles, cannot directly determine which of them is containing the returned id and therefor does not know the session key the 
 two parties agreed on - the only possibility for $Z$ is to attack \textbf{all} puzzles, squaring the effort spent by $X$ and $Y$.
 \\
-
-If, for example, every puzzle can be broken by $2^{32}$ computations, and $2^{32}$ different puzzles are used, $X$ must prepare, save and send $2^{32}$ puzzles
+If, for example, one puzzle can be broken by $2^{32}$ computations, and $2^{32}$ different puzzles are used, $X$ must prepare, save and send $2^{32}$ puzzles
 to $Y$, who in turn must try $2^{32}$ different keys. $Z$ must crack all $2^{32}$ puzzles, each with effort $2^{32}$, thus resulting in $2^{64}$ processing steps.
 \\
-
 While this algorithm is very wasteful in regards of processing power, memory and communication capacity, such a protocol would be useful if a more-than-quadratic
 blowup could be achieved, but unfortunately, for all algorithms based on symmetric ciphers, this quadratic gap is the best that can be achieved,
 as shown in \cite{Barak09merklepuzzles}.   
@@ -1065,7 +1060,7 @@ After finishing the second communication round, every party raises the last rece
 \end{align}
 This algorithm can be generalized to $n$ parties, using $(n-1)$ communication rounds. Obviously, this algorithm may not be practicable for a large $n$. Additionally,
 a complete new run must be executed whenever a new node joins.
-
+\\
 Additionally, this key agreement mechanism (as well as all others presented so far) uses not authentication and is therefor vulnerable to active attacks.
 
 \subsection{RSA}

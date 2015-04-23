@@ -1273,6 +1273,45 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
+\entry{6699852}{inproceedings}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Araujo}{A.}%
+     {J.A.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Lazaro}{L.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Astarloa}{A.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Zuloaga}{Z.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Moreira}{M.}%
+     {N.}{N.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AJ+1}
+  \strng{fullhash}{AJLJAAZAMN1}
+  \field{booktitle}{Industrial Electronics Society, IECON 2013 - 39th Annual
+  Conference of the IEEE}
+  \field{pages}{4451\bibrangedash 4456}
+  \field{title}{Duplicate and circulating frames discard methods for PRP and
+  HSR (IEC62439-3)}
+  \field{year}{2013}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
 \entry{6174793}{inproceedings}{}
   \name{author}{2}{}{%
     {{}%
@@ -1295,6 +1334,57 @@
   traffic performance}
   \field{year}{2012}
   \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{1435745}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Kastner}{K.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Neugschwandtner}{N.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Soucek}{S.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Newmann}{N.}%
+     {H.M.}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KW+1}
+  \strng{fullhash}{KWNGSSNH1}
+  \field{number}{6}
+  \field{pages}{1178\bibrangedash 1203}
+  \field{title}{Communication Systems for Building Automation and Control}
+  \field{volume}{93}
+  \field{journaltitle}{Proceedings of the IEEE}
+  \field{year}{2005}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{knxSpec}{unpublished}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Association}{A.}%
+     {KNX}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AK1}
+  \strng{fullhash}{AK1}
+  \field{pages}{11}
+  \field{title}{System Specifications, Overview}
+  \verb{url}
+  \verb http://www.knx.org/knx-en/knx/technology/specifications/index.php
+  \endverb
 \endentry
 
 \entry{KraInnosec2013}{inproceedings}{}
@@ -1371,23 +1461,6 @@
   \field{type}{{RFC}}
   \field{year}{1981}
   \warn{\item Invalid format of field 'month'}
-\endentry
-
-\entry{knxSpec}{unpublished}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Association}{A.}%
-     {KNX}{K.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{AK1}
-  \strng{fullhash}{AK1}
-  \field{pages}{11}
-  \field{title}{System Specifications, Overview}
-  \verb{url}
-  \verb http://www.knx.org/knx-en/knx/technology/specifications/index.php
-  \endverb
 \endentry
 
 \entry{Granzer05securityin}{report}{}

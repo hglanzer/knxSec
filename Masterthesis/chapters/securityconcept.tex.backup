@@ -6,18 +6,21 @@ This means a device outside of this network, unaware of
 the secured KNX network, should be able to deliver through and receive messages from such a secured network without any prerequisites. 
 Every device with one connection to an unsecured KNX network and at least one connection to a secured KNX network, running the master daemon, will work
 as a security gateway. Thus, the presence of at least 2 of these security gateways connected to each other by one or more secure lines will constitute a 
-secured KNX area, bridging between areas with low security levels, as shown in figure \ref{fig:secArea}.
+secured KNX area, bridging between areas with increased security demands, as shown in figure \ref{fig:secArea}.
 \\
 \\
 The basic tasks of such security gateways consist of:
 \begin{itemize}
- \item establishing keys with its communication partners within the secured KNX network(the security gateways)
+ \item establishing keys with it's communication partners within the secured KNX network (the security gateways)
 % \item maintaining some kind of synchronization token between all security gateways
- \item encrypting and authenticating all messages which are received on the unsecured line, and delivering them to the proper security gateways which act as border device for 
- the given group address, using booth secure lines, to achieve redundancy
+ \item providing redundant communication lines, achieving improved availability by encrypting and authenticating all messages which are received on the unsecured line, and delivering them to the proper security gateways which act as
+ border device for the given group address, using booth secure lines
  \item checking all messages which are received on the secured lines for integrity and authenticity, removing duplicates, unwrapping and delivering them to
  the unsecured area
 \end{itemize}
+
+\section{Security Related Architectural Overview}
+
 As stated in chapter \ref{ch:knx}, 3 different possibilities for communication within a KNX network are possible: point to point, multicast and broadcast.
 To introduce as little additional traffic into the network as possible, a sound concept for translating clear- to secure-KNX address (and vice versa) has to
 be defined. While in principle it would be possible to use the communication modes in a transparent way (i.e., point-to-point in unsecured KNX translates
@@ -32,7 +35,7 @@ not know which device(s), if any, will be the gateway(s) responsible for deliver
 is a group- or an individual address.
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/SecureArea.eps}
+    \includegraphics[width=1\textwidth]{figures/SecureArea.eps}
     \caption{Secure Area}
     \label{fig:secArea}
 \end{figure}
@@ -56,27 +59,26 @@ key is renegotiated. Another problem is that multi-party key negotiation is a co
 is to be used: as shown in figures \ref{fig:dh1} and \ref{fig:dh2}, a lot of messages have to be exchanged before actual an encryption can be done. 
 \\
 \\
-To encounter this problems, different keys must be used. This way it is also possible to achieve different security levels, depending on the function a 
-particular unsecured KNX device fulfills. It would be possible, for example, to distinguish between 'normal' gateways and 'hardened'
-gateways which are specially guarded against physical access, for example by applying physical intrusion detection. Thus,
-the risk of breaking the whole system is reduced, because breaking a device in one security level does not affect the security of the devices with other
-security levels.
-So, for breaking all $n$ security levels of a system, at least $n$ devices, all belonging to different levels must be broken.
-As a motivating example, imagine a setup which consists of window controls in an upper floor, and door controls in the
-base level. Obviously, the security constraints for the latter one would be higher. By using normal devices for window control, and hardened devices for
-door control, a security firewall can be deployed, thus containing the damage an adversary can do to the whole system.
-\\
-Figure \ref{fig:firewall} shows the logical connections within an KNX network with different security levels. An 
+To encounter this problems, different keys must be used, thus achieving pairwise end-to-end encryption between all devices. 
+%This way it is also possible to achieve different security levels, depending on the function a 
+%particular unsecured KNX device fulfills. It would be possible, for example, to distinguish between 'normal' gateways and 'hardened'
+%gateways which are specially guarded against physical access, for example by applying physical intrusion detection. Thus,
+%the risk of breaking the whole system is reduced, because breaking a device in one security level does not affect the security of the devices with other
+%security levels.
+%So, for breaking all $n$ security levels of a system, at least $n$ devices, all belonging to different levels must be broken.
+%As a motivating example, imagine a setup which consists of window controls in an upper floor, and door controls in the
+%base level. Obviously, the security constraints for the latter one would be higher. By using normal devices for window control, and hardened devices for
+%door control, a security firewall can be deployed, thus containing the damage an adversary can do to the whole system.
+Figure \ref{fig:firewall} shows the logical connections within an KNX network using end-to-end encryption. An 
 attack of node $A$ can only compromise keys known to the device, thus effectively separating communication between the nodes $B$, $C$, and $D$ from
 the attacker. 
 \begin{figure}
- \input{figures/firewall}
+    \includegraphics[width=0.8\textwidth]{figures/firewall2.eps}
+% \input{figures/firewall.eps}
  \caption{Firewall}
  \label{fig:firewall}
 \end{figure}
-\\
-\\
-But, as stated above, to be able to use different keys, every security gateway has to know how to reach a given address, so that the data can be encrypted
+As stated above, to be able to use different keys every security gateway has to know how to reach a given address so that the data can be encrypted
 exclusively for the responsible gateway. The solution to this problem is to maintain some kind of routing table, mapping group and individual addresses of unsecured
 KNX devices to individual addresses of responsible security gateways. Additionally, this table must hold the key that will be used for encryption.
 Such a routing table can be built statically at setup time, with the obvious disadvantage
@@ -92,28 +94,20 @@ security gateways, connecting devices with new or already known group addresses,
 course must be unique - is unknown to the existing setup, thus making the new unsecured KNX devices unreachable.
 \\
 To tackle this problem, another approach would be to build this mapping table dynamically. Therefore, every security gateway must periodically poll
-on it's unsecured lines for KNX devices(FIXME: HOW? analog zu ETS group address polling), thus populating a list of reachable KNX devices. Whenever a 
+on it's unsecured lines for KNX devices, thus populating a list of reachable KNX devices. Whenever a 
 device wants to send data to a group address, it has to do a lookup first to obtain the individual addresses of the responsible security gateways: the lookup
 must contain the wanted group address, as well as the senders public key.
 Every 
 gateway which finds the wanted group address in its group list must reply with an according message to the requester, thus announcing that it is responsible
 for delivering data to the wanted group address, and must also publish it's own public key, thus allowing pairwise end-to-end encryption.
-The original requester must wait for a short time for replies, possibly retransmitting the request in case
-of no responses, and can then transmit the encrypted package to all responsible gateways, if any, one at a time. This procedure requires no a priori knowledge of
+This procedure requires no a priori knowledge of
 the network topology, so security gateways can be added to the network as well as unsecured KNX devices behind new or existing gateways at any time. This
-flexibility of course has to be purchased with increased complexity as well as additional traffic induced into the network.
+flexibility of course has to be purchased with increased complexity as well as additional traffic introduced into the network.
 \\
 \\
-As a middle course it would be viable to generate the reachable group address list whenever a new security gateway is added to the network,
-and handle discovery of this group addresses as described
-above. This allows to deploy new security gateways with connected unsecured devices, thus achieving a comprise between flexibility and complexity.
-
-
-\subsection{Security Related Architectural Overview}
-While it would be possible to use a centralized concept, no trusted on-line party is used in this work. This decentralized setup is used
-to simplify the setup. A centralized approach would need fall-back key servers
-which inherit the task of generating and distributing keys and parameters in case of a master key server failure. Otherwise, the network would suffer from a
-single point of failure in case no such fall-back mechanism is applied, an assumption that would clearly disqualify the design as highly available.	 
+A middle course is chosen: the reachable group address list is generated whenever a new security gateway is added to the network,
+ handling discovery of this group addresses as described
+above. This allows to deploy new security gateways with connected unsecured devices, thus achieving a comprise between flexibility and complexity. 
 \\
 \\
 To provide authenticity, all datagrams passing the secured KNX network must contain a \gls{mac2} to prevent modification of them(i.e. to guard against active
@@ -125,37 +119,57 @@ secured area, originating from an unsecured KNX device. As explained above, thes
 each two communication partners.
 Additionally, all discovery messages generated by security gateways will be encrypted too. Although these datagrams don't contain KNX data per se, they allow
 a listening adversary to learn the topology of the network, knowledge which can be valuable for developing an attack strategy, as well as generating meta data.
-For example, if an attacker learns that a particular security gateway is responsible for only one group address, and she further gets knowledge that this 
-group address is responsible for switching a light (i.e. by visual observation), she afterwards may be able to derive a personal profile just by seeing
+For example, if an attacker learns that a particular security gateway is responsible for only one group address and further gets knowledge that this 
+group address is responsible for switching a light (i.e. by visual observation), the attacker afterwards may be able to derive a personal profile just by seeing
 packages for this group address, although the datagrams are encrypted. If the discovery messages are encrypted too the adversary doesn't know how many
-group addresses are behind the gateway, and it will be harder to derive personal profiles.
+group addresses are behind the gateway, and it will be harder to derive personal profiles or to gather knowledge of the network topology.
 
-\subsection{Redundancy Related Architectural Overview}
+\subsection{Key Management}
 
-To achieve a higher level of availability, all components that are needed to provide a specific service must exist multiple times. 
+While it would be possible to use a centralized concept, no trusted on-line party is used in this work. This decentralized setup is used
+to simplify the setup. A centralized approach would need fall-back key servers
+which inherit the task of generating and distributing keys and parameters in case of a master key server failure. Otherwise, the network would suffer from a
+single point of failure in case no such fall-back mechanism is applied, an assumption that would clearly disqualify the design as highly available.
 \\
-\\
+The previous statements imply that 3 different kind of keys must be used:
+
+\begin{itemize}
+ \item First, a long-term key known to all security gateways is used. As already stated, this key must be copied to every device at setup time. 
+This pre-shared key $k_{psk}$ is used for symmetric encryption and serves 2 different purposes: first, it is used to authenticate the global counter
+value sent to  new devices which want to join the network, as well for devices that have lost their synchronization (i.e. that have been unavailable for some
+ time). Additionally, this key $k_{psk}$ is used to encrypt another symmetric key $k_{global}$, which every device must obtain in the joining phase to be 
+ able to take part in the discovery procedures. 
+ \item $k_{global}$ is used to authenticate and encrypt locally generated and decrypt received discovery requests, as well as to authenticate and encrypt
+ locally generated discovery responses and decrypt received ones. These discovery service datagrams securely transport the third type of keys:
+ \item Asymmetric keys are used for end-to-end encryption of the actual data packages between 2 security gateways.
+\end{itemize}
+
+
+\section{Redundancy Related Architectural Overview}
+
 Whenever a KNX package is
-generated by a device on an unsecured line(called client), the connected security gateway will read, duplicate and encapsulate it into another KNX frame 
+generated by a device on an unsecured line (called client), the connected security gateway will read, duplicate and encapsulate it into another KNX frame 
 and then send over booth lines. If booth lines are available, i.e. there is, for example, no shortcut, a receiving security gateway will receive 2
 different KNX frames encapsulating the same
-payload, which itself is the KNX frame generated by the KNX client device in the first place. One message must be discarded to avoid duplicates. This is 
-achieved with a monotonically increasing counter that also guards against replay attacks: whenever a package, generated by a client, enters the
-network, a counter for outgoing packages is incremented
-which must be sent along the duplicated packages so that the receiving side can discard one of the 2 packages. This counter must be
-unambiguous for every source/destination address tuple of the origin cleartext message. The receiving side must maintain a counter for incoming packets, 
-also uniquely identified by source and destination address. If booth lines are available, one message will be handled first and trigger an incrementation of the
-corresponding source/destination counter. The duplicated message, which is handled after that, can safely be discarded because the corresponding counter
-value will be less than the saved value. Nevertheless which package from which secure line is forwarded to the unsecured line, each line must acknowledge
-every received package: this is done by generating a special acknowledge frame which is sent back to the sending gateway. The payload of this package must
-allow the sending gateway to unambiguously identify the acknowledged package, i.e. it must bear source and destination address of the package generated
-by the client, as well as the used counter value. As a consequence, these acknowledgement frames must be encrypted and authenticated as well.
-If no acknowledgement frame is received within time $t_{ACK}$, a retransmission is done on booth lines. This retransmission simply re-submits the same
-package with the same counter value again. Regarding the security this is no problem because a passive attacker can not learn anything from such a repeated
-package.
+payload, which itself is the KNX frame generated by the KNX client device in the first place. 
+One message must be discarded to avoid duplicates. 
+This is achieved with a monotonically increasing counter that also guards against replay attacks: whenever a package, generated by a client, enters the
+network, a counter for outgoing packages is incremented. 
+This counter must be unambiguously referenced by the source address of the origin cleartext message. 
+The receiving side must maintain a counter for incoming packets, 
+also uniquely identified by a source address. If booth lines are available, one message will be handled first and trigger an incrementation of the
+corresponding source address counter. The duplicated message, which is handled after that, can safely be discarded because the corresponding counter
+value will be less than the saved value.
+% Nevertheless which package from which secure line is forwarded to the unsecured line, each line must acknowledge
+% every received package: this is done by generating a special acknowledge frame which is sent back to the sending gateway. The payload of this package must
+% allow the sending gateway to unambiguously identify the acknowledged package, i.e. it must bear source and destination address of the package generated
+% by the client, as well as the used counter value. As a consequence, these acknowledgement frames must be encrypted and authenticated as well.
+% If no acknowledgement frame is received within time $t_{ACK}$, a retransmission is done on booth lines. This retransmission simply re-submits the same
+% package with the same counter value again. Regarding the security this is no problem because a passive attacker can not learn anything from such a repeated
+% package.
 
 
-\subsection{Operational Constrains}
+\section{Operational Constraints}
 
 The introduction of encapsulating security gateways implicates that some timing constraints, defined by KNX, cannot be met:
 
@@ -188,31 +202,3 @@ joininig
 discovery
 
 data
-
-\subsection{Key Management}
-
-The previous statements imply that 3 different kind of keys must be used:
-
-\begin{itemize}
- \item First, a long-term key known to all security gateways is used. As already stated, this key must be copied to every device at setup time. 
-This pre-shared key $k_{psk}$ is used for symmetric encryption and serves 2 different purposes: first, it is used to authenticate the global counter
-value sent to  new devices which want to join the network, as well for devices that have lost their synchronization (i.e. that have been unavailable for some
- time). Additionally, this key $k_{psk}$ is used to encrypt another symmetric key $k_{global}$, which every device must obtain in the joining phase to be 
- able to take part in the discovery procedures. 
- \item $k_{global}$ is used to authenticate and encrypt locally generated and decrypt received discovery requests, as well as to authenticate and encrypt
- locally generated discovery responses and decrypt received ones. This discovery service datagrams securely transport the third type of keys:
- \item Asymmetric keys are used for end-to-end encryption of the actual data packages between 2 security gateways.
-\end{itemize}
-
-\subsection{High Level Cryptography Library}
-
-\subsubsection{OpenSSL}
-
-\begin{itemize}
- \item install libssl, libssl-dev
-\end{itemize}
-
-\subsubsection{Crypto++}
-\begin{itemize}
- \item install  libcrypto++9
-\end{itemize}
