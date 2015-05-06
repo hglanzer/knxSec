@@ -1,17 +1,17 @@
 \section{Basic Assumptions}
 
-The aim of this work is propose a KNX extension, allowing KNX to be used in environments with increased availability demands. The prototype should be designed
-in a transparent way, utilizing a "plug and play" functionality to build a secure KNX network.
-This means a device outside of this network, unaware of
-the secured KNX network, should be able to deliver through and receive messages from such a secured network without any prerequisites. 
-Every device with one connection to an unsecured KNX network and at least one connection to a secured KNX network, running the master daemon, will work
+The aim of this work is to propose a \gls{knx} prototype, allowing it's application in environments with increased availability demands.
+The prototype should be designed in a transparent way, utilizing a "plug and play" functionality to build a secure \gls{knx} network.
+This means that a device outside of this network, unaware of
+the secured \gls{knx} network, should be able to deliver through and receive messages from such a secured network without any prerequisites. 
+Every device with one connection to an unsecured \gls{knx} network and at least one connection to a secured \gls{knx} network, running the master daemon, will work
 as a security gateway. Thus, the presence of at least 2 of these security gateways connected to each other by one or more secure lines will constitute a 
-secured KNX area, bridging between areas with increased security demands, as shown in figure \ref{fig:secArea}.
+secured \gls{knx} area, bridging between areas with increased security demands, as shown in figure \ref{fig:secArea}.
 \\
 \\
 The basic tasks of such security gateways consist of:
 \begin{itemize}
- \item establishing keys with it's communication partners within the secured KNX network (the security gateways)
+ \item establishing keys with it's communication partners within the secured \gls{knx} network (the security gateways)
 % \item maintaining some kind of synchronization token between all security gateways
  \item providing redundant communication lines, achieving improved availability by encrypting and authenticating all messages which are received on the unsecured line, and delivering them to the proper security gateways which act as
  border device for the given group address, using booth secure lines
@@ -21,16 +21,16 @@ The basic tasks of such security gateways consist of:
 
 \section{Security Related Architectural Overview}
 
-As stated in chapter \ref{ch:knx}, 3 different possibilities for communication within a KNX network are possible: point to point, multicast and broadcast.
-To introduce as little additional traffic into the network as possible, a sound concept for translating clear- to secure-KNX address (and vice versa) has to
-be defined. While in principle it would be possible to use the communication modes in a transparent way (i.e., point-to-point in unsecured KNX translates
-to point-to-point in secured KNX, and vice versa, and so on), this approach leads to some serious problems, rendering this solution impracticable:
-due to the topology of KNX, it is impossible to know a priori the exact physical location of a device (i.e., its individual address). Additionally,
+As stated in chapter \ref{ch:knx}, 3 different possibilities for communication within a \gls{knx} network are possible: point to point, multicast and broadcast.
+To introduce as little additional traffic into the network as possible, a sound concept for translating clear- to secure-\gls{knx} address (and vice versa) has to
+be defined. While in principle it would be possible to use the communication modes in a transparent way (i.e., point-to-point in unsecured \gls{knx} translates
+to point-to-point in secured \gls{knx}, and vice versa, and so on), this approach leads to some serious problems, rendering this solution impracticable:
+due to the topology of \gls{knx}, it is impossible to know a priori the exact physical location of a device (i.e., its individual address). Additionally,
 every device can be member of an arbitrary number of group addresses (bounded by the maximum number of group addresses), which also is not known in advance.
 Group-membership is also subject to change and therefore complicates the situation. Finally, devices can leave or join the network at every moment by powering the
 device up or down.
 \\
-Therefore, a device which receives a message on its unsecured KNX line, examining the destination address, simply does
+Therefore, a device which receives a message on its unsecured \gls{knx} line, examining the destination address, simply does
 not know which device(s), if any, will be the gateway(s) responsible for delivering this datagram one hop toward its final destination, regardless if the destination address
 is a group- or an individual address.
 \begin{figure}
@@ -41,11 +41,11 @@ is a group- or an individual address.
 \end{figure}
 \\
 \\
-A straightforward solution to this problem would be to wrap every datagram which enters the secured KNX network via a security gateway into a new, properly secured
-broadcast datagram, and delivering this new package to the secured KNX network. Then, the package would be available to all other security gateways, which
-will unwrap it and forward the resulting inner datagram to its unsecured KNX line. If the destination address (group or individual) of the actual payload
+A straightforward solution to this problem would be to wrap every datagram which enters the secured \gls{knx} network via a security gateway into a new, properly secured
+broadcast datagram, and delivering this new package to the secured \gls{knx} network. Then, the package would be available to all other security gateways, which
+will unwrap it and forward the resulting inner datagram to its unsecured \gls{knx} line. If the destination address (group or individual) of the actual payload
 is assigned to a device connected
-to the unsecured KNX network, the device holding this individual- or group-address will recognize it and the package will reach its destination. 
+to the unsecured \gls{knx} network, the device holding this individual- or group-address will recognize it and the package will reach its destination. 
 Otherwise it will simply be discarded.
 \\
 A serious constraint rising from this broadcast approach is that a single,
@@ -61,7 +61,7 @@ is to be used: as shown in figures \ref{fig:dh1} and \ref{fig:dh2}, a lot of mes
 \\
 To encounter this problems, different keys must be used, thus achieving pairwise end-to-end encryption between all devices. 
 %This way it is also possible to achieve different security levels, depending on the function a 
-%particular unsecured KNX device fulfills. It would be possible, for example, to distinguish between 'normal' gateways and 'hardened'
+%particular unsecured \gls{knx} device fulfills. It would be possible, for example, to distinguish between 'normal' gateways and 'hardened'
 %gateways which are specially guarded against physical access, for example by applying physical intrusion detection. Thus,
 %the risk of breaking the whole system is reduced, because breaking a device in one security level does not affect the security of the devices with other
 %security levels.
@@ -69,7 +69,7 @@ To encounter this problems, different keys must be used, thus achieving pairwise
 %As a motivating example, imagine a setup which consists of window controls in an upper floor, and door controls in the
 %base level. Obviously, the security constraints for the latter one would be higher. By using normal devices for window control, and hardened devices for
 %door control, a security firewall can be deployed, thus containing the damage an adversary can do to the whole system.
-Figure \ref{fig:firewall} shows the logical connections within an KNX network using end-to-end encryption. An 
+Figure \ref{fig:firewall} shows the logical connections within an \gls{knx} network using end-to-end encryption. An 
 attack of node $A$ can only compromise keys known to the device, thus effectively separating communication between the nodes $B$, $C$, and $D$ from
 the attacker. 
 \begin{figure}
@@ -80,28 +80,28 @@ the attacker.
 \end{figure}
 As stated above, to be able to use different keys every security gateway has to know how to reach a given address so that the data can be encrypted
 exclusively for the responsible gateway. The solution to this problem is to maintain some kind of routing table, mapping group and individual addresses of unsecured
-KNX devices to individual addresses of responsible security gateways. Additionally, this table must hold the key that will be used for encryption.
+\gls{knx} devices to individual addresses of responsible security gateways. Additionally, this table must hold the key that will be used for encryption.
 Such a routing table can be built statically at setup time, with the obvious disadvantage
 that the exact topology of the to be applied network has to be known in advance, thus reducing the flexibility. Here, every security gateway holds a static 
-table which consists of mappings between individual- or group addresses of unsecured KNX devices and individual addresses of security gateways at the border
-between the secured and the unsecured KNX network, as well as all keys used for the particular security level the gateway belongs to.
+table which consists of mappings between individual- or group addresses of unsecured \gls{knx} devices and individual addresses of security gateways at the border
+between the secured and the unsecured \gls{knx} network, as well as all keys used for the particular security level the gateway belongs to.
 This table would be generated once, after the topology of the network has been fixed, must be equipped with the proper keys and can then
-be copied to the security gateways constituting the secured KNX area. New security gateways can be deployed as long as they only introduce sending 
-unsecured KNX devices, whose recipients are already mapped, known group addresses. A new group address, introduced by a newly installed device behind
+be copied to the security gateways constituting the secured \gls{knx} area. New security gateways can be deployed as long as they only introduce sending 
+unsecured \gls{knx} devices, whose recipients are already mapped, known group addresses. A new group address, introduced by a newly installed device behind
 an already existing security gateway, will not be reachable, simply because the routing information is not available. 
 Another disadvantage is that the deployment of new
 security gateways, connecting devices with new or already known group addresses, is impossible as the individual address of the new gateway - which of
-course must be unique - is unknown to the existing setup, thus making the new unsecured KNX devices unreachable.
+course must be unique - is unknown to the existing setup, thus making the new unsecured \gls{knx} devices unreachable.
 \\
 To tackle this problem, another approach would be to build this mapping table dynamically. Therefore, every security gateway must periodically poll
-on it's unsecured lines for KNX devices, thus populating a list of reachable KNX devices. Whenever a 
+on it's unsecured lines for \gls{knx} devices, thus populating a list of reachable \gls{knx} devices. Whenever a 
 device wants to send data to a group address, it has to do a lookup first to obtain the individual addresses of the responsible security gateways: the lookup
 must contain the wanted group address, as well as the senders public key.
 Every 
 gateway which finds the wanted group address in its group list must reply with an according message to the requester, thus announcing that it is responsible
 for delivering data to the wanted group address, and must also publish it's own public key, thus allowing pairwise end-to-end encryption.
 This procedure requires no a priori knowledge of
-the network topology, so security gateways can be added to the network as well as unsecured KNX devices behind new or existing gateways at any time. This
+the network topology, so security gateways can be added to the network as well as unsecured \gls{knx} devices behind new or existing gateways at any time. This
 flexibility of course has to be purchased with increased complexity as well as additional traffic introduced into the network.
 \\
 \\
@@ -110,14 +110,14 @@ A middle course is chosen: the reachable group address list is generated wheneve
 above. This allows to deploy new security gateways with connected unsecured devices, thus achieving a comprise between flexibility and complexity. 
 \\
 \\
-To provide authenticity, all datagrams passing the secured KNX network must contain a \gls{mac2} to prevent modification of them(i.e. to guard against active
+To provide authenticity, all datagrams passing the secured \gls{knx} network must contain a \gls{mac2} to prevent modification of them(i.e. to guard against active
 adversaries). This \gls{mac2} must be combined with a counter value to avoid replay attacks. The counter must be strictly monotonically increasing and must not overflow.
 The counter can be seen as initialization vector that prevents the mapping of same cleartext messages to same ciphertext messages under the same
 encryption key.
-To guard against passive adversaries, i.e. eavesdropping, all datagrams carrying KNX application data must be encrypted. These are all datagrams coming from outside of the
-secured area, originating from an unsecured KNX device. As explained above, these packages will be encrypted end-to-end, with unique asymmetric keys between
+To guard against passive adversaries, i.e. eavesdropping, all datagrams carrying \gls{knx} application data must be encrypted. These are all datagrams coming from outside of the
+secured area, originating from an unsecured \gls{knx} device. As explained above, these packages will be encrypted end-to-end, with unique asymmetric keys between
 each two communication partners.
-Additionally, all discovery messages generated by security gateways will be encrypted too. Although these datagrams don't contain KNX data per se, they allow
+Additionally, all discovery messages generated by security gateways will be encrypted too. Although these datagrams don't contain \gls{knx} data per se, they allow
 a listening adversary to learn the topology of the network, knowledge which can be valuable for developing an attack strategy, as well as generating meta data.
 For example, if an attacker learns that a particular security gateway is responsible for only one group address and further gets knowledge that this 
 group address is responsible for switching a light (i.e. by visual observation), the attacker afterwards may be able to derive a personal profile just by seeing
@@ -146,11 +146,11 @@ value sent to  new devices which want to join the network, as well for devices t
 
 \section{Redundancy Related Architectural Overview}
 
-Whenever a KNX package is
-generated by a device on an unsecured line (called client), the connected security gateway will read, duplicate and encapsulate it into another KNX frame 
+Whenever a \gls{knx} package is
+generated by a device on an unsecured line (called client), the connected security gateway will read, duplicate and encapsulate it into another \gls{knx} frame 
 and then send over booth lines. If booth lines are available, i.e. there is, for example, no shortcut, a receiving security gateway will receive 2
-different KNX frames encapsulating the same
-payload, which itself is the KNX frame generated by the KNX client device in the first place. 
+different \gls{knx} frames encapsulating the same
+payload, which itself is the \gls{knx} frame generated by the \gls{knx} client device in the first place. 
 One message must be discarded to avoid duplicates. 
 This is achieved with a monotonically increasing counter that also guards against replay attacks: whenever a package, generated by a client, enters the
 network, a counter for outgoing packages is incremented. 
@@ -170,11 +170,11 @@ value will be less than the saved value.
 
 \section{Operational Constraints}
 
-The introduction of encapsulating security gateways implicates that some timing constraints, defined by KNX, cannot be met:
+The introduction of encapsulating security gateways implicates that some timing constraints, defined by \gls{knx}, cannot be met:
 
 \begin{itemize}
- \item Acknowledge frames, as defined in KNX and introduced in chapter \ref{ch:knx}, cannot be guaranteed to be delivered within the specified deadlines: whenever
- a new KNX datagram is generated by a client, at first the discovery phase has to occur. Only after that the to-acknowledged frame is sent. So there are
+ \item Acknowledge frames, as defined in \gls{knx} and introduced in chapter \ref{ch:knx}, cannot be guaranteed to be delivered within the specified deadlines: whenever
+ a new \gls{knx} datagram is generated by a client, at first the discovery phase has to occur. Only after that the to-acknowledged frame is sent. So there are
  multiple delays introduced, stalling the delivery: the first delay is caused by sending of the discovery package.
  After that, a second delay occurs because the security gateway must wait for the discovery response(s), possibly retransmitting the discovery request
  in case of a timeout. After receiving discovery responses, the third delay is caused by sending the actual, encapsulated
@@ -184,8 +184,8 @@ The introduction of encapsulating security gateways implicates that some timing 
  which must forwarded the acknowledgement frame to the origin security gateway, causing another delay. Finally, the acknowledgement frame must be forwarded to the sender of
  the origin data frame, causing another delay.
  These delays will always occur, and most of them cannot be restricted, thus destroying the tight timing constraints for acknowledgement frames, as defined
- by the KNX standard. This
- will most likely result in multiple retransmissions of the same KNX packages
+ by the \gls{knx} standard. This
+ will most likely result in multiple retransmissions of the same \gls{knx} packages
  by the client because the client's timer will generate a timeout. The only way to solve this is to immediately acknowledge a client frame by the security
  gateway that it is connected to. On the receiving side, the client will generate an acknowledge
  frame, which must be discarded by it's security gateway.

@@ -925,7 +925,8 @@ Whitfield Diffie and Martin Hellman proposed a way to solve the problem for key-
 when they published their paper \textit{New Directions in Cryptography} in the year 1976 \cite{1055638}. The algorithm enables two entities to agree on a 
 shared secret which never has to be transmitted between them. The security of their original algorithm
 is based on the hardness of the \textit{Discrete Logarithm Problem}.
-
+\\
+\\
 With the original \gls{dh} algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
 then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, g\}$, where $p$ is a 
 large prime and $g$ is a generator of the cyclic group ${Z_p}^*$. These parameters are not secret and
@@ -952,18 +953,14 @@ The \gls{dh} protocol can be based on different kinds of cyclic groups. Koblitz 
 \glspl{ec} \cite{eccKoblitz} \cite{eccMiller}.
 This cyclic groups are receiving increased importance in cryptography because they allow the usage
 of shorter keys compared to \gls{dh} over prime fields or RSA, while providing the same level of secrecy.
-
+\\
 An \gls{ec} is basically the set of all points
 satisfying an equation with the form as shown in \ref{basicEC}, called "Weierstraß" equation:
 
 \begin{align}\label{basicEC}
  y^2 = x^3 + ax +b
 \end{align}
-with
-\begin{align}
- 4a^3 + 27b^3 \neq 0
-\end{align}
-
+The additional condition $4a^3 + 27b^3 \neq 0$ assures that the \gls{ec} does not possess any singularities.
 
 \begin{minipage}{\linewidth}
  %     \centering
@@ -983,27 +980,27 @@ with
           \end{figure}
       \end{minipage}
   \end{minipage}
-
 By defining an \gls{ec} over $\mathbb{Z}_p$, with $a, b \in \mathbb{Z}_p$, a cyclic group can be generated. The addition operation that "adds" two points on
 this curve is defined by a "chord-and-tangent" rule. Figure \ref{fig:ecAdd}
 shows addition of two points, while \ref{fig:ecDouble} shows adding a point to itself. It is important to note that this representation is shown in the domain
 $\mathbb{R}$ for visualization - in real \gls{ec} cryptography, only elements $\pmod p$ (i.e. from the set $\mathbb{Z}_p$)
 are allowed. 
-
-FIXME: praktische gruende warum nur finite fields statt real domain: rounding errors, only finite number of points
-
+%FIXME: praktische gruende warum nur finite fields statt real domain: rounding errors, only finite number of points
+\\
 Addition is defined as connecting points $A$ and 
 $Q$, finding the intersection of the line with the \gls{ec} ($R'$) and reflecting that point across the x-axis to obtain the result $R$.
-Point-doubling of $P$ is achieved in a similar way by determining the tangent of $P$, finding the intersection and reflection. Formulae to calculate x- and y-coordinates for the resulting points
-for point addition $R=P+Q$ and point doubling $R=P+P$ are shown in equations \ref{adding} and \ref{doubling} respectively:
-
-\begin{align}\label{adding}
- x_3 = (\frac{y_2-y_1}{x_2-x_1})^2-x_1-x_2, y_3=\frac{y_2-y_1}{x_2-x_1}(x_1-x_3)-y_1
-\end{align}
-
-\begin{align}\label{doubling}
- x_3 = (\frac{3x_1^2 +a}{2y_1})^2 - 2x_1, y_3=\frac{3x_1^2+a}{2y_1}(x_1-x_3)-y_1
-\end{align}
+Point-doubling of $P$ is achieved in a similar way by determining the tangent of $P$, finding the intersection and reflection. 
+\\
+% Formulae to calculate x- and y-coordinates for the resulting points
+% for point addition $R=P+Q$ and point doubling $R=P+P$ are shown in equations \ref{adding} and \ref{doubling} respectively:
+% 
+% \begin{align}\label{adding}
+%  x_3 = (\frac{y_2-y_1}{x_2-x_1})^2-x_1-x_2, y_3=\frac{y_2-y_1}{x_2-x_1}(x_1-x_3)-y_1
+% \end{align}
+% 
+% \begin{align}\label{doubling}
+%  x_3 = (\frac{3x_1^2 +a}{2y_1})^2 - 2x_1, y_3=\frac{3x_1^2+a}{2y_1}(x_1-x_3)-y_1
+% \end{align}
 Multiplication is defined as successive addition of a point to it self in the way
 
 \begin{center}

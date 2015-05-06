@@ -1,5 +1,8 @@
 \glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{v}
 \glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{vi}
+\glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{HVAC?\glossaryentryfield{hvac}{\glsnamefont{HVAC}}{Heating, Ventilation and Air Conditioning}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{HVAC?\glossaryentryfield{hvac}{\glsnamefont{HVAC}}{Heating, Ventilation and Air Conditioning}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
 \glossaryentry{DOS?\glossaryentryfield{dos}{\glsnamefont{DOS}}{Denial of Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
 \glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{4}
@@ -111,16 +114,17 @@
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
-\glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{30}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
 \glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
 \glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
-\glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
-\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
-\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{33}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
@@ -129,11 +133,11 @@
 \glossaryentry{ECC?\glossaryentryfield{ecc}{\glsnamefont{ECC}}{Elliptic Curve Cryptography}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{DSA?\glossaryentryfield{dsa}{\glsnamefont{DSA}}{Digital Signature Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{NIST?\glossaryentryfield{nist}{\glsnamefont{NIST}}{National Institute of Standards and Technology}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
-\glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
+\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{SLA?\glossaryentryfield{sla}{\glsnamefont{SLA}}{Service Level Agreement}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{SLA?\glossaryentryfield{sla}{\glsnamefont{SLA}}{Service Level Agreement}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
-\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
-\glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
 \glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
 \glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
 \glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
@@ -142,61 +146,61 @@
 \glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
 \glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
 \glossaryentry{HA?\glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
-\glossaryentry{HA?\glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
-\glossaryentry{HA?\glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
-\glossaryentry{DOS?\glossaryentryfield{dos}{\glsnamefont{DOS}}{Denial of Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
-\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
-\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
-\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
-\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
-\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
-\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{HA?\glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{HA?\glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{DOS?\glossaryentryfield{dos}{\glsnamefont{DOS}}{Denial of Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
 \glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
 \glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
 \glossaryentry{OSI?\glossaryentryfield{osi}{\glsnamefont{OSI}}{Open System Intercommunication Model}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
-\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
-\glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
-\glossaryentry{RSTP?\glossaryentryfield{rstp}{\glsnamefont{RSTP}}{Rapid Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
-\glossaryentry{MRP?\glossaryentryfield{mrp}{\glsnamefont{MRP}}{Media Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
-\glossaryentry{MRP?\glossaryentryfield{mrp}{\glsnamefont{MRP}}{Media Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{RSTP?\glossaryentryfield{rstp}{\glsnamefont{RSTP}}{Rapid Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{MRP?\glossaryentryfield{mrp}{\glsnamefont{MRP}}{Media Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
+\glossaryentry{MRP?\glossaryentryfield{mrp}{\glsnamefont{MRP}}{Media Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
 \glossaryentry{MRP?\glossaryentryfield{mrp}{\glsnamefont{MRP}}{Media Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
 \glossaryentry{RSTP?\glossaryentryfield{rstp}{\glsnamefont{RSTP}}{Rapid Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{LAN?\glossaryentryfield{lan}{\glsnamefont{LAN}}{Local Area Network}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{DANP?\glossaryentryfield{danp}{\glsnamefont{DANP}}{Doubly Attached Node with PRP}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{MAC?\glossaryentryfield{mac}{\glsnamefont{MAC}}{Medium Access}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{IP?\glossaryentryfield{ip}{\glsnamefont{IP}}{Internet Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{SAN?\glossaryentryfield{san}{\glsnamefont{SAN}}{Single Attached Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{LAN?\glossaryentryfield{lan}{\glsnamefont{LAN}}{Local Area Network}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{DANP?\glossaryentryfield{danp}{\glsnamefont{DANP}}{Doubly Attached Node with PRP}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{OSI?\glossaryentryfield{osi}{\glsnamefont{OSI}}{Open System Intercommunication Model}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{LRE?\glossaryentryfield{lre}{\glsnamefont{LRE}}{Link Redundancy Entity}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{LRE?\glossaryentryfield{lre}{\glsnamefont{LRE}}{Link Redundancy Entity}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{DANP?\glossaryentryfield{danp}{\glsnamefont{DANP}}{Doubly Attached Node with PRP}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{LAN?\glossaryentryfield{lan}{\glsnamefont{LAN}}{Local Area Network}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{LSDU?\glossaryentryfield{lsdu}{\glsnamefont{LSDU}}{Link Service Data Unit}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
-\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
 \glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
-\glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
-\glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
-\glossaryentry{HVAC?\glossaryentryfield{hvac}{\glsnamefont{HVAC}}{Heating, Ventilation and Air Conditioning}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
-\glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
-\glossaryentry{HVAC?\glossaryentryfield{hvac}{\glsnamefont{HVAC}}{Heating, Ventilation and Air Conditioning}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
-\glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{LAN?\glossaryentryfield{lan}{\glsnamefont{LAN}}{Local Area Network}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{DANP?\glossaryentryfield{danp}{\glsnamefont{DANP}}{Doubly Attached Node with PRP}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{MAC?\glossaryentryfield{mac}{\glsnamefont{MAC}}{Medium Access}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{IP?\glossaryentryfield{ip}{\glsnamefont{IP}}{Internet Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{SAN?\glossaryentryfield{san}{\glsnamefont{SAN}}{Single Attached Node}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{LAN?\glossaryentryfield{lan}{\glsnamefont{LAN}}{Local Area Network}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{DANP?\glossaryentryfield{danp}{\glsnamefont{DANP}}{Doubly Attached Node with PRP}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{OSI?\glossaryentryfield{osi}{\glsnamefont{OSI}}{Open System Intercommunication Model}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{LRE?\glossaryentryfield{lre}{\glsnamefont{LRE}}{Link Redundancy Entity}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{LRE?\glossaryentryfield{lre}{\glsnamefont{LRE}}{Link Redundancy Entity}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{DANP?\glossaryentryfield{danp}{\glsnamefont{DANP}}{Doubly Attached Node with PRP}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{LAN?\glossaryentryfield{lan}{\glsnamefont{LAN}}{Local Area Network}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{LSDU?\glossaryentryfield{lsdu}{\glsnamefont{LSDU}}{Link Service Data Unit}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{HSR?\glossaryentryfield{hsr}{\glsnamefont{HSR}}{High Availability Seamless Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{PRP?\glossaryentryfield{prp}{\glsnamefont{PRP}}{Parallel Redundancy Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
+\glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
+\glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
+\glossaryentry{HVAC?\glossaryentryfield{hvac}{\glsnamefont{HVAC}}{Heating, Ventilation and Air Conditioning}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
+\glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
+\glossaryentry{HVAC?\glossaryentryfield{hvac}{\glsnamefont{HVAC}}{Heating, Ventilation and Air Conditioning}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
+\glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
 \glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{46}
 \glossaryentry{HBA?\glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{46}
@@ -331,8 +335,49 @@
 \glossaryentry{IPv4?\glossaryentryfield{ipv4}{\glsnamefont{IPv4}}{Internet Protocol version 4}{\relax }|setentrycounter[]{page}\glsnumberformat}{57}
 \glossaryentry{IP?\glossaryentryfield{ip}{\glsnamefont{IP}}{Internet Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{57}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{57}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{58}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{59}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{59}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{59}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{59}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{59}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{59}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{59}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{60}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{61}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{61}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{61}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{61}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{61}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
 \glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
 \glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
 \glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}

@@ -1,50 +1,20 @@
-\section{Structure of the Master's Thesis}
+\section{Motivation}
 
-\subsection{Motivation}
+Driven by the need to reduce maintenance costs and to improve usability, the application of \glspl{hbas} is no longer limited to traditional \gls{hvac} services.
+Modern building management includes much more different and more sophisticated tasks like elevator control, alarm systems or access control, to name a few.
+To reduce costs it would be natural to bring together these services under the control of one management system, a claim also supported through improved 
+standardization efforts.
+\\
+In contrast to traditional \gls{hvac} tasks, where security concerns were neglected, integration of these additional services calls for application of measurements
+to prevent misuse of them.
 
-\subsection{Problem Statement}
 
-\subsection{Aim of the work}
+\section{Problem Statement}
 
-\subsection{Structure of the work}
+\section{Aim of the work}
+
+\section{Structure of the work}
 
 
-The table of contents is followed by the introduction and the main part, which can vary according to the content.
-The master's thesis ends with the bibliography (compulsory) and the appendix (optional).
 
-\begin{itemize}
-  \item Introduction
-  	\begin{itemize}
-  		\item motivation
-  		\item problem statement (which problem should be solved?)
-  		\item aim of the work
-  		\item methodological approach
-  		\item structure of the work
-  	\end{itemize}
-  \item State of the art / analysis of existing approaches
-  	\begin{itemize}
-  		\item literature studies
-  		\item analysis
-  		\item comparison and summary of existing approaches
-  	\end{itemize}
-  \item Methodology
-  	\begin{itemize}
-  		\item used concepts
-  		\item methods and/or models
-  		\item languages
-  		\item design methods
-  		\item data models
-  		\item analysis methods
-  		\item formalisms
-  	\end{itemize}
-  \item Suggested solution/implementation
-  \item Critical reflection
-  	\begin{itemize}
-  		\item comparison with related work
-  		\item discussion of open issues
-  	\end{itemize}
-  \item Summary and future work
-  \item Appendix: source code, data models, \dots
-  \item Bibliography
-\end{itemize}
 

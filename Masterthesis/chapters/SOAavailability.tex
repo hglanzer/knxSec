@@ -124,33 +124,64 @@ is nearly unacceptable. On the other side, it is impossible to guarantee 100\% a
 possible to restore correct service, otherwise risking human lives. On the contrary, a booking system will obviously result in financial losses for the company 
 if not working, but no more serious consequences are to be assumed.
 \\
-To avoid failures, different strategies exist to handle faults, as they are:
-\begin{itemize}
- \item Fault avoidance is used at design stage and based on formal methods. The system to be built is described on precise rules, allowing verification with 
- automatic tests.
- \item Fault removal tries to identify faults by testing hard- and software before it's deployment.
- \item Fault detection aims at identifying faulty states of a running service to minimize their effects.
- \item Fault tolerance relies on fault detection an utilizes redundancy, trying to ensure correct service despite the occurrence of faults. 
-\end{itemize}
+\\
 This work's focus lies on security-critical systems, trying to increase availability of KNX networks, but restricting it's
 deployment to environments without safety-critical needs. Thus, safety criticality is neglected here because of it's most stringent demands, as needed in
 avionics or weapons systems.
 The difference between safety-critical and security-critical systems can be given as follows \cite{5784222}: safety means that software must not be harm the 
-world (i.e. containment), while security means that the world must not harm software (i.e. protection). 
+world (i.e. containment), while security means that the world must not harm software (i.e. protection).
+
+\section{Failure Avoidance}
+
+Different strategies exist to handle faults, thus trying to avoid that a fault propagates through the system and finally leads to a system failure.
+These strategies are introduced in the next section.
 \\
-\\
-The proposed solution will be based on fault tolerance to achieve \gls{ha}, therefor a short introduction to fault tolerant techniques follows.
+The proposed solution will be based on fault tolerance to achieve \gls{ha}, therefor the focus lies on fault tolerant techniques.
 It is argued that fault tolerance is the only practical way to guarantee availability
 in a hostile environment (i.e. an environment where active attackers are assumed to exist and therefor \gls{dos} attacks cannot be ruled out), as well as to
 protect against random hardware errors.
 
-\section{Fault tolerance}
-Fault tolerance is achieved through error detection and subsequent system recovery. To enable error detection, redundancy is added to a system and thereby the 
+\begin{itemize}
+ \item Fault detection aims at identifying faulty states of a running service to minimize their effects.
+\end{itemize}
+
+\subsection{Fault Removal}
+Fault removal tries to identify faults by testing the system before its deployment. 
+\\
+Therefor, the system is exposed to test cases, which ideally would cover all possible internal states. Whenever a failure occurs, the erroneous state is identified, the
+underlying fault is removed and a new testing cycle begins.
+\\
+A problem about this approach is the huge test space that for even simple systems would be required to iterate through. Therefor, the method suffers from the very
+fundamental dilemma that testing never can proof that a system is fault free.
+
+\subsection{Fault Avoidance}
+Fault avoidance aims at designing a system which is fault-free
+in principal and is applied at the design stage of the system. Despite the methods for achieving fault avoidance can be applied in the domain of sofware and hardware,
+they can not guard against transient hardware faults occurring after the system is deployed.
+\\
+Fault avoidance is based on two distinct processing steps: validation and verification. Validation is used to to show that the specification, which is
+the basis of system implementation, matches the real world within reasonable borders. This is necessary because every human built system uses an abstraction
+of the real world, thus simplifying the model.
+\\
+In contrast, verification assures that the system indeed matches the specification. In other words, validation tries to answer if the correct system was built,
+while verification is concerned about to build the system correctly.
+\\
+\\
+Formal methods can be be utilized for verification if the system model is written in a formal language. The formal properties of the specification can then be 
+checked automatically against a finite-state model of the system, a method called \textit{model checking}.
+\\
+While automatic validation can proof that the resulting system is correct in regard to the specification, a big problem here is to obtain the formal properties
+out of an informal specification.
+
+ 
+\subsection{Fault tolerance}
+Fault tolerance tries to ensure correct service despite the occurrence of faults and is achieved through error detection and subsequent system recovery.
+To enable error detection, redundancy is added to a system and thereby the 
 system's complexity is increased. This can be achieved booth in the domain of hardware
 and software. 
 
-\subsection{Fail-silent fault tolerance}
-A basic form of fault tolerance can be achieved based on \textit{fail-silent} components. A fail-silent component
+\subsubsection{Fail-silent fault tolerance}
+Fault tolerance can be achieved based on \textit{fail-silent} components. A fail-silent component
 either works correctly, i.e. outputs correct values, or does not output any values at all \cite{544479}. By duplicating such a module and comparing the
 outputs, fault tolerance can be achieved by cutting off the faulty module from the system.
 \\
@@ -160,7 +191,7 @@ For \gls{raid} level 1, all data to be stored are duplicated to two independent 
 from the second drive. This method does obviously not work if booth drives seem operable, but one drive outputs bogus data, i.e. it is not acting fail-silent.
 To handle this situation, higher redundancy levels are needed, as implemented for example in \gls{tmr}. 
 
-\subsection{\gls{tmr}}
+\subsubsection{\gls{tmr}}
 A \gls{tmr} system, see figure \ref{fig:tmr}, is composed out of 3 modules or \textit{black boxes}, all performing the same task,	
 and one \textit{majoriy organ} $V$, as proposed by Von Neumann \cite{vN56}. The latter element
 is also called \textit{voter} because out of it's 3 inputs, it chooses the 'correct' output based on majority voting. As long as at least 2 black boxes do not
@@ -188,12 +219,13 @@ be achieved.
 The concept of \gls{tmr} can be generalized to $n$ devices performing
 the same operation. In most cases $n$ will be odd, so failure of at least $\frac{n-1}{2}$ modules can be tolerated.
 
-\subsection{IEC 62439}
-In this section communication protocols based on ethernet, satisfying the needs of industrial communication networks, are examined. Beside the need for high availability,
+\section{Related Technologies}
+In the next sections, communication protocols based on ethernet, satisfying the needs of industrial communication networks, are examined. Beside the need for high availability,
 industrial production lines
 are sensitive against network disruptions. While, depending on the application domain short interruptions in the range of milliseconds to seconds may be
 tolerable, longer outages will force emergency stops or even cause damage.
-\\
+
+\subsection{IEC 62439}
 The widely used \gls{ieee} 802.3 ethernet standard was not designed with high availability in mind.
 Nevertheless, it already provided basic fault tolerance mechanisms based on the \gls{ieee} 802.1D \gls{stp}, but it turned out this mechanisms were not 
 sufficient for many applications. Therefor, the family of IEC 62439 standards defines a set of ethernet extensions, assuring high availability and enabling
@@ -215,12 +247,19 @@ a variety of different proprietary protocols, not compatible to each other, but 
 \subsubsection{\gls{mrp}}
 After IEC 62439-1 specifying basic definitions, the second draft introduced \gls{mrp} which confines network outages to less than 500ms \cite{6145654}.
 This is achieved by restricting the valid topologies to ring-only, so all switches are connected to the network by 2 interfaces. All switches beside the ring manager
-forward all traffic received, while the ring manager opens the loop logically by setting one of it's interfaces to blocking mode. In this mode,
-all packages except management messages are discarded. The ring manager detects a failure by periodically sending test messages in booth
+forward all traffic received, while the ring manager opens the loop logically by setting one of it's interfaces to blocking mode.
+In this mode, all packages except management messages are discarded. The ring manager detects a failure by periodically sending test messages in booth
 directions. Additionally every node can detect a link failure on it's local ports. It then sets the port to blocking and signals that to the
-ring manager which opens his second port and therefore reconnects the unreachable segment.
+ring manager which opens his second port by setting it to forward mode and therefore reconnects the unreachable segment.
 \\
 \gls{mrp} does not rule out package loss in case of a failure, therefor it can be seen as improved \gls{rstp} for ring topologies. 
+
+\begin{figure}[H]
+ \includegraphics[width=\linewidth]{figures/MRP.eps}
+ \caption{MRP fault tolerance}
+\label{fig:mrp1}
+\end{figure}
+
 
 \subsubsection{\gls{prp}}
 In 2010, IEC 62439-3 defined a first version of {\gls{prp}} and \gls{hsr}, booth suitable for hard real-time
