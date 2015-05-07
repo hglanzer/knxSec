@@ -274,7 +274,7 @@ or dynamically through the exchange of packages containing a priority. All switc
 hardware \gls{mac} address if collisions occur. The root bridge sets all interfaces to forwarding mode. 
  \item Afterwards, every switch determines the path with minimal costs for reaching the root bridge. The cost of every connection can be determined by the link
  speed or configured by the network administrator manually
- \item All devices except the root bridge set the ports belonging to the minimal-cost path to forward mode. All other ports are set to blocking mode, thus removing
+ \item Finally, all devices except the root bridge set the ports belonging to the minimal-cost path to forward mode. All other ports are set to blocking mode, thus removing
  any loops.
 \end{itemize}
 If a connection is lost and an ethernet segment is not 

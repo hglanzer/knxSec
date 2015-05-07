@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  7 MAY 2015 22:24
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  7 MAY 2015 23:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2924,11 +2924,11 @@ Package pdftex.def Info: figures/MRP2-eps-converted-to.pdf used on input line 3
 (pdftex.def)             Requested size: 418.25368pt x 168.6408pt.
  [45]
 Package epstopdf Info: Source file: <figures/prp.eps>
-(epstopdf)                    date: 2015-04-23 11:48:22
-(epstopdf)                    size: 98772 bytes
+(epstopdf)                    date: 2015-05-07 23:14:24
+(epstopdf)                    size: 112758 bytes
 (epstopdf)             Output file: <figures/prp-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-04-23 11:49:56
-(epstopdf)                    size: 28501 bytes
+(epstopdf)                    date: 2015-05-07 23:14:30
+(epstopdf)                    size: 31011 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/prp-eps-converted-
 to.pdf figures/prp.eps>
 (epstopdf)             \includegraphics on input line 341.
@@ -2940,7 +2940,7 @@ File: figures/prp-eps-converted-to.pdf Graphic file (type pdf)
 <use figures/prp-eps-converted-to.pdf>
 Package pdftex.def Info: figures/prp-eps-converted-to.pdf used on input line 34
 1.
-(pdftex.def)             Requested size: 334.60422pt x 157.27052pt.
+(pdftex.def)             Requested size: 418.25368pt x 196.58968pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 314--345
 
@@ -3355,7 +3355,7 @@ s/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8
 a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (94 pages, 1591834 bytes).
+Output written on thesis.pdf (94 pages, 1594370 bytes).
 PDF statistics:
  2685 PDF objects out of 2984 (max. 8388607)
  2315 compressed objects within 24 object streams
