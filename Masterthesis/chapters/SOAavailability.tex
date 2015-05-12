@@ -278,8 +278,9 @@ hardware \gls{mac} address if collisions occur. The root bridge sets all interfa
  any loops.
 \end{itemize}
 If a connection is lost and an ethernet segment is not 
-reachable any more, the \gls{stp}, although not primarily designed for that tasks, can be used to reconfigure the network by
-un-blocking a port, thus establishing a different path, re-connecting the unreachable segment and providing fault tolerance. 
+reachable any more, the \gls{stp}, although not primarily designed for that tasks, can be used to handle that fault. Nodes affected by the link-change report
+that event to the root bridge, so that the network can be re-configured and a different path can be established, thus re-connecting the unreachable segment
+and providing fault tolerance. 
 \\
 \\
 A big drawback of this mechanism is the topology-dependent

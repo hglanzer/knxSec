@@ -338,7 +338,7 @@ sequence number, duplicates may not be detected as such - responsibility for fin
 %corresponding source address and can safely be discarded, thus preventing the processing of duplicate frames by the upper level.  
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/prp.eps}
+    \includegraphics[width=1\textwidth]{figures/prp.eps}
     \caption{\gls{prp} network}
     \label{fig:prp}
 \end{figure}

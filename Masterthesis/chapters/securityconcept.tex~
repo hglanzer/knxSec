@@ -1,11 +1,11 @@
 \section{Basic Assumptions}
 
-The aim of this work is to propose a \gls{knx} prototype, allowing it's application in environments with increased availability demands.
+The aim of this work is to propose a \gls{knx} prototype, applicable for environments with increased availability demands.
 The prototype should be designed in a transparent way, utilizing a "plug and play" functionality to build a secure \gls{knx} network.
-This means a device outside of this network, unaware of
+This means that a device outside of this network, unaware of
 the secured \gls{knx} network, should be able to deliver through and receive messages from such a secured network without any prerequisites. 
-Every device with one connection to an unsecured \gls{knx} network and at least one connection to a secured \gls{knx} network, running the master daemon, will work
-as a security gateway. Thus, the presence of at least 2 of these security gateways connected to each other by one or more secure lines will constitute a 
+Every device with one connection to an unsecured \gls{knx} network two distinct connections to a secured \gls{knx} network, running the master daemon, will work
+as a security gateway. Thus, the presence of at least 2 of these security gateways connected to each other by two secure lines will constitute a 
 secured \gls{knx} area, bridging between areas with increased security demands, as shown in figure \ref{fig:secArea}.
 \\
 \\
@@ -19,7 +19,7 @@ The basic tasks of such security gateways consist of:
  the unsecured area
 \end{itemize}
 
-\section{Security Related Architectural Overview}
+\subsection{Security Related Architectural Overview}
 
 As stated in chapter \ref{ch:knx}, 3 different possibilities for communication within a \gls{knx} network are possible: point to point, multicast and broadcast.
 To introduce as little additional traffic into the network as possible, a sound concept for translating clear- to secure-\gls{knx} address (and vice versa) has to
@@ -73,6 +73,7 @@ Figure \ref{fig:firewall} shows the logical connections within an \gls{knx} netw
 attack of node $A$ can only compromise keys known to the device, thus effectively separating communication between the nodes $B$, $C$, and $D$ from
 the attacker. 
 \begin{figure}
+  \centering
     \includegraphics[width=0.8\textwidth]{figures/firewall2.eps}
 % \input{figures/firewall.eps}
  \caption{Firewall}
@@ -80,12 +81,12 @@ the attacker.
 \end{figure}
 As stated above, to be able to use different keys every security gateway has to know how to reach a given address so that the data can be encrypted
 exclusively for the responsible gateway. The solution to this problem is to maintain some kind of routing table, mapping group and individual addresses of unsecured
-\gls{knx} devices to individual addresses of responsible security gateways. Additionally, this table must hold the key that will be used for encryption.
+\gls{knx} devices to individual addresses of responsible security gateways	.
 Such a routing table can be built statically at setup time, with the obvious disadvantage
 that the exact topology of the to be applied network has to be known in advance, thus reducing the flexibility. Here, every security gateway holds a static 
 table which consists of mappings between individual- or group addresses of unsecured \gls{knx} devices and individual addresses of security gateways at the border
 between the secured and the unsecured \gls{knx} network, as well as all keys used for the particular security level the gateway belongs to.
-This table would be generated once, after the topology of the network has been fixed, must be equipped with the proper keys and can then
+This table would be generated once, after the topology of the network has been fixed, and must be equipped with the proper keys and can then
 be copied to the security gateways constituting the secured \gls{knx} area. New security gateways can be deployed as long as they only introduce sending 
 unsecured \gls{knx} devices, whose recipients are already mapped, known group addresses. A new group address, introduced by a newly installed device behind
 an already existing security gateway, will not be reachable, simply because the routing information is not available. 
@@ -109,43 +110,72 @@ A middle course is chosen: the reachable group address list is generated wheneve
  handling discovery of this group addresses as described
 above. This allows to deploy new security gateways with connected unsecured devices, thus achieving a comprise between flexibility and complexity. 
 \\
+Sending data to a group address therefor follows the triad discovery request, discovery response and actual data transfer, shown in figure \ref{fig:prot1}. Broadcast
+messages are depicted as solid end of the arrow, the rest denoting unicast messages.
+\begin{figure}
+  \centering
+    \includegraphics[width=0.8\textwidth]{figures/protokoll1.eps}
+ \caption{Communication schema}
+ \label{fig:prot1}
+\end{figure}
+To enable multiple devices to announce responsibility for a group address, the device wanting to transmit data to this group address must accept discovery responses
+following it's request message for a short time window.
 \\
-To provide authenticity, all datagrams passing the secured \gls{knx} network must contain a \gls{mac2} to prevent modification of them(i.e. to guard against active
-adversaries). This \gls{mac2} must be combined with a counter value to avoid replay attacks. The counter must be strictly monotonically increasing and must not overflow.
-The counter can be seen as initialization vector that prevents the mapping of same cleartext messages to same ciphertext messages under the same
-encryption key.
-To guard against passive adversaries, i.e. eavesdropping, all datagrams carrying \gls{knx} application data must be encrypted. These are all datagrams coming from outside of the
-secured area, originating from an unsecured \gls{knx} device. As explained above, these packages will be encrypted end-to-end, with unique asymmetric keys between
-each two communication partners.
-Additionally, all discovery messages generated by security gateways will be encrypted too. Although these datagrams don't contain \gls{knx} data per se, they allow
+\\
+The discovery messages generated by security gateways should be encrypted too. Although these datagrams don't contain \gls{knx} data per se, they allow
 a listening adversary to learn the topology of the network, knowledge which can be valuable for developing an attack strategy, as well as generating meta data.
 For example, if an attacker learns that a particular security gateway is responsible for only one group address and further gets knowledge that this 
 group address is responsible for switching a light (i.e. by visual observation), the attacker afterwards may be able to derive a personal profile just by seeing
-packages for this group address, although the datagrams are encrypted. If the discovery messages are encrypted too the adversary doesn't know how many
-group addresses are behind the gateway, and it will be harder to derive personal profiles or to gather knowledge of the network topology.
+packages for this group address, although the payload of the datagrams to the responsible security gateway are encrypted.
+If the discovery messages are encrypted too the adversary doesn't know how many and what
+group addresses are behind a specif gateway, and it will be harder to derive personal profiles or to gather knowledge of the network topology.
+\\
+Discovery request messages must be broadcast messages, readable by all security gateways. To limit the protocol overhead, a global network key is used here.
+\\
+\\
+To provide authenticity, all datagrams passing the secured \gls{knx} network must contain a \gls{mac2} to prevent modification of them.
+\\
+Defense against replay attacks is achieved by counters.These must be strictly monotonically
+increasing and must not overflow. The counters can be compared to an initialization vector that prevents the mapping of same cleartext messages to same ciphertext messages
+under the same encryption key.
+\\
+Two different types of counters are used: one global counter $Ctr_{global}$, used for avoiding replay attacks against discovery messages. A second kind of counter
+is used for the actual data transfer. Beside avoiding replay attacks, this counter is necessary to detect and delete duplicates, caused by the redundant network, 
+see \ref{ctrAvail} for details.
+\\
+Usage of the global counter $Ctr_{global}$ raises another question, namely how a new device gets knowledge of the actual value of $Ctr_{global}$.
+Therefor, a sync service must be defined, allowing a newly powered up device to synchronize with the rest of the network \ref{fig:syncProt}.
+\begin{figure}
+  \centering
+    \includegraphics[width=0.8\textwidth]{figures/protSync.eps}
+ \caption{Synchronization serice}
+ \label{fig:syncProt}
+\end{figure}
+Replay attacks are mitigated by including the actual time into \gls{mac2} calculation. Low temporal resolution relaxes time-synchronization issues between
+different devices.
 
-\subsection{Key Management}
+\subsubsection{Key Management}
 
 While it would be possible to use a centralized concept, no trusted on-line party is used in this work. A centralized approach would need fall-back key servers
 which inherit the task of generating and distributing keys and parameters in case of a master key server failure. Otherwise, the network would suffer from a
 single point of failure in case no such fall-back mechanism is applied, an assumption that would clearly disqualify the design as highly available.
 \\
-The previous statements imply that 3 different kind of keys must be used:
+The following keys are used:
 
 \begin{itemize}
- \item First, a long-term key known to all security gateways is used. As already stated, this key must be copied to every device at setup time. 
-This pre-shared key $k_{psk}$ is used for symmetric encryption and serves 2 different purposes: first, it is used to authenticate the global counter
-value sent to  new devices which want to join the network, as well for devices that have lost their synchronization (i.e. that have been unavailable for some
- time). Additionally, this key $k_{psk}$ is used to encrypt another symmetric key $k_{global}$, which every device must obtain in the joining phase to be 
- able to take part in the discovery procedures. 
- \item $k_{global}$ is used to authenticate and encrypt locally generated and decrypt received discovery requests, as well as to authenticate and encrypt
- locally generated discovery responses and decrypt received ones. These discovery service datagrams securely transport the third type of keys:
- \item Asymmetric keys are used for end-to-end encryption of the actual data packages between 2 security gateways.
+ \item A long-term key known to all security gateways is used. As already stated, this key must be copied to every device at setup time. 
+This pre-shared key $k_{psk}$ is used for symmetric encryption and serves different purposes: first, it is used to authenticate synchronization messages.
+Secondly, this key $k_{psk}$ is used to encrypt discovery requests and discovery responses.
+ %\item $k_{global}$ is used to authenticate and encrypt locally generated and decrypt received discovery requests, as well as to authenticate and encrypt
+ %locally generated discovery responses and decrypt received ones. These discovery service datagrams securely transport the third type of keys:
+ \item Asymmetric keys are used for end-to-end encryption of the actual data packages between 2 security gateways. \gls{ecdh} serves as key negotiation algorithm.
+ To protect against man-in-the-middle attacks, authenticity of the \gls{dh} parameters must be assured.
+ \item This is the task of the third kind of keys: another pre-shared key is used to authenticate the \gls{dh} parameters.
 \end{itemize}
 
 
-\section{Redundancy Related Architectural Overview}
-
+\subsection{Redundancy Related Architectural Overview}\label{ctrAvail}
+ 
 Whenever a \gls{knx} package is
 generated by a device on an unsecured line (called client), the connected security gateway will read, duplicate and encapsulate it into another \gls{knx} frame 
 and then send over booth lines. If booth lines are available, i.e. there is, for example, no shortcut, a receiving security gateway will receive 2
@@ -168,7 +198,7 @@ value will be less than the saved value.
 % package.
 
 
-\section{Operational Constraints}
+\subsection{Operational Constraints}
 
 The introduction of encapsulating security gateways implicates that some timing constraints, defined by \gls{knx}, cannot be met:
 
@@ -192,12 +222,34 @@ The introduction of encapsulating security gateways implicates that some timing 
  \item Similar arguments avoid the processing of Poll-Data Frames. Here, event more stringent timing constraints are to be met, see chapter \ref{ch:knx}. 
 \end{itemize}
 
-\subsection{Operation states FIXME}
+\section{Services}
 
-synchronization
+\subsection{Synchronization service}
 
-joininig
+As stated, a new gateway, joining the network, must get knowledge of the actual value of $Ctr_{global}$. This is achieved by sending a broadcast message, 
+serving as synchronization request, containing the device's local time in seconds modulo 10, and the header flags in the secure header set accordingly, determining
+the frame as synchronization request \ref{fig:syncReqFormat}.
+\begin{figure}
+  \centering
+    \includegraphics[width=1\textwidth]{figures/formatSyncReq.eps}
+ \caption{Synchronization request package layout}
+ \label{fig:syncReqFormat}
+\end{figure}
+\\
+\\
+Every device receiving such a request checks the integrity of the message first by recalculating the \gls{mac2}. Afterwards, freshness is checked by comparing
+the supplied time with it's local time modulo 10. If the timing information equals the device's own local time, the device sends a synchronization response
+frame, containing it's local time and the actual counter value \ref{fig:syncResFormat}. 
+\begin{figure}
+  \centering
+    \includegraphics[width=1\textwidth]{figures/formatSyncRes.eps}
+ \caption{Synchronization response package layout}
+ \label{fig:syncResFormat}
+\end{figure}
+Reducing the granularity of the sent time allows two devices to synchronize despite poor local clock synchronization.
+\subsection{Discovery service}
 
-discovery
+\subsection{Data service}
+
 
 data

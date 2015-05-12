@@ -22,17 +22,15 @@
 \BOOKMARK [1][-]{section.3.4}{Summary}{chapter.3}% 22
 \BOOKMARK [0][-]{chapter.4}{Solution}{}% 23
 \BOOKMARK [1][-]{section.4.1}{Basic Assumptions}{chapter.4}% 24
-\BOOKMARK [1][-]{section.4.2}{Security Related Architectural Overview}{chapter.4}% 25
-\BOOKMARK [1][-]{section.4.3}{Redundancy Related Architectural Overview}{chapter.4}% 26
-\BOOKMARK [1][-]{section.4.4}{Operational Constraints}{chapter.4}% 27
-\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 28
-\BOOKMARK [1][-]{section.5.1}{Master daemon}{chapter.5}% 29
-\BOOKMARK [0][-]{appendix.A}{Setup of the base system}{}% 30
-\BOOKMARK [1][-]{section.A.1}{Raspbian}{appendix.A}% 31
-\BOOKMARK [1][-]{section.A.2}{EIBD}{appendix.A}% 32
-\BOOKMARK [1][-]{section.A.3}{Revision control}{appendix.A}% 33
-\BOOKMARK [1][-]{section.A.4}{Busware usb couplers}{appendix.A}% 34
-\BOOKMARK [1][-]{section.A.5}{UDEV}{appendix.A}% 35
-\BOOKMARK [1][-]{section.A.6}{Test setup}{appendix.A}% 36
-\BOOKMARK [0][-]{appendix.B}{Code snippets and configuration files}{}% 37
-\BOOKMARK [0][-]{section*.74}{Bibliography}{}% 38
+\BOOKMARK [1][-]{section.4.2}{Services}{chapter.4}% 25
+\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 26
+\BOOKMARK [1][-]{section.5.1}{Master daemon}{chapter.5}% 27
+\BOOKMARK [0][-]{appendix.A}{Setup of the base system}{}% 28
+\BOOKMARK [1][-]{section.A.1}{Raspbian}{appendix.A}% 29
+\BOOKMARK [1][-]{section.A.2}{EIBD}{appendix.A}% 30
+\BOOKMARK [1][-]{section.A.3}{Revision control}{appendix.A}% 31
+\BOOKMARK [1][-]{section.A.4}{Busware usb couplers}{appendix.A}% 32
+\BOOKMARK [1][-]{section.A.5}{UDEV}{appendix.A}% 33
+\BOOKMARK [1][-]{section.A.6}{Test setup}{appendix.A}% 34
+\BOOKMARK [0][-]{appendix.B}{Code snippets and configuration files}{}% 35
+\BOOKMARK [0][-]{section*.79}{Bibliography}{}% 36

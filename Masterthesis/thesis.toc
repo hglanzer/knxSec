@@ -182,42 +182,48 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.1}Basic Assumptions}{61}{section.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Security Related Architectural Overview}{62}{section.4.2}
+\contentsline {subsection}{Security Related Architectural Overview}{62}{section*.65}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Key Management}{65}{section*.65}
+\contentsline {subsubsection}{Key Management}{66}{section*.66}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Redundancy Related Architectural Overview}{66}{section.4.3}
+\contentsline {subsection}{Redundancy Related Architectural Overview}{67}{section*.67}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}Operational Constraints}{66}{section.4.4}
+\contentsline {subsection}{Operational Constraints}{67}{section*.68}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Operation states FIXME}{67}{section*.66}
+\contentsline {section}{\numberline {4.2}Services}{68}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\chapternumberline {5}Implementation}{68}{chapter.5}
+\contentsline {subsection}{Synchronization service}{68}{section*.69}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Master daemon}{68}{section.5.1}
+\contentsline {subsection}{Discovery service}{69}{section*.70}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{KNX addressing scheme}{68}{section*.67}
+\contentsline {subsection}{Data service}{69}{section*.71}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{High Level Cryptography Library}{68}{section*.68}
+\contentsline {chapter}{\chapternumberline {5}Implementation}{70}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{OpenSSL}{68}{section*.69}
+\contentsline {section}{\numberline {5.1}Master daemon}{70}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Crypto++}{68}{section*.70}
+\contentsline {subsection}{KNX addressing scheme}{70}{section*.72}
 \defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {A}Setup of the base system}{69}{appendix.A}
+\contentsline {subsection}{High Level Cryptography Library}{70}{section*.73}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}Raspbian}{69}{section.A.1}
+\contentsline {subsubsection}{OpenSSL}{70}{section*.74}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.2}EIBD}{71}{section.A.2}
+\contentsline {subsubsection}{Crypto++}{70}{section*.75}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.3}Revision control}{72}{section.A.3}
+\contentsline {appendix}{\chapternumberline {A}Setup of the base system}{71}{appendix.A}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.4}Busware \gls {usb} couplers}{72}{section.A.4}
+\contentsline {section}{\numberline {A.1}Raspbian}{71}{section.A.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.5}UDEV}{73}{section.A.5}
+\contentsline {section}{\numberline {A.2}EIBD}{73}{section.A.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.6}Test setup}{73}{section.A.6}
+\contentsline {section}{\numberline {A.3}Revision control}{74}{section.A.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{74}{appendix.B}
+\contentsline {section}{\numberline {A.4}Busware \gls {usb} couplers}{74}{section.A.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliography}{81}{section*.74}
+\contentsline {section}{\numberline {A.5}UDEV}{75}{section.A.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.6}Test setup}{75}{section.A.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{76}{appendix.B}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliography}{83}{section*.79}

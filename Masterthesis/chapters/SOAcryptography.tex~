@@ -925,7 +925,8 @@ Whitfield Diffie and Martin Hellman proposed a way to solve the problem for key-
 when they published their paper \textit{New Directions in Cryptography} in the year 1976 \cite{1055638}. The algorithm enables two entities to agree on a 
 shared secret which never has to be transmitted between them. The security of their original algorithm
 is based on the hardness of the \textit{Discrete Logarithm Problem}.
-
+\\
+\\
 With the original \gls{dh} algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
 then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, g\}$, where $p$ is a 
 large prime and $g$ is a generator of the cyclic group ${Z_p}^*$. These parameters are not secret and

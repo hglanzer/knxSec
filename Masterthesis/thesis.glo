@@ -84,9 +84,9 @@
 \glossaryentry{CRC?\glossaryentryfield{crc}{\glsnamefont{CRC}}{Cyclic Redundancy Check}{\relax }|setentrycounter[]{page}\glsnumberformat}{21}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{21}
 \glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{21}
-\glossaryentry{SHA?\glossaryentryfield{sha}{\glsnamefont{SHA}}{Secure Hash Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{SHA?\glossaryentryfield{sha}{\glsnamefont{SHA}}{Standard Hashing Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
 \glossaryentry{NIST?\glossaryentryfield{nist}{\glsnamefont{NIST}}{National Institute of Standards and Technology}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
-\glossaryentry{SHA?\glossaryentryfield{sha}{\glsnamefont{SHA}}{Secure Hash Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
+\glossaryentry{SHA?\glossaryentryfield{sha}{\glsnamefont{SHA}}{Standard Hashing Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
 \glossaryentry{HMAC?\glossaryentryfield{hmac}{\glsnamefont{HMAC}}{Keyed-Hash Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{22}
 \glossaryentry{CBC?\glossaryentryfield{cbc}{\glsnamefont{CBC}}{Cipher Block Chaining}{\relax }|setentrycounter[]{page}\glsnumberformat}{23}
@@ -364,36 +364,38 @@
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{63}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{65}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{65}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{65}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{65}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{65}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{65}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{65}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
+\glossaryentry{ECDH?\glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
+\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
+\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
-\glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{70}
-\glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{70}
-\glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{70}
-\glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{70}
-\glossaryentry{EIBD?\glossaryentryfield{eibd}{\glsnamefont{EIBD}}{European Installation Bus Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
-\glossaryentry{API?\glossaryentryfield{api}{\glsnamefont{API}}{Application Programming Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
-\glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
-\glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
-\glossaryentry{URL?\glossaryentryfield{url}{\glsnamefont{URL}}{Uniform Resource Locator}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
-\glossaryentry{EIBD?\glossaryentryfield{eibd}{\glsnamefont{EIBD}}{European Installation Bus Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
-\glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
-\glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{73}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{68}
+\glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
+\glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
+\glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
+\glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
+\glossaryentry{EIBD?\glossaryentryfield{eibd}{\glsnamefont{EIBD}}{European Installation Bus Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{API?\glossaryentryfield{api}{\glsnamefont{API}}{Application Programming Interface}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{URL?\glossaryentryfield{url}{\glsnamefont{URL}}{Uniform Resource Locator}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{EIBD?\glossaryentryfield{eibd}{\glsnamefont{EIBD}}{European Installation Bus Daemon}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
