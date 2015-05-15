@@ -467,11 +467,12 @@ Whenever a bit error occurs on the transmission channel due to noise or interfer
 a logical '0' of the transmitted cipher text is substituted by a logical '1' or vice versa. This bit error in the cipher text produces one or more bit errors
 in the clear text, thus the name error propagation \cite{burda}.
 
-\subsubsection{\gls{ecb}}
+\subsubsection{\gls{ecb}}\label{deterministicEnc}
 
 \gls{ecb} can be used to gain confidentiality and allows the parallel processing of all input blocks. This mode does not use any \gls{iv} or nonce, therefore
-repeating input blocks are mapped to the same output blocks under the same key. This is problematic, which can be seen quite intuitively by comparing 
-figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor this mode should be avoided.
+repeating input blocks are mapped to the same output blocks under the same key, implementing a deterministic encryption scheme.
+This is problematic, which can be seen quite intuitively by comparing 
+figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor, this mode should never be used.
 
  \begin{minipage}{\linewidth}
       \centering

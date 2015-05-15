@@ -4,7 +4,8 @@ The aim of this work is to propose a \gls{knx} prototype, applicable for environ
 The prototype should be designed in a transparent way, utilizing a "plug and play" functionality to build a secure \gls{knx} network.
 This means that a device outside of this network, unaware of
 the secured \gls{knx} network, should be able to deliver through and receive messages from such a secured network without any prerequisites. 
-Every device with one connection to an unsecured \gls{knx} network two distinct connections to a secured \gls{knx} network, running the master daemon, will work
+Every device with one connection to an unsecured \gls{knx} network (called cleartext \gls{knx} line) and two distinct connections to a secured \gls{knx}
+network (called secure lines, running the master daemon, will work
 as a security gateway. Thus, the presence of at least 2 of these security gateways connected to each other by two secure lines will constitute a 
 secured \gls{knx} area, bridging between areas with increased security demands, as shown in figure \ref{fig:secArea}.
 \\
@@ -224,10 +225,71 @@ The introduction of encapsulating security gateways implicates that some timing 
 
 \section{Services}
 
+Except from the data service, handling the actual data transfer of the \gls{knx} payloads, 2 additional services are necessary, following the assumptions above.
+These two services, handling synchronization and discovery, are defined as following and are summarized as management services.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+
+\node[state,initial]												at (45,35)			(init)		{Init}; 
+\node[state, text width=2cm,align=center] 	at (60,35)		(sync)	{Send Sync Request};
+\node[state, text width=1.5cm,align=center] 	at (45,20)	(fail)	{Failure}; 
+\draw [black]	(45,20) circle (4);
+\node[state, text width=1.5cm,align=center] 	at (85,25)		(res)	{Reset Counter};
+\node[state, text width=1.8cm,align=center] 	at (60,15)		(chkFresh)	{Check Freshness};
+\node[state, text width=1.8cm,align=center] 	at (85,10)		(rcv)	{Receive};
+\node[state, text width=1.8cm,align=center] 	at (50,-15)		(chkMAC)	{Check MAC, Decrypt};
+\node[state, text width=1.8cm,align=center] 	at (100,-15)		(discReq)	{Send Disc Request};
+
+\node[state, text width=1.8cm,align=center] 	at (50,-40)		(sendResp)	{Send Response};
+\node[state, text width=1.8cm,align=center] 	at (70,-25)		(chkDup)	{check Counter};
+\node[state, text width=1.8cm,align=center] 	at (80,-40)		(fwd)	{Forward Message};
+
+\node[state, text width=1.8cm,align=center] 	at (95,-40)		(sendDup)	{Send Duplicate};
+
+
+\path[pil,->] (init)  edge[above] node[text width=1cm,align=center] {ok} (sync); 
+\path[pil,->] (init)  edge[right] node[text width=0.5cm,align=center] {not ok} (fail); 
+\path[pil,->] (sync)  edge[right,out=40,in=90] node[text width=1cm,align=center] {timeout} (sync); 
+\path[pil,->] (sync)  edge[above] node[text width=2cm,align=center] {max retries} (res); 
+\path[pil,->] (sync)  edge[right] node[text width=2cm,align=center] {valid response} (chkFresh); 
+\path[pil,->] (chkFresh)  edge[right,out=120, in=200] node[text width=0.6cm,align=center] {not ok} (sync); 
+\path[pil,->] (res)  edge[above] node[text width=2cm,align=center] {} (rcv); 
+\path[pil,->] (chkFresh)  edge[above] node[text width=2cm,align=center] {OK} (rcv); 
+\path[pil,->] (rcv)  edge[left] node[text width=1cm,align=center] {secure line} (chkMAC); 
+\path[pil,->] (chkMAC)  edge[out=90,in=210] node[text width=2cm,align=center] {MAC invalid} (rcv); 
+\path[pil,->] (rcv)  edge[right] node[text width=1cm,align=center] {clearext line} (discReq); 
+\path[pil,->] (discReq)  edge[above,out=50,in=90] node[text width=1.2cm,align=center] {timeout} (discReq);
+\path[pil,->] (discReq)  edge[] node[text width=2cm,align=center] {valid Response} (sendDup); 
+
+\path[pil,->] (chkMAC)  edge[left] node[text width=2cm,align=center] {mgmt message} (sendResp); 
+\path[pil,->] (chkMAC)  edge[left,out=150,in=190] node[text width=2.5cm,align=center] {mgmt message} (rcv); 
+\path[pil,->] (sendResp)  edge[left] node[text width=2.5cm,align=center] {} (rcv); 
+\path[pil,->] (fwd)  edge[left] node[text width=1cm,align=center] {} (rcv); 
+\path[pil,->] (chkMAC)  edge[above] node[text width=1.4cm,align=center] {KNX payload} (chkDup); 
+\path[pil,->] (chkDup)  edge[] node[text width=1.5cm,align=center] {duplicate} (rcv); 
+\path[pil,->] (chkDup)  edge[left] node[text width=1.5cm,align=center] {new message} (fwd); 
+\path[pil,->] (sendDup)  edge[] node[text width=2cm,align=left] {} (rcv); 
+
+\end{tikzpicture}
+\end{center}
+
 \subsection{Synchronization service}
 
 As stated, a new gateway, joining the network, must get knowledge of the actual value of $Ctr_{global}$. This is achieved by sending a broadcast message, 
-serving as synchronization request, containing the device's local time in seconds modulo 10, and the header flags in the secure header set accordingly, determining
+serving as synchronization request, containing the device's local time in seconds, and the header flags in the secure header set accordingly, determining
 the frame as synchronization request \ref{fig:syncReqFormat}.
 \begin{figure}
   \centering
@@ -238,15 +300,20 @@ the frame as synchronization request \ref{fig:syncReqFormat}.
 \\
 \\
 Every device receiving such a request checks the integrity of the message first by recalculating the \gls{mac2}. Afterwards, freshness is checked by comparing
-the supplied time with it's local time modulo 10. If the timing information equals the device's own local time, the device sends a synchronization response
-frame, containing it's local time and the actual counter value \ref{fig:syncResFormat}. 
+the supplied time with it's local time. If the timing information equals the device's own local time, the device sends a synchronization response
+frame, containing it's local time and the actual counter value \ref{fig:syncResFormat}. The accuracy of the time comparison is deliberately reduced by defining
+a window of allowed deviation. This allows a new device to join the network even it's local time and the local time of the answering device are not 
+perfectly synchronized.
+\\
+
+
 \begin{figure}
   \centering
     \includegraphics[width=1\textwidth]{figures/formatSyncRes.eps}
  \caption{Synchronization response package layout}
  \label{fig:syncResFormat}
 \end{figure}
-Reducing the granularity of the sent time allows two devices to synchronize despite poor local clock synchronization.
+To allow a device to synchronize despite poor local clock synchronization,  
 \subsection{Discovery service}
 
 \subsection{Data service}

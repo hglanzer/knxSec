@@ -470,8 +470,9 @@ in the clear text, thus the name error propagation \cite{burda}.
 \subsubsection{\gls{ecb}}
 
 \gls{ecb} can be used to gain confidentiality and allows the parallel processing of all input blocks. This mode does not use any \gls{iv} or nonce, therefore
-repeating input blocks are mapped to the same output blocks under the same key. This is problematic, which can be seen quite intuitively by comparing 
-figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor this mode should be avoided.
+repeating input blocks are mapped to the same output blocks under the same key, implementing a deterministic encryption scheme.
+This is problematic, which can be seen quite intuitively by comparing 
+figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor, this mode should never be used.
 
  \begin{minipage}{\linewidth}
       \centering
@@ -1009,7 +1010,7 @@ Multiplication is defined as successive addition of a point to it self in the wa
 An imaginary point "in infinity", denoted $\infty$, serves as additive neutral element, and also belongs to the \gls{ec} by definition:
 
 \begin{center}
- $P + \infty = \infty + P = P$
+ $P + \infty = \infty + P = P, P + (-P) = \infty$
 \end{center}
 Negatives can be calculated easily due to the symmetric nature of the curves by swapping the sign of the y-coordinate of the point. For point $P$ with coordinates $(x, y)$, $-P$ is defined as
 $(x,-y)$, thus satisfying $P + (-P) = \infty$.

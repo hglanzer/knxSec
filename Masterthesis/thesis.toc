@@ -192,38 +192,42 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.2}Services}{68}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Synchronization service}{68}{section*.69}
+\contentsline {subsection}{Synchronization service}{69}{section*.69}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Discovery service}{69}{section*.70}
+\contentsline {subsection}{Discovery service}{70}{section*.70}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Data service}{69}{section*.71}
+\contentsline {subsection}{Data service}{70}{section*.71}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\chapternumberline {5}Implementation}{70}{chapter.5}
+\contentsline {chapter}{\chapternumberline {5}Implementation}{71}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Master daemon}{70}{section.5.1}
+\contentsline {section}{\numberline {5.1}Master daemon}{71}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{KNX addressing scheme}{70}{section*.72}
+\contentsline {subsection}{KNX addressing scheme}{71}{section*.72}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{High Level Cryptography Library}{70}{section*.73}
+\contentsline {section}{\numberline {5.2}Evaluation}{71}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{OpenSSL}{70}{section*.74}
+\contentsline {subsection}{Synchronization stage}{71}{section*.73}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Crypto++}{70}{section*.75}
+\contentsline {subsection}{High Level Cryptography Library}{72}{section*.74}
 \defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {A}Setup of the base system}{71}{appendix.A}
+\contentsline {subsubsection}{OpenSSL}{72}{section*.75}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}Raspbian}{71}{section.A.1}
+\contentsline {subsubsection}{Crypto++}{72}{section*.76}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.2}EIBD}{73}{section.A.2}
+\contentsline {appendix}{\chapternumberline {A}Setup of the base system}{73}{appendix.A}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.3}Revision control}{74}{section.A.3}
+\contentsline {section}{\numberline {A.1}Raspbian}{73}{section.A.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.4}Busware \gls {usb} couplers}{74}{section.A.4}
+\contentsline {section}{\numberline {A.2}EIBD}{75}{section.A.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.5}UDEV}{75}{section.A.5}
+\contentsline {section}{\numberline {A.3}Revision control}{76}{section.A.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.6}Test setup}{75}{section.A.6}
+\contentsline {section}{\numberline {A.4}Busware \gls {usb} couplers}{76}{section.A.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{76}{appendix.B}
+\contentsline {section}{\numberline {A.5}UDEV}{77}{section.A.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliography}{83}{section*.79}
+\contentsline {section}{\numberline {A.6}Test setup}{77}{section.A.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{78}{appendix.B}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliography}{85}{section*.80}
