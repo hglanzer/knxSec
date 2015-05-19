@@ -273,9 +273,10 @@ These two services, handling synchronization and discovery, are defined as follo
 \path[pil,->] (rcv)  edge[right] node[text width=1cm,align=center] {clearext line} (discReq); 
 \path[pil,->] (discReq)  edge[above,out=50,in=90] node[text width=1.2cm,align=center] {timeout} (discReq);
 \path[pil,->] (discReq)  edge[] node[text width=2cm,align=center] {valid Response} (sendDup); 
+\path[pil,->] (discReq)  edge[out=20,in=-20] node[text width=1.5cm,align=center] {max retries} (rcv); 
 
 \path[pil,->] (chkMAC)  edge[left] node[text width=2cm,align=center] {mgmt message} (sendResp); 
-\path[pil,->] (chkMAC)  edge[left,out=150,in=190] node[text width=2.5cm,align=center] {mgmt message} (rcv); 
+%\path[pil,->] (chkMAC)  edge[left,out=150,in=190] node[text width=2.5cm,align=center] {mgmt message} (rcv); 
 \path[pil,->] (sendResp)  edge[left] node[text width=2.5cm,align=center] {} (rcv); 
 \path[pil,->] (fwd)  edge[left] node[text width=1cm,align=center] {} (rcv); 
 \path[pil,->] (chkMAC)  edge[above] node[text width=1.4cm,align=center] {KNX payload} (chkDup); 
@@ -288,32 +289,109 @@ These two services, handling synchronization and discovery, are defined as follo
 
 \subsection{Synchronization service}
 
-As stated, a new gateway, joining the network, must get knowledge of the actual value of $Ctr_{global}$. This is achieved by sending a broadcast message, 
-serving as synchronization request, containing the device's local time in seconds, and the header flags in the secure header set accordingly, determining
+As stated, a new gateway, joining the network, must get knowledge of the actual value of $Ctr_{global}$. This is achieved by sending a broadcast message on
+ever secure line, 
+serving as synchronization request. The frame  contains the device's local time in seconds. The header flags in the secure header are set accordingly, identifying
 the frame as synchronization request \ref{fig:syncReqFormat}.
 \begin{figure}
   \centering
     \includegraphics[width=1\textwidth]{figures/formatSyncReq.eps}
- \caption{Synchronization request package layout}
+ \caption{Synchronization request frame layout}
  \label{fig:syncReqFormat}
 \end{figure}
 \\
 \\
 Every device receiving such a request checks the integrity of the message first by recalculating the \gls{mac2}. Afterwards, freshness is checked by comparing
-the supplied time with it's local time. If the timing information equals the device's own local time, the device sends a synchronization response
+the supplied time with it's local time. If the timing information equals the device's own local time, the device sends a unicast synchronization response
 frame, containing it's local time and the actual counter value \ref{fig:syncResFormat}. The accuracy of the time comparison is deliberately reduced by defining
 a window of allowed deviation. This allows a new device to join the network even it's local time and the local time of the answering device are not 
 perfectly synchronized.
-\\
-
-
 \begin{figure}
   \centering
     \includegraphics[width=1\textwidth]{figures/formatSyncRes.eps}
- \caption{Synchronization response package layout}
+ \caption{Synchronization response frame layout}
  \label{fig:syncResFormat}
 \end{figure}
-To allow a device to synchronize despite poor local clock synchronization,  
+If no synchronization response is received within 500ms, up to 2 retries are executed. After that, the device assumes that it is the first device in the
+network and resets the global counter $Ctr_{global}$.
+\\
+\\
+The \gls{mac2} is calculated over all frame fields except the trailing frame check fields. 
+
 \subsection{Discovery service}
+Whenever a gateway receives a message on it's cleartext line, 2 distinct discovery broadcast messages are sent, one for each secured line. 
+The frame format is shown in 
+figure \ref{fig:discReqFormat}. \textit{DH-A} is the newly chosen \gls{ecdh} - parameter of the requesting device.
+The \gls{psk} encrypted field contains the group address, CTR contains the incremented global counter $Ctr_{global}$.
+\begin{figure}
+  \centering
+    \includegraphics[width=1.2\textwidth]{figures/formatDiscReq.eps}
+ \caption{Discovery request frame layout}
+ \label{fig:discReqFormat}
+\end{figure}
+Every device in the network first checks the authenticity of the received frame by recalculating the \gls{mac2}. If the value differs the received one, the frame
+is discarded. Otherwise, the requested group address is obtained by decrypting the corresponding field, and the device 
+Every device recognizing the group address prepares a unicast response frame as shown in figure \ref{fig:discResFormat}, 
+with \textit{DH-B} it's own newly chosen \gls{ecdh} parameter and the incremented global counter in the \textit{CTR} field. The wanted group address is also
+sent, allowing the requester to identify the response message.
+\begin{figure}
+  \centering
+    \includegraphics[width=1.2\textwidth]{figures/formatDiscResp.eps}
+ \caption{Discovery response frame layout}
+ \label{fig:discResFormat}
+\end{figure}
+\\
+Integrity of the discovery messages is achieved by generating a \gls{mac2} over all frame fields except the frame check field.
+\\
+The main logic is shown in the state machine in \ref{fig:discRecv}
+
+\begin{figure}
+\centering
+\label{fig:discRecv}
+\begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=4pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+
+\node[state,initial]												at (15,0)			(rcv)		{Receive}; 
+\node[state,text width=1.5cm,align=center]		at (0,-15)		(checkMAC) {Check MAC};
+\node[state,text width=1.5cm,align=center]		at (-15,-30)		(discard) {Discard};
+\node[state,text width=1.5cm,align=center]		at (15,-30)		(checkCtr) {Check Counter};
+\node[state,text width=1.5cm,align=center]		at (0,-45)		(decrypt) {Decrypt};
+\node[state,text width=1.5cm,align=center]		at (25,-45)		(sendReply) {Send Reply};
+
+\path[pil,->] (rcv)  edge[] node[text width=1.5cm,align=center] {} (checkMAC); 
+\path[pil,->] (discard)  edge[out=90,in=200] node[text width=1.5cm,align=center] {} (rcv); 
+\path[pil,->] (checkMAC)  edge[] node[text width=1.5cm,align=left] {MAC invalid} (discard); 
+\path[pil,->] (checkMAC)  edge[] node[text width=1.5cm,align=left] {MAC valid} (checkCtr); 
+\path[pil,->] (checkCtr)  edge[] node[text width=1.5cm,align=center] {$\le Ctr_{global}$} (discard); 
+
+\path[pil,->] (checkCtr)  edge[] node[text width=1.5cm,align=center] {$> Ctr_{global}$} (decrypt); 
+\path[pil,->] (decrypt)  edge[] node[text width=1.5cm,align=center] {GA unknown} (discard); 
+\path[pil,->] (decrypt)  edge[] node[text width=1.5cm,align=center] {GA known} (sendReply); 
+\path[pil,->] (sendReply)  edge[out=90,in=300] node[text width=1cm,align=right] {} (rcv); 
+
+\end{tikzpicture}
+\caption{State machine for processing discovery requests}
+\end{figure}
 
 \subsection{Data service}
+After receiving one more discovery responses on each secure line, the device which wants to send the \gls{knx} payload (called requester) now knows the
+individual addresses which are responsible for delivering messages to the wanted group address. The requester can also derive a shared secret based on \gls{ecdh},
+which is used to encrypt the origin \gls{knx} frame. Figure \ref{fig:dataFormat} shows the layout of such a data frame.
+
+\begin{figure}
+  \centering
+    \includegraphics[width=1.2\textwidth]{figures/formatData.eps}
+ \caption{Data  frame layout}
+ \label{fig:dataFormat}
+\end{figure}
