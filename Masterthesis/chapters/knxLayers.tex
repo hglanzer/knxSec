@@ -24,7 +24,7 @@ characteristics like which connectors are used.
 To provide flexibility in \gls{knx}, 4 different physical media are defined. \gls{TP}-1 which was inherited from \gls{eib}, and is the successor of \gls{TP}-0,
 as defined by BatiBUS, is the basis medium, consisting of a twisted pair cabeling. Data and power can be transmitted with one pair, so low-power
 devices can be fed over the bus. Data transfer is done asynchronously, with bidirectional, half-duplex
-communication and a datarate of 9600 bit/sec. \gls{TP}-1 uses collision avoidance, and allows all topologies beside rings. 
+communication and a datarate of 9600 \gls{bps}. \gls{TP}-1 uses collision avoidance, and allows all topologies beside rings. 
 \\
 Because this work is base on the \gls{TP}1 - part of KNX only, this medium will be explained in more detail in the next section.
 \\
@@ -77,7 +77,7 @@ It is often broken into 2 distinct sublayers, namely the \gls{mac} as bus arbite
     \caption{Control Field}
     \label{fig:ctrlfield}
 \end{figure}
-Three frame formats are defined: L\_Data frames are used for sending a data payload to an individual address, a group address or for broadcasting data to
+Three frame formats are defined: L\_Data frames are used for sending a data payload to an \gls{ia}, a group address or for broadcasting data to
 the bus. L\_Poll\_Data frames are used to request data from an individual knx device or a group of devices. Acknowledgement frames are used to provide a reliable
 transport mechanism, i.e. to acknowledge the reception of a frame by a knx device. 
 \\
@@ -113,7 +113,7 @@ frame is defined as an odd parity over all preceding bytes, which represents a l
 
 The extended frame starts with a control field, as a standard frame. After that, a special \gls{ctrle} follows, as shown in figure \ref{fig:ctrle}.
 Source- and destination addresses, each 2 bytes, follow. To allow the bigger payload, the next byte is used as length field, with the value 0xFF reserved
-as escape code. After that, the payload and the check byte, as defined above, follow.
+as escape code, resulting in a maximum payload of 254 byte. After the length field, the payload and the check byte, as defined above, follow.
 
 \begin{figure}
     \centering
@@ -143,13 +143,13 @@ one physical segment \cite{knxTP1}.
 
 \subsubsection{Acknowledge Frame}
 
-This frames are used to acknowledge the reception of a knx data frames for group- or individual addresses and consist
+This frames are used to acknowledge the reception of a knx data frames for \glspl{ga} or \glspl{ia} and consist
 of one byte, sent after a fixed timespan after reception of the frame.
 
 \subsection{KNX addressing scheme}
 
-Two different kinds of addresses are defined: group- and individual addresses, which type is used is determined by the 'address type' flag in the
-control field of the datagram(0 = individual address). While the source address always is an individual address and must be unique
+Two different kinds of addresses are defined: \glspl{ga} or \glspl{ia}, which type is used is determined by the 'address type' flag in the
+control field of the datagram(0 = \gls{ia}). While the source address always is an \glspl{ia} and must be unique
 within the network, the destination address can be of type group or individual (see figure \ref{fig:knxAddr} for the layout).
 \\
 \\
@@ -161,7 +161,7 @@ Poll data responses as well as acknowledgement frames each just contain 1 byte, 
 \begin{figure}
  \centering
     \includegraphics[width=0.8\textwidth]{figures/addresses}
- \caption{KNX individual and group addresses} 
+ \caption{\gls{knx} individual and group addresses} 
 \label{fig:knxAddr}
 %% \subfloat[b]{0.3\textwidth}            
 \end{figure}
@@ -178,12 +178,12 @@ datagram. Additionally, \gls{knx} reserves 3 bits of every standard- and extende
 
 Accoriding to the \gls{osi} modell, this layer provides point-to-point communication for hosts.
 \\
-In \gls{knx}, the connection orientated, reliable point-to-point communication mode addresses the individual address of a remote device and uses a timer to detect timeouts.
+In \gls{knx}, the connection orientated, reliable point-to-point communication mode addresses the \gls{ia} of a remote device and uses a timer to detect timeouts.
 Up to to 3 retransmissions are allowed if the sent datagram is not acknowledged. A simple handshake - similar to \gls{tcp} - is used, as shown in figure. 
 \ref{fig:handshake}.
 \\
 \\
-All other modes are unreliable, i.e. unacknowledged, transport mechanisms and can be used to address individual addresses, group addresses or all devices in the
+All other modes are unreliable, i.e. unacknowledged, transport mechanisms and can be used to address a \gls{ia}, a \gls{ga} or all devices in the
 network. For the latter mode, the special \gls{knx} broadcast address 0x0000 is reserved. 
 The \gls{tpci}, included in the control field, determines the type of the \gls{tpdu} and also posseses a 4 bit sequence number by which duplicate datagrams, caused by damaged 
 acknowledge-frames, can be discarded.

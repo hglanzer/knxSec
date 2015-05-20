@@ -17,10 +17,13 @@
 		\setentrycounter[]{page}\glsnumberformat{56}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{58}}}%
 \glossaryentryfield{api}{\glsnamefont{API}}{Application Programming Interface}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{78}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{80}}}\glsgroupskip
 \glsgroupheading{B}\relax \glsresetentrylist %
 \glossaryentryfield{bbc}{\glsnamefont{BbC}}{Backbone Coupler}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{51}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{51}}}%
+\glossaryentryfield{bps}{\glsnamefont{bps}}{bits per second}{\relax }{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{51}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{73}}}\glsgroupskip
 \glsgroupheading{C}\relax \glsresetentrylist %
 \glossaryentryfield{ca1}{\glsnamefont{CA}}{Certification Authority}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{59}}}%
@@ -79,7 +82,8 @@
 		\setentrycounter[]{page}\glsnumberformat{34}}}%
 \glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{66}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{70\delimN 71}}}%
+		\setentrycounter[]{page}\glsnumberformat{70}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{72}}}%
 \glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{31}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{34}}}%
@@ -90,7 +94,7 @@
 \glossaryentryfield{eib}{\glsnamefont{EIB}}{European Installation Bus}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{49\delimR 51}}}%
 \glossaryentryfield{eibd}{\glsnamefont{EIBD}}{European Installation Bus Daemon}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{78}}}%
+		\setentrycounter[]{page}\glsnumberformat{80}}}%
 \glossaryentryfield{eis}{\glsnamefont{EIS}}{EIB interworking standard}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{49}}}%
 \glossaryentryfield{ets}{\glsnamefont{ETS}}{Engineering Tool Software}{\relax }{\glossaryentrynumbers{\relax 
@@ -99,6 +103,11 @@
 \glsgroupheading{F}\relax \glsresetentrylist %
 \glossaryentryfield{fdsk}{\glsnamefont{FDSK}}{Factory Default Setup Key}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{58}}}\glsgroupskip
+\glsgroupheading{G}\relax \glsresetentrylist %
+\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{54\delimN 55}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{62\delimR 64}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{72\delimN 73}}}\glsgroupskip
 \glsgroupheading{H}\relax \glsresetentrylist %
 \glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{38\delimR 40}}}%
@@ -116,6 +125,12 @@
 		\setentrycounter[]{page}\glsnumberformat{1}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{47\delimN 48}}}\glsgroupskip
 \glsgroupheading{I}\relax \glsresetentrylist %
+\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{52}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{54\delimN 55}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{62\delimR 64}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{71}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{73}}}%
 \glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{43}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{45}}}%
@@ -137,10 +152,10 @@
 		\setentrycounter[]{page}\glsnumberformat{58}}}\glsgroupskip
 \glsgroupheading{K}\relax \glsresetentrylist %
 \glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{49\delimR 51}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{49\delimR 52}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{55\delimR 65}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{67\delimN 68}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{71}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{71\delimR 73}}}\glsgroupskip
 \glsgroupheading{L}\relax \glsresetentrylist %
 \glossaryentryfield{lan}{\glsnamefont{LAN}}{Local Area Network}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{46}}}%
@@ -163,8 +178,10 @@
 		\setentrycounter[]{page}\glsnumberformat{34}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{58}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{65\delimN 66}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{70\delimN 71}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{74}}}%
+		\setentrycounter[]{page}\glsnumberformat{68}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{70}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{72\delimN 73}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{76}}}%
 \glossaryentryfield{mac}{\glsnamefont{MAC}}{Medium Access}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{44}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{46}\delimN 
@@ -230,7 +247,7 @@
 \glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{21}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{24}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{76}}}%
+		\setentrycounter[]{page}\glsnumberformat{78}}}%
 \glossaryentryfield{ssl}{\glsnamefont{SSL}}{Secure Sockets Layer}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{24}}}%
 \glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }{\glossaryentrynumbers{\relax 
@@ -260,10 +277,10 @@
 		\setentrycounter[]{page}\glsnumberformat{55}}}\glsgroupskip
 \glsgroupheading{U}\relax \glsresetentrylist %
 \glossaryentryfield{url}{\glsnamefont{URL}}{Uniform Resource Locator}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{78}}}%
+		\setentrycounter[]{page}\glsnumberformat{80}}}%
 \glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{vi}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{78\delimN 79}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{80\delimN 81}}}\glsgroupskip
 \glsgroupheading{V}\relax \glsresetentrylist %
 \glossaryentryfield{vlan}{\glsnamefont{VLAN}}{Virtual Local Area Network}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{44}}}%

@@ -24,7 +24,7 @@ characteristics like which connectors are used.
 To provide flexibility in \gls{knx}, 4 different physical media are defined. \gls{TP}-1 which was inherited from \gls{eib}, and is the successor of \gls{TP}-0,
 as defined by BatiBUS, is the basis medium, consisting of a twisted pair cabeling. Data and power can be transmitted with one pair, so low-power
 devices can be fed over the bus. Data transfer is done asynchronously, with bidirectional, half-duplex
-communication and a datarate of 9600 bit/sec. \gls{TP}-1 uses collision avoidance, and allows all topologies beside rings. 
+communication and a datarate of 9600 \gls{bps}. \gls{TP}-1 uses collision avoidance, and allows all topologies beside rings. 
 \\
 Because this work is base on the \gls{TP}1 - part of KNX only, this medium will be explained in more detail in the next section.
 \\
@@ -113,7 +113,7 @@ frame is defined as an odd parity over all preceding bytes, which represents a l
 
 The extended frame starts with a control field, as a standard frame. After that, a special \gls{ctrle} follows, as shown in figure \ref{fig:ctrle}.
 Source- and destination addresses, each 2 bytes, follow. To allow the bigger payload, the next byte is used as length field, with the value 0xFF reserved
-as escape code. After that, the payload and the check byte, as defined above, follow.
+as escape code, resulting in a maximum payload of 254 byte. After the length field, the payload and the check byte, as defined above, follow.
 
 \begin{figure}
     \centering
@@ -177,11 +177,12 @@ datagram. Additionally, \gls{knx} reserves 3 bits of every standard- and extende
 \subsection{Transport Layer}
 
 Accoriding to the \gls{osi} modell, this layer provides point-to-point communication for hosts.
-
+\\
 In \gls{knx}, the connection orientated, reliable point-to-point communication mode addresses the individual address of a remote device and uses a timer to detect timeouts.
 Up to to 3 retransmissions are allowed if the sent datagram is not acknowledged. A simple handshake - similar to \gls{tcp} - is used, as shown in figure. 
 \ref{fig:handshake}.
-
+\\
+\\
 All other modes are unreliable, i.e. unacknowledged, transport mechanisms and can be used to address individual addresses, group addresses or all devices in the
 network. For the latter mode, the special \gls{knx} broadcast address 0x0000 is reserved. 
 The \gls{tpci}, included in the control field, determines the type of the \gls{tpdu} and also posseses a 4 bit sequence number by which duplicate datagrams, caused by damaged 
