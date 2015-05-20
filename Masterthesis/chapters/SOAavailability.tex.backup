@@ -17,9 +17,6 @@ error can cause a failure if the system fails to provide the correct service:
 \begin{align*}
  fault \rightarrow error \rightarrow failure
 \end{align*}
-
-FIXME: types of faults
-
 Availability is measured subjectively from the system user's point of view.
 While an optimal system may have availability of 1, this value is only of theoretical value because random faults can not be ruled out. Therefor,
 system failures are inevitable, and availability is often given in \textit{x-9s}\footnote{read 'one-nine', 'two-nines', ...} notation, denoting the 
@@ -231,7 +228,8 @@ tolerable, longer outages will force emergency stops or even cause damage.
 Networks can be represented as a graph. A graph, as shown in figure \ref{fig:graph}, is an ordered pair $G=(V,E)$, with $V$ being the set of vertices and $E$
 the set of edges, connecting the vertices. For a weighted graph, every edge is associated to a \textit{cost}. 
 \\
-If multiple paths from one node to others exist, such a network posses intrinsic redundancy, a fact that can be exploited to gain fault tolerant systems.
+A \textit{closed walk} or \textit{cycle} exists if a path from one vertex to itself exists, resulting in multiple paths from one node to others.
+Such a network posses intrinsic redundancy, a fact that can be exploited to gain fault tolerant systems.
 \\
 If the graph is undirected, every line determines a bidirectional communication link. 
 \\
@@ -265,16 +263,21 @@ This situation is shown in
 figure \ref{fig:stp1}: on the left side, the physical connections are shown, containing loops. 
  Therefore, \gls{stp} destroys
 the loops by setting certain interfaces to blocking mode, as shown on the right side of the figure. The algorithm works as follows:
+
 \begin{itemize}
  \item The first step of the \gls{stp} algorithm is to nominate one device as root bridge\footnote{the terms \textit{switch} and \textit{bridge} are used synonymously,
-with the major difference that switches can break network segments into subsegments trough \glspl{vlan}}. This can be done manually by the network administrator,
-or through the exchange of packages containing a priority. All switches will agree on lowest priority device as root bridge, additionally using the unique
-hardware \gls{mac} address if collisions occur. 
- \item Afterwards, every switch determines the best path for reaching the root bridge. This decision can be based on the number of
+with the major difference that switches can break network segments into multiple subsegments through \glspl{vlan}}. This can be done manually by the network administrator,
+or dynamically through the exchange of packages containing a priority. All switches will agree on lowest priority device as root bridge, additionally using the unique
+hardware \gls{mac} address if collisions occur. The root bridge sets all interfaces to forwarding mode. 
+ \item Afterwards, every switch determines the path with minimal costs for reaching the root bridge. The cost of every connection can be determined by the link
+ speed or configured by the network administrator manually
+ \item Finally, all devices except the root bridge set the ports belonging to the minimal-cost path to forward mode. All other ports are set to blocking mode, thus removing
+ any loops.
 \end{itemize}
 If a connection is lost and an ethernet segment is not 
-reachable any more, the \gls{stp}, although not primarily designed for that tasks, can be used to reconfigure the network by
-un-blocking a port, thus establishing a different path, re-connecting the unreachable segment and providing fault tolerance. 
+reachable any more, the \gls{stp}, although not primarily designed for that tasks, can be used to handle that fault. Nodes affected by the link-change report
+that event to the root bridge, so that the network can be re-configured and a different path can be established, thus re-connecting the unreachable segment
+and providing fault tolerance. 
 \\
 \\
 A big drawback of this mechanism is the topology-dependent
@@ -333,7 +336,7 @@ sequence number, duplicates may not be detected as such - responsibility for fin
 %corresponding source address and can safely be discarded, thus preventing the processing of duplicate frames by the upper level.  
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/prp.eps}
+    \includegraphics[width=1\textwidth]{figures/prp.eps}
     \caption{\gls{prp} network}
     \label{fig:prp}
 \end{figure}

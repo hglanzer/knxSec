@@ -225,7 +225,7 @@ The introduction of encapsulating security gateways implicates that some timing 
 
 \section{Services}
 
-Except from the data service, handling the actual data transfer of the \gls{knx} payloads, 2 additional services are necessary, following the assumptions above.
+Apart from the data service, handling the actual data transfer of the \gls{knx} payloads, 2 additional services are necessary, following the assumptions above.
 These two services, handling synchronization and discovery, are defined as following and are summarized as management services. To distinguish the different
 frame formats, a 8 bit \textit{secure header} field uniquely identifies every frame.
 
@@ -240,9 +240,9 @@ frame formats, a 8 bit \textit{secure header} field uniquely identifies every fr
    0000 0100 & discovery request & yes & yes \\
    0000 0101 & discovery response & yes & yes \\
    0000 1000 & data service & yes & yes \\
-
-
-
+   0000 1001 & reserved & x & x \\
+   ...  & ...  & ... & ... \\
+   1111 1111 & reserved & x & x \\
 \end{tabular}
 \end{center}
 

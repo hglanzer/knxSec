@@ -162,11 +162,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{Transport Layer}{55}{section*.58}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Session Layer}{57}{section*.59}
+\contentsline {subsection}{Session Layer}{56}{section*.59}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Presentation Layer}{57}{section*.60}
+\contentsline {subsection}{Presentation Layer}{56}{section*.60}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Application Layer}{57}{section*.61}
+\contentsline {subsection}{Application Layer}{56}{section*.61}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.3}KNX security concept}{57}{section.3.3}
 \defcounter {refsection}{0}\relax 

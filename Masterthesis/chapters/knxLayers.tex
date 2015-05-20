@@ -6,10 +6,9 @@ uses the services provided by its next-lower layer. Every service is defined by 
 compromising the function of the system, as long as the defined interfaces are implemented. This fragmentation of one service follows the paradigm of 
 \textit{impera et divide}\footnote{latin: \textit{dive and rule}} and facilitates the building of complex systems by dividing one complex problem into subsequent,
 less-complex problems.
-
+\\
 KNX implements this model, omitting 
 layers 5 and 6, as shown in figure \ref{fig:knxlayers}. Data from applications are directly passed to the transport layer in a transparent way, and vice versa.
-
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{figures/KNXvsISO.eps}
@@ -18,18 +17,18 @@ layers 5 and 6, as shown in figure \ref{fig:knxlayers}. Data from applications a
 \end{figure}
 
 \subsection{Physical Layer}
-
 This is the lowest layer as defined by \gls{osi} and determines the basic transmission parameters like symbol rate, signal form but also mechanical 
 characteristics like which connectors are used.
-
+\\
+\\
 To provide flexibility in \gls{knx}, 4 different physical media are defined. \gls{TP}-1 which was inherited from \gls{eib}, and is the successor of \gls{TP}-0,
 as defined by BatiBUS, is the basis medium, consisting of a twisted pair cabeling. Data and power can be transmitted with one pair, so low-power
 devices can be fed over the bus. Data transfer is done asynchronously, with bidirectional, half-duplex
- communication and a datarate of 9600 bit/sec. \gls{TP}-1 uses collision avoidance, and allows all topologies beside rings. 
- 
+communication and a datarate of 9600 bit/sec. \gls{TP}-1 uses collision avoidance, and allows all topologies beside rings. 
+\\
 Because this work is base on the \gls{TP}1 - part of KNX only, this medium will be explained in more detail in the next section.
 \\
-
+\\
 PL110, which was also inherited from \gls{eib}, uses power line installations for communications. The carrier uses spread frequency shift keying, and can be used 
 for bidirectional, half duplex  communication with an even lower data rate of 1200 bit/sec. \gls{knx} \gls{rf} is used for short range wireless communication
 at 868,3 MHz. \gls{knx}net/\gls{ip} allows the integration of \gls{knx} into networks using \gls{TCP} / \gls{ip} for communication. Here, 3 different communication
@@ -42,24 +41,23 @@ The accurate name for this medium is 'Physical Layer type Twisted Pair', with va
 PhL \gls{TP}-1-64 and PhL \gls{TP}-1-256, which is backward compatible to the former one. While the first one allows
 the connection of up to 64 devices, the latter one allows up to 256 devices connected in a linear, star, tree or
 mixed topology as one physical segment, also called a \textit{line}.
-
+\\
 Bridges do not possess their own address and are used for galvanic separation of physical segments and for extension of TP-1-64 segments to allow up to 256 devices.
 Therefore, they acknowledge layer 2 frames received on one side and forward them to their second interface. 
-
+\\
 Routers have their own address space and only forward packages received on one side if the destination address is located on the other side of the router.
 As well as bridges, they can be used for galvanic separation and they acknowledge frames on layer 2.
 A \gls{lc} is a router that integrates up to 16 lines into one logical object called \textit{area}. A \gls{bbc} is a router that connects
 up to 16 areas to one network, thus providing the maximum size of a network consisting of 65536 devices:
-
 \begin{itemize}
  \item up to 256 devices per line
  \item up to 16 lines per area = 4096 devices in 16 lines
  \item up to 16 areas for whole network = 65536\footnote{it is to be noted that the actual number of usable devices is smaller because routers have
  their own address} devices in 16 areas
 \end{itemize}
-
 Gateways are used to connect \gls{knx} networks to non-\gls{knx} networks.
-
+\\
+\\
 A logical '1' is regarded as the idle state of the bus, so the transmitter of the \gls{mau} is disabled when sending a '1', i.e. the analog signal on
 the bus consists only of the DC part. \gls{TP}-1 uses \gls{csma}/\gls{ca} for bus access, so every devices must listen to the bus and is only allowed
 to begin sending when the bus is idle. In the case of a simultaneous transmission start, a logical '1' of one
@@ -72,7 +70,6 @@ transmission. This behavior is be used to implement priority control and is expl
 This layer is responsible for error detection, retransmission of corrupted 
 packages, framing of the higher level packages into suitable frames and accessing the bus according to the rules used by the particular bus medium. 
 It is often broken into 2 distinct sublayers, namely the \gls{mac} as bus arbiter and the \gls{llc}, providing a reliable point-to-point datagram service.
-
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{figures/ctrl}
@@ -80,11 +77,10 @@ It is often broken into 2 distinct sublayers, namely the \gls{mac} as bus arbite
     \caption{Control Field}
     \label{fig:ctrlfield}
 \end{figure}
-
 Three frame formats are defined: L\_Data frames are used for sending a data payload to an individual address, a group address or for broadcasting data to
 the bus. L\_Poll\_Data frames are used to request data from an individual knx device or a group of devices. Acknowledgement frames are used to provide a reliable
 transport mechanism, i.e. to acknowledge the reception of a frame by a knx device. 
-
+\\
 For L\_Data\_Frame, 2 different formats are defined: standard frames, as shown in figure \ref{fig:stdframe} and extended frames, see figure \ref{fig:extframe}.
 While standard frames can bear up to
 15 bytes of application data, extended frames allow the transmission of up to 254 bytes of data.
@@ -140,14 +136,14 @@ and start with a control field, as defined, followed by the 2 byte source addres
 of the sender(called Poll\_Data Master). The following 2 byte destination address is 
 used to address up to 15 poll slaves, all belonging to the same poll group. The number of
 exptected bytes and the check octet follow.
-
+\\
 Poll requests are answered by poll slaves by transmitting the databytes in the corresponding poll slave slot.
 This is achieved by defining exact timings when each poll data slave must send the requested data. Therefor, such frames can only be used within
 one physical segment \cite{knxTP1}.
 
 \subsubsection{Acknowledge Frame}
 
-This frames are used to acknowledge the reception of a knx data frames(FIXME: ONLY DATAFRAMES??) for group- or individual addresses and consist
+This frames are used to acknowledge the reception of a knx data frames for group- or individual addresses and consist
 of one byte, sent after a fixed timespan after reception of the frame.
 
 \subsection{KNX addressing scheme}
@@ -155,9 +151,11 @@ of one byte, sent after a fixed timespan after reception of the frame.
 Two different kinds of addresses are defined: group- and individual addresses, which type is used is determined by the 'address type' flag in the
 control field of the datagram(0 = individual address). While the source address always is an individual address and must be unique
 within the network, the destination address can be of type group or individual (see figure \ref{fig:knxAddr} for the layout).
-
+\\
+\\
 For poll-data frames, the destination address determines the \textit{poll group address} which must be unique within the physical segment.
-
+\\
+\\
 Poll data responses as well as acknowledgement frames each just contain 1 byte, i.e. they do not possess source- and destination addresses.
 
 \begin{figure}
@@ -179,11 +177,12 @@ datagram. Additionally, \gls{knx} reserves 3 bits of every standard- and extende
 \subsection{Transport Layer}
 
 Accoriding to the \gls{osi} modell, this layer provides point-to-point communication for hosts.
-
+\\
 In \gls{knx}, the connection orientated, reliable point-to-point communication mode addresses the individual address of a remote device and uses a timer to detect timeouts.
 Up to to 3 retransmissions are allowed if the sent datagram is not acknowledged. A simple handshake - similar to \gls{tcp} - is used, as shown in figure. 
 \ref{fig:handshake}.
-
+\\
+\\
 All other modes are unreliable, i.e. unacknowledged, transport mechanisms and can be used to address individual addresses, group addresses or all devices in the
 network. For the latter mode, the special \gls{knx} broadcast address 0x0000 is reserved. 
 The \gls{tpci}, included in the control field, determines the type of the \gls{tpdu} and also posseses a 4 bit sequence number by which duplicate datagrams, caused by damaged 

@@ -149,7 +149,7 @@ Therefor, a sync service must be defined, allowing a newly powered up device to 
 \begin{figure}
   \centering
     \includegraphics[width=0.8\textwidth]{figures/protSync.eps}
- \caption{Synchronization serice}
+ \caption{Synchronization service}
  \label{fig:syncProt}
 \end{figure}
 Replay attacks are mitigated by including the actual time into \gls{mac2} calculation. Low temporal resolution relaxes time-synchronization issues between
@@ -225,10 +225,33 @@ The introduction of encapsulating security gateways implicates that some timing 
 
 \section{Services}
 
-Except from the data service, handling the actual data transfer of the \gls{knx} payloads, 2 additional services are necessary, following the assumptions above.
-These two services, handling synchronization and discovery, are defined as following and are summarized as management services.
+Apart from the data service, handling the actual data transfer of the \gls{knx} payloads, 2 additional services are necessary, following the assumptions above.
+These two services, handling synchronization and discovery, are defined as following and are summarized as management services. To distinguish the different
+frame formats, a 8 bit \textit{secure header} field uniquely identifies every frame.
 
 \begin{center}
+\begin{tabular}{ c | c | c | c}
+ \label{table:secHeader}
+   bytevalue & frame type & encryption & authentication \\ \hline
+   0000 0000 & invalid & x & x \\
+   0000 0001 & invalid & x & x \\
+   0000 0010 & synchronization request & no & yes \\
+   0000 0011 & synchronization response & no & yes \\
+   0000 0100 & discovery request & yes & yes \\
+   0000 0101 & discovery response & yes & yes \\
+   0000 1000 & data service & yes & yes \\
+   0000 1001 & reserved & x & x \\
+   ...  & ...  & ... & ... \\
+   1111 1111 & reserved & x & x \\
+
+
+
+
+
+\end{tabular}
+\end{center}
+
+\begin{figure}
 \begin{tikzpicture}[scale=0.2]
 \tikzstyle{every node}+=[inner sep=2pt]
 \tikzstyle{arrow}=[draw, -latex] 
@@ -252,13 +275,10 @@ These two services, handling synchronization and discovery, are defined as follo
 \node[state, text width=1.8cm,align=center] 	at (85,10)		(rcv)	{Receive};
 \node[state, text width=1.8cm,align=center] 	at (50,-15)		(chkMAC)	{Check MAC, Decrypt};
 \node[state, text width=1.8cm,align=center] 	at (100,-15)		(discReq)	{Send Disc Request};
-
 \node[state, text width=1.8cm,align=center] 	at (50,-40)		(sendResp)	{Send Response};
 \node[state, text width=1.8cm,align=center] 	at (70,-25)		(chkDup)	{check Counter};
 \node[state, text width=1.8cm,align=center] 	at (80,-40)		(fwd)	{Forward Message};
-
 \node[state, text width=1.8cm,align=center] 	at (95,-40)		(sendDup)	{Send Duplicate};
-
 
 \path[pil,->] (init)  edge[above] node[text width=1cm,align=center] {ok} (sync); 
 \path[pil,->] (init)  edge[right] node[text width=0.5cm,align=center] {not ok} (fail); 
@@ -274,9 +294,7 @@ These two services, handling synchronization and discovery, are defined as follo
 \path[pil,->] (discReq)  edge[above,out=50,in=90] node[text width=1.2cm,align=center] {timeout} (discReq);
 \path[pil,->] (discReq)  edge[] node[text width=2cm,align=center] {valid Response} (sendDup); 
 \path[pil,->] (discReq)  edge[out=20,in=-20] node[text width=1.5cm,align=center] {max retries} (rcv); 
-
 \path[pil,->] (chkMAC)  edge[left] node[text width=2cm,align=center] {mgmt message} (sendResp); 
-%\path[pil,->] (chkMAC)  edge[left,out=150,in=190] node[text width=2.5cm,align=center] {mgmt message} (rcv); 
 \path[pil,->] (sendResp)  edge[left] node[text width=2.5cm,align=center] {} (rcv); 
 \path[pil,->] (fwd)  edge[left] node[text width=1cm,align=center] {} (rcv); 
 \path[pil,->] (chkMAC)  edge[above] node[text width=1.4cm,align=center] {KNX payload} (chkDup); 
@@ -285,7 +303,9 @@ These two services, handling synchronization and discovery, are defined as follo
 \path[pil,->] (sendDup)  edge[] node[text width=2cm,align=left] {} (rcv); 
 
 \end{tikzpicture}
-\end{center}
+\label{fig:mainStateMachine}
+\caption{State machine of the program logic}
+\end{figure}
 
 \subsection{Synchronization service}
 
@@ -325,7 +345,7 @@ figure \ref{fig:discReqFormat}. \textit{DH-A} is the newly chosen \gls{ecdh} - p
 The \gls{psk} encrypted field contains the group address, CTR contains the incremented global counter $Ctr_{global}$.
 \begin{figure}
   \centering
-    \includegraphics[width=1.2\textwidth]{figures/formatDiscReq.eps}
+    \includegraphics[width=1\textwidth]{figures/formatDiscReq.eps}
  \caption{Discovery request frame layout}
  \label{fig:discReqFormat}
 \end{figure}
@@ -336,18 +356,17 @@ with \textit{DH-B} it's own newly chosen \gls{ecdh} parameter and the incremente
 sent, allowing the requester to identify the response message.
 \begin{figure}
   \centering
-    \includegraphics[width=1.2\textwidth]{figures/formatDiscResp.eps}
+    \includegraphics[width=1\textwidth]{figures/formatDiscResp.eps}
  \caption{Discovery response frame layout}
  \label{fig:discResFormat}
 \end{figure}
 \\
 Integrity of the discovery messages is achieved by generating a \gls{mac2} over all frame fields except the frame check field.
 \\
-The main logic is shown in the state machine in \ref{fig:discRecv}
+The main logic from the receiver's point of view is shown in the state machine in \ref{fig:discRecv}
 
 \begin{figure}
 \centering
-\label{fig:discRecv}
 \begin{tikzpicture}[scale=0.2]
 \tikzstyle{every node}+=[inner sep=4pt]
 \tikzstyle{arrow}=[draw, -latex] 
@@ -382,16 +401,20 @@ The main logic is shown in the state machine in \ref{fig:discRecv}
 
 \end{tikzpicture}
 \caption{State machine for processing discovery requests}
+\label{fig:discRecv}
 \end{figure}
 
 \subsection{Data service}
-After receiving one more discovery responses on each secure line, the device which wants to send the \gls{knx} payload (called requester) now knows the
+After receiving one or more discovery responses on one or booth secure line, the device which wants to send the \gls{knx} payload (called requester) now knows the
 individual addresses which are responsible for delivering messages to the wanted group address. The requester can also derive a shared secret based on \gls{ecdh},
-which is used to encrypt the origin \gls{knx} frame. Figure \ref{fig:dataFormat} shows the layout of such a data frame.
+which is used to encrypt the origin \gls{knx} frame. Authenticity is guaranteed by calculating a \gls{mac2} over all frame fields except the frame check field.
+\\
+\\
+Figure \ref{fig:dataFormat} shows the layout of such a data frame.
 
 \begin{figure}
   \centering
-    \includegraphics[width=1.2\textwidth]{figures/formatData.eps}
+    \includegraphics[width=1\textwidth]{figures/formatData.eps}
  \caption{Data  frame layout}
  \label{fig:dataFormat}
 \end{figure}

@@ -1,6 +1,6 @@
 \section{Introduction}
 
-\gls{knx} implements a specialized form of automated process control, dedicated to the needs of \gls{hba}. \gls{knx} \footnote{connexio, latin for connetion}
+\gls{knx} implements a specialized form of automated process control, dedicated to the needs of \gls{hbas}. \gls{knx} \footnote{connexio, latin for connetion}
 emerged from 3 leading standards namely the \gls{eib}, the \gls{ehs} and BatiBUS. It is an open, platform independent standard,
 developed by the KNX association implementing the EN50090 standard for home and building electronic systems.
 
