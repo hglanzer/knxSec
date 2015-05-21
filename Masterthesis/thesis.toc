@@ -188,54 +188,56 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{Redundancy Related Architectural Overview}{67}{section*.67}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Operational Constraints}{67}{section*.68}
+\contentsline {subsection}{Operational Constraints}{68}{section*.68}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Services}{68}{section.4.2}
+\contentsline {section}{\numberline {4.2}Services}{69}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Synchronization service}{68}{section*.69}
+\contentsline {subsection}{Synchronization service}{69}{section*.69}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Discovery service}{70}{section*.70}
+\contentsline {subsection}{Discovery service}{71}{section*.70}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Data service}{71}{section*.71}
+\contentsline {subsection}{Data service}{72}{section*.71}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Data Structures}{72}{section*.72}
+\contentsline {subsection}{Data Structures}{73}{section*.72}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Secure header}{72}{section*.73}
+\contentsline {subsubsection}{Secure header}{73}{section*.73}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Global counter $Ctr_{global}$}{73}{section*.74}
+\contentsline {subsubsection}{Global counter}{74}{section*.74}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Individual counter}{73}{section*.75}
+\contentsline {subsubsection}{Individual counter}{74}{section*.75}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\chapternumberline {5}Implementation}{75}{chapter.5}
+\contentsline {chapter}{\chapternumberline {5}Implementation}{76}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Master daemon}{75}{section.5.1}
+\contentsline {section}{\numberline {5.1}Master daemon}{76}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{KNX addressing scheme}{75}{section*.76}
+\contentsline {subsection}{KNX addressing scheme}{76}{section*.76}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Evaluation}{75}{section.5.2}
+\contentsline {section}{\numberline {5.2}Evaluation}{76}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Synchronization stage}{75}{section*.77}
+\contentsline {subsection}{Synchronization phase}{76}{section*.77}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{High Level Cryptography Library}{76}{section*.78}
+\contentsline {subsection}{Discovery phase}{77}{section*.78}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{OpenSSL}{76}{section*.79}
+\contentsline {subsection}{Data transmission phase}{77}{section*.79}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Crypto++}{76}{section*.80}
+\contentsline {subsection}{High Level Cryptography Library}{77}{section*.80}
 \defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {A}Setup of the base system}{77}{appendix.A}
+\contentsline {subsubsection}{OpenSSL}{77}{section*.81}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}Raspbian}{77}{section.A.1}
+\contentsline {appendix}{\chapternumberline {A}Setup of the base system}{78}{appendix.A}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.2}EIBD}{79}{section.A.2}
+\contentsline {section}{\numberline {A.1}Raspbian}{78}{section.A.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.3}Revision control}{80}{section.A.3}
+\contentsline {section}{\numberline {A.2}EIBD}{80}{section.A.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.4}Busware \gls {usb} couplers}{80}{section.A.4}
+\contentsline {section}{\numberline {A.3}Revision control}{81}{section.A.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.5}UDEV}{81}{section.A.5}
+\contentsline {section}{\numberline {A.4}Busware \gls {usb} couplers}{81}{section.A.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.6}Test setup}{81}{section.A.6}
+\contentsline {section}{\numberline {A.5}UDEV}{82}{section.A.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{82}{appendix.B}
+\contentsline {section}{\numberline {A.6}Test setup}{82}{section.A.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliography}{89}{section*.84}
+\contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{83}{appendix.B}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliography}{90}{section*.85}

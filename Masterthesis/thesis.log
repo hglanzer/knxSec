@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  20 MAY 2015 17:47
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.8.25)  21 MAY 2015 02:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -3236,89 +3236,99 @@ Underfull \hbox (badness 10000) in paragraph at lines 25--157
 
 ] [62 <./figures/SecureArea-eps-converted-to.pdf>] [63] [64 <./figures/firewall
 2-eps-converted-to.pdf>] [65 <./figures/protokoll1-eps-converted-to.pdf>]
-[66 <./figures/protSync-eps-converted-to.pdf>] [67]
+[66 <./figures/protSync-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 180--217
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 180--217
+
+ []
+
+[67] [68]
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryposit
 ioning.code.tex
 File: tikzlibrarypositioning.code.tex 2008/10/06 v2.10 (rcs-revision 1.7)
 )
-Overfull \hbox (1.10951pt too wide) in paragraph at lines 262--262
+Overfull \hbox (1.10951pt too wide) in paragraph at lines 300--300
  [][][][]\T1/ptm/m/n/12 not 
  []
 
 
-Overfull \hbox (8.21869pt too wide) in paragraph at lines 263--263
+Overfull \hbox (8.21869pt too wide) in paragraph at lines 301--301
  [][][][]\T1/ptm/m/n/12 timeout 
  []
 
 
-Overfull \hbox (2.19487pt too wide) in paragraph at lines 269--269
+Overfull \hbox (2.19487pt too wide) in paragraph at lines 307--307
  [][][][]\T1/ptm/m/n/12 secure 
  []
 
 
-Overfull \hbox (9.34679pt too wide) in paragraph at lines 271--271
+Overfull \hbox (9.34679pt too wide) in paragraph at lines 309--309
  [][][][]\T1/ptm/m/n/12 clearext 
  []
 
 
-Overfull \hbox (2.52821pt too wide) in paragraph at lines 272--272
+Overfull \hbox (2.52821pt too wide) in paragraph at lines 310--310
  [][][][]\T1/ptm/m/n/12 timeout 
  []
 
 
-Overfull \hbox (1.31229pt too wide) in paragraph at lines 279--279
+Overfull \hbox (1.31229pt too wide) in paragraph at lines 317--317
  [][][][]\T1/ptm/m/n/12 duplicate 
  []
 
 
-Overfull \hbox (22.95215pt too wide) in paragraph at lines 283--285
+Overfull \hbox (22.95215pt too wide) in paragraph at lines 321--323
 [][]
  []
 
 Package epstopdf Info: Source file: <figures/formatSyncReq.eps>
-(epstopdf)                    date: 2015-05-15 14:28:54
-(epstopdf)                    size: 12644 bytes
+(epstopdf)                    date: 2015-05-20 23:08:44
+(epstopdf)                    size: 13168 bytes
 (epstopdf)             Output file: <figures/formatSyncReq-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2015-05-15 14:37:36
-(epstopdf)                    size: 5450 bytes
+(epstopdf)                    date: 2015-05-20 23:08:52
+(epstopdf)                    size: 5970 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/formatSyncReq-eps-
 converted-to.pdf figures/formatSyncReq.eps>
-(epstopdf)             \includegraphics on input line 296.
+(epstopdf)             \includegraphics on input line 334.
 Package epstopdf Info: Output file is already uptodate.
-<figures/formatSyncReq-eps-converted-to.pdf, id=2120, 915.42pt x 161.60374pt>
+
+<figures/formatSyncReq-eps-converted-to.pdf, id=2136, 919.435pt x 167.62625pt>
 File: figures/formatSyncReq-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/formatSyncReq-eps-converted-to.pdf>
 Package pdftex.def Info: figures/formatSyncReq-eps-converted-to.pdf used on inp
-ut line 296.
-(pdftex.def)             Requested size: 418.25368pt x 73.83559pt.
+ut line 334.
+(pdftex.def)             Requested size: 418.25368pt x 76.2547pt.
 Package epstopdf Info: Source file: <figures/formatSyncRes.eps>
-(epstopdf)                    date: 2015-05-15 14:29:01
-(epstopdf)                    size: 13192 bytes
+(epstopdf)                    date: 2015-05-20 23:07:16
+(epstopdf)                    size: 13674 bytes
 (epstopdf)             Output file: <figures/formatSyncRes-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2015-05-15 14:37:37
-(epstopdf)                    size: 5615 bytes
+(epstopdf)                    date: 2015-05-20 23:08:52
+(epstopdf)                    size: 6140 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/formatSyncRes-eps-
 converted-to.pdf figures/formatSyncRes.eps>
-(epstopdf)             \includegraphics on input line 309.
+(epstopdf)             \includegraphics on input line 347.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/formatSyncRes-eps-converted-to.pdf, id=2123, 915.42pt x 189.70876pt>
+<figures/formatSyncRes-eps-converted-to.pdf, id=2139, 917.4275pt x 189.70876pt>
 File: figures/formatSyncRes-eps-converted-to.pdf Graphic file (type pdf)
-
 <use figures/formatSyncRes-eps-converted-to.pdf>
 Package pdftex.def Info: figures/formatSyncRes-eps-converted-to.pdf used on inp
-ut line 309.
-(pdftex.def)             Requested size: 418.25368pt x 86.67656pt.
+ut line 347.
+(pdftex.def)             Requested size: 418.25368pt x 86.4884pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 290--318
+Underfull \hbox (badness 10000) in paragraph at lines 328--356
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 290--318
+Underfull \hbox (badness 10000) in paragraph at lines 328--356
 
  []
 
@@ -3331,14 +3341,14 @@ Package epstopdf Info: Source file: <figures/formatDiscReq.eps>
 (epstopdf)                    size: 6611 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/formatDiscReq-eps-
 converted-to.pdf figures/formatDiscReq.eps>
-(epstopdf)             \includegraphics on input line 326.
+(epstopdf)             \includegraphics on input line 364.
 Package epstopdf Info: Output file is already uptodate.
-<figures/formatDiscReq-eps-converted-to.pdf, id=2128, 1176.395pt x 168.63pt>
+<figures/formatDiscReq-eps-converted-to.pdf, id=2144, 1176.395pt x 168.63pt>
 File: figures/formatDiscReq-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/formatDiscReq-eps-converted-to.pdf>
 Package pdftex.def Info: figures/formatDiscReq-eps-converted-to.pdf used on inp
-ut line 326.
+ut line 364.
 (pdftex.def)             Requested size: 418.25368pt x 59.95284pt.
 Package epstopdf Info: Source file: <figures/formatDiscResp.eps>
 (epstopdf)                    date: 2015-05-20 14:53:57
@@ -3349,84 +3359,90 @@ f>
 (epstopdf)                    size: 6619 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/formatDiscResp-eps
 -converted-to.pdf figures/formatDiscResp.eps>
-(epstopdf)             \includegraphics on input line 337.
+(epstopdf)             \includegraphics on input line 375.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/formatDiscResp-eps-converted-to.pdf, id=2132, 1176.395pt x 168.63pt>
+<figures/formatDiscResp-eps-converted-to.pdf, id=2148, 1176.395pt x 168.63pt>
 File: figures/formatDiscResp-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/formatDiscResp-eps-converted-to.pdf>
 Package pdftex.def Info: figures/formatDiscResp-eps-converted-to.pdf used on in
-put line 337.
+put line 375.
 (pdftex.def)             Requested size: 418.25368pt x 59.95284pt.
- [68] [69] [70 <./figures/formatSyncReq-eps-converted-to.pdf> <./figures/format
+ [69] [70] [71 <./figures/formatSyncReq-eps-converted-to.pdf> <./figures/format
 SyncRes-eps-converted-to.pdf> <./figures/formatDiscReq-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 387--396
+Underfull \hbox (badness 10000) in paragraph at lines 425--434
 
  []
 
-[71 <./figures/formatDiscResp-eps-converted-to.pdf>]
+[72 <./figures/formatDiscResp-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <figures/formatData.eps>
-(epstopdf)                    date: 2015-05-20 14:52:22
-(epstopdf)                    size: 13697 bytes
+(epstopdf)                    date: 2015-05-21 01:57:19
+(epstopdf)                    size: 13699 bytes
 (epstopdf)             Output file: <figures/formatData-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-05-20 14:57:02
-(epstopdf)                    size: 6548 bytes
+(epstopdf)                    date: 2015-05-21 02:02:45
+(epstopdf)                    size: 6625 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/formatData-eps-con
 verted-to.pdf figures/formatData.eps>
-(epstopdf)             \includegraphics on input line 399.
+(epstopdf)             \includegraphics on input line 437.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/formatData-eps-converted-to.pdf, id=2192, 1204.5pt x 168.63pt>
+<figures/formatData-eps-converted-to.pdf, id=2208, 1204.5pt x 168.63pt>
 File: figures/formatData-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/formatData-eps-converted-to.pdf>
 Package pdftex.def Info: figures/formatData-eps-converted-to.pdf used on input 
-line 399.
+line 437.
 (pdftex.def)             Requested size: 418.25368pt x 58.55565pt.
- [72 <./figures/formatData-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 439--454
+ [73 <./figures/formatData-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 477--493
 
  []
 
 
-Overfull \hbox (0.52217pt too wide) in paragraph at lines 480--480
+Overfull \hbox (2.7433pt too wide) in paragraph at lines 512--512
+ [][][][]$\OML/cmm/m/it/12 Ctr[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 IA\OT1/cmr/m/
+n/12 ] = 
+ []
+
+
+Overfull \hbox (0.52217pt too wide) in paragraph at lines 519--519
  [][][][]\T1/ptm/m/n/12 Forward 
  []
 
 
-Underfull \hbox (badness 4492) in paragraph at lines 486--486
+Underfull \hbox (badness 4492) in paragraph at lines 525--525
  [][][][]
  []
 
 
-Overfull \hbox (3.15205pt too wide) in paragraph at lines 493--493
-[][][][]$\OML/cmm/m/it/12 Ctr < 
+Overfull \hbox (15.94531pt too wide) in paragraph at lines 532--532
+[][][][]$\OML/cmm/m/it/12 Ctr[] \OMS/cmsy/m/n/12 ^^T 
  []
 
 
-Overfull \hbox (1.9676pt too wide) in paragraph at lines 493--493
-\OML/cmm/m/it/12 Ctr[]$  
+Overfull \hbox (20.36662pt too wide) in paragraph at lines 532--532
+\OML/cmm/m/it/12 Ctr[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 IA\OT1/cmr/m/n/12 ]$  
  []
 
 
-Overfull \hbox (3.34662pt too wide) in paragraph at lines 494--494
-[][][][]$\OML/cmm/m/it/12 Ctr \OMS/cmsy/m/n/12 ^^U 
+Overfull \hbox (15.75075pt too wide) in paragraph at lines 533--533
+[][][][]$\OML/cmm/m/it/12 Ctr[] > 
  []
 
 
-Overfull \hbox (1.9676pt too wide) in paragraph at lines 494--494
-\OML/cmm/m/it/12 Ctr[]$  
+Overfull \hbox (20.36662pt too wide) in paragraph at lines 533--533
+\OML/cmm/m/it/12 Ctr[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 IA\OT1/cmr/m/n/12 ]$  
  []
 
-) [73] [74] (./chapters/implementation.tex
-Underfull \hbox (badness 10000) in paragraph at lines 16--25
+) [74] [75] (./chapters/implementation.tex
+Underfull \hbox (badness 10000) in paragraph at lines 15--24
 
  []
 
-[75
+[76
 
-]) [76] (./chapters/app.tex
+]) [77] (./chapters/app.tex
 LaTeX Font Info:    Try loading font information for T1+pcr on input line 11.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
@@ -3449,9 +3465,9 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 18.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 10.40245pt on input line 18.
- [77
+ [78
 
-] [78]
+] [79]
 Underfull \hbox (badness 10000) in paragraph at lines 92--101
 
  []
@@ -3467,22 +3483,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 92--101
 
  []
 
-[79]
+[80]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\gls' on input line 133.
 
-[80] <figures/busware.png, id=2342, 836.12375pt x 393.47pt>
+[81] <figures/busware.png, id=2362, 836.12375pt x 393.47pt>
 File: figures/busware.png Graphic file (type png)
 
 <use figures/busware.png>
 Package pdftex.def Info: figures/busware.png used on input line 167.
 (pdftex.def)             Requested size: 167.22179pt x 78.6926pt.
- [81 <./figures/busware.png>]
+ [82 <./figures/busware.png>]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 181.
  (../src/Makefile
-[82
+[83
 
 ]
 LaTeX Font Info:    Try loading font information for OMS+phv on input line 14.
@@ -3491,10 +3507,10 @@ File: omsphv.fd
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 14.
-)) (./thesis.gls [83] [84
+)) (./thesis.gls [84] [85
 
 
-] [85] [86] [87]) [88]
+] [86] [87] [88]) [89]
 Overfull \hbox (0.11446pt too wide) in paragraph at lines 199--199
 []\T1/ptm/m/n/12 C.E. Shan-non. ``Com-mu-ni-ca-tion the-ory of se-crecy sys-tem
 s''. In: \T1/ptm/m/it/12 Bell Sys-tem Tech-
@@ -3512,7 +3528,7 @@ Overfull \hbox (9.98795pt too wide) in paragraph at lines 199--199
  22rev1a .
  []
 
-[89
+[90
 
 ]
 Overfull \hbox (0.62143pt too wide) in paragraph at lines 199--199
@@ -3526,7 +3542,7 @@ Overfull \hbox (0.35626pt too wide) in paragraph at lines 199--199
  ef-fi-cient cryp-to-graphic hash
  []
 
-[90]
+[91]
 Overfull \hbox (8.73012pt too wide) in paragraph at lines 199--199
 []\T1/ptm/m/n/12 N. Koblitz. ``El-lip-tic curve cryp-tosys-tems''. In: \T1/ptm/
 m/it/12 Math-e-mat-ics of Com-pu-ta-tion \T1/ptm/m/n/12 48.177
@@ -3538,7 +3554,7 @@ Overfull \hbox (1.08144pt too wide) in paragraph at lines 199--199
 -phy''. In: \T1/ptm/m/it/12 IEEE Std 1363-
  []
 
-[91]
+[92]
 Overfull \hbox (2.83029pt too wide) in paragraph at lines 199--199
 []\T1/ptm/m/n/12 A. Gior-getti et al. ``Per-for-mance Anal-y-sis of Me-dia Re-d
 un-dancy Pro-to-col (MRP)''.
@@ -3550,7 +3566,7 @@ Overfull \hbox (9.92923pt too wide) in paragraph at lines 199--199
 tan-dard''. In: \T1/ptm/m/it/12 Tagungs-
  []
 
-[92]
+[93]
 Overfull \hbox (31.58794pt too wide) in paragraph at lines 199--199
 \T1/pcr/m/n/12 fileadmin / downloads / 08 % 20 -[] %20KNX % 20Flyers / KNX % 20
 Solutions /
@@ -3562,7 +3578,7 @@ Overfull \hbox (13.49458pt too wide) in paragraph at lines 199--199
 2 In-dus-trial Elec-tron-ics, 2009. IECON
  []
 
-[93]
+[94]
 Overfull \hbox (9.35255pt too wide) in paragraph at lines 199--199
 \T1/ptm/m/it/12 mu-ni-ca-tions (Or: how se-cure is SSL?) \T1/ptm/m/n/12 Cryp-to
 l-ogy ePrint Archive, Re-port 2001/045.
@@ -3574,7 +3590,7 @@ Class memoir Warning: The material used in the headers is too large
 either increase the head height or redesign the header
 (in both cases you will find help in the memoir manual). on input line 200.
 
-[94]
+[95]
 \tf@toc=\write9
 \openout9 = `thesis.toc'.
 
@@ -3584,7 +3600,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 200.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 200.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 200.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 28AD2B4CE10BB7BDAD027678C3873F2D;2243.
+(rerunfilecheck)             Checksum: DAD0B24AA652EC7ADC5359E920CB884D;2243.
 
 
 LaTeX Warning: There were undefined references.
@@ -3599,9 +3615,9 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 200.
  ) 
 Here is how much of TeX's memory you used:
  34756 strings out of 495059
- 576840 string characters out of 3182030
- 1043572 words of memory out of 3000000
- 36705 multiletter control sequences out of 15000+200000
+ 576812 string characters out of 3182030
+ 1043571 words of memory out of 3000000
+ 36703 multiletter control sequences out of 15000+200000
  92929 words of font info for 110 fonts, out of 3000000 for 9000
  16 hyphenation exceptions out of 8191
  69i,19n,122p,1426b,1985s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -3623,10 +3639,10 @@ s/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8
 a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (102 pages, 1642177 bytes).
+Output written on thesis.pdf (103 pages, 1645605 bytes).
 PDF statistics:
- 2898 PDF objects out of 2984 (max. 8388607)
- 2503 compressed objects within 26 object streams
- 572 named destinations out of 1000 (max. 500000)
+ 2923 PDF objects out of 2984 (max. 8388607)
+ 2527 compressed objects within 26 object streams
+ 574 named destinations out of 1000 (max. 500000)
  569 words of extra memory for PDF output out of 10000 (max. 10000000)
 

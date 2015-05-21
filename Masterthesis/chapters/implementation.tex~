@@ -2,34 +2,36 @@
 
 \subsection{KNX addressing scheme}
 
-Care must be taken that no duplicate knx addresses are used within the network. Therefore, the following addressing convention is proposed:
+Care must be taken that no duplicate \gls{knx} addresses are used within the network. Therefore, the following addressing convention is proposed:
 While it would be possible to use the same addresses on booth lines per gateway, a different scheme is used.
 For the secured network, the address ranges starting at address 1.1.1 to address 1.1.15 and 1.2.1 to 1.2.15 are reserved for secure line number
-1 and 2 respectively, which allows a maximum of 15 gateways. Different addresses are used mainly because it facilitates debugging. Additionally, the used
-address ranges can be re-used outside the secured network by standard devices anyway.
+1 and 2 respectively, which allows a maximum of 15 gateways. Different addresses are used mainly because it facilitates debugging. 
 On the unsecured lines, every gateway uses an address from the range 1.0.1 - 1.0.15. Addresses are assigned in a linearly ascending way, so gateway number 1
 uses addresses 1.1.1 and 1.2.1 for secure lines 1 and 2, and 1.0.1 for its unsecured line.
 
 \section{Evaluation}
 
-\subsection{Synchronization stage}
-Packages in the discovery stage are not encrypted, allowing a passive adversary to learn the value of the global counter value $Ctr_{global}$. Nevertheless,
+\subsection{Synchronization phase}
+Packages in the synchronization phase are not encrypted, allowing a passive adversary to learn the value of the global counter value $Ctr_{global}$. Nevertheless,
 this counter is only used to avoid deterministic encryption (see \ref{deterministicEnc}) and is of no use for the attacker.
 \\
 \\
 Opening a window for tolerating timing deviations allows an active attacker to inject a captured synchronization response package within that time window.
 Nevertheless, because the header is protected by a \gls{mac2}, the only way to inject a synchronization package is to use exactly the same frame as captured,
 i.e. the same source address, which will be discarded because the the requesting device already finished the synchronization stage.
+\\
+Additionally, the counter value is of no use for the attacker, as described above.
+
+\subsection{Discovery phase}
+
+\subsection{Data transmission phase}
+
+
 \subsection{High Level Cryptography Library}
 
 \subsubsection{OpenSSL}
 
 \begin{itemize}
  \item install libssl, libssl-dev
-\end{itemize}
-
-\subsubsection{Crypto++}
-\begin{itemize}
- \item install  libcrypto++9
 \end{itemize}
 
