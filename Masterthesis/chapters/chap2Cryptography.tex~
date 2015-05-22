@@ -1,240 +1,35 @@
-\section{Cryptography}
-
-Cryptography\footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
-is the science of encrypting information - it's evolution was no linear process. Ciphers were used independently in different
-places, were forgotten and disappeared when the corresponding civilization died.
-A short time table for prominent events is presented below; for a comprehensive outline of cryptographic history, "The Codebreakers", written by David Kahn,
-is suggested \cite{codebreakers}.
-\\
-\\
-One of the oldest witnesses for cryptography are hieroglyphs used in Egypt about 2000 B.C., forming the predecessor
-of a simple substitution cipher. 500 B.C., the "skytale" was used by greek and spartan military leaders, performing a transposition cipher. Another classical
-example was the "Caesar Cipher", used by its inventor about 100 B.C. to hide information by replacing every letter of the alphabet by a letter some fixed number down the alphabet,
-thus performing a substitution cipher. Ahmas al-Qalqashandi, an egypt writer, introduced the frequency analysis, a method for breaking substitution ciphers,
-in the 14th century. About 300 years later, the "Geheime Kabinets-Kanzlei" in Vienna routinely intercepts, copies and 
- re-seales diplomatic correspondence to embassies, and manages to decrypt a great percentage of the ciphertexts. In the beginning of the 20th century, the 
- first cryptographic device called "Enigma"\footnote{classical greek for "riddle"} is patented for commercial use and is later used in World War 2 by german troops for 
- military communication. Successful attacks against the "Enigma" cipher are demonstrated by polish mathematicians even before outbreak of the war, and systematic
- decryption of "Enigma" - based ciphertexts are conducted in Bleatchley Park, U.K., by using so called "Turing-Bombs", giving the allies invaluable advantages.
-The second half of the 20th century brings the introduction of public key cryptography with it: in 1976 Whitfield Diffie and Martin Hellman specify a 
-protocol for key exchange, based on a public key system developed by Ralph Merkle, and one year later, the RSA public key encryption is found by the american
-mathematicians Rivest, Shamir and Adleman.
-\\
-
-Cryptography is basically the art of hiding information by turning cleartext
-data into a random looking stream or block of bits, called ciphertext, using some kind of
-\textit{key}. This process is referred to as \textit{encryption} in general, but it is important to note that for many block ciphers, this encryption process
-can also be used to generate a special tag called \gls{mac2}, providing integrity. The next sections deal with how to achieve confidentiality, the 
-concepts how to achieve integrity are partially based on the confidentiality methods and are introduced in section \ref{Integrity}
-\ref{Integrity}. 
-\\
-\\
-Key, clear- and cipher text all are strings built from the alphabet $\mathcal{A}$. 
-
-\begin{itemize}
- \item $\mathcal{A}$ is a finite set, denoting the alphabet used, for example
- $\mathcal{A} = \{0, 1\}$
- \item $\{0, 1\}^n$ denotes the set of all possible strings with length $n$
- \item $\mathcal{M}$ is the message space, consisting of all strings that can be built with the 
- underlying alphabet
- \item $\mathcal{C}$ is the ciphertext space, also consisting of the strings from 
- the alphbet
-$\mathcal{A} = \{0, 1\}$
-
-\item $\mathcal{K}$ is called keyspace, also built from the alphabet. Every element
- $e \in \mathcal{K}$ is called a key and determines the function $\mathcal{M} \rightarrow \mathcal{C}$.
- This function, $E_e$ is called the \textit{encryption function}. 
-  \begin{center}
- $ciphertext = E_e(e, cleartext)$
-  \end{center}
-\end{itemize}
-
-Unauthorized parties - lacking the used key - should, by looking at the ciphertext, learn
-absolutely nothing about the hidden cleartext beside the length of the origin message. Authorized parties, on the other hand, are
-able to retrieve the original data out of the ciphertext by using the key with polynomial work, thus reversing
-the encryption. This reversing process is called \textit{decryption}.
-
-\begin{itemize}
-
- \item For every key $d \in \mathcal{K}$, $D_d$ denotes the function from $\mathcal{C} \rightarrow
-  \mathcal{M}$, and is called \textit{decryption function}.
-  \begin{center}
-  $cleartext  = D_d(d, ciphertext)$
-    \end{center}
-\end{itemize}
-
-The keys $e$ and $d$ are also referred to as \textit{keypair}, written $(e,d)$. 
-If it is computationally easy to derive the private key $e$ from the public key $d$ (in most cases $e = d$), the encryption scheme
- is called \textit{symmetric}, otherwise the scheme is called \textit{asymmetric}.
-
-Combining this properties yields a cipher or \textit{encryption scheme} defined over $\mathcal{(K,M,C)}$, which is a pair of \textit{efficient}
- \footnote{"runs in polynomial time"} algorithms s.t.
- \begin{center}
-   $\mathcal{K} \times \mathcal{M} \rightarrow \mathcal{C}$
-   \\
-   $\mathcal{K} \times \mathcal{C} \rightarrow \mathcal{M}$
- \end{center}
-
- The correctness property ensures for every pair of $(e,d) \in \mathcal{K}$ and for every message $m \in \mathcal{M}$ that encryption is reverseable, i.e. 
- it must hold that 
- \begin{center}  
- $ m = D_d(d, (E_e(e, m))$
-  \end{center}
-
-\subsection{Security of a cipher}
-
-A formal definition of a secure cipher was introduced by Shannon in 1949 \cite{6769090}, viewed from a communication-theory point of view, as follows:
-given a finite message space, every possible cleartext message has it's own \textit{a priori} probability (for example, the distribution of letters in a 
-specific language). Additionally, every key can be chosen with specific probability. It is assumed that these
-two probabilities constitute the a priori knowledge of an attacker.
-\\
-A message is picked, encrypted
-and sent to the receiver. The eavesdropper, intercepting the message, can calculate the \textit{a posteriori} probabilities for all possible cleartext messages, 
-leading to the observed cipher text - this are the conditional properties that under a fixed key, encrypting the cleartext message lead to the
-observed ciphertext message.
-\\
-If the a posteriori probabilities for all possible encryptions are the same as all a priory probabilities, the attacker has learned absolutely
-nothing from intercepting the cipher text, which is defined by Shannon as \textit{perfect secrecy}. Such a cipher cannot be broken by a ciphertext-only-attack,
-even by an adversary with unlimited time and processing power.
-\\
-Shannon proofed that for a perfectly secure cipher, the key space must be at least as big as the message space.
-Otherwise there will exist cleartext messages which are mapped to the same cipher texts, and thus a priori and a posteriori probabilities will be different,
-allowing the attacker to get knowledge he should not have gotten. 
-\\
-\\
-Another definition of the security of a cipher, based on complexity theory, is \textit{semantic security}.
-To be semantically secure, a cipher must not be breakable by an adversary in a reasonable time
-frame \cite{handbook1}, where this time frame is a function of the useful timespan of the protected data. This synonymously means for a semantically secure
-cipher that an adversary must be forced to spend super-polynomial time to be able to break it. It follows that \textit{all} such ciphers
-can be broken in principle by mounting the "brute-focrce" attack, searching the correct $n$-bit key in the exponential big key space $2^n$. Thus, such an
-exhaustive search must be rendered impracticable by using a suitable large key space to obtain a secure cipher.
-Semantic security is therefor a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
-processing powers \cite{GoldwasserMicali}.
-\\
-\\
-When designing cryptographic systems, a fundamental question is what components of it must be protected from public knowledge, and what parts can be
-published without compromising the security of the system. 
-\\
-The dutch cryptographer Auguste Kerckhoff stated rules for designing a secure cipher.
-According to \textit{Kerckhoff's Principle} stated 1883, among other properties, a secure system should not rely on the secrecy of
-its components, the only part that should be kept secret is the key alone. Shannon acknowledged these assumptions to be "pessimistic and hence safe, but 
-in the long run realistic, since one must expect the system to be found out eventually".
-\\
-\\
-Mapped to the definitions above, the sets $\mathcal{M, C, K}$, as well as the
-transformation functions $E_e$ and $D_d$, must not secret. The only thing that has to be kept private is the decryption key $d$.
-This separation of key and algorithm allows the publication of the basic cipher methods, benefiting from peer review. A contradicting approach, 
-trying to strengthen the safety of a cryptographic system by hiding the inner workings of it from public is also known as "Security by Obscurity". FIXME: SCHLECHT!
-\\
-\\
-Because all cryptographic schemes rely on the generation of random numbers, a short introduction to probabilistic theory and \gls{prng} is given,
-followed by a introduction to the most important representatives for symmetric and asymmetric ciphers.
-
-\section{Randomness and Probabilistic Theory}
-
-A basic requirement of all cryptographic schemes is the availability of randomness. \textit{Entropy}, denoted $H$, is the unit of the unpredictability of a process, as
- defined by Shannon in \cite{6773024}:
- 
-\begin{align}
- H(X) = - \sum_{x \in X}^{} p(x) * ln(p(x))
-\end{align}
-
-
-The higher the predictability, or in other words, the more likely an event, the lower its entropy. Flipping a "fair" coin is a canonical 
-example of a process with maximum entropy, because every coin flip has a probability of $\frac{1}{2}$, and all flips are independent from each other \cite{1621063}.
-If obtaining heads of the coin is viewed as a logical "0" and tails as a logical "1", a binary string of length $n$ can be built, where the probability of all possible
-strings of same length is equal, as shown in figure \ref{fig:uniform}, yielding an \textit{uniform distribution}, with
-$H = 2^n*\frac{1}{2^n}*ln(2^n) = n$ bit. 
-\\
-\\
-The importance of random numbers in cryptography is founded on the nature of the cipher used, as will be shown in the next sections. For example,
-stream ciphers generate a keystream which is used
-for encryption. If the keystream is predictable by an adversary, the security of the cipher is reduced. Similar arguments are valid for block ciphers, which often
-rely on an initial value called \gls{iv} for encryption. Also, many key negotiation algorithms schemes rely on determining a random prime number, which is often 
-achieved by choosing a random number and testing it for primality. Again, if such a prime number can be narrowed down within some boarders, this fact may
-weaken the encryption process.
-
-A fundamental problem in generating random numbers by utilizing computing devices is the deterministic nature of an algorithm:
-\\
-
-\textit{"Anyone who considers arithmetical methods of producing random digits is, of course, in a state of sin."} \footnote{John von Neumann, 1951}
-\\
-
-Such numbers are therefore called \textit{pseudo}random. Lots of cryptographic products suffered serious flaws because of relying on a broken \gls{prng}. A 
-historical example of such a broken random number generator, outputting biased (i.e., not uniformly distributed values) was "RANDU", invented by IBM in the
-1960s. 
-The generator belongs to the class of multiplicative congruential algorithms as proposed by Lehmer \cite{MR0044899}, which can in principle generate random
-numbers of sufficient quality, \textit{if} the correct parameters are chosen.
-Random values can be obtained after setting an initial value for $I_0$, called \textit{seed}, and repeatedly executing the calculation
-
-\begin{center}
- $I_{j+1} = 65539 * I_j \pmod{2^{31}}$
-\end{center}
-
-One problem 
-is that consecutive values generated by RANDU are not independent, a fact that	 can be seen in figure \ref{fig:randu}. To obtain the plot, 10000 uniformly distributed 
-random numbers were chosen as initial seeds for $I_i$ and plotted as x-values. $I_{i+1}$ served as y- and $I_{i+2}$ as z-values. While one would suspect that all points
-would be equally distributed in space, a clear pattern is visible, indicating that the values are correlated.
-
-To assess the quality of a \gls{prng}, beside of such spectral tests lots of additional tests are available, see \cite{nistRAND} for details.
-
-To encounter the shortcomings of a \gls{prng}, a \gls{trng} uses a natural process as non-deterministic data source, for example
-thermal noise of a semi conductor, cosmic noise from space or digital oscillators.
-
-The used hardware platform, the RapsberryPi, offers a hardware number generator - the quality of its provided random numbers will be subject
-to various statistical tests, see chapter \ref{FIXME} for the results.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{figures/uniform}
-    \caption{Uniform Distribution of binary string of length 3}
-    \label{fig:uniform}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=1\textwidth]{figures/randu}
-    \caption{Spectral Plot of RANDU output}
-    \label{fig:randu}
-\end{figure}
-
-
 \section{Symmetric vs. Asymmetric Cryptography}
 
-As stated above, two very fundamental differences regarding the key used in a cryptographic system can be found. Symmetric ciphers, where 
+As already stated, two very fundamental differences regarding the key used in a cryptographic system can be found. Symmetric ciphers, where 
 the same key is used for encryption and decryption, outperform its asymmetric counterparts in regards of data throughput by a factor of about 1000 \cite{5412055}.
 Additionally, they need shorter keys to achieve the same level of security - both arguments encourage it's use in embedded devices because of its less computing
 and memory demands.
-
+\\
 The big disadvantage of symmetric ciphers is that the key must be known to sender
 and receiver of the message \textit{before} secure communication can take place. This constitutes some kind of chicken-egg problem: to be able to send encrypted
 data, the key must be distributed, i.e. a secure channel has to be setup first for key exchange. But if such a secure channel can be established, it could also be used
 for transmitting the sensitive data themself.
 \\
-
 Asymmetric or public key cryptography solves the problem of key distribution by using two different keys, belonging to the same key pair: the \textit{private}
 key must be be protected from disclosure, while the \textit{public} key can be published without harming security. For encryption, the public key of the receiver
 is used, who in turn will use his private key to decrypt the message. 
-
+\\
 To be able to take benefit from the advantages of booth schemes, a hybrid approach is possible: at first, public key cryptography is used to negotiate a symmetric session
 key, which then can be used to encrypt the actual, sensitive data.
 
 \subsection{Stream Ciphers}
-
 Most stream ciphers belong to the family of symmetric ciphers, thus $e_i = d_i$. The reason is that most asymmetric ciphers are deterministic ciphers,
 i.e. the encryption of the same message with a fixed public key always yields the same cipher text. Thus, such repeated messages can be detected by 
 an adversary. 
 Probabilistic public-key encryption can solves this problem for stream ciphers,
 but this scheme will not be handled in this work because of its low practical application.
-
+\\
 For encryption, stream ciphers take arbitrary long messages (from the message space $\mathcal{M}$), and encrypt
-them to the corresponding ciphertext(out of the ciphertext-space $\mathcal{C}$), by applying
+them to the corresponding ciphertext (out of the ciphertext-space $\mathcal{C}$), by applying
 one digit of the message to one digit of the key. It is valid to say that a streamcipher is a block cipher with blocklength 1.
-
 \begin{itemize}
  \item A keystream is a sequence of symbols $e_0, e_1, ..., e_n$, all taken from the keyspace $\mathcal{K}$
 \end{itemize}
-
 The encryption function $E_e$ performs the substitution $c_i = E_e(e_i, m_i)$, producing one encrypted symbol at a time. Analogously,
 the decryption function inverts this substitution: $m_i = D_d(d_i, c_i)$.
 
@@ -245,7 +40,6 @@ which means that every character of the origin message is mapped to another char
 there is no fixed mapping between the input and output characters.
 The substitution is achieved by generating a keystream and by executing 
 a bit-wise \gls{xor} operation, as defined in table \ref{table:xor}, of key and message.
-
 \begin{center}
 \begin{tabular}{ c c | c }
  \label{table:xor}
@@ -256,20 +50,16 @@ a bit-wise \gls{xor} operation, as defined in table \ref{table:xor}, of key and 
   1 & 1 & 0 \\
 \end{tabular}
 \end{center}
-
 Decryption can be achieved by applying the \gls{xor} operation to key and ciphertext:
-
 \begin{center}
  $m_i = c_i \bigoplus k_i = (m_i \bigoplus k_i) \bigoplus k_i = m_i$, with $ k_i \bigoplus k_i = 0, const \bigoplus 0 = const$
 \end{center}
-
-
 Obviously, the security of the cipher heavily depends on the quality of the \gls{prng}. If a truly random source is used to generate the key stream, this cipher
 has perfect secrecy: for a n-character ciphertext, \textbf{all} n-character cleartexts are equally probable, and vice versa. 
-The reason for this is the \gls{xor} operation: booth possible outcomes are booth equally probable, introducing one bit of randomness into every data bit. 
-
+The reason for this is the \gls{xor} operation: booth outcomes are equally probable, introducing one bit of randomness into every data bit. 
+\\
 Additionally, the \gls{xor} operation can be built easily in hardware, accelerating the encryption or decryption process.
-
+\\
 Nevertheless, the cipher can be completely broken if the same key is used for encrypting more than one cleartext message, allowing to mount
 an attack based on frequency analysis.
 If an attacker is able to intercept a high number of different ciphertexts, all encrypted with the same key, the pairwise xor'ing of the ciphertexts
@@ -277,40 +67,35 @@ yields the xor-combination of the corresponding cleartexts, because
 \begin{center}
  $m_1 \bigoplus m_2 = (c_1 \bigoplus k) \bigoplus (c_2 \bigoplus k) = c_1 \bigoplus c_2 \bigoplus k \bigoplus k = c_1 \bigoplus c_2 \bigoplus 0 = c_1 \bigoplus c_2$
 \end{center}
-
 Whenever the same character is present in two different ciphertexts at the same position, the result of the \gls{xor} operation will be 0x00, allowing to draw
-inferences about the language used. By utilizing frequency analysis, the used key can be determined position by position with effort bounded by $O(n^2)$.
+inferences about the language used. By utilizing frequency analysis, the used key can be determined with high probability position by position with effort bounded by $O(n^2)$.
 
 \subsubsection{Stream Ciphers based on \gls{lfsr}}
 
 An disadvantage of the Vernam cipher is that a key of equal length as the message is necessary. To mitigate this problem, a \gls{lfsr} can be used to generate
-a key of proper length from a much shorter, initial key. Such \gls{lfsr} are denoted by $\langle L, C(D) \rangle$. $L$ is the number of stages, and $C(D)$ is the
+a key of proper length from a much shorter, initial key, called \textit{seed}. Such \gls{lfsr} are denoted by the tuple $\langle L, C(D) \rangle$. $L$ is the number of stages, and $C(D)$ is the
 \textit{connection polynomial}. Because of the finite length, every \gls{lfsr} can only take on a finite number of internal states, producing
 a periodic output sequence.
 If the degree of the connection polynomial is equal to the number of stages and the connection polynomial is irreducible (i.e. the polynomial can not
 be factored into 2 non-constant polynomials), no matter of the initial state, the output sequence produced will always be of maximum periodicity.
-
+\\
 Figure \ref{fig:lsfr} shows a 4 stage non-singular \gls{lfsr} with
-
 \begin{center}
  $L=4$,  $C(D) = 1 + D + D^4$,
 \end{center}
-
 Table \ref{table:lfsr} \cite{handbookLFSR} shows the corresponding output sequence produced. After
 15 shifts a state equal to the initial state is achieved, and the outputs
 begin to repeat.
-
+\\
 While such \gls{lfsr} can be easily built in hardware, a problematic fact remains that their \textit{linear complexity} is bounded by $L$. Therefore, a \gls{lfsr}
 should never be used as keystream generator directly, instead the outputs of different \gls{lfsr} are combined by a non-linear function, thus obtaining a
 nonlinear generator.
-
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{figures/LSFR}
     \caption{4 Stage LFSR}
     \label{fig:lsfr}
 \end{figure}
-
 \begin{center}
 \begin{minipage}{0.45\textwidth}
 \begin{tabular}{ c | c | c | c | c }
@@ -347,29 +132,27 @@ These ciphers operate on input blocks of fixed size, transforming them into outp
 suitable blocks, and that for the last remaining block it may be necessary to add padding bytes to yield the full block size,
 adding overhead to the message - a disadvantage compared to stream ciphers. For example, to encrypt a message just exceeding the block size by one byte,
 for the excess byte a complete block must be concatenated. 
-
+\\
 On the other hand, while stream ciphers are strictly sequential by nature, there exist methods to speed up block ciphers by splitting the message
 first, and then process them in parallel\footnote{Counter Mode, see \ref{confidentiality}}. 
 \\
 Two main types of block cipher exist: \textit{transposition} ciphers use a key-dependent permutation to re-order the characters of the block to obtain the ciphertext.
 This is a bijective transformation, so decryption can be achieved by simply reversing the permutation.
-
+\\
 Substitution ciphers define a key-dependent mapping of characters from the alphabet $\mathcal{A}$ to the same alphabet, thus replacing every character by one
 or more other characters. In the latter case, this equals an injective function which can not be reversed directly.
- 
+\\
 A product cipher is a combination of ciphers of different types to achieve a higher level of security than possible as with the basic ciphers. 
 \\
-
 Feistel networks are special product ciphers, composed of \gls{sp} networks. They were first described by Horst Feistel in the year 1973\cite{feistel}, and are 
 the basis of a variety of block ciphers like "LUCIFER" \cite{feistel1974block,}, developed by Feistel, and \gls{des}.
-
+\\
 Figure \ref{fig:feistel} shows the principal layout of such ciphers: at first, the plaintext block of length
 2n-bits is divided into two n-bits blocks, often called $L_0$ and $R_0$ for left and right block, respectively. After that the first round starts: every round
 is characterized by performing a substitution, followed by a permutation of the two half-blocks. For substitution, at first a \textit{round function},
 parametrized by a \textit{round key} is applied to one half of the data block, followed by a \gls{xor} operation. The output of the rounds can be calculated
 according to the formulas shown in \ref{table:feistel}
 \\
-
 \begin{center}
 \begin{tabular}{ l l}
  \label{table:feistel}
@@ -382,11 +165,8 @@ according to the formulas shown in \ref{table:feistel}
    & $R_n = L_{n-1} \bigoplus F(k_n, R_{n-1})$ \\
 \end{tabular}
 \end{center}
-
 Decryption is achieved by applying the ciphertext to the same network, with the round keys applied in reverse order, reducing hardware- respectively
-code size, as shown in \ref{table:feistelRev}. Because decryption does not rely on reversing the round function, there is no necessity for the round function to be bijective.
-\\
-
+code size. Because every decryption step, see \ref{table:feistelRev}, does not rely on reversing the round function, there is no necessity for the round function to be bijective.
 \begin{center}
 \begin{tabular}{ l l}
  \label{table:feistelRev}
@@ -403,29 +183,26 @@ Decryption of round n: & $R_{n-1} = L_n$  \\
 \end{figure}
 
 \subsubsection{\gls{des} and \gls{3des}}
-
 \gls{des}, designed by IBM and published by \gls{nist} in 1977 \cite{des}, encrypts 64 bit blocks in 16 processing rounds.
-
+\\
 For every round, a 56 bit round key is derived from the basic 56 bit
 key by permutations. The 64 bit data block to be encrypted respectively decrypted is subjected to an initial permutation and then feed into the Feistel
 network. The round function operates as follows:
-
+\\
 At first, the 32 bit half block is expanded to 48 bit by copying specific bits. The outcome is added to the round key modulo 2 (i.e., the \gls{xor} operation).
 Next, a non-linear transformation is applied by so-called "S-Boxes", performing a surjective function by substituting blocks of 6 bit by only
 4 bit. Lastly, a deterministic permutation follows, achieved through "P-Boxes", concluding the round
 function.
-
+\\
 Because of the small key size, \gls{des} was successfully broken for the first time\footnote{At least officially - rumors about the involvement of the \gls{nsa}
 regarding the small key size and the design of the S-Boxes existed since the publication} by a brute-force attack in 1997.
-
+\\
 To prevent such attacks, \gls{3des} was published: the cleartext- respectively 
 cipertext block is feed 3 times to the \gls{des} cipher, using 3 different keys $k_1, k_2, k_3$ to first encrypt with $k_1$, decrypt with $k_2$ and finally 
 encrypt with $k_3$, effectively tripling the key size:
-
 \begin{center}
  $ciphertext = E(k_3(D(k_2,E(k_1, cleartext)))$
 \end{center}
-
 The special sequence of encryption, decryption and again encrypting was chosen because by setting $k_1 = k_2 = k_3$, a \gls{3des} implementation can also be used
 for en/decryption of \gls{des} messages.
 
@@ -434,26 +211,21 @@ for en/decryption of \gls{des} messages.
 Also called "Rijndael" after its developers Joan Daemen und Vincent Rijmen, \gls{aes} is is the successor of \gls{3des}, as
 proposed by the \gls{nist} in 2001. Basic properties are a block size of 128 bit, and possible key sizes
 of 128, 192 or 256 bit.
-
+\\
 The operation, shown in figure \ref{fig:aesEnc}, starts by copying the input block into a square matrix, called "State",
 followed by a \gls{xor} combination of the first round 
 key and the matrix. Then, 9, 11 or 13 rounds, depending on the key size, are performed: substitution by S-Boxes, permutation by shifting rows, 
 another substitution by mixing columns and applying the round key. A last round, omitting the mix-columns stage, concludes the encryption.
 Operating on the whole data block, \gls{aes} is not a Feistel network, therefore all substitutions and permutations must be reversible to allow decryption: 
 the S-Box used here is therefore implementing byte-by-byte substitutions. The round keys are derived from the origin key by the \gls{aes} key expansion.
-
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{figures/aesEnc.eps}
     \caption{AES Encryption Process}
     \label{fig:aesEnc}
 \end{figure}
-
 Decryption uses the round keys in reverse order. To reverse the first substitution of every round, a unique inverse S-Box is used, while the shifting rows
 and mixing columns can also be reversed.
-\\
-
-FIXME: S-Box berechnung erklaeren?? stallings, principles and practice 
 
 \subsection{Mode of Operation}\label{confidentiality}
 
@@ -461,7 +233,7 @@ Because block ciphers  operate on a fixed number of bytes, messages larger than 
 the resulting size of the last block, it may be necessary to append a padding to it. Five different such modes were defined by \gls{nist} in 2001 \cite{moo},
 which will be introduced in the next sections. For all modes it does not matter what underlying block cipher is used, as long as the block cipher implements
 a cryptographic secure function. 
-
+\\
 An important property of this modes is the error propagation.
 Whenever a bit error occurs on the transmission channel due to noise or interference,
 a logical '0' of the transmitted cipher text is substituted by a logical '1' or vice versa. This bit error in the cipher text produces one or more bit errors
@@ -473,7 +245,7 @@ in the clear text, thus the name error propagation \cite{burda}.
 repeating input blocks are mapped to the same output blocks under the same key, implementing a deterministic encryption scheme.
 This is problematic, which can be seen quite intuitively by comparing 
 figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor, this mode should never be used.
-
+\\
  \begin{minipage}{\linewidth}
       \centering
       \begin{minipage}{0.4\linewidth}
@@ -497,9 +269,8 @@ figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor, this mode should never 
 
 This mode uses an \gls{iv} and can therefor be used for encryption of same messages without changing the key. Additionally, \gls{cbc} can also be used
 for \gls{mac2} generation, as shown in section \ref{Integrity}.
-
+\\
 Encrypting a message is shown in figure \ref{fig:cbc_encrypt}.
-
 \begin{center}
 $ C_0 = E(k, (M_0 \bigoplus IV ) )  $
 \\
@@ -509,9 +280,7 @@ $...$
 \\
 $ C_i = E(k, (M_i \bigoplus C_{i-1} ) )  $
 \end{center}
-
 To reverse the process, i.e. decrypt the message, see figure \ref{fig:cbc_encrypt}
-
 \begin{center}
 $ M_0 = D(k, C_0) \bigoplus IV $
 \\
@@ -521,10 +290,9 @@ $...$
 \\
 $ M_i = D(k, C_i) \bigoplus C_{i-1} $
 \end{center}
-
 The \gls{iv} does not have to be kept private, but must be known to the receiver of the message. It is important that such an \gls{iv} is unpredictable, otherwise
 allowing a \gls{cpa}. Also, it must not repeat over the lifetime of the key, otherwise introducing the \gls{ecb} problem again. 
-
+\\
 The \gls{iv} introduces overhead, which is more problematic for  shorter messages.
 To avoid such a message expansion, a solution is to use a "nonce", which stands for "\textit{n}umber used \textit{once}", as suggested in \cite{cryptoEng}.
 Sender and receiver must maintain a message counter. This message counter must be encrypted to avoid predictability, and can then be used as \gls{iv}. Care must
@@ -533,35 +301,32 @@ be taken for the counter not to overflow within the lifetime of a key.
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{figures/CBCencrypt.eps}
-    \caption{Cipher Block Chaining for encrypting messages}
+    \caption{\gls{cbc} for encrypting messages}
     \label{fig:cbc_encrypt}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{figures/CBCdecrypt.eps}
-    \caption{Cipher Block Chaining for decrypting messages}
+    \caption{\gls{cbc} for decrypting messages}
     \label{fig:cbc_decrypt}
 \end{figure}
 
-\subsubsection{\gls{ctr}}
+\subsubsection{\gls{ctr} mode}
 
 This confidentiality mode generates a key stream by encrypting a counter value with a block cipher. The key stream is then applied to the cleartext
 blocks with the \gls{xor} operation, as shown in figure \ref{fig:ctr}. For the last block, the key stream is truncated to match the size of the cleartext block.
-
+\\
 Decryption works by generating the same key stream on the receiver's side, and applying the \gls{xor} operation to the ciphertext blocks, similar to the
 decryption process used in the Vernam cipher.
-
 \begin{figure}
     \centering
-    \includegraphics[width=1\textwidth]{figures/CTR.eps}
-    \caption{CTR Encryption}
+    \includegraphics[width=0.8\textwidth]{figures/CTR.eps}
+    \caption{\gls{ctr} mode encryption}
     \label{fig:ctr}
 \end{figure}
-
 To avoid the duplicate usage of the same counter value in bidirectional communication, the counter can be combined with a sender-dependent nonce by
 concatenation before encrypting the counter:
-
 \begin{center}
  $K_{0} = E(k, nonce || Ctr_0)$\\
  $K_{1} = E(k, nonce || Ctr_1)$\\
@@ -630,15 +395,6 @@ generate a tag $t$, also called \gls{mac2}, and concatenating this tag to the me
 Verifying the integrity is done by re-generating the tag and comparing it to the saved on. 
 \\
 \\
-Integrity means that a data unit is 
-protected from tampering by third parties in a way that such a modification by an unauthorized entity is detectable. Authenticity means that the receiver of
-a message can verify that the message really was sent from the sender and not by an illegitimate third entity. Obviously, this two concepts are semantically
-related: checking the integrity implicitly checks authenticity, provided that the key used to generate the tag is only known to authentic entities.
-\\
-Vice versa, authenticating the sender of a message is only useful if the message itself cannot be modified by an adversary, i.e. integrity is guaranteed. To
-avoid confusion, the term integrity is used if the meaning is clear from the context.
-\\
-\\
 In contrast to confidentiality modes, which should always be combined with a method to guarantee integrity (as shown in FIXME), 
 integrity-only modes do have a right to exist. For example, archives containing source code for open source project, available from the internet, must not be
 encrypted but should be secured against modification. For example, the UNIX based operating system "FreeBSD" uses asymmetric keys to protect it's package
@@ -692,13 +448,13 @@ shown in figure \ref{fig:cbc_MAC}.
 \begin{figure}\label{cbcMAC}
     \centering
     \includegraphics[width=1\textwidth]{figures/CBCMac.eps}
-    \caption{Cipher Block Chaining for generating a MAC}
+    \caption{\gls{cbc} for generating a MAC}
     \label{fig:cbc_MAC}
 \end{figure}
 
 \begin{figure}\label{cbcMACFlags}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/CBCIVFlags.eps}
+    \includegraphics[width=0.8\textwidth]{figures/CBCIVFlags.eps}
     \caption{Flag Field of CBC IV}
     \label{fig:cbc_Flags}
 \end{figure}
@@ -735,7 +491,7 @@ To avoid that attacks, methods to provide encryption and integrity are combined.
 For all 3 schemes, $E(k, m)$ must be a semantically secure encryption function, and $h(k, m)$ denotes a keyed, cryptographically secure hash function.
 The latter is of particular importance for \ref{encAndMac}, because this scheme otherwise directly leaks information about the plaintext in the tag. 
 \\
-As general rule in cryptographic systems it holds that data to be processed should always be authenticated first. Only if authenticity can be verified,
+As general, cryptographic data should always be authenticated first. Only if authenticity can be verified,
 the encrypted data should be processed further.
 Following this rule, it turns out that only \ref{encThenMac} is considered generically secure against chosen plaintext attacks.
 "Encrypt-and-mac" \cite{sshBellare}, used in \gls{ssh}, is considered generically
@@ -771,7 +527,7 @@ result becomes the input for the block cipher, and so on, iterating over all $n$
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/"CCM CBC IV".png}
+    \includegraphics[width=0.8\textwidth]{figures/CCMCBCIV.eps}
     \caption{IV for CBC MAC}
     \label{fig:ccrMacIV}
 \end{figure}
@@ -829,7 +585,7 @@ ever know."} \cite{wStanley}
 \\
 Although his statement was not related to cryptography at all, and of course factoring of much bigger numbers is doable nowadays, this statement exactly describes
 the spirit of public key systems, and the security of RSA, introduced below, is directly connected to the inability to factor large numbers in reasonable time.
-
+\\
 Because disclosure of the public key does not affect the security of the scheme, the public key can be published in some sort of dictionary.
 An entity wanting to send an encrypted message to a receiver can then look up the receiver's public key, encrypt the message and send the resulting
 ciphertext to the recipient, who then can decrypt the message. 
@@ -860,70 +616,17 @@ to $Y$, who in turn must try $2^{32}$ different keys. $Z$ must crack all $2^{32}
 While this algorithm is very wasteful in regards of processing power, memory and communication capacity, such a protocol would be useful if a more-than-quadratic
 blowup could be achieved, but unfortunately, for all algorithms based on symmetric ciphers, this quadratic gap is the best that can be achieved,
 as shown in \cite{Barak09merklepuzzles}.   
-\\
- 
+\\ 
 To further increase the effort an attacker has to spend a different approach has to be found. It turns out that hard mathematical problems exist that are 
 suitable for such a purpose. 
+\\
 Therefor, in the next sections three important public key algorithms are introduced: \gls{dh} key exchange, based on prime fields, \gls{ecc}, and RSA.
-The former 2 of them are based on finite fields, therefore a short mathematical introduction is given first.
-
-\subsubsection{Finite Fields}\label{finiteFields}
-
-A field consists of a set $\mathcal{F}$ together with two operations $\cdot$, namely addition "+" and multiplication "*", satisfying the following properties:
-
-\begin{itemize}
- \item  Closure: for all elements from $\mathcal{F}$, the set is closed under the defined operations, i.e. applying an operator $\cdot$ to two elements from the set results in an
-element also belonging to the set.
- \item Associativity and Commutativity hold, i.e. $a \cdot (b \cdot c) = (a \cdot b) \cdot c$ and $a \cdot b = b \cdot a$
- \item For both operations and all elements from the set $\mathcal{F}$ an identity element $e$ exists s.t. $a\cdot e = a$
- \item For both operations and all elements from the set $\mathcal{F} \backslash \{0\}$ an inverse element exists s.t. $a\cdot a^{-1} = e$
- \item Distributivity holds: $(a+b) \cdot c = a \cdot c + b \cdot c$ for all elements 
-\end{itemize}
-
-For a finite field, the size of the set 
-$\mathcal{F}$ is finite and called \textit{order} of the field, with neutral elements for addition and
-multiplication. Inverses can be found to for all
-elements regarding addition s.t. $a + (-a) = e$ and regarding multiplication for all elements except ${0}$ s.t. $a * a^{-1} = e$.
-\\
-\\
-A specific example of a finite field is a prime file, which can be constructed by taking the set of integers $\mathbb{Z}\pmod p$, with $p \in \mathbb{P}$, thus
-restricting the set of all integers to the set $\mathbb{Z}_p = \{0, 1, ..., p-1\}$.
-By choosing $p$ as prime it is ensured that for any element $a \in \mathcal{F} \backslash\{0\}$, a multiplicative inverse exists: $ a * a^{-1} = 1 \pmod p$.
-The set of numbers for which multiplicative inverses exist is called $\mathbb{Z}{_p}^*$, so for $p$ being prime, $\mathbb{Z}_p \backslash \{0\} = \mathbb{Z}{_p}^*$.
-\\
-
-By raising an element $a \in \mathbb{Z}_p$ to different powers, a subgroup of $\mathbb{Z}{_p}^*$
-is generated, a fact that follows from Fermat's little theorem stating that for $p$ being prime and raising $a$ to the power $p-1$, the outcome is congruent 1
-modulo p:
-\begin{center}
- $a^{p-1} \equiv 1 \pmod p $ \\
-\end{center}
-Raising $a$ to higher powers results in:
-
-\begin{center}
- $a^{p} \equiv a*a^{p-1} \equiv a \pmod p$ \\
- $...$ \\
- $a^{2p} \equiv a^2 * a^{p-1} * a^{p-1} \equiv a^2 \pmod p$
-\end{center}
-Thus, generating higher powers than $(p-1)$ does not yield different outcomes. If by raising $a$ to $(p-1)$ different powers all elements from $\mathbb{Z}{_p}^*$ can
-be generated, $a$ is called \textit{primitive root} or \textit{generator}, generating a cyclic group.
-If $p$ is prime it can be shown that at least one such generator $g$ must exist and can be found efficiently \cite{primitiveRoot}.
-Conversely this means that for all elements from  $\mathbb{Z}{_p}^*$ a unique exponent in the interval $[0, p-1]$ exists,
-called the \textit{discrete logarithm for the base $ g \pmod p$}.
-\\
-\\
-To find
-the discrete logarithm, several algorithms exist. The most naive method conducts an exhaustive search, so for a prime of $n$ bits length, $2^n$ search operations
-are necessary. More efficient algorithms exist, with the best methods finishing after about $2^{\frac{n}{2}}$ steps \cite{5199978}. 
-Therefore, by choosing a sufficient large prime, finding the discrete logarithm is considered a hard problem, a fact
-that is exploited by the \gls{dh} key exchange algorithm.
-
 \subsection{\gls{dh} Key-Exchange}
 
 Whitfield Diffie and Martin Hellman proposed a way to solve the problem for key-exchange based on finite fields
 when they published their paper \textit{New Directions in Cryptography} in the year 1976 \cite{1055638}. The algorithm enables two entities to agree on a 
 shared secret which never has to be transmitted between them. The security of their original algorithm
-is based on the hardness of the \textit{Discrete Logarithm Problem}.
+is based on the hardness of the \gls{dlp}, as shown in \ref{refDLP}.
 \\
 \\
 With the original \gls{dh} algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
@@ -942,85 +645,18 @@ public key and raising it to the power of it's own private key in the domain of 
 \end{center}
 An eavesdropper that intercepts the initially sent parameter set $\{p, g, q\}$ and the public keys $y_A$ and $y_B$ and that wants to calculate the shared secret
 $k_A = K_B$  must therefore calculate the discrete logarithm of $y_A$ or $y_B$ to the base $p$, i.e. must solve the \gls{dlp}, a hard problem as shown in
-section \ref{finiteFields}.
+section \ref{refDLP}.
 \\
 
 %FIXME el gamal??
 \subsection{\gls{ecc}}
 
 The \gls{dh} protocol can be based on different kinds of cyclic groups. Koblitz and Miller independently proposed the usage of cyclic groups based on
-\glspl{ec} \cite{eccKoblitz} \cite{eccMiller}.
+\glspl{ec} \cite{eccKoblitz} \cite{eccMiller}. See \ref{pkc} for the theoretical introduction.
 This cyclic groups are receiving increased importance in cryptography because they allow the usage
 of shorter keys compared to \gls{dh} over prime fields or RSA, while providing the same level of secrecy.
 \\
-An \gls{ec} is basically the set of all points
-satisfying an equation with the form as shown in \ref{basicEC}, called "Weierstraß" equation:
-
-\begin{align}\label{basicEC}
- y^2 = x^3 + ax +b
-\end{align}
-The additional condition $4a^3 + 27b^3 \neq 0$ assures that the \gls{ec} does not possess any singularities.
-
-\begin{minipage}{\linewidth}
- %     \centering
-      \begin{minipage}{0.5\linewidth}
-          \begin{figure}[H]
-              \includegraphics[width=\linewidth]{figures/ecAdd.eps}
-              \caption{Adding two points}
-              \label{fig:ecAdd}
-          \end{figure}
-      \end{minipage}
-     % \hspace{0.05\linewidth}
-      \begin{minipage}{0.5\linewidth}
-          \begin{figure}[H]
-              \includegraphics[width=\linewidth]{figures/doubleEC.eps}
-              \caption{Doubling a point}
-              \label{fig:ecDouble}
-          \end{figure}
-      \end{minipage}
-  \end{minipage}
-By defining an \gls{ec} over $\mathbb{Z}_p$, with $a, b \in \mathbb{Z}_p$, a cyclic group can be generated. The addition operation that "adds" two points on
-this curve is defined by a "chord-and-tangent" rule. Figure \ref{fig:ecAdd}
-shows addition of two points, while \ref{fig:ecDouble} shows adding a point to itself. It is important to note that this representation is shown in the domain
-$\mathbb{R}$ for visualization - in real \gls{ec} cryptography, only elements $\pmod p$ (i.e. from the set $\mathbb{Z}_p$)
-are allowed. 
-%FIXME: praktische gruende warum nur finite fields statt real domain: rounding errors, only finite number of points
-\\
-Addition is defined as connecting points $A$ and 
-$Q$, finding the intersection of the line with the \gls{ec} ($R'$) and reflecting that point across the x-axis to obtain the result $R$.
-Point-doubling of $P$ is achieved in a similar way by determining the tangent of $P$, finding the intersection and reflection. 
-\\
-% Formulae to calculate x- and y-coordinates for the resulting points
-% for point addition $R=P+Q$ and point doubling $R=P+P$ are shown in equations \ref{adding} and \ref{doubling} respectively:
-% 
-% \begin{align}\label{adding}
-%  x_3 = (\frac{y_2-y_1}{x_2-x_1})^2-x_1-x_2, y_3=\frac{y_2-y_1}{x_2-x_1}(x_1-x_3)-y_1
-% \end{align}
-% 
-% \begin{align}\label{doubling}
-%  x_3 = (\frac{3x_1^2 +a}{2y_1})^2 - 2x_1, y_3=\frac{3x_1^2+a}{2y_1}(x_1-x_3)-y_1
-% \end{align}
-Multiplication is defined as successive addition of a point to it self in the way
-
-\begin{center}
- $kP = \underbrace{P+P+...+P}_{k-times}$
-\end{center}
-An imaginary point "in infinity", denoted $\infty$, serves as additive neutral element, and also belongs to the \gls{ec} by definition:
-
-\begin{center}
- $P + \infty = \infty + P = P, P + (-P) = \infty$
-\end{center}
-Negatives can be calculated easily due to the symmetric nature of the curves by swapping the sign of the y-coordinate of the point. For point $P$ with coordinates $(x, y)$, $-P$ is defined as
-$(x,-y)$, thus satisfying $P + (-P) = \infty$.
-
-\subsubsection{\gls{ecdlp}}\label{ecdp}
-
-Based on this group operations, the \gls{ecdlp} \cite{ecdlp} can be defined as following: given an \gls{ec} $E$ over the finite field $\mathcal{F}_p$ and 2 points $P,Q$ on this curve, %FIXME: "P of order n...???"
-find the integer $k$ s.t. $Q = kP$. $k$ is called the discrete logarithm of $Q$ to the base $P$.
-\\
-\\
-To build a public key system, two users $A$ and $B$ initially agree on a set of public \textit{domain parameters}. The most important parameters are \cite{ecDP}
-
+To build a public key system, two users $A$ and $B$ initially agree on a set of public \textit{domain parameters}. The most important parameters are \cite{ecDP}	
 \begin{itemize}
  \item the order of the field, $q$
  \item the coefficients $a, b \in \mathcal{F}_p$, defining the \gls{ec}
@@ -1031,26 +667,67 @@ After agreeing on this set, $A$ selects a randomly chosen integer $k_A$, calcula
 this point to $B$, who in turn randomly chooses $k_B$ and sends $P_B = k_B*P$ to $A$. Subsequently, booth can calculate the point $k_A*k_B*P$, which can be used
 to derive a key.
 
-\subsection{Key establishment with more communication partners}
+\subsection{Multi-party key negotiation}
 \gls{dh} and therefor also the \gls{ecdlp} can be generalized to $n$ parties, obtaining one key in common. The key negotiation procedure for 3 parties, using
 classical \gls{dh}, is
 shown in figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all 3 parties $A$, $B$ and $C$ already agreed upon $(p,g)$.
-
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/dh-group_round1.eps}
-    \caption{DH Round 1}
+    \begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+
+\node[state,text width=2cm,align=center]	at (0,0)	(a)	{A}; 
+\node[state,text width=2cm,align=center]	at (15,20)	(b)	{B}; 
+\node[state,text width=2cm,align=center]	at (30,0)	(c)	{C}; 
+\path[pil,->] (a)  edge[]   node[text width=3cm,align=left] {send $g^a$} (b); 
+\path[pil,->] (b)  edge[]   node[text width=3cm,align=right] {send $g^b$} (c); 
+\path[pil,->] (c)  edge[]   node[text width=1cm,align=center] {send $g^a$} (a); 
+\end{tikzpicture}
+   % \includegraphics[width=0.8\textwidth]{figures/dh-group_round1.eps}
+    \caption{\gls{dh} Round 1}
     \label{fig:dh1}
 \end{figure}
-
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/dh-group_round2.eps}
-    \caption{DH Round 2}
+    \begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+
+\node[state,text width=1.5cm,align=center]					at (0,0)			(a)		{A}; 
+\node[state,text width=1.5cm,align=center]				at (15,20)		(b)		{B}; 
+\node[state,text width=1.5cm,align=center]					at (30,0)			(c)		{C}; 
+
+\path[pil,->] (a)  edge[]   node[text width=4cm,align=left] {send $(g^c)^a$} (b); 
+\path[pil,->] (b)  edge[]   node[text width=4cm,align=right] {send $(g^a)^b$} (c); 
+\path[pil,->] (c)  edge[]   node[text width=1cm,align=center] {send $(g^b)^c$} (a); 
+
+\end{tikzpicture}
+   % \includegraphics[width=0.8\textwidth]{figures/dh-group_round2.eps}
+  \caption{\gls{dh} Round 2}
     \label{fig:dh2}
 \end{figure}
 After finishing the second communication round, every party raises the last received value to it's own private key and thus derives the shared secret.
-
 \begin{align}
  ((g^b)^c)^a = ((g^c)^a)^b = ((g^a)^b)^c = g^{a*b*c}
 \end{align}
@@ -1086,7 +763,6 @@ and the private key of the pair
 \begin{center}
  $(N, d)$
 \end{center}
-
 In practice, for the public exponent $e$ the numbers 3, 5, 17, 257 or 65537 are suggested \cite{891000}, a suitable $d$ satisfying \ref{ed} can then be found
 by using the extended Euclidean algorithm.
 

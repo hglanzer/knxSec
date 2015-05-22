@@ -221,6 +221,91 @@
   \field{year}{2010}
 \endentry
 
+\entry{primitiveRoot}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Dwivedi}{D.}%
+     {S.P.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{group theory;number theory;finite cyclic group;generator root;least
+  positive integer;logarithmic improvement;multiplicative order;primitive
+  root;Algebra;Algorithm design and analysis;Context;Educational
+  institutions;Finite element analysis;Generators;Presses;Algorithm;Group
+  Theory;Number Theory;Primitive Root}
+  \strng{namehash}{DS1}
+  \strng{fullhash}{DS1}
+  \field{booktitle}{Contemporary Computing (IC3), 2014 Seventh International
+  Conference on}
+  \verb{doi}
+  \verb 10.1109/IC3.2014.6897161
+  \endverb
+  \field{pages}{130\bibrangedash 134}
+  \field{title}{Computing multiplicative order and primitive root in finite
+  cyclic group}
+  \field{year}{2014}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{5199978}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Zhang}{Z.}%
+     {Jim}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Chen}{C.}%
+     {Li-Qun}{L.-Q.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{ZJCLQ1}
+  \strng{fullhash}{ZJCLQ1}
+  \field{booktitle}{Environmental Science and Information Application
+  Technology, 2009. ESIAT 2009. International Conference on}
+  \verb{doi}
+  \verb 10.1109/ESIAT.2009.457
+  \endverb
+  \field{pages}{658\bibrangedash 661}
+  \field{title}{An Improved Algorithm for Discrete Logarithm Problem}
+  \field{volume}{2}
+  \field{year}{2009}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{ecdlp}{book}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Hankerson}{H.}%
+     {D}{D}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Menezes}{M.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vanstone}{V.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{HDMAVS1}
+  \strng{fullhash}{HDMAVS1}
+  \field{pages}{153}
+  \field{title}{Guid to Elliptic Curve Cryptopgraphy}
+  \list{location}{1}{%
+    {New York}%
+  }
+  \field{year}{2004}
+\endentry
+
 \entry{5412055}{inproceedings}{}
   \name{author}{5}{}{%
     {{}%
@@ -710,60 +795,6 @@
   \field{year}{2009}
 \endentry
 
-\entry{primitiveRoot}{inproceedings}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Dwivedi}{D.}%
-     {S.P.}{S.}%
-     {}{}%
-     {}{}}%
-  }
-  \keyw{group theory;number theory;finite cyclic group;generator root;least
-  positive integer;logarithmic improvement;multiplicative order;primitive
-  root;Algebra;Algorithm design and analysis;Context;Educational
-  institutions;Finite element analysis;Generators;Presses;Algorithm;Group
-  Theory;Number Theory;Primitive Root}
-  \strng{namehash}{DS1}
-  \strng{fullhash}{DS1}
-  \field{booktitle}{Contemporary Computing (IC3), 2014 Seventh International
-  Conference on}
-  \verb{doi}
-  \verb 10.1109/IC3.2014.6897161
-  \endverb
-  \field{pages}{130\bibrangedash 134}
-  \field{title}{Computing multiplicative order and primitive root in finite
-  cyclic group}
-  \field{year}{2014}
-  \warn{\item Invalid format of field 'month'}
-\endentry
-
-\entry{5199978}{inproceedings}{}
-  \name{author}{2}{}{%
-    {{}%
-     {Zhang}{Z.}%
-     {Jim}{J.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Chen}{C.}%
-     {Li-Qun}{L.-Q.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{ZJCLQ1}
-  \strng{fullhash}{ZJCLQ1}
-  \field{booktitle}{Environmental Science and Information Application
-  Technology, 2009. ESIAT 2009. International Conference on}
-  \verb{doi}
-  \verb 10.1109/ESIAT.2009.457
-  \endverb
-  \field{pages}{658\bibrangedash 661}
-  \field{title}{An Improved Algorithm for Discrete Logarithm Problem}
-  \field{volume}{2}
-  \field{year}{2009}
-  \warn{\item Invalid format of field 'month'}
-\endentry
-
 \entry{1055638}{article}{}
   \name{author}{2}{}{%
     {{}%
@@ -828,37 +859,6 @@
   }
   \field{year}{1986}
   \warn{\item Can't use 'location' + 'address'}
-\endentry
-
-\entry{ecdlp}{book}{}
-  \name{author}{3}{}{%
-    {{}%
-     {Hankerson}{H.}%
-     {D}{D}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Menezes}{M.}%
-     {A.}{A.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Vanstone}{V.}%
-     {S.}{S.}%
-     {}{}%
-     {}{}}%
-  }
-  \list{publisher}{1}{%
-    {Springer}%
-  }
-  \strng{namehash}{HDMAVS1}
-  \strng{fullhash}{HDMAVS1}
-  \field{pages}{153}
-  \field{title}{Guid to Elliptic Curve Cryptopgraphy}
-  \list{location}{1}{%
-    {New York}%
-  }
-  \field{year}{2004}
 \endentry
 
 \entry{ecDP}{book}{}

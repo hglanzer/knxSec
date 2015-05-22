@@ -72,11 +72,39 @@ To encounter this problems, different keys must be used, thus achieving pairwise
 %door control, a security firewall can be deployed, thus containing the damage an adversary can do to the whole system.
 Figure \ref{fig:firewall} shows the logical connections within an \gls{knx} network using end-to-end encryption. An 
 attack of node $A$ can only compromise keys known to the device, thus effectively separating communication between the nodes $B$, $C$, and $D$ from
-the attacker. 
+the attacker.
+
+% \begin{figure}
+% \centering
+% \begin{tikzpicture}[scale=0.2]
+% \tikzstyle{every node}+=[inner sep=2pt]
+% \tikzstyle{arrow}=[draw, -latex] 
+% \tikzset{
+%     pil/.style={
+%            ->,
+%            thick,
+%            shorten <=1pt,
+%            shorten >=1pt,}
+% }
+% 
+% \usetikzlibrary{automata,positioning}
+% \usetikzlibrary{positioning}
+% 
+% \node[state,text width=1.5cm,align=center]					at (-20,0)		(a)		{A}; 
+% \node[state,text width=1.5cm,align=center]					at (5,0)			(b)		{B}; 
+% \node[state,text width=1.5cm,align=center]					at (30,15)		(c)		{C}; 
+% \node[state,text width=1.5cm,align=center]					at (30,-15)	(d)		{D}; 
+% 
+% \path[pil,<->] (a)  edge[]   node[text width=1cm] {$KEY_{AB}$} (b);
+% \path[pil,<->] (b)  edge[]   node[text width=3cm,align=left] {$KEY_{BD}$} (d); 
+% \path[pil,<->] (b)  edge[]   node[text width=3cm,align=left] {$KEY_{BC}$} (c); 
+% \path[pil,<->] (d)  edge[]   node[text width=3.5cm,align=right] {$KEY_{CD}$} (c); 
+% \end{tikzpicture}
+% \end{figure}
+
 \begin{figure}
   \centering
-    \includegraphics[width=0.8\textwidth]{figures/firewall2.eps}
-% \input{figures/firewall.eps}
+    \includegraphics[width=1\textwidth]{figures/firewall.eps}
  \caption{Firewall}
  \label{fig:firewall}
 \end{figure}
