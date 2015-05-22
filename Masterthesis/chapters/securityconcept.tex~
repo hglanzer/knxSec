@@ -104,7 +104,7 @@ the attacker.
 
 \begin{figure}
   \centering
-    \includegraphics[width=0.8\textwidth]{figures/firewall.eps}
+    \includegraphics[width=1\textwidth]{figures/firewall.eps}
  \caption{Firewall}
  \label{fig:firewall}
 \end{figure}
@@ -246,7 +246,8 @@ Every gateway answering the discovery request will be sent 2 duplicate messages,
  of the inner frame. When handling the second frame, the contained counter will be equal the saved counter, and thus the frame can be discarded.
  \item If only one secure line is available, no duplicate will arrive, but the receiving gateway(s) will nevertheless update the received counter value for the
  \gls{ia}
- \item If booth lines are unavailable, the responsible gateways cannot update the corresponding value for $Ctr_{in}$. Nevertheless, the sending side must update
+ \item If booth lines are unavailable, the responsible gateways cannot update the corresponding value for $Ctr_{in}$. Nevertheless, the sending side will 
+ increment and update
  the outgoing counter $Ctr_{out}$. As soon as the responsible gateways are reachable again, new data frames will bear an even higher counter than saved on the
  receiving side, thus allowing data transfer to the \gls{ga} again.
 \end{itemize}
@@ -347,7 +348,7 @@ frame formats, a 8 bit \textit{secure header} field uniquely identifies every fr
 \path[pil,->] (sendDup)  edge[] node[text width=2cm,align=left] {} (rcv); 
 
 \end{tikzpicture}
-\label{fig:mainStateMachine}
+\label{fig:/statemachines/mainStateMachine}
 \caption{State machine of the program logic}
 \end{figure}
 
@@ -473,7 +474,7 @@ The used data structures, referenced above, are introduced in more detail below.
 
 \subsubsection{Secure header}\label{secHdr}
 Every frame sent by a security gateway contains a 8 bit header, uniquely determining the type of the frame. Implicitly, this information also determines
-the exact type of authentication, encryption or authenticated encryption mode used.
+the exact type of authentication or authenticated encryption mode used.
 
 \begin{center}
 \begin{tabular}{ c | c | c | c}
