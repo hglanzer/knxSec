@@ -15,4 +15,6 @@ Today the necessary processing power is available even on embedded systems, mean
 no longer be neglected. Therefor, the needs of \gls{hbas} regarding security is introduced next.
 \\
 \\
-Communication networks for \gls{hbas} systems are usually built upon a two-tier model .
+Communication networks for \gls{hbas} systems are usually built upon a two-tier model.
+
+FIXME

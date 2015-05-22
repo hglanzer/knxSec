@@ -111,7 +111,8 @@
 		\setentrycounter[]{page}\glsnumberformat{73\delimN 74}}}\glsgroupskip
 \glsgroupheading{H}\relax \glsresetentrylist %
 \glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{38\delimR 40}}}%
+		\setentrycounter[]{page}\glsnumberformat{38}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{40}}}%
 \glossaryentryfield{hbas}{\glsnamefont{HBA}}{Home and Building Automation System}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{v}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{1}\delimN 
@@ -194,7 +195,7 @@
 \glossaryentryfield{mrp}{\glsnamefont{MRP}}{Media Redundancy Protocol}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{45}}}%
 \glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{36\delimN 37}}}%
+		\setentrycounter[]{page}\glsnumberformat{36}}}%
 \glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{36\delimN 37}}}\glsgroupskip
 \glsgroupheading{N}\relax \glsresetentrylist %
@@ -229,7 +230,7 @@
 		\setentrycounter[]{page}\glsnumberformat{71}}}\glsgroupskip
 \glsgroupheading{R}\relax \glsresetentrylist %
 \glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{41}}}%
+		\setentrycounter[]{page}\glsnumberformat{40}}}%
 \glossaryentryfield{rf}{\glsnamefont{RF}}{Radio Frequency}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{51}}}%
 \glossaryentryfield{rstp}{\glsnamefont{RSTP}}{Rapid Spanning Tree Protocol}{\relax }{\glossaryentrynumbers{\relax 
@@ -266,7 +267,7 @@
 \glossaryentryfield{tls}{\glsnamefont{TLS}}{Transport Layer Security}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{59\delimN 60}}}%
 \glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{41\delimN 42}}}%
+		\setentrycounter[]{page}\glsnumberformat{40\delimN 41}}}%
 \glossaryentryfield{TP}{\glsnamefont{TP}}{Twisted Pair}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{50\delimR 52}}}%
 \glossaryentryfield{tpci}{\glsnamefont{TPCI}}{Transport Layer Protocol Control Information}{\relax }{\glossaryentrynumbers{\relax 

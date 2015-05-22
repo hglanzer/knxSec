@@ -716,11 +716,8 @@ to the other side. Even if a passive adversary knows that the package he monitor
 used.  In contrast, an active attacker can intercept and modify the encrypted session key, and afterwards inject the modified message. The receiver
 would then decrypt the package, thus obtaining a modified session key. After all, the two entities would use two different keeps, crippling their communication.
 \\
-More precise arguments can be found for different modes of operation, as introduced above. FIXME: ENCRYPTION ONLY ATTACKS
-\\
 \\
 To avoid that attacks, methods to provide encryption and integrity are combined. Basically, 3 different ways how this can be achieved exist:
-
 \begin{itemize}
  \item "encrypt-and-mac" encrypts the message $m$ and appends the tag $t$ of the cleartext message
  \begin{align}\label{encAndMac}
@@ -735,14 +732,15 @@ To avoid that attacks, methods to provide encryption and integrity are combined.
   c = E(k_e, m) || h(k_h, E(k_e, m))
  \end{align}
 \end{itemize}
-
 For all 3 schemes, $E(k, m)$ must be a semantically secure encryption function, and $h(k, m)$ denotes a keyed, cryptographically secure hash function.
 The latter is of particular importance for \ref{encAndMac}, because this scheme otherwise directly leaks information about the plaintext in the tag. 
 \\
-It turns out that only \ref{encThenMac} is considered generically secure against chosen plaintext attacks.
-In contrast, "encrypt-and-mac" \cite{sshBellare}, used in \gls{ssh}, is considered generically
+As general rule in cryptographic systems it holds that data to be processed should always be authenticated first. Only if authenticity can be verified,
+the encrypted data should be processed further.
+Following this rule, it turns out that only \ref{encThenMac} is considered generically secure against chosen plaintext attacks.
+"Encrypt-and-mac" \cite{sshBellare}, used in \gls{ssh}, is considered generically
 insecure. For "mac-then-encrypt", used in \gls{ssl}, the same holds true, but this scheme can be used in a secure manner if \gls{cbc} or a stream cipher like 
-\gls{ctr} mode is used for encryption. 
+\gls{ctr} mode is used for encryption.
 
 \subsection{CCM}
 
@@ -1156,11 +1154,6 @@ The receiver of the message can use the domain parameters and signature to verif
 \end{align*}
 $x'$ is converted to an integer an reduced $\pmod$ to obtain $r'$. If $r = r'$, the signature is accepted, proofing the authenticity of the message.
 
-\subsubsection{Decryption and Authenticity Check}
-
-\subsubsection{Attacks on CCM}
-
-FIXME: meet in the middle attack, siehe rfc 3610
 
 \subsection{Key lenghts}
 
@@ -1168,21 +1161,6 @@ FIXME: meet in the middle attack, siehe rfc 3610
 
 TODO: BIRTHDAY PARADOXON
 
-\section{Attacks on Ciphers}
-
-ciphertext-only
-
-known-plaintext
-
-chosen plaintext
-
-chosen ciphertext
-
-\subsection{Passive Attacks}
-
-timing attacks - constant time computation
-
-\subsection{Active Attacks}
 
 % Such a cipher as defined above provides confidentiality, i.e. it ensures that only authorized parties are able to decrypt the message. This leads to other
 % problems, namely how to determine who is authorized, i.e. how to provide authenticity, and how to assure that the message was not altered when, i.e. how to 

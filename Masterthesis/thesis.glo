@@ -138,25 +138,25 @@
 \glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{SLA?\glossaryentryfield{sla}{\glsnamefont{SLA}}{Service Level Agreement}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{SLA?\glossaryentryfield{sla}{\glsnamefont{SLA}}{Service Level Agreement}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
-\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
-\glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
-\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
-\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
-\glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
-\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
 \glossaryentry{HA?\glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
-\glossaryentry{HA?\glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{HA?\glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
 \glossaryentry{DOS?\glossaryentryfield{dos}{\glsnamefont{DOS}}{Denial of Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{HA?\glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
-\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
-\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
+\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{40}
 \glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
-\glossaryentry{RAID?\glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
-\glossaryentry{TMR?\glossaryentryfield{tmr}{\glsnamefont{TMR}}{Tripple Modular Redundancy}{\relax }|setentrycounter[]{page}\glsnumberformat}{42}
 \glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
 \glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
 \glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{43}
@@ -166,8 +166,8 @@
 \glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
 \glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
 \glossaryentry{MAC?\glossaryentryfield{mac}{\glsnamefont{MAC}}{Medium Access}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
 \glossaryentry{VLAN?\glossaryentryfield{vlan}{\glsnamefont{VLAN}}{Virtual Local Area Network}{\relax }|setentrycounter[]{page}\glsnumberformat}{44}
-\glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
 \glossaryentry{IEEE?\glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
 \glossaryentry{RSTP?\glossaryentryfield{rstp}{\glsnamefont{RSTP}}{Rapid Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
 \glossaryentry{STP?\glossaryentryfield{stp}{\glsnamefont{STP}}{Spanning Tree Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{45}
