@@ -224,7 +224,7 @@ void keyInit(void *env)
 					debug("key Master: KEY SELECT FAILED!", pthread_self());
 				}
 				printKey(thisEnv->globalKey, GKSIZE);
-				debug("key Master: set globalCtr = 0, choose key", pthread_self());
+				debug("key Master: set globalCtr = 0, choose new key", pthread_self());
 			break;
 
 			// node is ready to process datagrams
