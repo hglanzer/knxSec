@@ -89,15 +89,15 @@ suitable binaries and shared libraries for the ARM environment. Building softwar
  \item Copying the generated binaries and shared libraries into their correct place by calling \textit{make install}. This last step must always be executed
  as user root because the generated files will be copied into system directories which are not writeable by unprivileged users.
 \end{enumerate}
-
 EIBD and the needed library \textit{pthsem} are available from these locations:
-
-\url{https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz}
+\\
+\\
+\url{https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz}\\
 \url{http://sourceforge.net/projects/bcusdk/}
-
+\\
+\\
 After copying the archives to the raspberry, they must be unpacked and compiled. First the pthsem shared library, which offers user mode multi
 threading with semaphores, must be compiled because it is used by EIBD. 
-
 \begin{lstlisting}[style=BashInputStyle]
     # tar -xvzf pthsem-2.0.8.tar.gz
     # cd pthsem-2.0.8
@@ -105,7 +105,6 @@ threading with semaphores, must be compiled because it is used by EIBD.
     # make
     # make install // must be executed as root
 \end{lstlisting}
-
 This will, among other things, generate the shared library \textit{libpthsem.so.20} in the directory \textit{/usr/local/lib}. \textit{/usr/local}
  is by convention the destination where self compiled software should reside.
 Now that pthsem is available, which is a dependence of the EIBD daemon, EIBD itself is ready for compilation:

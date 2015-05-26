@@ -221,6 +221,91 @@
   \field{year}{2010}
 \endentry
 
+\entry{primitiveRoot}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Dwivedi}{D.}%
+     {S.P.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{group theory;number theory;finite cyclic group;generator root;least
+  positive integer;logarithmic improvement;multiplicative order;primitive
+  root;Algebra;Algorithm design and analysis;Context;Educational
+  institutions;Finite element analysis;Generators;Presses;Algorithm;Group
+  Theory;Number Theory;Primitive Root}
+  \strng{namehash}{DS1}
+  \strng{fullhash}{DS1}
+  \field{booktitle}{Contemporary Computing (IC3), 2014 Seventh International
+  Conference on}
+  \verb{doi}
+  \verb 10.1109/IC3.2014.6897161
+  \endverb
+  \field{pages}{130\bibrangedash 134}
+  \field{title}{Computing multiplicative order and primitive root in finite
+  cyclic group}
+  \field{year}{2014}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{5199978}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Zhang}{Z.}%
+     {Jim}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Chen}{C.}%
+     {Li-Qun}{L.-Q.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{ZJCLQ1}
+  \strng{fullhash}{ZJCLQ1}
+  \field{booktitle}{Environmental Science and Information Application
+  Technology, 2009. ESIAT 2009. International Conference on}
+  \verb{doi}
+  \verb 10.1109/ESIAT.2009.457
+  \endverb
+  \field{pages}{658\bibrangedash 661}
+  \field{title}{An Improved Algorithm for Discrete Logarithm Problem}
+  \field{volume}{2}
+  \field{year}{2009}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{ecdlp}{book}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Hankerson}{H.}%
+     {D}{D}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Menezes}{M.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vanstone}{V.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{HDMAVS1}
+  \strng{fullhash}{HDMAVS1}
+  \field{pages}{153}
+  \field{title}{Guid to Elliptic Curve Cryptopgraphy}
+  \list{location}{1}{%
+    {New York}%
+  }
+  \field{year}{2004}
+\endentry
+
 \entry{5412055}{inproceedings}{}
   \name{author}{5}{}{%
     {{}%
@@ -601,20 +686,6 @@
   \warn{\item Invalid format of field 'month'}
 \endentry
 
-\entry{Lenstra04keylength}{misc}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Lenstra}{L.}%
-     {Arjen~K.}{A.~K.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{LAK1}
-  \strng{fullhash}{LAK1}
-  \field{title}{Key Length}
-  \field{year}{2004}
-\endentry
-
 \entry{sshBellare}{article}{}
   \name{author}{3}{}{%
     {{}%
@@ -724,60 +795,6 @@
   \field{year}{2009}
 \endentry
 
-\entry{primitiveRoot}{inproceedings}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Dwivedi}{D.}%
-     {S.P.}{S.}%
-     {}{}%
-     {}{}}%
-  }
-  \keyw{group theory;number theory;finite cyclic group;generator root;least
-  positive integer;logarithmic improvement;multiplicative order;primitive
-  root;Algebra;Algorithm design and analysis;Context;Educational
-  institutions;Finite element analysis;Generators;Presses;Algorithm;Group
-  Theory;Number Theory;Primitive Root}
-  \strng{namehash}{DS1}
-  \strng{fullhash}{DS1}
-  \field{booktitle}{Contemporary Computing (IC3), 2014 Seventh International
-  Conference on}
-  \verb{doi}
-  \verb 10.1109/IC3.2014.6897161
-  \endverb
-  \field{pages}{130\bibrangedash 134}
-  \field{title}{Computing multiplicative order and primitive root in finite
-  cyclic group}
-  \field{year}{2014}
-  \warn{\item Invalid format of field 'month'}
-\endentry
-
-\entry{5199978}{inproceedings}{}
-  \name{author}{2}{}{%
-    {{}%
-     {Zhang}{Z.}%
-     {Jim}{J.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Chen}{C.}%
-     {Li-Qun}{L.-Q.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{ZJCLQ1}
-  \strng{fullhash}{ZJCLQ1}
-  \field{booktitle}{Environmental Science and Information Application
-  Technology, 2009. ESIAT 2009. International Conference on}
-  \verb{doi}
-  \verb 10.1109/ESIAT.2009.457
-  \endverb
-  \field{pages}{658\bibrangedash 661}
-  \field{title}{An Improved Algorithm for Discrete Logarithm Problem}
-  \field{volume}{2}
-  \field{year}{2009}
-  \warn{\item Invalid format of field 'month'}
-\endentry
-
 \entry{1055638}{article}{}
   \name{author}{2}{}{%
     {{}%
@@ -842,37 +859,6 @@
   }
   \field{year}{1986}
   \warn{\item Can't use 'location' + 'address'}
-\endentry
-
-\entry{ecdlp}{book}{}
-  \name{author}{3}{}{%
-    {{}%
-     {Hankerson}{H.}%
-     {D}{D}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Menezes}{M.}%
-     {A.}{A.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Vanstone}{V.}%
-     {S.}{S.}%
-     {}{}%
-     {}{}}%
-  }
-  \list{publisher}{1}{%
-    {Springer}%
-  }
-  \strng{namehash}{HDMAVS1}
-  \strng{fullhash}{HDMAVS1}
-  \field{pages}{153}
-  \field{title}{Guid to Elliptic Curve Cryptopgraphy}
-  \list{location}{1}{%
-    {New York}%
-  }
-  \field{year}{2004}
 \endentry
 
 \entry{ecDP}{book}{}
@@ -1010,39 +996,395 @@
   \field{year}{2013}
 \endentry
 
-\entry{1335465}{article}{}
+\entry{Lenstra04keylength}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Lenstra}{L.}%
+     {Arjen~K.}{A.~K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{LAK1}
+  \strng{fullhash}{LAK1}
+  \field{title}{Key Length}
+  \field{year}{2004}
+\endentry
+
+\entry{1007998}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Knight}{K.}%
+     {J.C.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KJ1}
+  \strng{fullhash}{KJ1}
+  \field{booktitle}{Software Engineering, 2002. ICSE 2002. Proceedings of the
+  24rd International Conference on}
+  \field{pages}{547\bibrangedash 550}
+  \field{title}{Safety critical systems: challenges and directions}
+  \field{year}{2002}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{5784222}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Axelrod}{A.}%
+     {C.W.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AC1}
+  \strng{fullhash}{AC1}
+  \field{booktitle}{Systems, Applications and Technology Conference (LISAT),
+  2011 IEEE Long Island}
+  \field{pages}{1\bibrangedash 6}
+  \field{title}{Applying lessons from safety-critical systems to
+  security-critical software}
+  \field{year}{2011}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{544479}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Brasileiro}{B.}%
+     {F.V.}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Ezhilchelvan}{E.}%
+     {P.D.}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shrivastava}{S.}%
+     {S.K.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Speirs}{S.}%
+     {N.A.}{N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Tao}{T.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BF+1}
+  \strng{fullhash}{BFEPSSSNTS1}
+  \field{number}{11}
+  \field{pages}{1226\bibrangedash 1238}
+  \field{title}{Implementing fail-silent nodes for distributed systems}
+  \field{volume}{45}
+  \field{journaltitle}{Computers, IEEE Transactions on}
+  \field{year}{1996}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{vN56}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Neumann}{N.}%
+     {J.}{J.}%
+     {von}{v.}%
+     {}{}}%
+  }
+  \name{editor}{2}{}{%
+    {{}%
+     {Shannon}{S.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {McCarthy}{M.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Princeton University Press}%
+  }
+  \strng{namehash}{NJv1}
+  \strng{fullhash}{NJv1}
+  \field{booktitle}{Automata Studies}
+  \field{pages}{43\bibrangedash 98}
+  \field{title}{Probabilistic logics and synthesis of reliable organisms from
+  unreliable components}
+  \field{year}{1956}
+\endentry
+
+\entry{Lyons:1962:UTR:1661979.1661984}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Lyons}{L.}%
+     {R.~E.}{R.~E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vanderkulk}{V.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IBM Corp.}%
+  }
+  \strng{namehash}{LREVW1}
+  \strng{fullhash}{LREVW1}
+  \field{number}{2}
+  \field{pages}{200\bibrangedash 209}
+  \field{title}{The Use of Triple-modular Redundancy to Improve Computer
+  Reliability}
+  \field{volume}{6}
+  \list{location}{1}{%
+    {Riverton, NJ, USA}%
+  }
+  \field{journaltitle}{IBM J. Res. Dev.}
+  \field{month}{04}
+  \field{year}{1962}
+\endentry
+
+\entry{4447112}{inproceedings}{}
   \name{author}{4}{}{%
     {{}%
-     {Avizienis}{A.}%
-     {A.}{A.}%
+     {Pallos}{P.}%
+     {R.}{R.}%
      {}{}%
      {}{}}%
     {{}%
-     {Laprie}{L.}%
-     {J.-C.}{J.-C.}%
+     {Farkas}{F.}%
+     {J.}{J.}%
      {}{}%
      {}{}}%
     {{}%
-     {Randell}{R.}%
-     {B.}{B.}%
+     {Moldovan}{M.}%
+     {I.}{I.}%
      {}{}%
      {}{}}%
     {{}%
-     {Landwehr}{L.}%
+     {Lukovszki}{L.}%
      {C.}{C.}%
      {}{}%
      {}{}}%
   }
-  \strng{namehash}{AA+1}
-  \strng{fullhash}{AALJCRBLC1}
-  \field{issn}{1545-5971}
-  \field{number}{1}
-  \field{pages}{11\bibrangedash 33}
-  \field{title}{Basic concepts and taxonomy of dependable and secure computing}
-  \field{volume}{1}
-  \field{journaltitle}{Dependable and Secure Computing, IEEE Transactions on}
-  \field{year}{2004}
+  \strng{namehash}{PR+1}
+  \strng{fullhash}{PRFJMILC1}
+  \field{booktitle}{Access Networks Workshops, 2007. AccessNets '07. Second
+  International Conference on}
+  \field{pages}{1\bibrangedash 8}
+  \field{title}{Performance of rapid spanning tree protocol in access and metro
+  networks}
+  \field{year}{2007}
   \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{1704183}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Prytz}{P.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{PG1}
+  \strng{fullhash}{PG1}
+  \field{booktitle}{Factory Communication Systems, 2006 IEEE International
+  Workshop on}
+  \field{pages}{380\bibrangedash 385}
+  \field{title}{Redundancy in Industrial Ethernet Networks}
+  \field{year}{2006}
+\endentry
+
+\entry{6145654}{article}{}
+  \name{author}{6}{}{%
+    {{}%
+     {Giorgetti}{G.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cugini}{C.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Paolucci}{P.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Valcarenghi}{V.}%
+     {L.}{L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pistone}{P.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Castoldi}{C.}%
+     {P.}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GA+1}
+  \strng{fullhash}{GACFPFVLPACP1}
+  \field{number}{1}
+  \field{pages}{218\bibrangedash 227}
+  \field{title}{Performance Analysis of Media Redundancy Protocol (MRP)}
+  \field{volume}{9}
+  \field{journaltitle}{Industrial Informatics, IEEE Transactions on}
+  \field{year}{2013}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{4416946}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Kirrmann}{K.}%
+     {H.}{H.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hansson}{H.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Muri}{M.}%
+     {P.}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KHHMMP1}
+  \strng{fullhash}{KHHMMP1}
+  \field{booktitle}{Emerging Technologies and Factory Automation, 2007. ETFA.
+  IEEE Conference on}
+  \field{pages}{1396\bibrangedash 1399}
+  \field{title}{IEC 62439 PRP: Bumpless recovery for highly available, hard
+  real-time industrial networks}
+  \field{year}{2007}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{6699852}{inproceedings}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Araujo}{A.}%
+     {J.A.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Lazaro}{L.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Astarloa}{A.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Zuloaga}{Z.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Moreira}{M.}%
+     {N.}{N.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AJ+1}
+  \strng{fullhash}{AJLJAAZAMN1}
+  \field{booktitle}{Industrial Electronics Society, IECON 2013 - 39th Annual
+  Conference of the IEEE}
+  \field{pages}{4451\bibrangedash 4456}
+  \field{title}{Duplicate and circulating frames discard methods for PRP and
+  HSR (IEC62439-3)}
+  \field{year}{2013}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{6174793}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Nsaif}{N.}%
+     {S.A.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Rhee}{R.}%
+     {Jong~Myung}{J.~M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{NSRJM1}
+  \strng{fullhash}{NSRJM1}
+  \field{booktitle}{Advanced Communication Technology (ICACT), 2012 14th
+  International Conference on}
+  \field{pages}{814\bibrangedash 819}
+  \field{title}{Improvement of high-availability Seamless Redundancy (HSR)
+  traffic performance}
+  \field{year}{2012}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{1435745}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Kastner}{K.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Neugschwandtner}{N.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Soucek}{S.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Newmann}{N.}%
+     {H.M.}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KW+1}
+  \strng{fullhash}{KWNGSSNH1}
+  \field{number}{6}
+  \field{pages}{1178\bibrangedash 1203}
+  \field{title}{Communication Systems for Building Automation and Control}
+  \field{volume}{93}
+  \field{journaltitle}{Proceedings of the IEEE}
+  \field{year}{2005}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{knxSpec}{unpublished}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Association}{A.}%
+     {KNX}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AK1}
+  \strng{fullhash}{AK1}
+  \field{pages}{11}
+  \field{title}{System Specifications, Overview}
+  \verb{url}
+  \verb http://www.knx.org/knx-en/knx/technology/specifications/index.php
+  \endverb
 \endentry
 
 \entry{KraInnosec2013}{inproceedings}{}
@@ -1119,23 +1461,6 @@
   \field{type}{{RFC}}
   \field{year}{1981}
   \warn{\item Invalid format of field 'month'}
-\endentry
-
-\entry{knxSpec}{unpublished}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Association}{A.}%
-     {KNX}{K.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{AK1}
-  \strng{fullhash}{AK1}
-  \field{pages}{11}
-  \field{title}{System Specifications, Overview}
-  \verb{url}
-  \verb http://www.knx.org/knx-en/knx/technology/specifications/index.php
-  \endverb
 \endentry
 
 \entry{Granzer05securityin}{report}{}
@@ -1525,6 +1850,41 @@
   \field{title}{Security Flaws Induced by CBC Padding - Applications to SSL,
   IPSEC, WTLS}
   \field{year}{2002}
+\endentry
+
+\entry{1335465}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Avizienis}{A.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Laprie}{L.}%
+     {J.-C.}{J.-C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Randell}{R.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Landwehr}{L.}%
+     {C.}{C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AA+1}
+  \strng{fullhash}{AALJCRBLC1}
+  \field{issn}{1545-5971}
+  \field{number}{1}
+  \field{pages}{11\bibrangedash 33}
+  \field{title}{Basic concepts and taxonomy of dependable and secure computing}
+  \field{volume}{1}
+  \field{journaltitle}{Dependable and Secure Computing, IEEE Transactions on}
+  \field{year}{2004}
+  \warn{\item Invalid format of field 'month'}
 \endentry
 
 \entry{Coveyou321371.321379}{article}{}

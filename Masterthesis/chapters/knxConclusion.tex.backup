@@ -1,0 +1,4 @@
+\section{Summary}
+Examining the security measurements shows up parallels to the \gls{ipv4} world. As with \gls{knx}, no security measurements were foreseen too. The problem was
+fixed here in two ways: \gls{tls} added a sublayer
+

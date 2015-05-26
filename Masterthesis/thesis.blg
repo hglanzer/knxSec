@@ -15,57 +15,57 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated field_info (elt_size=4) to 11528 items from 5000.
+Reallocated field_info (elt_size=4) to 13024 items from 5000.
 Database file #1: thesis-blx.bib
 Database file #2: references.bib
 Warning--string name "july" is undefined
---line 333 of file references.bib
+--line 441 of file references.bib
 Warning--string name "march" is undefined
---line 341 of file references.bib
+--line 449 of file references.bib
 Warning--string name "april" is undefined
---line 349 of file references.bib
+--line 457 of file references.bib
 Biblatex version: 1.7
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-You've used 60 entries,
+You've used 72 entries,
             6019 wiz_defined-function locations,
-            1507 strings with 19310 characters,
-and the built_in function-call counts, 183225 in all, are:
-= -- 7556
-> -- 6400
-< -- 1677
-+ -- 2106
-- -- 2162
-* -- 12609
-:= -- 10763
+            1578 strings with 21650 characters,
+and the built_in function-call counts, 219604 in all, are:
+= -- 8940
+> -- 7609
+< -- 1947
++ -- 2476
+- -- 2581
+* -- 15464
+:= -- 12906
 add.period$ -- 0
-call.type$ -- 60
-change.case$ -- 973
-chr.to.int$ -- 94
-cite$ -- 118
-duplicate$ -- 20650
-empty$ -- 19363
-format.name$ -- 3850
-if$ -- 41908
+call.type$ -- 72
+change.case$ -- 1109
+chr.to.int$ -- 109
+cite$ -- 142
+duplicate$ -- 24905
+empty$ -- 23324
+format.name$ -- 4718
+if$ -- 50029
 int.to.chr$ -- 0
-int.to.str$ -- 187
+int.to.str$ -- 215
 missing$ -- 0
-newline$ -- 1523
-num.names$ -- 2935
-pop$ -- 18672
+newline$ -- 1869
+num.names$ -- 3451
+pop$ -- 22511
 preamble$ -- 1
-purify$ -- 1195
+purify$ -- 1382
 quote$ -- 0
-skip$ -- 11172
+skip$ -- 13237
 stack$ -- 0
-substring$ -- 4394
-swap$ -- 6807
-text.length$ -- 1267
+substring$ -- 5082
+swap$ -- 8228
+text.length$ -- 1514
 text.prefix$ -- 4
 top$ -- 1
-type$ -- 2242
+type$ -- 2698
 warning$ -- 0
-while$ -- 1074
+while$ -- 1284
 width$ -- 0
-write$ -- 1462
+write$ -- 1796
 (There were 3 warnings)

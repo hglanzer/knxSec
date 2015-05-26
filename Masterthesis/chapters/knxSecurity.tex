@@ -1,12 +1,6 @@
 \section{KNX security concept}
-
-In the early days of \gls{hba}, communication security was not considered a critical requirement: firstly, the communication was done over wires,
-i.e. physical access to the network would have been necessary for attacking the network. Secondly, the possible threats by misusing applications like
-lights- or shutters-switching were considered
-negligible. Additionally, the devices used in such networks were characterized by very limited processing power - thus, the comprehensive use of encryption would
-have put remarkable computing loads onto these devices and was therefore considered impracticable. 
-
-The basic \gls{knx} standard therefor does not specify any security mechanisms for control information:
+As shown in section \ref{hbaSec}, a paradigm shift towards towards increased security in \gls{hbas} can be observed. 
+Despite that fact, the basic \gls{knx} standard does not specify any security mechanisms for control information:
 \\
 
 \textit{"For KNX, security is a minor concern, as any breach of security requires local access to the network. 
@@ -14,11 +8,11 @@ In the case of KNX TP1 or KNX PL110 networks this requires even physical access 
 which in nearly all cases is impossible as the wires are inside a building or buried underground.
 Hence, security aspects are less of a concern for KNX field level media."} \cite{knxSpec}
 \\
-
+\\
 For \gls{knx}/\gls{ip}, the physical containment arguments do not apply. To counter this, it is proposed to use firewalls and \glspl{vpn} to prevent unauthorized access,
 as well as hiding critical network parameters from public. The latter concept is also known as \textit{"security by obscurity"}, offering - if at all - only 
 little protection.
-
+\\
 For management communication, a rudimentary, password-based control is used. Therefore, \gls{knx} suffers the following security flaws 
 \cite{Granzer05securityin}: for management, the 
 used keys are transmitted as cleartext, enabling an attacker to perform a passive attack to obtain the password. Subsequently, the attacker can mount an active
@@ -26,8 +20,8 @@ attack, injecting
 arbitrary management messages. No methods are foreseen for generation or distribution of the keys.
 For control information, an adversary can directly inject arbitrary messages to control the network, allowing passive and active attacks too.
 These shortcomings clearly disqualified \gls{knx} for usage in critical environments, restricting its possible field of application.
-
-Today, \gls{hba} systems are used on a large scale, and the available processing power on embedded computing platforms has risen significantly, so the deployment
+\\
+Today, \gls{hbas} systems are used on a large scale, and the available processing power on embedded computing platforms has risen significantly, so the deployment
 of such systems would be possible also in critical environments, under the condition that proper security mechanisms are deployed. For \gls{knx}, several extensions
 exist which will be introduced in the next sections.
 
@@ -36,11 +30,11 @@ exist which will be introduced in the next sections.
 In 2013, the KNX association published "Application Note 158" \cite{knx_data_sec} which specifies the \gls{knx} \gls{s-al}, providing
 authentication and encryption, and the \gls{ail}, implementing access control, booth being part of the application layer.
 The settlement of these functions above the transport layer allows a transparent, communication media independent end-to-end encryption.
-
+\\
 The application layer service code 0xF31 is reserved for this purpose, indicating that a secure header and a \gls{s-al} \gls{pdu} 
 follow instead of a plaintext-\gls{pdu}. This allows the flexible usage of the secure services just in situations where they are needed - otherwise, the plaintext application
 layer services can be used.
-
+\\
 The \gls{s-al} services defines modes for authenticated encryption or authentication-only of a higher-level cleartext \gls{apdu}. As underlying block cipher
 \gls{aes}128 is used in \gls{ccm} mode, encrypting the payload with \gls{ctr} and providing integrity with \gls{cbc} mode. The overhead introduced by the 
 \gls{mac2} is reduced by 
@@ -51,7 +45,8 @@ For synchronization of this sequence number between two devices, a \gls{s-al} s	
 data freshness, a challenge-response mechanism is used instead.
 Two different types of keys are used: a \gls{fdsk} is used for initial setup with the \gls{ets}. The \gls{ets} then generates the \gls{tk}, which is used by the
 device for securing of the outgoing messages. Consequently, every device must know the \gls{tk} of it's communication partners.
-
+\\
+\\
 While the \gls{s-al} empowers two devices to communicate in a secure way, the \gls{ail} allows a fine-grained control which sender has access to which
 data objects. Therefore, every \textit{link} (a combination of source address and data or service object) is connected with a \textit{role}, which in turn
 has some specific \textit{permissions}. 
@@ -65,13 +60,11 @@ task, i.e. routing traffic, they
  are responsible for the key management of their network segments, which includes key generation, distribution and revocation. Every standard device that
  wishes to communicate with other devices must at first retrieve the corresponding secret key from its responsible \gls{acu}, which can therefor control the
  group membership of the requesting device by allowing or denying the request respectively by revoking the key at a later point in time.
-
+\\
 EIBsec uses two different keys: in normal mode, a session with the keyserver is established to retrieve the session key, establishing a secure channel.
 This mode uses encryption-only by utilizing a \gls{psk}, integrity must therefor be guaranteed by the sender of the message. Counter mode is used for transmitting management and
 group data over the secure channel. A simple \gls{crc} is added to the payload before encryption and shall guarantee integrity. Booth modes encrypt the traffic
 on transport level, allowing standard routers to handle the datagrams. As block cipher, \gls{aes}-128 is used in \gls{ctr} mode.
-
-FIXME: zitieren / originalpaper...?
 
 \subsection{KNX IP Security}
 
@@ -84,20 +77,19 @@ connects the transport to the application layer, because session- and presentati
 \\
 The design distinguishes 3 different types of modes: 
 
-in the \textit{configuration phase}, every device that wants to participate in the secure network
+\begin{itemize}
+ \item In the \textit{configuration phase}, every device that wants to participate in the secure network
 generates an asymmetric key pair, which is sent to the \gls{ets} over a secure channel (for example, by transmitting the data over a direct, serial connection
 between the \gls{ets} host and the \gls{knx} device).
 The \gls{ets}, acting as \gls{ca1}, signs the combination of \gls{ip} and public key with its own private key, thus generating a certificate, which is sent back to the device, along
 with the public key of the \gls{ets}. 
-
-After that, the \textit{key set distribution phase} starts, where a unicast and a multicast scenario are differentiated:
+ \item After that, the \textit{key set distribution phase} starts, where a unicast and a multicast scenario are differentiated:
 in the unicast case, the device initiating the communication - called client - obtains the key set from the target device by a 2-step handshake: at first, mutual entity 
 authenticity is established by utilizing the certificate provided by the \gls{ets}. Afterwards the keyset is obtained from the target, which concludes the second
 phase.
-
-In the last step, secure communication can take place, i.e. the the client is able to
+\item In the last step, secure communication can take place, i.e. the the client is able to
 encrypt the data with the obtained key and sends it to the target device.
-
+\end{itemize}
 For the multicast scenario, a distinct \textit{coordinator}, responsible for maintaining the group key, is necessary. Every powered-up device
 identifies the coordinator as soon as possible by broadcasting \textit{hello} requests, adopting the coordinator role if no replies are received in time.
 To actually send a payload, the group key is obtained from the coordinator and the data is sent to the group, analog to the unicast case.
