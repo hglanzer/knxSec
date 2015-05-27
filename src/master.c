@@ -58,11 +58,11 @@ int main(int argc, char **argv)
 	struct threadEnvSec_t threadEnvSec1; 
 	struct threadEnvSec_t threadEnvSec2; 
 	
-	int (*clrThreadStart)(void);
-	clrThreadStart = &initClr;
+	int (*clrMasterStart)(void);
+	clrMasterStart = &initClr;
 
-	int (*secStart)(void *);
-	secStart = &initSec;
+	int (*secMasterStart)(void *);
+	secMasterStart = &initSec;
 
 	void *clrThreadRetval, *sec1ThreadRetval, *sec2ThreadRetval;
 	pthread_t sec1MasterThread, sec2MasterThread, clrMasterThread;
@@ -125,21 +125,21 @@ int main(int argc, char **argv)
 
 
 	// create cleartext-knx master thread
-	if((pthread_create(&clrMasterThread, NULL, (void *)clrThreadStart, &threadEnvClr)) != 0)
+	if((pthread_create(&clrMasterThread, NULL, (void *)clrMasterStart, &threadEnvClr)) != 0)
 	{
 		printf("clrThread thread init failed, exit\n");
 		return -1;
 	}
 
 	// create secure-knx master thread 1	
-	if((pthread_create(&sec1MasterThread, NULL, (void *)secStart, &threadEnvSec1)) != 0)
+	if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec1)) != 0)
 	{
 		printf("sec1Thread thread init failed, exit\n");
 		return -1;
 	}
 
 	// create secure-knx master thread 2
-	if((pthread_create(&sec2MasterThread, NULL, (void *)secStart, &threadEnvSec2)) != 0)
+	if((pthread_create(&sec2MasterThread, NULL, (void *)secMasterStart, &threadEnvSec2)) != 0)
 	{
 		printf("sec2Thread thread init failed, exit\n");
 		return -1;
