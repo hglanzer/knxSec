@@ -295,6 +295,7 @@ int initSec(void *threadEnv)
 	{
 		printf("SEC%d: KNX Connection opened\n", thisEnv->id);
 	}
+
 	// create READ thread
 	if((pthread_create(&secRecvThread, NULL, (void *)secRecvThreadfPtr, (void *)threadEnvSec)) != 0)
 	{
