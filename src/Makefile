@@ -14,7 +14,7 @@ clean:
 	rm -f master
 
 run:	all
-	../start 1
+	../start.sh 1
 
 update:	
 	git commit -a --allow-empty
