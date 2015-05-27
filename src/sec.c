@@ -70,7 +70,7 @@ int checkPkg(uint8_t *pkg)
 }
 
 /*
-	sec receive thread
+	sec SEND thread
 */
 int secSend(void *env)
 {
@@ -93,18 +93,35 @@ int secSend(void *env)
 }
 
 /*
-	sec receive thread
+	sec RECEIVE thread
+							|------> secSend			(msg messages)
+							|
+	datapath:	secReceive -> secMaster --------|
+							|
+							|------> checkDup ----> clrSend		(knx traffic)
 */
 int secReceive(void *env)
 {
+	int rc = 0, i = 0;
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
 	#ifdef DEBUG
 		printf("SEC%d , waiting for data from EIBD\n", thisEnv->id);
 	#endif
 	while(1)
 	{
-//		debug("SEC: blocking(EIBD)", pthread_self());
-		sleep(10);
+		rc = EIBGetBusMonitorPacket(thisEnv->socket, sizeof(thisEnv->localRDBuf), thisEnv->localRDBuf);
+		if(rc == -1)
+		{
+			debug("secReceive(): EIBGetBusMonitorPacket() FAILED", pthread_self());
+		}
+		else
+		{
+			for(i=0; i<rc;i++)
+				printf("%X ", thisEnv->localRDBuf);
+
+			decodeFrame(thisEnv->localRDBuf);
+		}
+		
 	}
 	return 0;
 }
@@ -118,7 +135,6 @@ void keyInit(void *env)
 {
 	int selectRC = 0;
 	struct timeval syncTimeout;
-	struct timeval joinTimeout;
 
 	fd_set set;
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
@@ -129,10 +145,6 @@ void keyInit(void *env)
 	/*	
 		1a) send sync request		(cleartext)
 		1b) wait for sync response	-> obtain global counter(auth)
-
-		2a) send join request		(auth)
-		2b) wait for join response	-> obtain global key(auth+enc)
-
 	*/
 
 	while(1)

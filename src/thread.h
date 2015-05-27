@@ -4,6 +4,7 @@ struct threadEnvClr_t
 };
 struct threadEnvSec_t
 {
+	uint8_t localRDBuf[270];
 	uint8_t id;
 	char *socket;
 	int Read2MasterPipe[2];

@@ -3,11 +3,11 @@ LIBS=-leibclient -lcrypto
 #LIBS=-lgmp -lcrypto -llibeibclient
 
 all:	clean update
-	gcc $(CFLAGS) $(LIBS) master.c sec.c cls.c -o master -pthread
-	#gcc $(CFLAGS) master.c sec.c cls.c -o master /usr/lib/libeibclient.so.0 -pthread
+	#gcc $(CFLAGS) $(LIBS) master.c sec.c clr.c knx.c -o master -pthread
+	gcc $(CFLAGS) master.c sec.c clr.c knx.c -o master /usr/local/lib/libeibclient.so.0 -pthread
 
 debug: clean
-	gcc $(CFLAGS) $(LIBS) master.c sec.c cls.c -o master -pthread -DDEBUG 
+	gcc $(CFLAGS) master.c sec.c clr.c knx.c -o master /usr/local/lib/libeibclient.so.0 -pthread -DDEBUG
 
 clean:
 	clear

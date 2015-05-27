@@ -19,7 +19,7 @@
 #include <openssl/rand.h>
 
 #include "master.h"
-#include "cls.h"
+#include "clr.h"
 #include "sec.h"
 #include "thread.h"
 #include "knx.h"
