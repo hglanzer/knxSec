@@ -89,17 +89,17 @@ int main(int argc, char **argv)
 			// arguments 	START
 			case '1':
 				printf("\tARG: %s for SEC1 SOCKET\n", &optarg[0]);
-				threadEnvSec1.socket = &optarg[0];	
+				threadEnvSec1.socketPath = &optarg[0];	
 				threadEnvSec1.id = SEC1;
 			break;
 			case '2':
 				printf("\tARG: %s for SEC2  SOCKET\n", &optarg[0]);
-				threadEnvSec2.socket = &optarg[0];	
+				threadEnvSec2.socketPath = &optarg[0];	
 				threadEnvSec2.id = SEC2;
 			break;
 			case 'c':
 				printf("\tARG: %s for CLS SOCKET\n", &optarg[0]);
-				threadEnvClr.socket = &optarg[0];	
+				threadEnvClr.socketPath = &optarg[0];	
 			break;
 			default:
 				assert(0);

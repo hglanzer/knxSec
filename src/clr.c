@@ -45,7 +45,7 @@ int clrReceive(void)
 	{
 		// block SEC send call for syncronization
 		#ifdef DEBUG
-			debug("CLS _____locking", pthread_self());
+			printf("CLS: locking\n");
 		#endif
 //		pthread_mutex_lock(&clr2SecMutexWr[0]);
 //		pthread_mutex_lock(&clr2SecMutexWr[1]);
@@ -99,11 +99,11 @@ int initClr(void *env)
 	pthread_t clrRecvThread, clrSendThread;
 
 	debug("THIS IS **CLR**", pthread_self());
-	clrFD = EIBSocketURL(arg->socket);
+	clrFD = EIBSocketURL(arg->socketPath);
 	
 	if (!clrFD)
 	{
-		printf("%s", arg->socket);
+		printf("%s", arg->socketPath);
 		debug("CLR: EIBSocketURL() failed", pthread_self());
 		return -1;
 	}
@@ -113,7 +113,7 @@ int initClr(void *env)
 	
 	if(EIBOpenBusmonitor(clrFD) == -1)
 	{
-		printf("cannot open KNX Connection\n");
+		printf("CLR: cannot open KNX Connection\n");
 		return -1;
 	}
 

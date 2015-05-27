@@ -75,8 +75,7 @@ int checkPkg(uint8_t *pkg)
 int secSend(void *env)
 {
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
-	printf("ID = %d ", thisEnv->id);
-	debug("SEC SEND ready", pthread_self());
+	printf("SEC%d: send ready", thisEnv->id);
 
 	while(1)
 	{
@@ -84,8 +83,9 @@ int secSend(void *env)
 		pthread_mutex_lock(&SecMutexWr[thisEnv->id]);
 		pthread_cond_wait(&SecCondWr[thisEnv->id], &SecMutexWr[thisEnv->id]);
 
-		printf("ID = %d, 0x%X", thisEnv->id, secBufferWr[thisEnv->id][0]);
-		debug("sending payload", pthread_self());
+		#ifdef DEBUG
+			printf("SEC%d: sending payload = 0x%X\n", thisEnv->id, secBufferWr[thisEnv->id][0]);
+		#endif
 
 		pthread_mutex_unlock(&SecMutexWr[thisEnv->id]);
 	}
@@ -104,12 +104,9 @@ int secReceive(void *env)
 {
 	int rc = 0, i = 0;
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
-	#ifdef DEBUG
-		printf("SEC%d , waiting for data from EIBD\n", thisEnv->id);
-	#endif
 	while(1)
 	{
-		rc = EIBGetBusMonitorPacket(thisEnv->socket, sizeof(thisEnv->localRDBuf), thisEnv->localRDBuf);
+		rc = EIBGetBusmonitorPacket(thisEnv->secFD, sizeof(thisEnv->localRDBuf), thisEnv->localRDBuf);
 		if(rc == -1)
 		{
 			debug("secReceive(): EIBGetBusMonitorPacket() FAILED", pthread_self());
@@ -152,8 +149,9 @@ void keyInit(void *env)
 		switch(thisEnv->state)
 		{
 			case INIT:
-
-				debug("key Master: INIT", pthread_self());
+				#ifdef DEBUG
+					printf("SEC%d INIT\n", thisEnv->id);
+				#endif
 
 				thisEnv->retryCount = 0;
 				FD_ZERO(&set);
@@ -162,7 +160,9 @@ void keyInit(void *env)
 				thisEnv->state = SYNC;
 			break;
 			case SYNC:
-				debug("key Master: SYNC / select() / sending sync req", pthread_self());
+				#ifdef DEBUG
+					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
+				#endif
 
 				pthread_mutex_lock(&SecMutexWr[thisEnv->id]);
 
@@ -176,10 +176,6 @@ void keyInit(void *env)
 
 				selectRC = select(FD_SETSIZE, &set, NULL, NULL, &syncTimeout);
 
-				#ifdef DEBUG
-					printf("retryCount = %d\n", thisEnv->retryCount);
-				#endif
-	
 				// timeout
 				if(selectRC == 0)
 				{
@@ -194,11 +190,15 @@ void keyInit(void *env)
 					if(thisEnv->retryCount == SYNC_RETRIES)
 					{
 						thisEnv->state = CHOOSE_KEY;
-						debug("key Master: give up", pthread_self());
+						#ifdef DEBUG
+							printf("SEC%d: key master sync give up\n", thisEnv->id);
+						#endif
 					}
 					else
 					{
-						debug("key Master: timeout, retry", pthread_self());
+						#ifdef DEBUG
+							printf("SEC%d: key master sync timeout\n", thisEnv->id);
+						#endif
 					}
 					
 				}
@@ -207,13 +207,17 @@ void keyInit(void *env)
 				{
 					// error
 					printf("%s - ", strerror(errno));
-					debug("key Master select() ERROR", pthread_self());
+					#ifdef DEBUG
+						printf("SEC%d: select() error\n", thisEnv->id);
+					#endif
 				}
 				// data received
 				else
 				{
 					// fd ready
-					debug("key Master: got sync res", pthread_self());
+					#ifdef DEBUG
+						printf("SEC%d: sync response\n", thisEnv->id);
+					#endif
 					read(thisEnv->Read2MasterPipe[READEND], &buffer[0], sizeof(buffer));
 
 					if(1)	// check package if valid response
@@ -227,21 +231,30 @@ void keyInit(void *env)
 				}
 			break;
 
-			// looks like this node is alone - reset global counter and choose global key randomly from key space
+			// looks like this node is alone - reset global counter
+			// DISABLED: choose global key randomly from key space
 			case CHOOSE_KEY:
 				thisEnv->globalCount = 0;
 				thisEnv->state = READY;
+				/*
 				if(RAND_bytes(thisEnv->globalKey, GKSIZE) != 1)
 				{
-					debug("key Master: KEY SELECT FAILED!", pthread_self());
+					#ifdef DEBUG
+						printf("SEC%d: key select failed\n", thisEnv->id);
+					#endif
 				}
-				printKey(thisEnv->globalKey, GKSIZE);
-				debug("key Master: set globalCtr = 0, choose new key", pthread_self());
+				#ifdef DEBUG
+					printf("SEC%d: resetting global counter\n", thisEnv->id);
+					printKey(thisEnv->globalKey, GKSIZE);
+				#endif
+				*/
 			break;
 
 			// node is ready to process datagrams
 			case READY:
-				debug("key Master READY, waiting for data", pthread_self());
+				#ifdef DEBUG
+					printf("SEC%d: key master ready\n", thisEnv->id);
+				#endif
 				sleep(10);
 			break;
 
@@ -259,6 +272,8 @@ void keyInit(void *env)
 */
 int initSec(void *threadEnv)
 {
+	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)threadEnv;
+
 	int (*secRecvThreadfPtr)(void *);
 	secRecvThreadfPtr = &secReceive;
 
@@ -268,8 +283,18 @@ int initSec(void *threadEnv)
 	struct threadEnvSec_t *threadEnvSec = (struct threadEnvSec_t *)threadEnv;
 
 	pthread_t secRecvThread, secSendThread;
-	printf("%u sock = %s id = %d\n", (unsigned)pthread_self(),threadEnvSec->socket, threadEnvSec->id);
+	printf("%u sock = %s id = %d\n", (unsigned)pthread_self(),threadEnvSec->socketPath, threadEnvSec->id);
 
+	thisEnv->secFD = EIBSocketURL(thisEnv->socketPath);
+	if(EIBOpenBusmonitor(thisEnv->secFD) == -1)
+	{
+		printf("SEC%d: cannot open KNX Connection\n", thisEnv->id);
+		return -1;
+	}
+	else
+	{
+		printf("SEC%d: KNX Connection opened\n", thisEnv->id);
+	}
 	// create READ thread
 	if((pthread_create(&secRecvThread, NULL, (void *)secRecvThreadfPtr, (void *)threadEnvSec)) != 0)
 	{

@@ -7,7 +7,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
-#include<eibclient.h>
+#include "eibclient.h"
 #include<assert.h>
 #include<getopt.h>
 #include<time.h>
