@@ -3,9 +3,15 @@
 extern pthread_mutex_t SecMutexWr[SECLINES];
 extern pthread_cond_t  SecCondWr[SECLINES];
 
-uint8_t secBufferWr[SECLINES][BUFSIZE];
+byte secBufferWr[SECLINES][BUFSIZE];
 
 uint8_t	secINIT = 0;
+
+EVP_PKEY *skey[SECLINES];
+EVP_PKEY *vkey[SECLINES];
+size_t slen[SECLINES];
+size_t vlen[SECLINES];
+byte *sigHMAC[SECLINES];
 
 //FIXME: this is very insecure.
 //	maybe better:
@@ -43,6 +49,8 @@ EIBConnection *secFD[SECLINES];
 	harald glanzer
 	secure line thread
 */
+
+
 
 void printKey(uint8_t *key, uint8_t keysize)
 {
@@ -114,7 +122,7 @@ int secReceive(void *env)
 		else
 		{
 			for(i=0; i<rc;i++)
-				printf("%X ", thisEnv->localRDBuf);
+				printf("%02x ", (unsigned)thisEnv->localRDBuf);
 
 			decodeFrame(thisEnv->localRDBuf);
 		}
@@ -130,7 +138,7 @@ int secReceive(void *env)
 */
 void keyInit(void *env)
 {
-	int selectRC = 0;
+	int selectRC = 0, rc = 0;
 	struct timeval syncTimeout;
 
 	fd_set set;
@@ -156,20 +164,40 @@ void keyInit(void *env)
 				thisEnv->retryCount = 0;
 				FD_ZERO(&set);
 				FD_SET(thisEnv->Read2MasterPipe[READEND], &set);
-				
+			
+				// prepare discovery request message	
+				pthread_mutex_lock(&SecMutexWr[thisEnv->id]);
+
+				secBufferWr[thisEnv->id][0] = 'a';
+				secBufferWr[thisEnv->id][1] = 'b';
+				secBufferWr[thisEnv->id][2] = 'c';
+				secBufferWr[thisEnv->id][3] = 'd';
+				secBufferWr[thisEnv->id][4] = 'e';
+				secBufferWr[thisEnv->id][5] = 'f';
+				secBufferWr[thisEnv->id][6] = 'f';
+				secBufferWr[thisEnv->id][7] = '\a';
+
+				slen[thisEnv->id] = DIGESTSIZE;
+				rc = generateHMAC(secBufferWr[thisEnv->id], 8, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
+				assert(rc == 0);
+				if(rc != 0)
+				{
+					#ifdef DEBUG
+						printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
+					#endif
+					exit(1);
+				}
+
+				print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
+
+				pthread_cond_signal(&SecCondWr[thisEnv->id]);
+				pthread_mutex_unlock(&SecMutexWr[thisEnv->id]);
 				thisEnv->state = SYNC;
 			break;
 			case SYNC:
 				#ifdef DEBUG
 					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
 				#endif
-
-				pthread_mutex_lock(&SecMutexWr[thisEnv->id]);
-
-				secBufferWr[thisEnv->id][0] = 0xfe;
-
-				pthread_cond_signal(&SecCondWr[thisEnv->id]);
-				pthread_mutex_unlock(&SecMutexWr[thisEnv->id]);
 
 				syncTimeout.tv_sec = SYNCTIMEOUT_SEC;
 				syncTimeout.tv_usec = 0;	
@@ -283,7 +311,10 @@ int initSec(void *threadEnv)
 	struct threadEnvSec_t *threadEnvSec = (struct threadEnvSec_t *)threadEnv;
 
 	pthread_t secRecvThread, secSendThread;
-	printf("%u sock = %s id = %d\n", (unsigned)pthread_self(),threadEnvSec->socketPath, threadEnvSec->id);
+	//printf("%u sock = %s id = %d\n", (unsigned)pthread_self(),threadEnvSec->socketPath, threadEnvSec->id);
+	#ifdef DEBUG
+		printf("SEC%d: sock = %s, thread# = %u", threadEnvSec->id, threadEnvSec->socketPath, (unsigned)pthread_self());
+	#endif
 
 	thisEnv->secFD = EIBSocketURL(thisEnv->socketPath);
 	if(EIBOpenBusmonitor(thisEnv->secFD) == -1)
@@ -322,9 +353,10 @@ int initSec(void *threadEnv)
 	}
 
 	#ifdef DEBUG
-		printf("SEC%d / pipFD: %d <- %d\n", threadEnvSec->id, threadEnvSec->Read2MasterPipe[READEND], threadEnvSec->Read2MasterPipe[WRITEEND]);
+		printf("SEC%d: / pipFD: %d <- %d\n", threadEnvSec->id, threadEnvSec->Read2MasterPipe[READEND], threadEnvSec->Read2MasterPipe[WRITEEND]);
 	#endif
 
+	hmacInit(&skey[thisEnv->id], &vkey[thisEnv->id]);
 	keyInit(threadEnvSec);
 	
 	pthread_join(secRecvThread, NULL);

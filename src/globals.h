@@ -17,12 +17,15 @@
 #include<string.h>
 #include<errno.h>
 #include <openssl/rand.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 
 #include "master.h"
 #include "clr.h"
 #include "sec.h"
 #include "thread.h"
 #include "knx.h"
+#include "cryptoHelper.h"
 
 // 	MAKROS
 #define AreaAddress(adr) ((uint8_t)(adr >> 4 ))
@@ -42,3 +45,6 @@
 #define SEC2		1
 
 #define SYNCRETRY	3
+
+// FIXME	
+//const char hn[] = "SHA256";

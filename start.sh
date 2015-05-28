@@ -21,7 +21,6 @@ then
 		rm /tmp/knxSEC2
 
 		cd src
-		make debug
 
 		echo "clr"	
 		eibd -t2 -e 1.0.$1 tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR  &

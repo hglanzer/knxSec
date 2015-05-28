@@ -8,6 +8,7 @@ void keyInit(void *);
 #define JOINTIMEOUT_SEC 3
 #define JOIN_RETRIES 3
 
+#define DIGESTSIZE	256
 #define BUFSIZE		256
 #define PSKSIZE		32	// preshared key size
 #define GKSIZE		32	// global key size [byte]
