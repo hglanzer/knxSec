@@ -118,7 +118,12 @@ Now that pthsem is available, which is a dependence of the EIBD daemon, EIBD its
 \end{lstlisting}
 
 These steps generate the binary \textit{eibd} and lots of helper programs in the directories \textit{/usr/local/bin}, and the shared object
-\textit{/usr/local/lib/libeibclient.so.0} that provides the \gls{eibd} \gls{api} and therefore is needed to be linked to the master daemon. 
+\textit{/usr/local/lib/libeibclient.so.0} that provides the \gls{eibd} \gls{api} and therefore is needed to be linked to the master daemon.
+\\
+Additionally, the development files for interfacing with the openSSL \gls{api} must be installed by executing the following command:
+\begin{lstlisting}[style=BashInputStyle]
+ # aptitude install libssl-dev
+\end{lstlisting}
 
 \section{Revision control}
 
@@ -134,7 +139,7 @@ a proper makefile \ref{lst:makefile} for the project, as well as all other neede
 
 To make the KNX TP1 bus accessible, i.e. to write datagrams to and receive datagrams from the bus, \gls{usb} dongles as shown in figure \ref{fig:busware}
 from the company \textit{Busware} are used. Depending on the revision, the bus couplers creates a new device which is used as \gls{url} by the \gls{eibd}.
-The coupler will be accessible by \textit{/dev/ACMx}, where x is the number of the device. It may be necessary to flash the bus couplers with the correct
+The coupler will be accessible by \textit{/dev/ttyACMx}, where x is the number of the device. It may be necessary to flash the bus couplers with the correct
 firmware first. The easiest way to check this is to use command \ref{lst:kern.log} and look for output similar to listing \ref{lst:device} when plugging 
 the coupler into an \gls{usb} slot.
 
@@ -171,6 +176,10 @@ in \ref{lst:flash} must be executed.
 
 To obtain a consistent naming scheme for the busware dongles, udev rules are provided. This way it is possible to always use the same
 device file for the distinct bus lines, no matter in which ordering the dongles are connected to the raspberry.
+
+\begin{lstlisting}[style=BashInputStyle,label=lst:flash]
+  udevadm info --name=/dev/ttyACM0 --attribute-walk
+\end{lstlisting}
 
 \section{Test setup}
 

@@ -306,7 +306,7 @@ $Q$, finding the intersection of the line with the \gls{ec} ($R'$) and reflectin
 %      \begin{minipage}{0.8\linewidth}
           \begin{figure}[H]
           \centering
-              \includegraphics[width=0.8\linewidth]{figures/ecAdd.eps}
+              \includegraphics[width=0.6\linewidth]{figures/ecAdd.eps}
               \caption{Adding two points}
               \label{fig:ecAdd}
           \end{figure}
@@ -320,7 +320,7 @@ Point-doubling of $P$ is achieved in a similar way by determining the tangent of
 %      \begin{minipage}{0.8\linewidth}
           \begin{figure}[H]
 	    \centering
-              \includegraphics[width=0.8\linewidth]{figures/doubleEC.eps}
+              \includegraphics[width=0.6\linewidth]{figures/doubleEC.eps}
               \caption{Doubling a point}
               \label{fig:ecDouble}
           \end{figure}
