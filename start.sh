@@ -21,7 +21,6 @@ then
 		rm /tmp/knxSEC2
 
 		cd src
-		make debug
 
 		echo "clr"	
 		eibd -t2 -e 1.0.$1 tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR  &
@@ -35,10 +34,13 @@ then
 		echo "starting master daemon"
 		sleep 1
 
-		./master --clrSocket local:/tmp/knxCLR --sec1Socket local:/tmp/knxSEC1 --sec2Socket local:/tmp/knxSEC2
+		./master --clrSocket local:/tmp/knxCLR --sec1Socket local:/tmp/knxSEC1 --sec2Socket local:/tmp/knxSEC2 --addr $1
 	else
 		echo "usage: "
 	fi
 else
-	echo "usage: "
+	clear
+	echo "usage: ./start.sh <device addr> "
+	echo
+	echo
 fi

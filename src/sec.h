@@ -2,12 +2,15 @@ int initSec(void *);
 int secReceive(void *);
 int secSend(void *);
 void keyInit(void *);
+void prepareSyncReq(void *);
+void time2Str(unsigned char *buf);
 
 #define SYNCTIMEOUT_SEC 3
 #define SYNC_RETRIES 3
 #define JOINTIMEOUT_SEC 3
 #define JOIN_RETRIES 3
 
+#define DIGESTSIZE	256
 #define BUFSIZE		256
 #define PSKSIZE		32	// preshared key size
 #define GKSIZE		32	// global key size [byte]
@@ -15,9 +18,9 @@ void keyInit(void *);
 #define SECLINES	2
 
 #define	INIT		0
-#define	SYNC		1
-#define JOIN		2
-#define CHOOSE_KEY	3
+#define	SYNC_REQ	1
+#define SYNC_WAIT_RESP	2
+#define RESET_CTR	3
 #define READY		4
 
 #define READEND		0
@@ -25,7 +28,6 @@ void keyInit(void *);
 
 /*
 		TYPES OF PACKAGES
-*/
 #define		SYNC_REQ	0
 #define		SYNC_RES	1
 
@@ -44,6 +46,7 @@ void keyInit(void *);
 #define		RES6		0xC
 #define		RES7		0xD
 #define		RES8		0xE
+*/
 #define		INVALID		0xF
 
 /*
@@ -53,6 +56,15 @@ void keyInit(void *);
 #define		AUTHONLY	(1<<4)
 #define		AUTHENC		(2<<4)
 #define		RES_SECMODE	(3<<4)
+
+/*
+		SECURITY HEADER
+*/
+#define		syncReq		0x02
+#define		syncRes		0x03
+#define		discReq		0x04
+#define		discRes		0x05
+#define		dataServ	0x08
 
 /*
 		KIND OF CIPHERS USED for ENCRYPTION
