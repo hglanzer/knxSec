@@ -1,5 +1,5 @@
 CFLAGS=-Wall
-LIBS=-leibclient -lcrypto
+LIBS=-leibclient -lcrypto -lm
 #LIBS=-lgmp -lcrypto -llibeibclient
 
 all:	clean
@@ -14,6 +14,7 @@ clean:
 	rm -f master
 
 drun:	debug
+	@echo "starts master daemon in debug mode, with KNX device addr 1"
 	../start.sh 1
 
 run:	all

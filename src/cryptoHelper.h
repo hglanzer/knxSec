@@ -12,5 +12,4 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
 /* Prints a buffer to stdout. Label is optional */
 void print_it(const char* label, const byte* buff, size_t len);
 
-int hmacInit(EVP_PKEY**, EVP_PKEY**);
-
+int hmacInit(EVP_PKEY**, EVP_PKEY**, size_t *, size_t *);

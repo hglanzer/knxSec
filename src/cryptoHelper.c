@@ -22,13 +22,16 @@ void print_it(const char* label, const byte* buff, size_t len)
 	returns	0 if OK
 		-1 if failure occured
 */
-int hmacInit(EVP_PKEY** skey, EVP_PKEY** vkey)
+int hmacInit(EVP_PKEY** skey, EVP_PKEY** vkey, size_t* slen, size_t* vlen)
 {
 	int result = -1;
 	OpenSSL_add_all_algorithms();
 
 	*skey = NULL;
 	*vkey = NULL;
+
+	*slen = DIGESTSIZE;
+	*vlen = DIGESTSIZE;
 
 /// START OF MAKE_KEYS	
 	/*
@@ -82,7 +85,7 @@ int hmacInit(EVP_PKEY** skey, EVP_PKEY** vkey)
 			use static hkey as base for signing/verification key for HMAC
 		*/
 		strcpy(hkey, "\x4B\x48\xAA\xBF\x4C\x84\x3E\xDC\x99\x01\x98\x16\x03\xE1\x32\xBE\x67\x06\x69\xD5\xAC\xA8\x27\x20\x2C\x26\x61\x5D\x17\xC8\x20\xE2");
-		print_it("*** FIXME *** STATIC HMAC key", hkey, size);
+		print_it("*** FIXME *** STATIC HMAC key\n", hkey, size);
 	
 		*skey = EVP_PKEY_new_mac_key(EVP_PKEY_HMAC, NULL, hkey, size);
 		assert(*skey != NULL);
@@ -123,14 +126,14 @@ int hmacInit(EVP_PKEY** skey, EVP_PKEY** vkey)
 int generateHMAC(const byte* msg, size_t mlen, byte** sig, size_t* slen, EVP_PKEY* pkey)
 {
 	#ifdef DEBUG
-	int i = 0;
-	printf("\t\t this is generateHMAC, msg = ");
-	for(i=0; i< mlen; i++)
-		printf("%x ", msg[i]);
+		int i = 0;
 
-	printf("\n");
+		printf("\t\t this is generateHMAC, msg = ");
+		for(i=0; i< mlen; i++)
+			printf("%x ", msg[i]);
+	
+		printf("\n");
 	#endif
-
     int result = -1;
     if(!msg || !mlen || !sig || !pkey) {
         assert(0);

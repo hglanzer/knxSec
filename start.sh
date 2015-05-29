@@ -34,10 +34,13 @@ then
 		echo "starting master daemon"
 		sleep 1
 
-		./master --clrSocket local:/tmp/knxCLR --sec1Socket local:/tmp/knxSEC1 --sec2Socket local:/tmp/knxSEC2
+		./master --clrSocket local:/tmp/knxCLR --sec1Socket local:/tmp/knxSEC1 --sec2Socket local:/tmp/knxSEC2 --addr $1
 	else
 		echo "usage: "
 	fi
 else
-	echo "usage: "
+	clear
+	echo "usage: ./start.sh <device addr> "
+	echo
+	echo
 fi

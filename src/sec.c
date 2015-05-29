@@ -3,7 +3,9 @@
 extern pthread_mutex_t SecMutexWr[SECLINES];
 extern pthread_cond_t  SecCondWr[SECLINES];
 
+byte secBufferMAC[SECLINES][BUFSIZE];
 byte secBufferWr[SECLINES][BUFSIZE];
+byte secBufferTime[SECLINES][BUFSIZE];
 
 uint8_t	secINIT = 0;
 
@@ -50,7 +52,34 @@ EIBConnection *secFD[SECLINES];
 	secure line thread
 */
 
+void time2Str(byte *buf)
+{
+	time_t now = time(NULL);
+	int i=0;
 
+	for(i=3; i>=0;i=i-1)
+	{
+		buf[i] = now % 256;
+		now = now / 256;
+	}
+}
+
+void prepareSyncReq(void *env)
+{
+	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	time2Str(secBufferTime[thisEnv->id]);
+
+	secBufferMAC[thisEnv->id][0] = 0;				// DEST = broadcast
+	secBufferMAC[thisEnv->id][1] = 0;				// DEST = broadcast
+	secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr FIXME
+	secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr FIXME
+	secBufferMAC[thisEnv->id][4] = syncReq;				// SEC HEADER
+	secBufferMAC[thisEnv->id][5] = secBufferTime[thisEnv->id][0];	// TIME
+	secBufferMAC[thisEnv->id][6] = secBufferTime[thisEnv->id][1];	// ...
+	secBufferMAC[thisEnv->id][7] = secBufferTime[thisEnv->id][2];	// ...
+	secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][3];	// TIME 
+	secBufferMAC[thisEnv->id][9] = '\0';				// delimiter 
+}
 
 void printKey(uint8_t *key, uint8_t keysize)
 {
@@ -158,14 +187,33 @@ void keyInit(void *env)
 		{
 			case INIT:
 				#ifdef DEBUG
-					printf("SEC%d INIT\n", thisEnv->id);
+					printf("SEC%d: INIT\n", thisEnv->id);
 				#endif
 
 				thisEnv->retryCount = 0;
 				FD_ZERO(&set);
 				FD_SET(thisEnv->Read2MasterPipe[READEND], &set);
 			
-				// prepare discovery request message	
+				thisEnv->state = SYNC_REQ;
+			break;
+			case SYNC_REQ:
+				#ifdef DEBUG
+					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
+				#endif
+				// prepare MAC for sync request message	
+				prepareSyncReq(env);
+				rc = generateHMAC(secBufferMAC[thisEnv->id], 9, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
+				assert(rc == 0);
+				if(rc != 0)
+				{
+					#ifdef DEBUG
+						printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
+					#endif
+					exit(1);
+				}
+				print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
+
+				// assemble sync request message
 				pthread_mutex_lock(&SecMutexWr[thisEnv->id]);
 
 				secBufferWr[thisEnv->id][0] = 'a';
@@ -177,28 +225,15 @@ void keyInit(void *env)
 				secBufferWr[thisEnv->id][6] = 'f';
 				secBufferWr[thisEnv->id][7] = '\a';
 
-				slen[thisEnv->id] = DIGESTSIZE;
-				rc = generateHMAC(secBufferWr[thisEnv->id], 8, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
-				assert(rc == 0);
-				if(rc != 0)
-				{
-					#ifdef DEBUG
-						printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
-					#endif
-					exit(1);
-				}
-
-				print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
-
 				pthread_cond_signal(&SecCondWr[thisEnv->id]);
 				pthread_mutex_unlock(&SecMutexWr[thisEnv->id]);
-				thisEnv->state = SYNC;
-			break;
-			case SYNC:
-				#ifdef DEBUG
-					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
-				#endif
 
+				thisEnv->state = SYNC_WAIT_RESP;
+			break;
+			case SYNC_WAIT_RESP:
+				#ifdef DEBUG
+					printf("SEC%d: SYNC_WAIT_RESP\n", thisEnv->id);
+				#endif
 				syncTimeout.tv_sec = SYNCTIMEOUT_SEC;
 				syncTimeout.tv_usec = 0;	
 
@@ -208,16 +243,15 @@ void keyInit(void *env)
 				if(selectRC == 0)
 				{
 					thisEnv->retryCount++;
+					thisEnv->state = SYNC_REQ;
 		
 					/*
 						seems like there is no other device reachable / online(on this SECline)
 							* reset globalCounter
-							* choose new global key
-							* generate DH parameters	
 					*/
 					if(thisEnv->retryCount == SYNC_RETRIES)
 					{
-						thisEnv->state = CHOOSE_KEY;
+						thisEnv->state = RESET_CTR;
 						#ifdef DEBUG
 							printf("SEC%d: key master sync give up\n", thisEnv->id);
 						#endif
@@ -248,34 +282,21 @@ void keyInit(void *env)
 					#endif
 					read(thisEnv->Read2MasterPipe[READEND], &buffer[0], sizeof(buffer));
 
-					if(1)	// check package if valid response
-					{
-
-					}
-					else	// no valid SYNC RESPONSE - retry
-					{
-
-					}
+					// SAVE COUNTER!		FIXME	
+					thisEnv->state = READY;
 				}
 			break;
 
 			// looks like this node is alone - reset global counter
-			// DISABLED: choose global key randomly from key space
-			case CHOOSE_KEY:
+			// FIXME:	maybe choose random counter?
+			//		or additionally use time() information ?
+			case RESET_CTR:
+				#ifdef DEBUG
+					printf("SEC%d: RESET_CTR\n", thisEnv->id);
+				#endif
 				thisEnv->globalCount = 0;
 				thisEnv->state = READY;
-				/*
-				if(RAND_bytes(thisEnv->globalKey, GKSIZE) != 1)
-				{
-					#ifdef DEBUG
-						printf("SEC%d: key select failed\n", thisEnv->id);
-					#endif
-				}
-				#ifdef DEBUG
-					printf("SEC%d: resetting global counter\n", thisEnv->id);
-					printKey(thisEnv->globalKey, GKSIZE);
-				#endif
-				*/
+
 			break;
 
 			// node is ready to process datagrams
@@ -345,7 +366,6 @@ int initSec(void *threadEnv)
 		pipe is used for communication: secRead -> secKeymaster
 		with pipes select() with timeouts can be used!
 	*/
-
 	if(pipe(threadEnvSec->Read2MasterPipe) == -1)
 	{
 		debug("pipe() failed, exit", pthread_self());
@@ -356,7 +376,7 @@ int initSec(void *threadEnv)
 		printf("SEC%d: / pipFD: %d <- %d\n", threadEnvSec->id, threadEnvSec->Read2MasterPipe[READEND], threadEnvSec->Read2MasterPipe[WRITEEND]);
 	#endif
 
-	hmacInit(&skey[thisEnv->id], &vkey[thisEnv->id]);
+	hmacInit(&skey[thisEnv->id], &vkey[thisEnv->id], &slen[threadEnvSec->id], &vlen[threadEnvSec->id]);
 	keyInit(threadEnvSec);
 	
 	pthread_join(secRecvThread, NULL);
