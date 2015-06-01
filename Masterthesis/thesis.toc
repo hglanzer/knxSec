@@ -188,17 +188,17 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{Synchronization service}{69}{section*.69}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Discovery service}{71}{section*.70}
+\contentsline {subsection}{Discovery service}{72}{section*.70}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{Data service}{73}{section*.71}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Data Structures}{73}{section*.72}
+\contentsline {subsection}{Data Structures}{74}{section*.72}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Secure header}{73}{section*.73}
+\contentsline {subsubsection}{Secure header}{74}{section*.73}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Global counter}{74}{section*.74}
+\contentsline {subsubsection}{Global counter}{75}{section*.74}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Individual counter}{74}{section*.75}
+\contentsline {subsubsection}{Individual counter}{75}{section*.75}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\chapternumberline {5}Implementation}{77}{chapter.5}
 \defcounter {refsection}{0}\relax 

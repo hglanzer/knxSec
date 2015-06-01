@@ -2,7 +2,7 @@
 
 As already stated, two very fundamental differences regarding the key used in a cryptographic system can be found. Symmetric ciphers, where 
 the same key is used for encryption and decryption, outperform its asymmetric counterparts in regards of data throughput by a factor of about 1000 \cite{5412055}.
-Additionally, they need shorter keys to achieve the same level of security - both arguments encourage it's use in embedded devices because of its less computing
+Additionally, they need shorter keys to achieve the same level of security - both arguments encourage its use in embedded devices because of its less computing
 and memory demands.
 \\
 The big disadvantage of symmetric ciphers is that the key must be known to sender
@@ -14,7 +14,7 @@ Asymmetric or public key cryptography solves the problem of key distribution by 
 key must be be protected from disclosure, while the \textit{public} key can be published without harming security. For encryption, the public key of the receiver
 is used, who in turn will use his private key to decrypt the message. 
 \\
-To be able to take benefit from the advantages of booth schemes, a hybrid approach is possible: at first, public key cryptography is used to negotiate a symmetric session
+To be able to take benefit from the advantages of both schemes, a hybrid approach is possible: at first, public key cryptography is used to negotiate a symmetric session
 key, which then can be used to encrypt the actual, sensitive data.
 
 \subsection{Stream Ciphers}
@@ -56,7 +56,7 @@ Decryption can be achieved by applying the \gls{xor} operation to key and cipher
 \end{center}
 Obviously, the security of the cipher heavily depends on the quality of the \gls{prng}. If a truly random source is used to generate the key stream, this cipher
 has perfect secrecy: for a n-character ciphertext, \textbf{all} n-character cleartexts are equally probable, and vice versa. 
-The reason for this is the \gls{xor} operation: booth outcomes are equally probable, introducing one bit of randomness into every data bit. 
+The reason for this is the \gls{xor} operation: both outcomes are equally probable, introducing one bit of randomness into every data bit. 
 \\
 Additionally, the \gls{xor} operation can be built easily in hardware, accelerating the encryption or decryption process.
 \\
@@ -244,7 +244,7 @@ in the clear text, thus the name error propagation \cite{burda}.
 \gls{ecb} can be used to gain confidentiality and allows the parallel processing of all input blocks. This mode does not use any \gls{iv} or nonce, therefore
 repeating input blocks are mapped to the same output blocks under the same key, implementing a deterministic encryption scheme.
 This is problematic, which can be seen quite intuitively by comparing 
-figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor, this mode should never be used.
+figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefore, this mode should never be used.
 \\
  \begin{minipage}{\linewidth}
       \centering
@@ -267,7 +267,7 @@ figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor, this mode should never 
 
 \subsubsection{\gls{cbc}}
 
-This mode uses an \gls{iv} and can therefor be used for encryption of same messages without changing the key. Additionally, \gls{cbc} can also be used
+This mode uses an \gls{iv} and can therefore be used for encryption of same messages without changing the key. Additionally, \gls{cbc} can also be used
 for \gls{mac2} generation, as shown in section \ref{Integrity}.
 \\
 Encrypting a message is shown in figure \ref{fig:cbc_encrypt}.
@@ -397,7 +397,7 @@ Verifying the integrity is done by re-generating the tag and comparing it to the
 \\
 In contrast to confidentiality modes, which should always be combined with a method to guarantee integrity (as shown in FIXME), 
 integrity-only modes do have a right to exist. For example, archives containing source code for open source project, available from the internet, must not be
-encrypted but should be secured against modification. For example, the UNIX based operating system "FreeBSD" uses asymmetric keys to protect it's package
+encrypted but should be secured against modification. For example, the UNIX based operating system "FreeBSD" uses asymmetric keys to protect its package
 management system from adversary modification.
 \\
 \\
@@ -406,14 +406,14 @@ Combining integrity and confidentiality in a security scheme called \gls{ae} wil
 \\
 As tag generation and tag verification algorithms, keyed or unkeyed cryptographic secure hash functions are used.
 For integrity-only, keyed hash functions must be used, or
-otherwise an arbitrary entity can modify the message undetectable by regenerating the correct tag. Therefor, a simple checksum like a \gls{crc} or an unkeyed 
+otherwise an arbitrary entity can modify the message undetectable by regenerating the correct tag. Therefore, a simple checksum like a \gls{crc} or an unkeyed 
 hash function can not provide integrity only, simply because the function value can be re-generated by an adversary modifying the message, allowing to mount
 an attack called \gls{mac2} forgery.
-Nevertheless, in combination with a confidentiality mode such an unkeyed function \textit{may} be secure, although it's use is discouraged because many applications operating
+Nevertheless, in combination with a confidentiality mode such an unkeyed function \textit{may} be secure, although its use is discouraged because many applications operating
 this way are broken and can be attacked (i.e. \gls{ssh} version 1 \cite{zalewskissh}).
 \\
 \\
-A hash functions takes as input an arbitrary large message $\mathcal{M}$ and generates a hash value $t = h(\mathcal{M})$ of fixed size, therefor $|M| >> |t|$. This many-to-one
+A hash functions takes as input an arbitrary large message $\mathcal{M}$ and generates a hash value $t = h(\mathcal{M})$ of fixed size, therefore $|M| >> |t|$. This many-to-one
 mapping implies the existence of collisions, i.e. the existence of distinct messages $m_1, m_2$ which are mapped to the same tag $t$.
 \begin{figure}
     \centering
@@ -434,7 +434,7 @@ Important representatives of cryptographically secure hash functions are the fam
 length, defined by \gls{nist} \cite{nistSHA}. For \gls{sha}-1, an attack to find collisions was found \cite{Wang05findingcollisions} and should therefor not
 be used anymore.
 \\
-Because these hash functions lack a secret key and therefor would allow \gls{mac2} forgery, a construction called \gls{hmac} can be used, which takes 
+Because these hash functions lack a secret key and therefore would allow \gls{mac2} forgery, a construction called \gls{hmac} can be used, which takes 
 additionally to the message $m$ as input a key $k$, and $ipad$ and $opad$ being constant values \cite{hmac}.
 
 \begin{align}
@@ -467,7 +467,7 @@ submitted data must be protected from a passive adversary. One example would be 
 \\
 \\
 The need to additionally provide integrity and authenticity measurements is maybe not that obvious, but can be motivated in various ways. For example, two entities
-sharing an initial key known to booth of them which want to negotiate a temporary session key could randomly choose the temporary key, encrypt it and send it
+sharing an initial key known to both of them which want to negotiate a temporary session key could randomly choose the temporary key, encrypt it and send it
 to the other side. Even if a passive adversary knows that the package he monitors will be used as session key he cannot derive it, provided a secure cipher is
 used.  In contrast, an active attacker can intercept and modify the encrypted session key, and afterwards inject the modified message. The receiver
 would then decrypt the package, thus obtaining a modified session key. After all, the two entities would use two different keeps, crippling their communication.
@@ -591,23 +591,23 @@ An entity wanting to send an encrypted message to a receiver can then look up th
 ciphertext to the recipient, who then can decrypt the message. 
 \\
 \\
-It is remarkable that any algorithm establishing public keys must authenticate it's participants, or it will be vulnerable to man-in-the-middle attacks.
+It is remarkable that any algorithm establishing public keys must authenticate its participants, or it will be vulnerable to man-in-the-middle attacks.
 
 \subsection{Merkle Puzzles}
 In \cite{Merkle}, Ralph C. Merkle developed an algorithm for key exchange between two parties. While the algorithm is based on symmetric ciphers and is
-not practicable, it motivates the usage of public key systems based on algebraic structures and is therefor introduced.
+not practicable, it motivates the usage of public key systems based on algebraic structures and is therefore introduced.
 \\
 \\
 The key idea is that the necessary work by the two legitimate parties when negotiating a key is bounded by $O(n)$, while an adversary must spend $O(n^2)$ to 
 also calculate the key, thus generating a quadratic gap. 
 Merkle defines a puzzle as cipher text that is supposed to be broken. This can be achieved by restricting the size of the symmetric key used such that an
-exhaustive search can be finished in feasible time. Every puzzle contains an id and a session key, booth chosen randomly, as well as a static string,
+exhaustive search can be finished in feasible time. Every puzzle contains an id and a session key, both chosen randomly, as well as a static string,
 known to all participants.
 \\
 The party initiating the key exchange, called $X$, generates $n$ such puzzles and sends all of them to the receiver $Y$. $Y$ picks one puzzle at random and
 decrypts it by trying all possible keys. Because of the static string inside the puzzle, $Y$ knows for sure when the correct key has been tried.
-$Y$ then extracts the session key and sends the corresponding id back to $X$. Subsequently, booth parties can use the session key referenced by the id for encryption.
-An eavesdropper $Z$, monitoring all puzzles, cannot directly determine which of them is containing the returned id and therefor does not know the session key the 
+$Y$ then extracts the session key and sends the corresponding id back to $X$. Subsequently, both parties can use the session key referenced by the id for encryption.
+An eavesdropper $Z$, monitoring all puzzles, cannot directly determine which of them is containing the returned id and therefore does not know the session key the 
 two parties agreed on - the only possibility for $Z$ is to attack \textbf{all} puzzles, squaring the effort spent by $X$ and $Y$.
 \\
 If, for example, one puzzle can be broken by $2^{32}$ computations, and $2^{32}$ different puzzles are used, $X$ must prepare, save and send $2^{32}$ puzzles
@@ -620,7 +620,7 @@ as shown in \cite{Barak09merklepuzzles}.
 To further increase the effort an attacker has to spend a different approach has to be found. It turns out that hard mathematical problems exist that are 
 suitable for such a purpose. 
 \\
-Therefor, in the next sections three important public key algorithms are introduced: \gls{dh} key exchange, based on prime fields, \gls{ecc}, and RSA.
+Therefore, in the next sections three important public key algorithms are introduced: \gls{dh} key exchange, based on prime fields, \gls{ecc}, and RSA.
 \subsection{\gls{dh} Key-Exchange}
 
 Whitfield Diffie and Martin Hellman proposed a way to solve the problem for key-exchange based on finite fields
@@ -630,13 +630,13 @@ is based on the hardness of the \gls{dlp}, as shown in \ref{refDLP}.
 \\
 \\
 With the original \gls{dh} algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
-then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, g\}$, where $p$ is a 
+then can be used parametrize a block or stream cipher. The first step for both entities is to agree on the set of parameters $\{p, g\}$, where $p$ is a 
 large prime and $g$ is a generator of the cyclic group ${Z_p}^*$. These parameters are not secret and
 can thus be sent over an unsecured channel.
 Additionally, each entity randomly chooses an integer $x$ from the interval $(1, q-2]$, and calculates the value $y = g^x \pmod p$. $x$ is the private key,
 $y$, which is computationally easy to calculate, is the public key. $A$ sends its public key $y_A \equiv g^{x_A} \pmod p$ to $B$, and $B$ its public key
 $y_B \equiv g^{x_B} \pmod p$ to $A$. Due to the characteristics of exponentiation, $A$ and $B$ can now easily derive the shared secret by using its counterpart's
-public key and raising it to the power of it's own private key in the domain of ${Z_p}^*$:
+public key and raising it to the power of its own private key in the domain of ${Z_p}^*$:
 
 \begin{center}
  $k_B \equiv {y_A}^{x_B} \equiv (g^{x_A})^{x_B} \equiv g^{x_A*x_B} \pmod p $\\
@@ -664,11 +664,11 @@ To build a public key system, two users $A$ and $B$ initially agree on a set of 
  \item the order of $P$, denoted $n$
 \end{itemize}
 After agreeing on this set, $A$ selects a randomly chosen integer $k_A$, calculates $P_A = k_A*P$ and sends
-this point to $B$, who in turn randomly chooses $k_B$ and sends $P_B = k_B*P$ to $A$. Subsequently, booth can calculate the point $k_A*k_B*P$, which can be used
+this point to $B$, who in turn randomly chooses $k_B$ and sends $P_B = k_B*P$ to $A$. Subsequently, both can calculate the point $k_A*k_B*P$, which can be used
 to derive a key.
 
 \subsection{Multi-party key negotiation}
-\gls{dh} and therefor also the \gls{ecdlp} can be generalized to $n$ parties, obtaining one key in common. The key negotiation procedure for 3 parties, using
+\gls{dh} and therefore also the \gls{ecdlp} can be generalized to $n$ parties, obtaining one key in common. The key negotiation procedure for 3 parties, using
 classical \gls{dh}, is
 shown in figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all 3 parties $A$, $B$ and $C$ already agreed upon $(p,g)$.
 \begin{figure}
@@ -727,14 +727,14 @@ shown in figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all 3
   \caption{\gls{dh} Round 2}
     \label{fig:dh2}
 \end{figure}
-After finishing the second communication round, every party raises the last received value to it's own private key and thus derives the shared secret.
+After finishing the second communication round, every party raises the last received value to its own private key and thus derives the shared secret.
 \begin{align}
  ((g^b)^c)^a = ((g^c)^a)^b = ((g^a)^b)^c = g^{a*b*c}
 \end{align}
 This algorithm can be generalized to $n$ parties, using $(n-1)$ communication rounds. Obviously, this algorithm may not be practicable for a large $n$. Additionally,
 a complete new run must be executed whenever a new node joins.
 \\
-Additionally, this key agreement mechanism (as well as all others presented so far) uses not authentication and is therefor vulnerable to active attacks.
+Additionally, this key agreement mechanism (as well as all others presented so far) uses not authentication and is therefore vulnerable to active attacks.
 
 \subsection{RSA}
 
@@ -796,7 +796,7 @@ cryptographically secure hash functions, so the same requirements as listed in \
 \\
 \\
 Nevertheless, due to the use of asymmetric keys, an important semantic difference between \glspl{mac2} and digital signatures emerges: for a \gls{mac2} 
-a key is shared by at least 2 entities. A digital signature, in contrast, is generated by utilizing the private key of an entity. Therefor,
+a key is shared by at least 2 entities. A digital signature, in contrast, is generated by utilizing the private key of an entity. Therefore,
 digital signatures can also provide non-repudiation.
 This property allows to convince an unbiased "judge" that a message, signed by the sender, was indeed sent by this sender, i.e. the message was not
 forged by a third party. This is an important difference to \glspl{mac2}, where such a behavior is not possible.
@@ -845,7 +845,7 @@ TODO: BIRTHDAY PARADOXON
 % A system is an entity that interacts with other entities, which constitute the environment for the system and
 % can be other systems, humans or the physical world \cite{1335465}. Fundamental properties of communication systems
 % are \textit{functionality, performance, security and dependability}. The system provides services to the user(s) 
-% of the system through it's service interface, described by the functional specification. Whenever the provided service
+% of the system through its service interface, described by the functional specification. Whenever the provided service
 % deviates from correct service a system failure occurs. 
 % An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
 % dependability consists of the following attributes:

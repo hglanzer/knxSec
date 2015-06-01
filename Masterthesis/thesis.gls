@@ -23,7 +23,7 @@
 		\setentrycounter[]{page}\glsnumberformat{51}}}%
 \glossaryentryfield{bps}{\glsnamefont{bps}}{bits per second}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{51}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{74}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{75}}}\glsgroupskip
 \glsgroupheading{C}\relax \glsresetentrylist %
 \glossaryentryfield{ca1}{\glsnamefont{CA}}{Certification Authority}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{59}}}%
@@ -87,7 +87,8 @@
 		\setentrycounter[]{page}\glsnumberformat{35}}}%
 \glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{67}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{71\delimR 73}}}%
+		\setentrycounter[]{page}\glsnumberformat{72}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{74}}}%
 \glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{12}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{32}\delimN 
@@ -111,9 +112,9 @@
 \glsgroupheading{G}\relax \glsresetentrylist %
 \glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{54\delimN 55}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{62\delimR 64}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{62\delimR 65}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{67\delimN 68}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{73\delimN 74}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{74\delimN 75}}}\glsgroupskip
 \glsgroupheading{H}\relax \glsresetentrylist %
 \glossaryentryfield{ha}{\glsnamefont{HA}}{High Availability}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{38}\delimN 
@@ -136,8 +137,9 @@
 		\setentrycounter[]{page}\glsnumberformat{52}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{54\delimN 55}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{62\delimR 64}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{67\delimN 68}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{73\delimR 75}}}%
+		\setentrycounter[]{page}\glsnumberformat{68}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{73}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{75}}}%
 \glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{43}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{45}}}%
@@ -161,9 +163,8 @@
 \glsgroupheading{K}\relax \glsresetentrylist %
 \glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{49\delimR 52}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{55\delimR 65}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{67\delimR 69}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{73\delimN 74}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{55\delimR 69}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{73\delimR 75}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{77}}}\glsgroupskip
 \glsgroupheading{L}\relax \glsresetentrylist %
 \glossaryentryfield{lan}{\glsnamefont{LAN}}{Local Area Network}{\relax }{\glossaryentrynumbers{\relax 
@@ -187,8 +188,9 @@
 		\setentrycounter[]{page}\glsnumberformat{34}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{58}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{66}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{69}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{71\delimR 74}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{70}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{72}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{74\delimN 75}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{77}}}%
 \glossaryentryfield{mac}{\glsnamefont{MAC}}{Medium Access}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{44}\delimN 
@@ -230,7 +232,7 @@
 		\setentrycounter[]{page}\glsnumberformat{46\delimN 47}}}%
 \glossaryentryfield{psk}{\glsnamefont{PSK}}{Pre Shared Key}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{59}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{71}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{72}}}\glsgroupskip
 \glsgroupheading{R}\relax \glsresetentrylist %
 \glossaryentryfield{raid}{\glsnamefont{RAID}}{Redundant Arry of Independent Disks}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{41}}}%

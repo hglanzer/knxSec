@@ -128,7 +128,7 @@
 \glossaryentry{ECC?\glossaryentryfield{ecc}{\glsnamefont{ECC}}{Elliptic Curve Cryptography}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
-\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{31}
+\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{32}
@@ -407,8 +407,9 @@
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
 \glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{64}
+\glossaryentry{GA?\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{65}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{65}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{65}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{66}
 \glossaryentry{ECDH?\glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
@@ -422,8 +423,8 @@
 \glossaryentry{GA?\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
 \glossaryentry{GA?\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
 \glossaryentry{GA?\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
-\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
-\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{68}
+\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{68}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{68}
 \glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{68}
 \glossaryentry{GA?\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{68}
@@ -437,34 +438,35 @@
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{69}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{69}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{69}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{69}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{71}
-\glossaryentry{ECDH?\glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{71}
-\glossaryentry{PSK?\glossaryentryfield{psk}{\glsnamefont{PSK}}{Pre Shared Key}{\relax }|setentrycounter[]{page}\glsnumberformat}{71}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{71}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{70}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{70}
+\glossaryentry{ECDH?\glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
+\glossaryentry{PSK?\glossaryentryfield{psk}{\glsnamefont{PSK}}{Pre Shared Key}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
 \glossaryentry{ECDH?\glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{72}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{73}
 \glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{73}
-\glossaryentry{GA?\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{73}
-\glossaryentry{ECDH?\glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{73}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{73}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{73}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{73}
-\glossaryentry{bps?\glossaryentryfield{bps}{\glsnamefont{bps}}{bits per second}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
 \glossaryentry{GA?\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{GA?\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{ECDH?\glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
-\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{74}
+\glossaryentry{bps?\glossaryentryfield{bps}{\glsnamefont{bps}}{bits per second}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{GA?\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{GA?\glossaryentryfield{ga}{\glsnamefont{GA}}{Group Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
 \glossaryentry{IA?\glossaryentryfield{ia}{\glsnamefont{IA}}{Individual Address}{\relax }|setentrycounter[]{page}\glsnumberformat}{75}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{77}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{77}

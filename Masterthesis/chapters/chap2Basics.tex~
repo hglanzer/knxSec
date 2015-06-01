@@ -147,7 +147,7 @@ frame \cite{handbook1}, where this time frame is a function of the useful timesp
 cipher that an adversary must be forced to spend super-polynomial time to be able to break it. It follows that \textit{all} semantically secure ciphers
 can be broken in principle by mounting the "brute-focrce" attack, searching the correct $n$-bit key in the exponential big key space $2^n$. Thus, such an
 exhaustive search must be rendered impracticable by using a suitable large key space to obtain a secure cipher.
-Semantic security is therefor a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
+Semantic security is therefore a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
 processing powers \cite{GoldwasserMicali}.
 \\
 \\
@@ -226,7 +226,7 @@ to various statistical tests, see chapter \ref{FIXME} for the results.
 \end{figure}
 
 \subsection{The discrete logarithm problem}\label{refDLP}
-The \gls{dlp}, a mathematical problem, is the basis of two important key exchange algorithms, booth introduced in section \ref{pkc}: the first one, \gls{dh} utilizes finite fields, whose
+The \gls{dlp}, a mathematical problem, is the basis of two important key exchange algorithms, both introduced in section \ref{pkc}: the first one, \gls{dh} utilizes finite fields, whose
 theoretical background is introduced below. \glspl{ec}, basis for the second algorithm, are also explained.
 
 \subsubsection{Finite Fields \gls{dlp}}

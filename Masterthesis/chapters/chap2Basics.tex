@@ -43,13 +43,13 @@ usable by legitimate users. Finally, masquerade attacks turn on the integrity of
 \\
 \\
 The basic tool to achieve confidentiality and integrity is cryptography, which is introduced in the following sections after 
-presenting it's prerequisites. Improved availability, with established 
+presenting its prerequisites. Improved availability, with established 
 information security measurements as necessary, but not sufficient prerequisites, is gained through replication, presented afterwards.
 Finally, the special requirements that must be met for \gls{hbas} will be researched in this chapter.
 
 \subsection{Cryptography}
 Cryptography\footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
-is the science of encrypting information - it's evolution was no linear process. Ciphers were used independently in different
+is the science of encrypting information - its evolution was no linear process. Ciphers were used independently in different
 places, were forgotten and disappeared when the corresponding civilization died.
 A short time table for prominent events is presented below; for a comprehensive outline of cryptographic history, "The Codebreakers", written by David Kahn,
 is suggested \cite{codebreakers}.
@@ -123,7 +123,7 @@ Combining this properties yields a cipher or \textit{encryption scheme} defined 
 \subsection{Security of a cipher}
 
 A formal definition of a secure cipher was introduced by Shannon in 1949 \cite{6769090}, viewed from a communication-theory point of view, as follows:
-given a finite message space, every possible cleartext message has it's own \textit{a priori} probability (for example, the distribution of letters in a 
+given a finite message space, every possible cleartext message has its own \textit{a priori} probability (for example, the distribution of letters in a 
 specific language). Additionally, every key can be chosen with specific probability. It is assumed that these
 two probabilities constitute the a priori knowledge of an attacker.
 \\
@@ -147,7 +147,7 @@ frame \cite{handbook1}, where this time frame is a function of the useful timesp
 cipher that an adversary must be forced to spend super-polynomial time to be able to break it. It follows that \textit{all} semantically secure ciphers
 can be broken in principle by mounting the "brute-focrce" attack, searching the correct $n$-bit key in the exponential big key space $2^n$. Thus, such an
 exhaustive search must be rendered impracticable by using a suitable large key space to obtain a secure cipher.
-Semantic security is therefor a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
+Semantic security is therefore a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
 processing powers \cite{GoldwasserMicali}.
 \\
 \\
@@ -226,7 +226,7 @@ to various statistical tests, see chapter \ref{FIXME} for the results.
 \end{figure}
 
 \subsection{The discrete logarithm problem}\label{refDLP}
-The \gls{dlp}, a mathematical problem, is the basis of two important key exchange algorithms, booth introduced in section \ref{pkc}: the first one, \gls{dh} utilizes finite fields, whose
+The \gls{dlp}, a mathematical problem, is the basis of two important key exchange algorithms, both introduced in section \ref{pkc}: the first one, \gls{dh} utilizes finite fields, whose
 theoretical background is introduced below. \glspl{ec}, basis for the second algorithm, are also explained.
 
 \subsubsection{Finite Fields \gls{dlp}}
@@ -273,7 +273,7 @@ To find
 the discrete logarithm, several algorithms exist. The most naive method conducts an exhaustive search, so for a prime of $n$ bits length, $2^n$ search operations
 are necessary. More efficient algorithms exist, with the best methods finishing after about $2^{\frac{n}{2}}$ steps \cite{5199978}. 
 Therefore, by choosing a sufficient large prime, finding the discrete logarithm is considered a hard problem, a fact
-that is exploited by the \gls{dh} key exchange algorithm and it's variants.
+that is exploited by the \gls{dh} key exchange algorithm and its variants.
 
 \subsubsection{Elliptic curve \gls{dlp}}
 An \gls{ec} is basically the set of all points

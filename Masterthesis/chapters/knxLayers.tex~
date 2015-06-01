@@ -12,7 +12,7 @@ layers 5 and 6, as shown in figure \ref{fig:knxlayers}. Data from applications a
 \begin{figure}
     \centering
    % \includegraphics[width=0.7\textwidth]{figures/KNXvsISO.eps}
-     \includegraphics[width=0.5\textwidth]{figures/isoOSI.eps}
+     \includegraphics[width=0.7\textwidth]{figures/isoOSI.eps}
 
     \caption{OSI Layer Model, compared to the KNX Modell}
     \label{fig:knxlayers}
@@ -140,7 +140,7 @@ used to address up to 15 poll slaves, all belonging to the same poll group. The 
 exptected bytes and the check octet follow.
 \\
 Poll requests are answered by poll slaves by transmitting the databytes in the corresponding poll slave slot.
-This is achieved by defining exact timings when each poll data slave must send the requested data. Therefor, such frames can only be used within
+This is achieved by defining exact timings when each poll data slave must send the requested data. Therefore, such frames can only be used within
 one physical segment \cite{knxTP1}.
 
 \subsubsection{Acknowledge Frame}

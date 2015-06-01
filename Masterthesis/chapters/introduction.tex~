@@ -6,7 +6,7 @@ To reduce costs it would be natural to bring together these services under the c
 standardization efforts.
 \\
 In contrast to traditional \gls{hvac} tasks, where security concerns were neglected, integration of these additional services calls for application of measurements
-to prevent misuse of them.
+to prevent misuse. These countermeasures are concluded under the name 
 
 
 \section{Problem Statement}
