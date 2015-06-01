@@ -3,7 +3,7 @@
 \subsection{KNX addressing scheme}
 
 Care must be taken that no duplicate \gls{knx} addresses are used within the network. Therefore, the following addressing convention is proposed:
-While it would be possible to use the same addresses on booth lines per gateway, a different scheme is used.
+While it would be possible to use the same addresses on both lines per gateway, a different scheme is used.
 For the secured network, the address ranges starting at address 1.1.1 to address 1.1.15 and 1.2.1 to 1.2.15 are reserved for secure line number
 1 and 2 respectively, which allows a maximum of 15 gateways. Different addresses are used mainly because it facilitates debugging. 
 On the unsecured lines, every gateway uses an address from the range 1.0.1 - 1.0.15. Addresses are assigned in a linearly ascending way, so gateway number 1

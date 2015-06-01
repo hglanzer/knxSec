@@ -1,3 +1,4 @@
+\label{chap4}
 \section{Basic Assumptions}
 
 The aim of this work is to propose a \gls{knx} prototype, applicable for environments with increased availability demands.
@@ -511,7 +512,7 @@ Values 0x09 - 0xFF are not used - frames containing such values should be discar
 The global counter $Ctr_{global}$, obtained by the synchronization service and used in the discovery messages,
 is a 4 byte integer, allowing $2^{32} \approx 4,3$ billion discovery request or response messages to be sent before overflowing.
 This amount is assumed sufficiently high, argued as follows:
-each discovery messages consists of a frame containing 53 bytes, sent with 9600 \gls{bps}, resulting in about 44 milliseconds transfer duration. Therefor,
+each discovery messages consists of a frame containing 53 bytes, sent with 9600 \gls{bps}, resulting in about 44 milliseconds transfer duration. Therefore,
 the absolute lower bound of the duration after that $Ctr_{global}$ overflows, assumed the \gls{knx} network is occupied by discovery messages only,
 is about 2 years, a very conservative estimate.
 

@@ -15,7 +15,7 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated field_info (elt_size=4) to 13024 items from 5000.
+Reallocated field_info (elt_size=4) to 13296 items from 5000.
 Database file #1: thesis-blx.bib
 Database file #2: references.bib
 Warning--string name "july" is undefined
@@ -27,45 +27,45 @@ Warning--string name "april" is undefined
 Biblatex version: 1.7
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-You've used 72 entries,
+You've used 73 entries,
             6019 wiz_defined-function locations,
-            1578 strings with 21650 characters,
-and the built_in function-call counts, 219604 in all, are:
-= -- 8940
-> -- 7609
-< -- 1947
-+ -- 2476
-- -- 2581
-* -- 15464
-:= -- 12906
+            1583 strings with 21973 characters,
+and the built_in function-call counts, 222100 in all, are:
+= -- 9037
+> -- 7691
+< -- 1963
++ -- 2494
+- -- 2604
+* -- 15605
+:= -- 13059
 add.period$ -- 0
-call.type$ -- 72
-change.case$ -- 1109
+call.type$ -- 73
+change.case$ -- 1116
 chr.to.int$ -- 109
-cite$ -- 142
-duplicate$ -- 24905
-empty$ -- 23324
-format.name$ -- 4718
-if$ -- 50029
+cite$ -- 144
+duplicate$ -- 25193
+empty$ -- 23616
+format.name$ -- 4769
+if$ -- 50608
 int.to.chr$ -- 0
-int.to.str$ -- 215
+int.to.str$ -- 219
 missing$ -- 0
-newline$ -- 1869
-num.names$ -- 3451
-pop$ -- 22511
+newline$ -- 1885
+num.names$ -- 3495
+pop$ -- 22824
 preamble$ -- 1
-purify$ -- 1382
+purify$ -- 1391
 quote$ -- 0
-skip$ -- 13237
+skip$ -- 13391
 stack$ -- 0
-substring$ -- 5082
-swap$ -- 8228
-text.length$ -- 1514
+substring$ -- 5117
+swap$ -- 8311
+text.length$ -- 1531
 text.prefix$ -- 4
 top$ -- 1
-type$ -- 2698
+type$ -- 2736
 warning$ -- 0
-while$ -- 1284
+while$ -- 1302
 width$ -- 0
-write$ -- 1796
+write$ -- 1811
 (There were 3 warnings)

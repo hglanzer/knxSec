@@ -47,7 +47,7 @@ whole year.
 \\
 \\
 Availability is important simply because unavailable systems cause costs. Because of the relation of availability to reliability and the maintainability
-of the system, as shown in equation \ref{EQUavailability} and figure \ref{fig:relmttfmttr}, two options to improve availability exist: either increasing
+of the system, as shown in Equation \ref{EQUavailability} and Figure \ref{fig:relmttfmttr}, two options to improve availability exist: either increasing
 the \gls{mttf} (i.e. increasing reliability) or decreasing \gls{mttr}.
 %An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
 %dependability consists of the following attributes:
@@ -81,7 +81,7 @@ serial and parallel systems.
     \label{fig:serSys}
 \end{figure}
 For example, if all $i$ components, ranging from $1$ to $N$, are necessary to work correctly for the overall system to deliver correct service, this can be modeled as
-a series system, see figure \ref{fig:serSys}. This does not mean that the components are necessarily connected in a serial way, it just stresses that failure
+a series system, see Figure \ref{fig:serSys}. This does not mean that the components are necessarily connected in a serial way, it just stresses that failure
 of one single components breaks the whole system. System's reliability then equals the product of all component's reliabilities:
 \begin{align}
 R_{system}(t) = \prod_{i=1}^{N} R_{i}(t) 
@@ -99,7 +99,7 @@ a parallel system \ref{fig:parallelSys}. Here, the overall reliability can be ca
  R(t)_{system} = 1 - \prod_{i=1}^{N} 1- R_{i}(t) = 1 - \prod_{i=1}^{N} Q_{i}(t)
 \end{align}
 Mixed systems, containing paralell and series system, can be calculated by iteratively condensing serial- or parallel subsystems into single components,
-as shown in figure \ref{fig:mixedSys}.
+as shown in Figure \ref{fig:mixedSys}.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/mixedSys.eps}
@@ -190,7 +190,7 @@ from the second drive. This method does obviously not work if both drives seem o
 To handle this situation, higher redundancy levels are needed, as implemented for example in \gls{tmr}. 
 
 \subsubsection{\gls{tmr}}
-A \gls{tmr} system, see figure \ref{fig:tmr}, is composed out of 3 modules or \textit{black boxes}, all performing the same task,	
+A \gls{tmr} system, see Figure \ref{fig:tmr}, is composed out of 3 modules or \textit{black boxes}, all performing the same task,	
 and one \textit{majoriy organ} $V$, as proposed by Von Neumann \cite{vN56}. The latter element
 is also called \textit{voter} because out of its 3 inputs, it chooses the 'correct' output based on majority voting. As long as at least 2 black boxes do not
 fail, the system can provide correct service. If it is assumed that the voting element has perfect reliability = 1 and all black boxes $M$ are independent from
@@ -225,7 +225,7 @@ tolerable, longer outages will force emergency stops or even cause damage.
 
 \subsection{Network redundancy}
 
-Communication networks can be modeled as graphs. A graph, as shown in figure \ref{fig:graph}, is an ordered pair $G=(V,E)$, with $V$ being the set of vertices and $E$
+Communication networks can be modeled as graphs. A graph, as shown in Figure \ref{fig:graph}, is an ordered pair $G=(V,E)$, with $V$ being the set of vertices and $E$
 the set of edges, connecting the vertices. For a weighted graph, every edge is associated to a \textit{cost}. 
 \\
 A \textit{closed walk} or \textit{cycle} exists if a path from one vertex to itself exists, resulting in multiple paths from one node to others.
@@ -260,10 +260,9 @@ more.
  \caption{Protecting ethernet segments from loops with \gls{stp}}
 \label{fig:stp1}
 \end{figure}
-This situation is shown in 
-figure \ref{fig:stp1}: on the left side, the physical connections are shown, containing loops. 
+This situation is shown in Figure \ref{fig:stp1}: on the left side, the physical connections are shown, containing loops. 
 \gls{stp} removes
-the loops by setting certain interfaces to blocking mode, connected by dotted lines, as shown on the right side of figure \ref{fig:stp1}.
+the loops by setting certain interfaces to blocking mode, connected by dotted lines, as shown on the right side of Figure \ref{fig:stp1}.
 \\
 The algorithm works as follows:
 
@@ -322,7 +321,7 @@ unchanged, so the latest versions are described below.
 \gls{prp} can tolerate a link fault without package loss by utilizing two redundant and independent \glspl{lan}.
 Nodes needing high availability, called \gls{danp}, are connected to both networks by two interfaces, sharing the same \gls{mac} and \gls{ip} addresses.
 Additionally, standard ethernet devices called \gls{san} can be connected to only one network, enabling communication with devices on the same \gls{lan} only.
-An example of such a network is shown in figure \ref{fig:prp}.
+An example of such a network is shown in Figure \ref{fig:prp}.
 \\
 To support redundant connections for \glspl{danp}, a sub-layer on \gls{osi}-layer 2 (i.e. the link layer), called \gls{lre} is defined. 
 Upper level data arriving at the \gls{lre} of a \gls{danp} is duplicated and equipped with 6 bytes of control information, containing a 2 byte sequence number,

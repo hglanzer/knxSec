@@ -5,7 +5,7 @@ emerged from 3 leading standards namely the \gls{eib}, the \gls{ehs} and BatiBUS
 developed by the KNX association implementing the EN50090 standard for home and building electronic systems.
 \\
 To provide platform independence, the standard uses a layered structure, based on the \gls{iso} / \gls{osi}. Different kinds of physical backends are supported,
-allowing it's use in different environments.
+allowing its use in different environments.
 \\
 \gls{eib} already supported interoperability between products from different manufacturers. This was achieved by
 the definition of the \gls{eis}, which standardizes

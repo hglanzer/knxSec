@@ -8,7 +8,7 @@ compromising the function of the system, as long as the defined interfaces are i
 less-complex problems.
 \\
 KNX implements this model, omitting 
-layers 5 and 6, as shown in figure \ref{fig:knxlayers}. Data from applications are directly passed to the transport layer in a transparent way, and vice versa.
+layers 5 and 6, as shown in Figure \ref{fig:knxlayers}. Data from applications are directly passed to the transport layer in a transparent way, and vice versa.
 \begin{figure}
     \centering
    % \includegraphics[width=0.7\textwidth]{figures/KNXvsISO.eps}
@@ -83,7 +83,7 @@ Three frame formats are defined: L\_Data frames are used for sending a data payl
 the bus. L\_Poll\_Data frames are used to request data from an individual knx device or a group of devices. Acknowledgement frames are used to provide a reliable
 transport mechanism, i.e. to acknowledge the reception of a frame by a knx device. 
 \\
-For L\_Data\_Frame, 2 different formats are defined: standard frames, as shown in figure \ref{fig:stdframe} and extended frames, see figure \ref{fig:extframe}.
+For L\_Data\_Frame, 2 different formats are defined: standard frames, as shown in Figure \ref{fig:stdframe} and extended frames, see Figure \ref{fig:extframe}.
 While standard frames can bear up to
 15 bytes of application data, extended frames allow the transmission of up to 254 bytes of data.
 
@@ -113,7 +113,7 @@ frame is defined as an odd parity over all preceding bytes, which represents a l
 
 \subsubsection{Extended L\_Data\_Frame}
 
-The extended frame starts with a control field, as a standard frame. After that, a special \gls{ctrle} follows, as shown in figure \ref{fig:ctrle}.
+The extended frame starts with a control field, as a standard frame. After that, a special \gls{ctrle} follows, as shown in Figure \ref{fig:ctrle}.
 Source- and destination addresses, each 2 bytes, follow. To allow the bigger payload, the next byte is used as length field, with the value 0xFF reserved
 as escape code, resulting in a maximum payload of 254 byte. After the length field, the payload and the check byte, as defined above, follow.
 

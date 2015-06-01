@@ -16,6 +16,23 @@
   {}
 \endgroup
 
+\entry{knxapps}{unpublished}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Association}{A.}%
+     {KNX}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AK1}
+  \strng{fullhash}{AK1}
+  \field{title}{KNX Applications}
+  \verb{url}
+  \verb http://www.knx.org/fileadmin/downloads/08%20-%20KNX%20Flyers/KNX%20Solu
+  \verb tions/KNX_Solutions_English.pdf
+  \endverb
+\endentry
+
 \entry{stallings}{inbook}{}
   \name{author}{1}{}{%
     {{}%
@@ -723,6 +740,25 @@
   \field{journaltitle}{ACM Trans. Inf. Syst. Secur.}
   \field{month}{05}
   \field{year}{2004}
+\endentry
+
+\entry{eurocryptVaudenay02}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Vaudenay}{V.}%
+     {Serge}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{VS2}
+  \strng{fullhash}{VS2}
+  \field{booktitle}{Advances in Cryptology - {EUROCRYPT} 2002, International
+  Conference on the Theory and Applications of Cryptographic Techniques,
+  Amsterdam, The Netherlands, April 28 - May 2, 2002, Proceedings}
+  \field{pages}{534\bibrangedash 546}
+  \field{title}{Security Flaws Induced by {CBC} Padding - Applications to SSL,
+  IPSEC, {WTLS} ...}
+  \field{year}{2002}
 \endentry
 
 \entry{wStanley}{book}{}
@@ -1684,23 +1720,6 @@
   }
   \field{year}{2009}
   \warn{\item Can't use 'location' + 'address'}
-\endentry
-
-\entry{knxapps}{unpublished}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Association}{A.}%
-     {KNX}{K.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{AK1}
-  \strng{fullhash}{AK1}
-  \field{title}{KNX Applications}
-  \verb{url}
-  \verb http://www.knx.org/fileadmin/downloads/08%20-%20KNX%20Flyers/KNX%20Solu
-  \verb tions/KNX_Solutions_English.pdf
-  \endverb
 \endentry
 
 \entry{rfc2246}{report}{}
