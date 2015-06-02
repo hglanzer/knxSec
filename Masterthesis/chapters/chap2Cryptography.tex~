@@ -270,7 +270,7 @@ Figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefore, this mode should never
 This mode uses an \gls{iv} and can therefore be used for encryption of same messages without changing the key. Additionally, \gls{cbc} can also be used
 for \gls{mac2} generation, as shown in section \ref{Integrity}.
 \\
-Encrypting a message is shown in figure \ref{fig:cbc_encrypt}.
+Encrypting a message is shown in Figure \ref{fig:cbc_encrypt}.
 \begin{center}
 $ C_0 = E(k, (M_0 \bigoplus IV ) )  $
 \\
@@ -392,10 +392,10 @@ providing integrity and authenticity.
 \\
 The basic way to protect a data unit - be it a message traveling from sender to recipient or a file saved for later usage - from modification by a third party is to
 generate a tag $t$, also called \gls{mac2}, and concatenating this tag to the message, as shown in Figure \ref{fig:tag}.
-Verifying the integrity is done by re-generating the tag and comparing it to the saved on. 
+Verifying the integrity is done by re-generating the tag and comparing it to the saved one. 
 \\
 \\
-In contrast to confidentiality modes, which should always be combined with a method to guarantee integrity (FIXME: begruendung..?), 
+In contrast to confidentiality modes, which should always be combined with a method to guarantee integrity, 
 integrity-only modes do have a right to exist. For example, archives containing source code for open source project, available from the internet, must not be
 encrypted but should be secured against modification. For example, the UNIX based operating system "FreeBSD" uses asymmetric keys to protect its package
 management system from adversary modification.
@@ -518,7 +518,7 @@ Bit 6 of the length field is set to 1 if additional authenticated data are sent,
 
 \subsubsection{Generating the \gls{mac2}}
 
-As shown in chapter \ref{authenticity} in Figure\ref{fig:cbc_MAC}, the first message block $M_0$ is \gls{xor}'d with a nonce or \gls{iv} (see Figure
+As shown in Figure\ ref{fig:cbc_MAC}, the first message block $M_0$ is \gls{xor}'d with a nonce or \gls{iv} (see Figure
 \ref{fig:ccrMacIV}), which must be unique per key to avoid deterministic encryption.
 The result of the \gls{xor} operation is then feed to the block-cipher to get the first cipherblock $C_0$. The encrypted data $C_0$ gets \gls{xor}'d with the next message block $M_1$, and this
 result becomes the input for the block cipher, and so on, iterating over all $n$ message blocks to determine the tag $t$:
