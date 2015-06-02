@@ -22,18 +22,16 @@ then
 
 		cd src
 
-		echo "clr"	
-		eibd -t2 -e 1.0.$1 tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR  &
+		echo "starting EIBD for SEC0"
+		eibd -t2 -e 1.0.$1 tpuarts:/dev/knxSEC1 --listen-local=/tmp/knxSEC1 &
 		sleep 1
-		echo "sec1"
-		eibd -t2 -e 1.1.$1 tpuarts:/dev/knxSEC1 --listen-local=/tmp/knxSEC1 &
+		echo "starting EIBD for SEC1"
+		eibd -t2 -e 1.1.$1 tpuarts:/dev/knxSEC2 --listen-local=/tmp/knxSEC2 &
+		echo "starting EIBD for CLR"	
+		eibd -t2 -e 1.2.$1 tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR  &
 		sleep 1
-		echo "sec2"
-		eibd -t2 -e 1.2.$1 tpuarts:/dev/knxSEC2 --listen-local=/tmp/knxSEC2 &
 
 		echo "starting master daemon"
-		sleep 1
-
 		./master --clrSocket local:/tmp/knxCLR --sec1Socket local:/tmp/knxSEC1 --sec2Socket local:/tmp/knxSEC2 --addr $1
 	else
 		echo "usage: "

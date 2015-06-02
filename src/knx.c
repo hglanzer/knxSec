@@ -35,7 +35,7 @@
 #define hopcountStd(frame)		((frame[5] >> 4)& 0x07)		// = NCPI
 #define tpciStd(frame)			(frame[6] >> 2)			// see 03_03_4_ Transport Layer...pdf
 
-int decodeFrame(uchar *frame)
+int decodeFrame(unsigned char *frame)
 {
 	if(isStdFrame(frame))
 	{
