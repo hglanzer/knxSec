@@ -1,6 +1,6 @@
 int initSec(void *);
-int secReceive(void *);
-int secSend(void *);
+int secRD(void *);
+int secWR(void *);
 void keyInit(void *);
 void prepareSyncReq(void *);
 void time2Str(unsigned char *buf);
@@ -14,6 +14,7 @@ void time2Str(unsigned char *buf);
 #define BUFSIZE		256
 #define PSKSIZE		32	// preshared key size
 #define GKSIZE		32	// global key size [byte]
+#define MACSIZE		4	// number of bytes actually used for appended MAC to save space
 
 #define SECLINES	2
 

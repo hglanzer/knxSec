@@ -7,7 +7,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
-#include "eibclient.h"
 #include<math.h>
 #include<time.h>
 #include<assert.h>
@@ -18,16 +17,20 @@
 #include<sys/select.h>
 #include<string.h>
 #include<errno.h>
-#include <openssl/rand.h>
-#include <openssl/ssl.h>
-#include <openssl/err.h>
+#include<openssl/rand.h>
+#include<openssl/ssl.h>
+#include<openssl/err.h>
+#include<sys/types.h>
+#include<sys/ipc.h>
+#include<sys/msg.h>
 
-#include "master.h"
-#include "clr.h"
-#include "sec.h"
-#include "thread.h"
-#include "knx.h"
-#include "cryptoHelper.h"
+#include"eibclient.h"
+#include"master.h"
+#include"clr.h"
+#include"sec.h"
+#include"thread.h"
+#include"knx.h"
+#include"cryptoHelper.h"
 
 // 	MAKROS
 #define AreaAddress(adr) ((uint8_t)(adr >> 4 ))
@@ -50,3 +53,13 @@
 
 // FIXME	
 //const char hn[] = "SHA256";
+	
+//	message queue stuff
+#define	MSGKEY_SEC2WR	123
+#define MSG_PERM	0666
+#define MSG_TYPE	1
+
+struct msgbuf_t {
+	long mtype;       /* message type, must be > 0 */
+	char buf[256];    /* message data */
+};

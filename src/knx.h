@@ -1,3 +1,4 @@
+int decodeFrame(unsigned char *);
 struct packetStruct
 {
 	uint8_t ctrl;

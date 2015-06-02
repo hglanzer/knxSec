@@ -35,9 +35,9 @@ void Usage(char **argv)
 {
 	printf("\n\n\nUsage: %s --clrSocket local:<socket> --sec1Socket local:<socket> --sec2Socket local:<socket> --addr <device addr>\n", argv[0]);
 	printf("\tDevice address must be in range [1,15]:\n");
-	printf("\t\tCLR  Line: 1.0.<device addr>\n");
-	printf("\t\tSEC0 Line: 1.1.<device addr>\n");
-	printf("\t\tSEC1 Line: 1.2.<device addr>\n\n");
+	printf("\t\tSEC0 Line: 1.0.<device addr>\n");
+	printf("\t\tSEC1 Line: 1.1.<device addr>\n");
+	printf("\t\tCLR  Line: 1.2.<device addr>\n\n");
 	exit(EXIT_FAILURE);
 }
 
