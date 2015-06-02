@@ -518,7 +518,7 @@ Bit 6 of the length field is set to 1 if additional authenticated data are sent,
 
 \subsubsection{Generating the \gls{mac2}}
 
-As shown in Figure\ ref{fig:cbc_MAC}, the first message block $M_0$ is \gls{xor}'d with a nonce or \gls{iv} (see Figure
+As shown in Figure \ref{fig:cbc_MAC}, the first message block $M_0$ is \gls{xor}'d with a nonce or \gls{iv} (see Figure
 \ref{fig:ccrMacIV}), which must be unique per key to avoid deterministic encryption.
 The result of the \gls{xor} operation is then feed to the block-cipher to get the first cipherblock $C_0$. The encrypted data $C_0$ gets \gls{xor}'d with the next message block $M_1$, and this
 result becomes the input for the block cipher, and so on, iterating over all $n$ message blocks to determine the tag $t$:
@@ -732,7 +732,7 @@ After finishing the second communication round, every party raises the last rece
 This algorithm can be generalized to $n$ parties, using $(n-1)$ communication rounds. Obviously, this algorithm may not be practicable for a large $n$. Additionally,
 a complete new run must be executed whenever a new node joins.
 \\
-Additionally, this key agreement mechanism (as well as all others presented so far) uses not authentication and is therefore vulnerable to active attacks.
+Additionally, this key agreement mechanism (as well as all others presented so far) uses no authentication and is therefore vulnerable to active attacks.
 
 \subsection{RSA}
 
