@@ -9,14 +9,17 @@
 main (int ac, char *ag[])
 {
 	uchar buf[255];
-	buf[0] = 0xFA;
-	buf[1] = 0xBC;
-	buf[2] = 0x3;
-	buf[3] = 0x4;
-	int len, i=0;
+	int size, i=0;
 	eibaddr_t myAddr = 22;
 	eibaddr_t dest = 11;
 	EIBConnection *con;
+
+	size = 10;
+	for(i=0; i<size;i++)
+	{
+		buf[i] = i+1;
+	}
+	buf[i] = '\0';
 
 	if (ac != 3)
 	{
@@ -31,6 +34,7 @@ main (int ac, char *ag[])
 	}
 
 	printf("URL opened\n\n");
+	sleep(2);
 
 	if(ag[2][0] == 'b')
 	{
@@ -42,8 +46,11 @@ main (int ac, char *ag[])
 		}
 
 		printf("broadcast connection opened\n\n");
+		sleep(2);
 
-		if (EIBSendAPDU(con, 2, buf) == -1)
+		dest = 0x00;
+		//if (EIBSendTPDU(con, dest, size, buf) == -1)
+		if (EIBSendAPDU(con, size, buf) == -1)
 		{
 			printf("EIBpenSendTPDU() failed\n\n");
         		return -1;
