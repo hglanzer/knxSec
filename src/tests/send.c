@@ -19,8 +19,8 @@ main (int ac, char *ag[])
 	*/
 
 	size = 5;
-	buf[0] = 0x0;		// set APCI, first 2 bit
-	buf[1] = 0xfd;		// set APCI, first 2 bit
+	buf[0] = 0x40;		// set APCI, first 2 bit
+	buf[1] = 0x40;		// set APCI, first 2 bit
 	for(i=2; i<size;i++)
 	{
 	//	buf[i] = i;
