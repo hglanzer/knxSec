@@ -11,14 +11,16 @@ void keyInit(void *);
 #define BUFSIZE		256
 #define PSKSIZE		32	// preshared key size
 #define GKSIZE		32	// global key size [byte]
+#define MACSIZE		4
+#define DIGESTSIZE	256
 
 #define SECLINES	2
 
-#define	INIT		0
-#define	SYNC		1
-#define JOIN		2
-#define CHOOSE_KEY	3
-#define READY		4
+#define	STATE_INIT		0
+#define	STATE_SYNC_REQ		1
+#define STATE_SYNC_WAIT_RESP	2
+#define STATE_RESET_CTR	3
+#define STATE_READY		4
 
 #define READEND		0
 #define WRITEEND	1
@@ -26,14 +28,10 @@ void keyInit(void *);
 /*
 		TYPES OF PACKAGES
 */
-#define		SYNC_REQ	0
-#define		SYNC_RES	1
-
-#define		JOIN_REQ	2
-#define		JOIN_RES	3
-
-#define		DISC_REQ	4
-#define		DISC_RES	5
+#define		syncReq		0x02
+#define		syncRes		0x03
+#define		discReq		0x04
+#define		discRes		0x05
 
 #define		DATA_SRV	6
 #define		RES1		7

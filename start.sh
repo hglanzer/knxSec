@@ -23,7 +23,6 @@ then
 
 		cd src
 
-<<<<<<< HEAD
 		echo "clr"	
 		eibd -t2 -e 1.0.$1 tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR $OPT  &
 		sleep 1

@@ -58,18 +58,44 @@ void preparePacket(void *env, uint8_t type)
 	switch(type)
 	{
 		case syncReq:
-			secBufferMAC[thisEnv->id][0] = 0x00;				// DEST = broadcast
-			secBufferMAC[thisEnv->id][1] = 0x00;				// DEST = broadcast
-			secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr FIXME
-			secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr FIXME
+			secBufferMAC[thisEnv->id][0] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
+			secBufferMAC[thisEnv->id][1] = thisEnv->addrInt;		// SRC  = my addr
+			secBufferMAC[thisEnv->id][2] = 0x00;				// DEST = broadcast
+			secBufferMAC[thisEnv->id][3] = 0x00;				// DEST = broadcast
 			secBufferMAC[thisEnv->id][4] = syncReq;				// SEC HEADER
 			secBufferMAC[thisEnv->id][5] = secBufferTime[thisEnv->id][0];	// TIME
 			secBufferMAC[thisEnv->id][6] = secBufferTime[thisEnv->id][1];	// ...
 			secBufferMAC[thisEnv->id][7] = secBufferTime[thisEnv->id][2];	// ...
 			secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][3];	// TIME 
-			secBufferMAC[thisEnv->id][9] = '\0';				// delimiter 
+//			secBufferMAC[thisEnv->id][9] = '\0';				// delimiter 
 
 			len = 9;		
+
+			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
+			assert(i == 0);
+			if(i != 0)
+			{
+				#ifdef DEBUG
+				printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
+				#endif
+				exit(-1);
+			}
+			#ifdef DEBUG
+				print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
+			#endif
+			// assemble sync request message
+			for(i = 0; i <= len - 5; i++)
+			{
+				MSGBUF_SEC2WR[thisEnv->id].buf[i] = secBufferMAC[thisEnv->id][i+4];
+				//printf("%02X ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
+			}
+			for(i = 0; i < MACSIZE; i++)
+			{
+				MSGBUF_SEC2WR[thisEnv->id].buf[i+(len-4)] = sigHMAC[thisEnv->id][i];
+				//printf("%02X ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
+			}
+		
+			MSGBUF_SEC2WR[thisEnv->id].buf[len-4+MACSIZE] = '\0';
 		break;
 		case syncRes:
 
@@ -82,27 +108,12 @@ void preparePacket(void *env, uint8_t type)
 	/*
 		... and generate HMAC
 	*/
-	i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
-	assert(i == 0);
-	if(i != 0)
-	{
-		#ifdef DEBUG
-			printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
-		#endif
-		exit(-1);
-	}
-	#ifdef DEBUG
-		print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
-	#endif
-		
-	// assemble sync request message
-	strcpy(MSGBUF_SEC2WR[thisEnv->id].buf, &secBufferMAC[thisEnv->id][4]);
+	/*
+	strcpy(MSGBUF_SEC2WR[thisEnv->id].buf, (const char *)&secBufferMAC[thisEnv->id][4]);
 	len = strlen(MSGBUF_SEC2WR[thisEnv->id].buf);
-	//printf("len = %d\n\n", len);
-	for(i = 0; i < MACSIZE; i++)
-		MSGBUF_SEC2WR[thisEnv->id].buf[len+i] = sigHMAC[thisEnv->id][i];
+	printf("len = %d\n\n", len);
+	*/
 	
-	MSGBUF_SEC2WR[thisEnv->id].buf[len+i+1] = '\0';
 }
 
 void printKey(uint8_t *key, uint8_t keysize)
