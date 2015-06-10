@@ -251,7 +251,7 @@ void keyInit(void *env)
 					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
 				#endif
 				// prepare MAC for sync request message	
-				prepareSyncReq(env, syncReq);
+				preparePacket(env, syncReq);
 				MSGBUF_SEC2WR[thisEnv->id].mtype = MSG_TYPE;
 				msgsnd(MSGID_SEC2WR, &MSGBUF_SEC2WR[thisEnv->id], sizeof(MSGBUF_SEC2WR[thisEnv->id]) - sizeof(long), 0);
 /*
