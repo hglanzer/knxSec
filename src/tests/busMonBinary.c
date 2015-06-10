@@ -43,7 +43,7 @@ int decodeFrame(uchar *frame)
 		printf("%d.%d.%d -> ", srcAreaAddress(frame), srcLineAddress(frame),srcDeviceAddress(frame));	
 		if(isIndivAddrStd(frame))	// std frame for indiv. address
 		{
-			printf("%d.%d.%d -> ", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
+			printf("%d.%d.%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
 		}
 		else			// std frame for group address
 		{
@@ -94,8 +94,8 @@ int main (int ac, char *ag[])
 	}
 	printf("URL opened\n\n");
 
-	if (EIBOpenBusmonitor(con) == -1)
-	//if (EIBOpenVBusmonitor(con) == -1)
+	//if (EIBOpenBusmonitor(con) == -1)
+	if (EIBOpenVBusmonitor(con) == -1)
 	{
 		printf("EIBOpenBusmonitor() failed\n\n");
 	       	return -1;
