@@ -196,8 +196,6 @@
 \glossaryentry{DSA?\glossaryentryfield{dsa}{\glsnamefont{DSA}}{Digital Signature Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
 \glossaryentry{NIST?\glossaryentryfield{nist}{\glsnamefont{NIST}}{National Institute of Standards and Technology}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
 \glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
-\glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
-\glossaryentry{MTTR?\glossaryentryfield{mttr}{\glsnamefont{MTTR}}{Mean Time To Repair}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
 \glossaryentry{SLA?\glossaryentryfield{sla}{\glsnamefont{SLA}}{Service Level Agreement}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
 \glossaryentry{SLA?\glossaryentryfield{sla}{\glsnamefont{SLA}}{Service Level Agreement}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
 \glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
