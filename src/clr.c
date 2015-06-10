@@ -30,9 +30,7 @@ int clrSend(void)
 
 int checkClrPkg(uint8_t *pkg, uint8_t len)
 {
-	uint8_t type = INVALID;
-
-	return type;
+	return 0;
 }
 
 int clrReceive(void)
@@ -45,7 +43,7 @@ int clrReceive(void)
 	{
 		// block SEC send call for syncronization
 		#ifdef DEBUG
-			debug("CLS _____locking", pthread_self());
+			printf("CLR : receive() locking\n");
 		#endif
 //		pthread_mutex_lock(&clr2SecMutexWr[0]);
 //		pthread_mutex_lock(&clr2SecMutexWr[1]);
@@ -99,41 +97,41 @@ int initClr(void *env)
 	pthread_t clrRecvThread, clrSendThread;
 
 	debug("THIS IS **CLR**", pthread_self());
-	clrFD = EIBSocketURL(arg->socket);
+	clrFD = EIBSocketURL(arg->socketPath);
 	
 	if (!clrFD)
 	{
-		printf("%s", arg->socket);
+		printf("%s", arg->socketPath);
 		debug("CLR: EIBSocketURL() failed", pthread_self());
 		return -1;
 	}
 	#ifdef DEBUG
-		printf("OK - clr socket opened\n");
+		printf("CLR : socket opened\n");
 	#endif
 	
 	if(EIBOpenBusmonitor(clrFD) == -1)
 	{
-		printf("cannot open KNX Connection\n");
+		printf("CLR : cannot open KNX Connection\n");
 		return -1;
 	}
 
 	#ifdef DEBUG
-		printf("OK - busmonitor started\n");
+		printf("CLR : busmonitor started\n");
 	#endif
 
 	if((pthread_create(&clrSendThread, NULL, (void *)clrSendThreadfPtr, NULL)) != 0)
 	{
-		printf("clr SEND Thread init failed, exit\n");
+		printf("CLR : SEND Thread init failed, exit\n");
 		return -1;
 	}
 	if((pthread_create(&clrRecvThread, NULL, (void *)clrRecvThreadfPtr, NULL)) != 0)
 	{
-		printf("clr RECEIVE Thread init failed, exit\n");
+		printf("CLR : RECEIVE Thread init failed, exit\n");
 		return -1;
 	}
 
 	#ifdef DEBUG
-		debug("CLS send/recv threads startet, waiting for kids", pthread_self());
+		printf("CLR : send/recv threads startet, waiting for kids\n");
 	#endif
 	pthread_join(clrRecvThread, NULL);
 	pthread_join(clrSendThread, NULL);

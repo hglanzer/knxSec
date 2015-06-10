@@ -5,7 +5,7 @@ Availability measures the delivery of correct service as a fraction of the time 
 %A system is an entity that interacts with other entities, which constitute the environment of the system and
 %can be other systems, humans or the physical world \cite{1335465}. Fundamental properties of communication systems
 %are \textit{functionality, performance, security and dependability}. 
-The services provided by the system through it's service interface to the user(s) 
+The services provided by the system through its service interface to the user(s) 
 is described by the functional specification. Whenever the provided service
 deviates from correct service a system failure, called \textit{outage} or \textit{downtime}\footnote{in contrast, \textit{uptime} does not guarantee correct
 service - for example, a server can be 'up' but unreachable} occurs. A failure is defined to be caused originally by a fault inside the system, which may be 
@@ -18,7 +18,7 @@ error can cause a failure if the system fails to provide the correct service:
  fault \rightarrow error \rightarrow failure
 \end{align*}
 Availability is measured subjectively from the system user's point of view.
-While an optimal system may have availability of 1, this value is only of theoretical value because random faults can not be ruled out. Therefor,
+While an optimal system may have availability of 1, this value is only of theoretical value because random faults can not be ruled out. Therefore,
 system failures are inevitable, and availability is often given in \textit{x-9s}\footnote{read 'one-nine', 'two-nines', ...} notation, denoting the 
 number of nines in the time fraction the system delivers correct service, as shown in table \ref{table:x-9}.
 The availability may be asserted by the provider of the system to the customer by an
@@ -47,7 +47,7 @@ whole year.
 \\
 \\
 Availability is important simply because unavailable systems cause costs. Because of the relation of availability to reliability and the maintainability
-of the system, as shown in equation \ref{EQUavailability} and figure \ref{fig:relmttfmttr}, two options to improve availability exist: either increasing
+of the system, as shown in Equation \ref{EQUavailability} and Figure \ref{fig:relmttfmttr}, two options to improve availability exist: either increasing
 the \gls{mttf} (i.e. increasing reliability) or decreasing \gls{mttr}.
 %An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
 %dependability consists of the following attributes:
@@ -63,7 +63,7 @@ Reliability measures the probability that the service will work as expected unti
 \begin{align}\label{expFailLaw}
  R(t) = e^{-\lambda(t-t_0)}
 \end{align}
-\ref{expFailLaw} is known as the \textit{exponential failure law}, $\lambda$ denotes the failures per hour, it's inverse $\frac{1}{\lambda}$ is
+\ref{expFailLaw} is known as the \textit{exponential failure law}, $\lambda$ denotes the failures per hour, its inverse $\frac{1}{\lambda}$ is
 called \gls{mttf}. Reliability can also be expressed in terms of \textit{un}reliability, denoted $Q(t)$:
 \begin{align}
  Q(t) = 1 - R(t)
@@ -71,8 +71,8 @@ called \gls{mttf}. Reliability can also be expressed in terms of \textit{un}reli
 Maintainability measures the time that is needed to repair a system, with $\mu$ denoting the repair rate and $\frac{1}{\mu}$ called \gls{mttr}.
 \\
 \\
-Every system will most likely consist of different and distinct components, each with it's own reliability and failure rates. The final system
-will possess an overall reliability, determining it's availability. To model the resulting system, the components will be put together in a mixture of
+Every system will most likely consist of different and distinct components, each with its own reliability and failure rates. The final system
+will possess an overall reliability, determining its availability. To model the resulting system, the components will be put together in a mixture of
 serial and parallel systems.
 \begin{figure}
     \centering
@@ -81,7 +81,7 @@ serial and parallel systems.
     \label{fig:serSys}
 \end{figure}
 For example, if all $i$ components, ranging from $1$ to $N$, are necessary to work correctly for the overall system to deliver correct service, this can be modeled as
-a series system, see figure \ref{fig:serSys}. This does not mean that the components are necessarily connected in a serial way, it just stresses that failure
+a series system, see Figure \ref{fig:serSys}. This does not mean that the components are necessarily connected in a serial way, it just stresses that failure
 of one single components breaks the whole system. System's reliability then equals the product of all component's reliabilities:
 \begin{align}
 R_{system}(t) = \prod_{i=1}^{N} R_{i}(t) 
@@ -99,7 +99,7 @@ a parallel system \ref{fig:parallelSys}. Here, the overall reliability can be ca
  R(t)_{system} = 1 - \prod_{i=1}^{N} 1- R_{i}(t) = 1 - \prod_{i=1}^{N} Q_{i}(t)
 \end{align}
 Mixed systems, containing paralell and series system, can be calculated by iteratively condensing serial- or parallel subsystems into single components,
-as shown in figure \ref{fig:mixedSys}.
+as shown in Figure \ref{fig:mixedSys}.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/mixedSys.eps}
@@ -110,7 +110,7 @@ as shown in figure \ref{fig:mixedSys}.
 \\
 \gls{ha} characterizes a system that is designed in a way to avoid outages, or in case of a failure that can be repaired in shortest possible time. 
 The level of the needed availability depends on the environment of the system and must be weighted against the additional costs, introduced by improving availability.
-Therefor, no hard definition for \gls{ha} can be given - it is a design goal and depends on the context. Availability requirements will most certainly be higher
+Therefore, no hard definition for \gls{ha} can be given - it is a design goal and depends on the context. Availability requirements will most certainly be higher
 for systems in safety-critical requirements. A safety-critical system must not fail, otherwise endangering human lives or 
 causing substantial economic loss or environmental damage \cite{1007998}.
 On the other side, systems that will produce only minor costs when not operating correctly
@@ -122,8 +122,8 @@ possible to restore correct service, otherwise risking human lives. On the contr
 if not working, but no more serious consequences are to be assumed.
 \\
 \\
-This work's focus lies on security-critical systems, increasing availability of KNX networks, but restricting it's
-deployment to environments without safety-critical needs. Thus, safety criticality is neglected here because of it's most stringent demands, as needed in
+This work's focus lies on security-critical systems, increasing availability of KNX networks, but restricting its
+deployment to environments without safety-critical needs. Thus, safety criticality is neglected here because of its most stringent demands, as needed in
 avionics or weapons systems.
 The difference between safety-critical and security-critical systems can be given as follows \cite{5784222}: safety means that software must not be harm the 
 world (i.e. containment), while security means that the world must not harm software (i.e. protection).
@@ -136,10 +136,10 @@ These strategies are introduced in the next section.
 \subsection{Fault Removal}
 Fault removal tries to identify faults by testing the system before its deployment. 
 \\
-Therefor, the system is exposed to test cases, which ideally would cover all possible internal states. Whenever a failure occurs, the erroneous state is identified, the
+Therefore, the system is exposed to test cases, which ideally would cover all possible internal states. Whenever a failure occurs, the erroneous state is identified, the
 underlying fault is removed and a new testing cycle begins.
 \\
-A problem about this approach is the huge test space that for even simple systems would be required to iterate through. Therefor, the method suffers from the very
+A problem about this approach is the huge test space that for even simple systems would be required to iterate through. Therefore, the method suffers from the very
 fundamental dilemma that testing never can proof that a system is fault free.
 \subsection{Fault Avoidance}
 Fault avoidance aims at producing a system which is fault-free
@@ -163,8 +163,8 @@ out of an informal specification.
 \\
 \\
 Obviously, both fault removal as well as fault avoidance cannot handle deliberately introduced faults, caused by an active adversary.
-Additionally, they cannot deal with hardware errors -  therefor it is argued that fault tolerance is the only practical way to guarantee availability
-in a hostile environment (i.e. an environment where active attackers are assumed to exist and therefor \gls{dos} attacks cannot be ruled out), as well as to
+Additionally, they cannot deal with hardware errors -  therefore it is argued that fault tolerance is the only practical way to guarantee availability
+in a hostile environment (i.e. an environment where active attackers are assumed to exist and therefore \gls{dos} attacks cannot be ruled out), as well as to
 protect against random hardware errors.
 \\
 Consequently, the proposed solution will be based on fault tolerance to achieve \gls{ha}, which will be examined more detailed.
@@ -172,7 +172,7 @@ Consequently, the proposed solution will be based on fault tolerance to achieve 
 \subsection{Fault tolerance}
 Fault tolerance tries to ensure correct service despite the occurrence of faults and is achieved through error detection and subsequent system recovery.
 To enable error detection, redundancy is added to a system and thereby the 
-system's complexity is increased. This can be achieved booth in the domain of hardware and software. 
+system's complexity is increased. This can be achieved both in the domain of hardware and software. 
 \\
 The basis of the design of fault tolerant systems is the definition of a \textit{fault hypothesis}, stating which faults must be tolerable by the system, thus
 dividing the fault state into normal faults and rare faults (i.e. faults not covered by the fault hypothesis). Normal faults can be corrected by the fault-tolerance
@@ -186,13 +186,13 @@ outputs, fault tolerance can be achieved by cutting off the faulty module from t
 This method is used for example for \gls{raid} based date storage \footnote{although the logic distributing
 the data chunks to different devices can be built in hardware or in software, i.e. the operating system, \gls{raid} always relies on redundant disks}.
 For \gls{raid} level 1, all data to be stored is duplicated to two independent disks. In case a hardware failure of one drive is detected, the data can be accessed
-from the second drive. This method does obviously not work if booth drives seem operable, but one drive outputs bogus data, i.e. it is not acting fail-silent.
+from the second drive. This method does obviously not work if both drives seem operable, but one drive outputs bogus data, i.e. it is not acting fail-silent.
 To handle this situation, higher redundancy levels are needed, as implemented for example in \gls{tmr}. 
 
 \subsubsection{\gls{tmr}}
-A \gls{tmr} system, see figure \ref{fig:tmr}, is composed out of 3 modules or \textit{black boxes}, all performing the same task,	
+A \gls{tmr} system, see Figure \ref{fig:tmr}, is composed out of 3 modules or \textit{black boxes}, all performing the same task,	
 and one \textit{majoriy organ} $V$, as proposed by Von Neumann \cite{vN56}. The latter element
-is also called \textit{voter} because out of it's 3 inputs, it chooses the 'correct' output based on majority voting. As long as at least 2 black boxes do not
+is also called \textit{voter} because out of its 3 inputs, it chooses the 'correct' output based on majority voting. As long as at least 2 black boxes do not
 fail, the system can provide correct service. If it is assumed that the voting element has perfect reliability = 1 and all black boxes $M$ are independent from
 each other and have reliability $R_M$, the overall, time-invariant system's reliability is given in \ref{tmrEq} \cite{Lyons:1962:UTR:1661979.1661984} and plotted in graph \ref{fig:tmrGrp}
 \begin{align}\label{tmrEq}
@@ -225,7 +225,7 @@ tolerable, longer outages will force emergency stops or even cause damage.
 
 \subsection{Network redundancy}
 
-Communication networks can be modeled as graphs. A graph, as shown in figure \ref{fig:graph}, is an ordered pair $G=(V,E)$, with $V$ being the set of vertices and $E$
+Communication networks can be modeled as graphs. A graph, as shown in Figure \ref{fig:graph}, is an ordered pair $G=(V,E)$, with $V$ being the set of vertices and $E$
 the set of edges, connecting the vertices. For a weighted graph, every edge is associated to a \textit{cost}. 
 \\
 A \textit{closed walk} or \textit{cycle} exists if a path from one vertex to itself exists, resulting in multiple paths from one node to others.
@@ -260,10 +260,9 @@ more.
  \caption{Protecting ethernet segments from loops with \gls{stp}}
 \label{fig:stp1}
 \end{figure}
-This situation is shown in 
-figure \ref{fig:stp1}: on the left side, the physical connections are shown, containing loops. 
+This situation is shown in Figure \ref{fig:stp1}: on the left side, the physical connections are shown, containing loops. 
 \gls{stp} removes
-the loops by setting certain interfaces to blocking mode, connected by dotted lines, as shown on the right side of figure \ref{fig:stp1}.
+the loops by setting certain interfaces to blocking mode, connected by dotted lines, as shown on the right side of Figure \ref{fig:stp1}.
 \\
 The algorithm works as follows:
 
@@ -290,19 +289,19 @@ a variety of different proprietary protocols, not compatible to each other, but 
 
 \subsubsection{IEC 62439}
 
-As it turned out that the mechanisms based on \gls{stp} and it's variations were not 
+As it turned out that the mechanisms based on \gls{stp} and its variations were not 
 sufficient for many applications, the family of IEC 62439 standards was defined. IEC 62439 introduces a set of ethernet extensions, assuring high availability
 and enabling its deployment in industrial applications. Three extensions are introduced below.
 
 \subsubsection{\gls{mrp}}
 After IEC 62439-1 specifying basic definitions, the second draft introduced \gls{mrp} which confines network outages to less than 500ms \cite{6145654}.
 This is achieved by restricting the valid topologies to ring-only, so all switches are connected to the network by 2 interfaces. All switches beside the ring manager
-forward all traffic received, while the ring manager opens the loop logically by setting one of it's interfaces to blocking mode.
-In this mode, all packages except management messages are discarded. The ring manager detects a failure by periodically sending test management messages in booth
-directions. Additionally every node is able to detect a link failure on it's local ports. It then sets the port to blocking and signals this link failure to the
+forward all traffic received, while the ring manager opens the loop logically by setting one of its interfaces to blocking mode.
+In this mode, all packages except management messages are discarded. The ring manager detects a failure by periodically sending test management messages in both
+directions. Additionally every node is able to detect a link failure on its local ports. It then sets the port to blocking and signals this link failure to the
 ring manager which opens his second port by setting it to forward mode and therefore reconnects the unreachable segment.
 \\
-\gls{mrp} does not rule out package loss in case of a failure, therefor it can be seen as improved \gls{rstp} for ring topologies. 
+\gls{mrp} does not rule out package loss in case of a failure, therefore it can be seen as improved \gls{rstp} for ring topologies. 
 
 \begin{figure}[H]
  \includegraphics[width=\linewidth]{figures/MRP2.eps}
@@ -312,17 +311,17 @@ ring manager which opens his second port by setting it to forward mode and there
 
 
 \subsubsection{\gls{prp}}
-In 2010, IEC 62439-3 defined a first version of {\gls{prp}} and \gls{hsr}, booth suitable for hard real-time
+In 2010, IEC 62439-3 defined a first version of {\gls{prp}} and \gls{hsr}, both suitable for hard real-time
 systems \footnote{hard real-time characterizes a system where missing of a dead line may result in a catastrophic event} \cite{4416946}.
 \\
-In 2012, IEC 62439-3 was revised, defining new versions of \gls{prp} and \gls{hsr}. The basic ideas behind booth protocols remained
+In 2012, IEC 62439-3 was revised, defining new versions of \gls{prp} and \gls{hsr}. The basic ideas behind both protocols remained
 unchanged, so the latest versions are described below.
 \\
 \\
 \gls{prp} can tolerate a link fault without package loss by utilizing two redundant and independent \glspl{lan}.
 Nodes needing high availability, called \gls{danp}, are connected to both networks by two interfaces, sharing the same \gls{mac} and \gls{ip} addresses.
 Additionally, standard ethernet devices called \gls{san} can be connected to only one network, enabling communication with devices on the same \gls{lan} only.
-An example of such a network is shown in figure \ref{fig:prp}.
+An example of such a network is shown in Figure \ref{fig:prp}.
 \\
 To support redundant connections for \glspl{danp}, a sub-layer on \gls{osi}-layer 2 (i.e. the link layer), called \gls{lre} is defined. 
 Upper level data arriving at the \gls{lre} of a \gls{danp} is duplicated and equipped with 6 bytes of control information, containing a 2 byte sequence number,

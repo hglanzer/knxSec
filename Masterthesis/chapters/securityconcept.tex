@@ -1,3 +1,4 @@
+\label{chap4}
 \section{Basic Assumptions}
 
 The aim of this work is to propose a \gls{knx} prototype, applicable for environments with increased availability demands.
@@ -5,25 +6,25 @@ The prototype should be designed in a transparent way, utilizing a "plug and pla
 This means that a device outside of this network, unaware of
 the secured \gls{knx} network, should be able to deliver through and receive messages from such a secured network without any prerequisites. 
 Every device with one connection to an unsecured \gls{knx} network (called cleartext \gls{knx} line) and two distinct connections to a secured \gls{knx}
-network (called secure lines, running the master daemon, will work
+network (called secure lines, running the master daemon), will work
 as a security gateway. Thus, the presence of at least 2 of these security gateways connected to each other by two secure lines will constitute a 
-secured \gls{knx} area, bridging between areas with increased security demands, as shown in figure \ref{fig:secArea}.
+secured \gls{knx} area, bridging between areas with increased security demands, as shown in Figure \ref{fig:secArea}.
 \\
 \\
-The basic tasks of such security gateways consist of:
+The basic tasks of such a security gateway consist of:
 \begin{itemize}
- \item establishing keys with it's communication partners within the secured \gls{knx} network (the security gateways)
+ \item establishing keys with its communication partners within the secured \gls{knx} network (the security gateways)
 % \item maintaining some kind of synchronization token between all security gateways
  \item providing redundant communication lines, achieving improved availability by encrypting and authenticating all messages which are received on the unsecured line, and delivering them to the proper security gateways which act as
- border device for the given group address, using booth secure lines
+ border device for the given group address, using both secure lines
  \item checking all messages which are received on the secured lines for integrity and authenticity, removing duplicates, unwrapping and delivering them to
  the unsecured area
 \end{itemize}
 
 \subsection{Security Related Architectural Overview}
 
-As stated in chapter \ref{ch:knx}, 3 different possibilities for communication within a \gls{knx} network are possible: point to point, multicast and broadcast.
-To introduce as little additional traffic into the network as possible, a sound concept for translating clear- to secure-\gls{knx} address (and vice versa) has to
+As stated in Chapter \ref{ch:knx}, different possibilities for communication within a \gls{knx} network are possible: point to point, multicast and broadcast.
+To introduce as little additional traffic into the network as possible, a sound concept for translating clear- to secure-\gls{knx} addresses (and vice versa) has to
 be defined. While in principle it would be possible to use the communication modes in a transparent way (i.e., point-to-point in unsecured \gls{knx} translates
 to point-to-point in secured \gls{knx}, and vice versa, and so on), this approach leads to some serious problems, rendering this solution impracticable:
 due to the topology of \gls{knx}, it is impossible to know a priori the exact physical location of a device (i.e., its \gls{ia}). Additionally,
@@ -33,7 +34,7 @@ device up or down.
 \\
 Therefore, a device which receives a message on its unsecured \gls{knx} line, examining the destination address, simply does
 not know which device(s), if any, will be the gateway(s) responsible for delivering this datagram one hop toward its final destination,
-regardless if the destination address is a \glspl{ia} or a \gls{ga}.
+regardless if the destination address is a \gls{ia} or a \gls{ga}.
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{figures/SecureArea.eps}
@@ -50,17 +51,17 @@ to the unsecured \gls{knx} network, the device holding this \gls{ia} or \gls{ga}
 Otherwise it will simply be discarded.
 \\
 A serious constraint rising from this broadcast approach is that a single,
-global network key must be used, because every security gateway must be able to decrypt and check every package which it receives on it's secured lines,
+global network key must be used, because every security gateway must be able to decrypt and check every package which it receives on its secured lines,
 even if it does not serve as gateway to the wanted group address. 
 The key of course can be renegotiated among the security gateways at every time, but this approach is considered
-unsafe because an attacker can target \textit{any} of the security gateways constituting the secure network. An adversary breaking one single device gains
+unsecure because an attacker can target \textit{any} of the security gateways constituting the secure network. An adversary breaking one single device gains
 access to the network traffic of all devices. This could be achieved by physical access to any of the security gateways, for example by reading out the
 memory of the device, and thus obtaining the globally used network key. This way, the network traffic can be decrypted by the adversary as long as no new
 key is renegotiated. Another problem is that multi-party key negotiation is a costly task if a public-private key scheme
-is to be used: as shown in figures \ref{fig:dh1} and \ref{fig:dh2}, a lot of messages have to be exchanged before actual an encryption can be done. 
+is to be used: as shown in Figures \ref{fig:dh1} and \ref{fig:dh2}, a lot of messages have to be exchanged before an encryption can be done. 
 \\
 \\
-To encounter this problems, different keys must be used, thus achieving pairwise end-to-end encryption between all devices. 
+To encounter these problems, different keys must be used, thus achieving pairwise end-to-end encryption between all devices. 
 %This way it is also possible to achieve different security levels, depending on the function a 
 %particular unsecured \gls{knx} device fulfills. It would be possible, for example, to distinguish between 'normal' gateways and 'hardened'
 %gateways which are specially guarded against physical access, for example by applying physical intrusion detection. Thus,
@@ -70,10 +71,9 @@ To encounter this problems, different keys must be used, thus achieving pairwise
 %As a motivating example, imagine a setup which consists of window controls in an upper floor, and door controls in the
 %base level. Obviously, the security constraints for the latter one would be higher. By using normal devices for window control, and hardened devices for
 %door control, a security firewall can be deployed, thus containing the damage an adversary can do to the whole system.
-Figure \ref{fig:firewall} shows the logical connections within an \gls{knx} network using end-to-end encryption. An 
+Figure \ref{fig:firewall} shows the logical connections within a \gls{knx} network using end-to-end encryption. An 
 attack of node $A$ can only compromise keys known to the device, thus effectively separating communication between the nodes $B$, $C$, and $D$ from
 the attacker.
-
 % \begin{figure}
 % \centering
 % \begin{tikzpicture}[scale=0.2]
@@ -101,7 +101,8 @@ the attacker.
 % \path[pil,<->] (d)  edge[]   node[text width=3.5cm,align=right] {$KEY_{CD}$} (c); 
 % \end{tikzpicture}
 % \end{figure}
-
+\\
+\\
 \begin{figure}
   \centering
     \includegraphics[width=1\textwidth]{figures/firewall.eps}
@@ -112,34 +113,34 @@ As stated above, to be able to use different keys every security gateway has to 
 exclusively for the responsible gateway. The solution to this problem is to maintain some kind of routing table, mapping \glspl{ga} and \glspl{ia} of unsecured
 \gls{knx} devices to \glspl{ia} of responsible security gateways	.
 Such a routing table can be built statically at setup time, with the obvious disadvantage
-that the exact topology of the to be applied network has to be known in advance, thus reducing the flexibility. Here, every security gateway holds a static 
+that the exact topology of the applied network has to be known in advance, thus reducing the flexibility. Here, every security gateway holds a static 
 table which consists of mappings between \glspl{ia} or \glspl{ga} of unsecured \gls{knx} devices and \glspl{ia} of security gateways at the border
 between the secured and the unsecured \gls{knx} network, as well as all keys used for the particular security level the gateway belongs to.
 This table would be generated once, after the topology of the network has been fixed, and must be equipped with the proper keys and can then
 be copied to the security gateways constituting the secured \gls{knx} area. New security gateways can be deployed as long as they only introduce sending 
-unsecured \gls{knx} devices, whose recipients are already mapped, known group addresses. A new group address, introduced by a newly installed device behind
+unsecured \gls{knx} devices, whose recipients are already known group addresses behind existing security gateways. A new group address, introduced by a newly installed device behind
 an already existing security gateway, will not be reachable, simply because the routing information is not available. 
 Another disadvantage is that the deployment of new
 security gateways, connecting devices with new or already known \glspl{ga}, is impossible as the \gls{ia} of the new gateway - which of
 course must be unique - is unknown to the existing setup, thus making the new unsecured \gls{knx} devices unreachable.
 \\
 To tackle this problem, another approach would be to build this mapping table dynamically. Therefore, every security gateway must periodically poll
-on it's unsecured lines for \gls{knx} devices, thus populating a list of reachable \gls{knx} devices. Whenever a 
-device wants to send data to a group address, it has to do a lookup first to obtain the \glspl{ia} of the responsible security gateways: the lookup
-must contain the wanted group address, as well as the senders public key.
+on its unsecured lines for \gls{knx} devices, thus populating a list of reachable \gls{knx} devices. Whenever a 
+device wants to send data to a group address, it has to process a lookup first to obtain the \glspl{ia} of the responsible security gateways: the lookup
+must contain the wanted group address, as well as the sender's public key.
 Every 
 gateway which finds the wanted group address in its group list must reply with an according message to the requester, thus announcing that it is responsible
-for delivering data to the wanted group address, and must also publish it's own public key, thus allowing pairwise end-to-end encryption.
+for delivering data to the wanted group address, and must also publish its own public key, thus allowing pairwise end-to-end encryption.
 This procedure requires no a priori knowledge of
 the network topology, so security gateways can be added to the network as well as unsecured \gls{knx} devices behind new or existing gateways at any time. This
 flexibility of course has to be purchased with increased complexity as well as additional traffic introduced into the network.
 \\
 \\
 A middle course is chosen: the reachable group address list is generated whenever a new security gateway is added to the network,
- handling discovery of this group addresses as described
-above. This allows to deploy new security gateways with connected unsecured devices, thus achieving a comprise between flexibility and complexity. 
+ handling discovery of these \glspl{ga} as described
+above. This allows to deploy new security gateways with connected unsecured devices, thus achieving a compromise between flexibility and complexity. 
 \\
-Sending data to a group address therefor follows the triad discovery request, discovery response and actual data transfer, shown in figure \ref{fig:prot1}. Broadcast
+Sending data to a group address therefore follows the triad discovery request, discovery response and data transfer, shown in Figure \ref{fig:prot1}. Broadcast
 messages are depicted as solid end of the arrow, the rest denoting unicast messages.
 \begin{figure}
   \centering
@@ -148,39 +149,39 @@ messages are depicted as solid end of the arrow, the rest denoting unicast messa
  \label{fig:prot1}
 \end{figure}
 To enable multiple devices to announce responsibility for a group address, the device wanting to transmit data to this group address must accept discovery responses
-following it's request message for a short time window.
+following its request message for a short time window.
 \\
 \\
-The discovery messages generated by security gateways should be encrypted too. Although these datagrams don't contain \gls{knx} data per se, they allow
+The discovery messages generated by security gateways should be encrypted, too. Although these datagrams don't contain \gls{knx} data per se, they allow
 a listening adversary to learn the topology of the network, knowledge which can be valuable for developing an attack strategy, as well as generating meta data.
 For example, if an attacker learns that a particular security gateway is responsible for only one group address and further gets knowledge that this 
-group address is responsible for switching a light (i.e. by visual observation), the attacker afterwards may be able to derive a personal profile just by seeing
+group address is responsible for switching a light (i.e. by visual observation), the attacker afterwards may be able to derive a personal profile just by detecting
 packages for this group address, although the payload of the datagrams to the responsible security gateway are encrypted.
 If the discovery messages are encrypted too the adversary doesn't know how many and what
-group addresses are behind a specif gateway, and it will be harder to derive personal profiles or to gather knowledge of the network topology.
+group addresses are behind a specific gateway, and it will be harder to derive personal profiles or to gather knowledge of the network topology.
 \\
 Discovery request messages must be broadcast messages, readable by all security gateways. To limit the protocol overhead, a global network key is used here.
 \\
 \\
-To provide authenticity, all datagrams passing the secured \gls{knx} network must contain a \gls{mac2} to prevent modification of them.
+To provide authenticity, all datagrams passing the secure \gls{knx} network must contain a \gls{mac2} to prevent modification of them.
 \\
-Defense against replay attacks is achieved by counters.These must be strictly monotonically
+Defense against replay attacks is achieved by counters. These must be strictly monotonically
 increasing and must not overflow. The counters can be compared to an initialization vector that prevents the mapping of same cleartext messages to same ciphertext messages
 under the same encryption key.
 \\
 Two different types of counters are used: one global counter $Ctr_{global}$, used for avoiding replay attacks against discovery messages. A second kind of counter
-is used for the actual data transfer. Beside avoiding replay attacks, this counter is necessary to detect and delete duplicates, caused by the redundant network, 
-see \ref{ctrAvail} for details.
+is used for the actual data transfer. Beside avoiding replay attacks, this counter is necessary to detect and delete duplicates, caused by the redundant network. 
+%see \ref{ctrAvail} for details.
 \\
 Usage of the global counter $Ctr_{global}$ raises another question, namely how a new device gets knowledge of the actual value of $Ctr_{global}$.
-Therefor, a synchronization service must be defined, allowing a newly powered up device to synchronize with the rest of the network \ref{fig:syncProt}.
+Therefore, a synchronization service must be defined, allowing a newly powered up device that wants to join the network to synchronize with the rest of the network, as shown in Figure \ref{fig:syncProt}.
 \begin{figure}
   \centering
     \includegraphics[width=0.8\textwidth]{figures/protSync.eps}
  \caption{Synchronization service}
  \label{fig:syncProt}
 \end{figure}
-Replay attacks are mitigated by including the actual time into \gls{mac2} calculation. Low temporal resolution relaxes time-synchronization issues between
+Replay attacks are mitigated by including the current time into \gls{mac2} calculation. Low temporal resolution relaxes time-synchronization issues between
 different devices.
 
 \subsubsection{Key Management}
@@ -207,7 +208,7 @@ Secondly, this key $k_{psk}$ is used to encrypt discovery requests and discovery
  
 Whenever a \gls{knx} package is
 generated by a device on an unsecured line (called client), the connected security gateway will read, duplicate and encapsulate it into another \gls{knx} frame 
-and then send over booth lines. If booth lines are available, i.e. there is, for example, no shortcut, the security gateway responsible for forwarding the frame
+and then send over both lines. If both lines are available, i.e. there is, for example, no shortcut, the security gateway responsible for forwarding the frame
 will receive 2 different \gls{knx} frames encapsulating the same
 payload, which itself is the \gls{knx} frame generated by the \gls{knx} client device in the first place. 
 One message must be discarded to avoid duplicates. 
@@ -221,39 +222,39 @@ Subsequent delivery of the duplicate can be detected because the containing coun
 \\
 To identify duplicate frames, basically various possibilities exist:
 \\
-Referencing booth $Ctr_{out}$ and $Ctr_{in}$ by the \gls{ga} of the origin cleartext message does only work if for every destination
+Referencing both $Ctr_{out}$ and $Ctr_{in}$ by the \gls{ga} of the origin cleartext message does only work if for every destination
  \gls{ga} in the network, at most one sending client device exists. Assuming client device $A$ and afterwards client device $B$ want to send the first message to
  the same destination \gls{ga}, the delivery of the message
- originating from device $A$ will trigger an update of the corresponding counter $Ctr_{in}$ at the responsible gateway, but device $B$ will use it's own counter
+ originating from device $A$ will trigger an update of the corresponding counter $Ctr_{in}$ at the responsible gateway, but device $B$ will use its own counter
  for the outgoing message. Because device's $B$ outgoing counter is less than the gateway's actual incoming counter, both frames will be discarded by the gateway.
-Therefor, this is no viable solution.
+Therefore, this is no viable solution.
 \\
 \\
-It shows that the easiest way to unambiguously identify duplicates is by referencing booth $Ctr_{out}$ and $Ctr_{in}$ by the \gls{ia} of the origin
-cleartext message. This solution works despite potential network failures on one or booth secure lines, provided that each client device posses a unique
+It shows that the easiest way to unambiguously identify duplicates is by referencing both $Ctr_{out}$ and $Ctr_{in}$ by the \gls{ia} of the origin
+cleartext message. This solution works despite potential network failures on one or both secure lines, provided that each client device is identified by a unique
 \gls{ia}. This is argued as follows:
 \\
-For simplicity, assume that 3 security gateways $A$, $B$ and $C$ are connected to each other by two distinct \gls{knx} lines, and each of them is connected
-to an arbitrary number of client devices through their cleartext lines, each with an unique \gls{ia}.
+For simplicity, assume that 3 security gateways $A$, $B$ and $C$ are connected to each other by two distinct, secured \gls{knx} lines, and each gateway is connected
+to an arbitrary number of client devices through their cleartext lines, each with a unique \gls{ia}.
 Additionally, each client device is destination for an arbitrary number of \glspl{ga}.
 If a security gateway receives a cleartext message, it will at first check the counter value $Ctr_{out}$ for the \gls{ia} and increment it. After that, the 
 discovery phase takes place. This discovery request can be answered by zero, one or two other security gateways. If at least one reply is received, the package
-is duplicated, encrypted, fitted into a unicast data frame together with $Ctr_{out}$ and sent on booth lines.
+is duplicated, encrypted, fitted into a unicast data frame together with $Ctr_{out}$ and sent on both lines.
 \\
 Every gateway answering the discovery request will be sent 2 duplicate messages, one on each secure line. Now, there are 3 possibilities:
 \begin{itemize}
- \item If booth secure lines are available, one data frame will be handled first and the contained counter will be saved as actual $Ctr_{in}$ for the \gls{ia}
+ \item If both secure lines are available, one data frame will be handled first and the contained counter will be saved as actual $Ctr_{in}$ for the \gls{ia}
  of the inner frame. When handling the second frame, the contained counter will be equal the saved counter, and thus the frame can be discarded.
  \item If only one secure line is available, no duplicate will arrive, but the receiving gateway(s) will nevertheless update the received counter value for the
  \gls{ia}
- \item If booth lines are unavailable, the responsible gateways cannot update the corresponding value for $Ctr_{in}$. Nevertheless, the sending side will 
+ \item If both lines are unavailable, the responsible gateways cannot update the corresponding value for $Ctr_{in}$. Nevertheless, the sending side will 
  increment and update
  the outgoing counter $Ctr_{out}$. As soon as the responsible gateways are reachable again, new data frames will bear an even higher counter than saved on the
  receiving side, thus allowing data transfer to the \gls{ga} again.
 \end{itemize}
 
 
-%If booth lines are available, one message will be handled first and trigger an
+%If both lines are available, one message will be handled first and trigger an
 %incrementation of the corresponding source address counter (i.e. the \gls{ga}).
 %The duplicated message, which is handled after that, can safely be discarded because the corresponding counter value will be less than the saved value.
 
@@ -261,7 +262,7 @@ Every gateway answering the discovery request will be sent 2 duplicate messages,
 % every received package: this is done by generating a special acknowledge frame which is sent back to the sending gateway. The payload of this package must
 % allow the sending gateway to unambiguously identify the acknowledged package, i.e. it must bear source and destination address of the package generated
 % by the client, as well as the used counter value. As a consequence, these acknowledgement frames must be encrypted and authenticated as well.
-% If no acknowledgement frame is received within time $t_{ACK}$, a retransmission is done on booth lines. This retransmission simply re-submits the same
+% If no acknowledgement frame is received within time $t_{ACK}$, a retransmission is done on both lines. This retransmission simply re-submits the same
 % package with the same counter value again. Regarding the security this is no problem because a passive attacker can not learn anything from such a repeated
 % package.
 
@@ -271,30 +272,42 @@ Every gateway answering the discovery request will be sent 2 duplicate messages,
 The introduction of encapsulating security gateways implicates that some timing constraints, defined by \gls{knx}, cannot be met:
 
 \begin{itemize}
- \item Acknowledge frames, as defined in \gls{knx} and introduced in chapter \ref{ch:knx}, cannot be guaranteed to be delivered within the specified deadlines: whenever
+ \item Acknowledgement frames, used in point-to-point communication, as defined in \gls{knx} and introduced in Chapter \ref{ch:knx}, cannot be guaranteed to be
+ delivered within the specified deadlines: whenever
  a new \gls{knx} datagram is generated by a client, at first the discovery phase has to occur. Only after that the to-acknowledged frame is sent. So there are
  multiple delays introduced, stalling the delivery: the first delay is caused by sending of the discovery package.
  After that, a second delay occurs because the security gateway must wait for the discovery response(s), possibly retransmitting the discovery request
  in case of a timeout. After receiving discovery responses, the third delay is caused by sending the actual, encapsulated
- client package to the responsible security gateway(s), which then must check the datagram, unpack it and forward it on it's unsecured line.
+ client package to the responsible security gateway(s), which then must check the datagram, unpack it and forward it on their unsecured lines.
  Only after that, all addressed, unsecured clients would be able to acknowledge the received frames
  to their local security gateways,
- which must forwarded the acknowledgement frame to the origin security gateway, causing another delay. Finally, the acknowledgement frame must be forwarded to the sender of
+ which must forward the acknowledgement frame to the origin security gateway, causing another delay. Finally, the acknowledgement frame must be forwarded to the sender of
  the origin data frame, causing another delay.
  These delays will always occur, and most of them cannot be restricted, thus destroying the tight timing constraints for acknowledgement frames, as defined
  by the \gls{knx} standard. This
  will most likely result in multiple retransmissions of the same \gls{knx} packages
- by the client because the client's timer will generate a timeout. The only way to solve this is to immediately acknowledge a client frame by the security
- gateway that it is connected to. On the receiving side, the client will generate an acknowledge
- frame, which must be discarded by it's security gateway.
+ by the client because the client's timer will generate a timeout. 
+ \\
+ \\
+ The only way to avoid a retransmission by a client is to immediately acknowledge a client frame by the security
+ gateway that it is connected to, regardless of whether the destination device is reachable or not. The receiving security gateway will use a reliable transport
+ mechanism to transfer the encrypted frame to all recipient gateways, which must acknowledge reception.
+ Finally, the gateway on the receiving side will forward the contained frame to the client, who may generate an acknowledge frame, depending on the transport
+ mode chosen by the sending device. This process is shown in Figure \ref{fig:dataAck}.
  \item Similar arguments avoid the processing of Poll-Data Frames. Here, event more stringent timing constraints are to be met, see chapter \ref{ch:knx}. 
 \end{itemize}
-
-\section{Services}
-
 Apart from the data service, handling the actual data transfer of the \gls{knx} payloads, 2 additional services are necessary, following the assumptions above.
 These two services, handling synchronization and discovery, are defined as following and are summarized as management services. To distinguish the different
 frame formats, a 8 bit \textit{secure header} field uniquely identifies every frame - see section \ref{secHdr} for details.
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.8\textwidth]{figures/dataAck.eps}
+ \caption{Acknowledgement of KNX data}
+ \label{fig:dataAck}
+\end{figure}
+
+\section{Services}
 
 \begin{figure}
 \begin{tikzpicture}[scale=0.2]
@@ -355,9 +368,9 @@ frame formats, a 8 bit \textit{secure header} field uniquely identifies every fr
 \subsection{Synchronization service}
 
 As stated, a new gateway, joining the network, must get knowledge of the actual value of $Ctr_{global}$. This is achieved by sending a broadcast message on
-ever secure line, 
+every secure line, 
 serving as synchronization request. The frame  contains the device's local time in seconds. The header flags in the secure header are set accordingly, identifying
-the frame as synchronization request \ref{fig:syncReqFormat}.
+the frame as synchronization request, see Figure \ref{fig:syncReqFormat}.
 \begin{figure}
   \centering
     \includegraphics[width=1\textwidth]{figures/formatSyncReq.eps}
@@ -367,9 +380,10 @@ the frame as synchronization request \ref{fig:syncReqFormat}.
 \\
 \\
 Every device receiving such a request checks the integrity of the message first by recalculating the \gls{mac2}. Afterwards, freshness is checked by comparing
-the supplied time with it's local time. If the timing information equals the device's own local time, the device sends a unicast synchronization response
-frame, containing it's local time and the actual counter value \ref{fig:syncResFormat}. The accuracy of the time comparison is deliberately reduced by defining
-a window of allowed deviation. This allows a new device to join the network even it's local time and the local time of the answering device are not 
+the supplied time with its local time. If the timing information equals the device's own local time, the device sends a unicast synchronization response
+frame, containing its local time and the actual counter value. See Figure \ref{fig:syncResFormat} for the layout of such a synchronization response.
+The accuracy of the time comparison is deliberately reduced by defining
+a window of allowed deviation. This allows a new device to join the network even if its local time and the local time of the answering device are not 
 perfectly synchronized.
 \begin{figure}
   \centering
@@ -384,9 +398,8 @@ network and resets the global counter $Ctr_{global}$.
 The \gls{mac2} is calculated over all frame fields except the trailing frame check fields and parts of the \textit{Header} field. 
 
 \subsection{Discovery service}
-Whenever a gateway receives a message on it's cleartext line, 2 distinct discovery broadcast messages are sent, one for each secured line. 
-The frame format is shown in 
-figure \ref{fig:discReqFormat}. \textit{DH-A} is the newly chosen \gls{ecdh} - parameter of the requesting device.
+Whenever a gateway receives a message on its cleartext line, 2 distinct discovery broadcast messages are sent, one for each secured line. 
+The frame format is shown in Figure \ref{fig:discReqFormat}. \textit{DH-A} is the newly chosen \gls{ecdh} - parameter of the requesting device.
 The \gls{psk} encrypted field contains the group address, CTR contains the incremented global counter $Ctr_{global}$.
 \begin{figure}
   \centering
@@ -394,10 +407,10 @@ The \gls{psk} encrypted field contains the group address, CTR contains the incre
  \caption{Discovery request frame layout}
  \label{fig:discReqFormat}
 \end{figure}
-Every device in the network first checks the authenticity of the received frame by recalculating the \gls{mac2}. If the value differs the received one, the frame
-is discarded. Otherwise, the requested group address is obtained by decrypting the corresponding field, and the device 
-Every device recognizing the group address prepares a unicast response frame as shown in figure \ref{fig:discResFormat}, 
-with \textit{DH-B} it's own newly chosen \gls{ecdh} parameter and the incremented global counter in the \textit{CTR} field. The wanted group address is also
+Every device in the network first checks the authenticity of the received frame by recalculating the \gls{mac2}. If the value differs from the received one, the frame
+is discarded. Otherwise, the requested group address is obtained by decrypting the corresponding field, and 
+every device recognizing the group address prepares a unicast response frame as shown in Figure \ref{fig:discResFormat}, 
+with \textit{DH-B} its own newly chosen \gls{ecdh} parameter and the incremented global counter in the \textit{CTR} field. The requested group address is also
 sent, allowing the requester to identify the response message.
 \begin{figure}
   \centering
@@ -451,10 +464,10 @@ The main logic from the discovery request receiver's point of view is shown in t
 \end{figure}
 
 \subsection{Data service}
-After receiving one or more discovery responses on one or booth secure line, the device which wants to send the \gls{knx} payload (called requester) now knows the
+After receiving one or more discovery responses on one or both secure line, the device which wants to send the \gls{knx} payload (called requester) now knows the
 \glspl{ia} which are responsible for delivering messages to the wanted \gls{ga}. The requester can also derive a shared secret based on \gls{ecdh},
 which is used to encrypt the origin \gls{knx} frame and inserted into the frame after the counter value. This counter $CTR-Ind$ is an individual counter, maintained
-by the gateway forwarding the \gls{knx} frame received over the cleartext line - see \ref{ctrInd} for details.
+by the gateway forwarding the \gls{knx} frame received over the cleartext line.
 \\
 Authenticity is guaranteed by calculating a \gls{mac2} over all frame fields except the frame check field.
 \\
@@ -495,9 +508,10 @@ the exact type of authentication or authenticated encryption mode used.
 Values 0x09 - 0xFF are not used - frames containing such values should be discarded.
 
 \subsubsection{Global counter}\label{ctrInd}
-The global counter $Ctr_{global}$ is a 4 byte integer, allowing $2^{32} \approx 4,3$ billion discovery request or response messages to be sent before overflowing,
-an amount assumed sufficiently high, argued as follows:
-each discovery messages consists of a frame containing 53 byte, sent with 9600 \gls{bps}, resulting in about 44 milliseconds transfer duration. Therefor,
+The global counter $Ctr_{global}$, obtained by the synchronization service and used in the discovery messages,
+is a 4 byte integer, allowing $2^{32} \approx 4,3$ billion discovery request or response messages to be sent before overflowing.
+This amount is assumed sufficiently high, argued as follows:
+each discovery messages consists of a frame containing 53 bytes, sent with 9600 \gls{bps}, resulting in about 44 milliseconds transfer duration. Therefore,
 the absolute lower bound of the duration after that $Ctr_{global}$ overflows, assumed the \gls{knx} network is occupied by discovery messages only,
 is about 2 years, a very conservative estimate.
 
@@ -505,19 +519,19 @@ is about 2 years, a very conservative estimate.
 
 Every individual counter is a 4 byte integer, responsible for duplicate detection. Two distinct types of individual counters are used: $Ctr_{out}$, referenced
 by an \gls{ia}, and $Ctr_{in}$, also referenced by an \gls{ia}.
-The main logic is shown in figure \ref{fig:dupSM}.
+Figure \ref{fig:dupSM} shows the state machine describing every security gateway's behavior from a high-level perspective.
 \\
 Whenever a new \gls{knx} frame is received on the cleartext line and the gateway knows which gateway(s) are responsible for the
 contained \gls{ga}, the sending gateway determines the outgoing counter value $Ctr_{out}[\gls{ia}]$. If an outgoing counter value for
 this \gls{ia} exists 
-this means that the device already sent at least one data frame to a \gls{ga}, otherwise this is the first frame. In both cases,
-the counter value $Ctr_{out}[\gls{ia}]$ is incremented, saved and used as value for $Ctr_{ind}$. After that, the cleartext frame is
-encrypted and inserted into a new unicast data frame, one for each secure line.
+this means that the device already sent at least one data frame to a \gls{ga}, otherwise this is the first frame. For the first case,
+the counter value $Ctr_{out}[\gls{ia}]$ is incremented and saved, otherwise it is set to 1. Afterwards, it is used as value for $Ctr_{ind}$.
+After that, the cleartext frame is encrypted and inserted into a new unicast data frame, one for each secure line.
 \\
 \\
-Upon reception (the green transition in \ref{fig:dupSM}), at first the validity of the \gls{mac2} is checked - if valid, the receiver checks it's incoming
-individual counter value, referenced by the \gls{ia} of the inner frame. If the received counter value $Ctr_{ind}$ is smaller than $Ctr_{in}[\gls{ia}]$,
- $Ctr_{ind}$ is saved as $(Ctr_{in}[\gls{ia}]$ and the inner frame is forwarded. The second frame, which will be handled eventually 
+Upon reception (the green transition in \ref{fig:dupSM}), at first the validity of the \gls{mac2} is checked - if valid, the receiver checks its incoming
+individual counter value, referenced by the \gls{ia} of the inner frame. If the received counter value $Ctr_{ind}$ is greater than $Ctr_{in}[\gls{ia}]$,
+ $Ctr_{ind}$ is saved as $(Ctr_{in}[\gls{ia}]$ and the contained frame (i.e. the \gls{knx} data frame) is forwarded. The second frame, which will be handled 
 afterwards will bear the counter value $Ctr_{ind} = Ctr_{in}[\gls{ia}]$ and will be discarded, thus eliminating the duplicate.
 
 \begin{figure}

@@ -1,20 +1,77 @@
 \section{Motivation}
 
+\gls{knx} is an open communications protocol for \gls{hbas}.
+It uses a layered structure and supports wired communication over twisted pair
+and power line as well as wireless communication by radio transmission. 
+Additionally, it supports communication with \gls{tcp}/\gls{ip} hosts by special gateways. 
+As such, it can be used for controlling traditional services like \gls{hvac}, but also for more
+sophisticated applications like surveillance or fire alarm systems of buildings \cite{knxapps}.
+\\
+\\
 Driven by the need to reduce maintenance costs and to improve usability, the application of \glspl{hbas} is no longer limited to traditional \gls{hvac} services.
 Modern building management includes much more different and more sophisticated tasks like elevator control, alarm systems or access control, to name a few.
 To reduce costs it would be natural to bring together these services under the control of one management system, a claim also supported through improved 
 standardization efforts.
 \\
-In contrast to traditional \gls{hvac} tasks, where security concerns were neglected, integration of these additional services calls for application of measurements
-to prevent misuse. These countermeasures are concluded under the name 
-
-
-\section{Problem Statement}
+Given these potential applications, a wide range of attacks would be possible. For example, \gls{dos} attacks to disable all directly connected
+\gls{knx} devices can be conducted by simply physically shortcutting a line
+connection, rendering the corresponding network segment unavailable.
+Replay attacks by intercepting and replaying datagrams are also possible, allowing an adversary to introduce arbitrary \gls{knx} traffic, switching doors
+or disabling burglar alarms. Passive attackers can monitor the bus traffic to analyze the types of \gls{knx} devices within the network, gathering knowledge that can be used
+to develop further attack strategies.
+\\
+High availability, in general, can only be achieved by redundancy, i.e. by using replicated resources. Therefore, all
+resources needed for transmitting data between two points must exist redundantly and independently from each other.
+\\
+The countermeasure against eavesdropping and replay attacks, providing integrity, confidentiality and authenticity, consists of authentication
+between the sender and receiver of a message, and encryption of these messages, combined in a security scheme called \gls{ae}.
+%In contrast to traditional \gls{hvac} tasks, where security concerns were neglected, integration of these additional services calls for application of measurements
+%to prevent misuse and improved availability. Avoiding misused is in general achieved by integrating confidentiality and authenticity measurements, a fact which
+%was neglected by the \gls{knx} consortium at first, but was fixed in several extensions afterwards.
+%Improved availability, which is of course of prime interest in applications like burglar alarm systems or elevator control, can be achieved in various ways. 
+\section{Problem statement}
+The origin \gls{knx} standard did not include countermeasures to prevent adversary misuse. This deficit was fixed afterwards by various extensions, bringing confidentiality and
+authenticity to \gls{knx}. Nevertheless, up to today no methods for increasing availability are provided, a fact considered problematic in view of the potential application domains.
+\\
+For example, a burglar can render an alarm system useless if he can shortcut the bus lines, thus suppressing the (encrypted) alarm messages. In contrast to such an malicious attack, a transient
+hardware failure can disable a system too, unacceptable for systems handling fire alarms or controlling elevators.
 
 \section{Aim of the work}
 
+The overall goal of this work is to develop a concept for a secure and high-available \gls{knx} network that also considers interoperability and compatibility, 
+allowing the usage in environments even with increased safety-critical requirements. The proposed solution shall be resistant against malicious adversary as well as against
+transient hardware failures.
+\\
+To achieve this, so called security gateways will be used. These gateways will possess two kinds of \gls{knx} interfaces: one kind of interface will be
+connected to standard, unsecured \gls{knx} networks.
+The second interface constitutes the entry point to a secured \gls{knx} network which is connected to the secure interfaces of other
+security gateways. To achieve higher availability, these secure interfaces and the respective communication lines must exist redundantly. This ensures that
+even in case of a \gls{dos} attack, communication within the segment is possible.
+\\
+\\
+To show the feasibility of the solution by a proof of concept, a demonstration network shall be built.
+For the security gateways, RaspberryPis in combination with \gls{knx}-\gls{usb}-dongles will be used. Therefore, the RasperryPis
+are acting as gateways between the secure and the insecure \gls{knx} networks, each of them running a master daemon responsible
+for reading datagrams from the \gls{knx} insecure world, encrypting and authenticating them and sending them over the secure
+\gls{knx} lines.
+\\
+It is important to note that the practical part of this work will only
+handle the twisted-pair media of \gls{knx} (i.e. \gls{knx} \gls{TP}-1), although the basic principles can be deployed in a modified manner in
+wireless and power line networks as well.
+\\
+A threat analysis will be conducted to prove that the system can withstand the defined attacks and is robust,
+i.e. that it can recover from erroneous states. This will be done by exposing the demonstration network to the various defined attacks. 
+
 \section{Structure of the work}
 
+Chapter \ref{chap2} introduces the basic concepts for providing integrity and confidentiality, handling symmetric and asymmetric ciphers, followed by ways how to improved availability.
+The chapter is concluded by state-of-the art technologies implementing highly-available communication networks.
+\\
+Chapter \ref{chap3} explains the structure of the \gls{knx} standard, and introduces the most important cryptographic extensions.
+\\
+Chapter \ref{chap4} suggests a \gls{knx} prototype, applicable in environments with increased availability needs.
+\\
+Finally, chapter \ref{chap5} explains the implementation of the prototype.
 
 
 

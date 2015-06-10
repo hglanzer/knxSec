@@ -5,7 +5,7 @@ emerged from 3 leading standards namely the \gls{eib}, the \gls{ehs} and BatiBUS
 developed by the KNX association implementing the EN50090 standard for home and building electronic systems.
 \\
 To provide platform independence, the standard uses a layered structure, based on the \gls{iso} / \gls{osi}. Different kinds of physical backends are supported,
-allowing it to be used in different scenarios.
+allowing its use in different environments.
 \\
 \gls{eib} already supported interoperability between products from different manufacturers. This was achieved by
 the definition of the \gls{eis}, which standardizes
@@ -14,6 +14,6 @@ standardizing their encoding, format, range and unit.
 Every \gls{dt} groups related \glspl{dpt}, the actual control variables of the network, together, allowing 
 \\
 For example, every \gls{knx} 
-certified manufacturer producing a switching actuator must use the defined dataformat - an end-user can therefor exchange such an actuator without caring
+certified manufacturer producing a switching actuator must use the defined dataformat - an end-user can therefore exchange such an actuator without caring
 about compatibility issues. For configuration and parametrization of the devices, a Windows based software suite called \gls{ets} is used, which also offers
 a bus monitor for debugging.

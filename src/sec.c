@@ -3,39 +3,23 @@
 extern pthread_mutex_t SecMutexWr[SECLINES];
 extern pthread_cond_t  SecCondWr[SECLINES];
 
-uint8_t secBufferWr[SECLINES][BUFSIZE];
+byte secBufferMAC[SECLINES][BUFSIZE];
+byte secBufferWr[SECLINES][BUFSIZE];
+byte secBufferTime[SECLINES][BUFSIZE];
 
 uint8_t	secINIT = 0;
+
+EVP_PKEY *skey[SECLINES];
+EVP_PKEY *vkey[SECLINES];
+size_t slen[SECLINES];
+size_t vlen[SECLINES];
+byte *sigHMAC[SECLINES];
+struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 
 //FIXME: this is very insecure.
 //	maybe better:
 //	read from file to memory, securely delete file, delete buffer after initial phase...?
 uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x30\x31";
-
-/*
-	LAYOUT OF FRAMES USED:
-
-	SEC - sync REQUEST:
-		-> unauthenticated request to obtain state of globally used seq number
-	|--------------------------------------------------------------------------------
-	|	 |        |	   	    |		     |	      |	       |	|
-	|   CTRL |CTRL-EXT| Source Address  | DestinationAddr| LENGTH |  SECH  |  FC    |  
-	|	 | 	  | 	   	    |		     |	      |	       |	|
-	|--------------------------------------------------------------------------------
-
-	SEC - sync RESPONSE:
-		-> authenticated/encrypted(PSK) response to syncronize requester with global counter + global key
-	|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-	|	 |        |	   	    |		     |	      |	       |			|			|			|	 |
-	|   CTRL |CTRL-EXT| Source Address  | DestinationAddr| LENGTH |  SECH  | Global Sequence Counter|	GLOBAL KEY	|      MAC (k_PSK)	|   FC   |  
-	|	 | 	  | 	   	    |		     |	      |	       |	4-6 Byte	|	32 BYTE		|	4-6 Byte	|	 |
-	|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-
-----------------------------------------------------------------------------------------------------------------------------------------------------
-	
-----------------------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------------------
-*/
 
 EIBConnection *secFD[SECLINES];
 
@@ -43,6 +27,83 @@ EIBConnection *secFD[SECLINES];
 	harald glanzer
 	secure line thread
 */
+
+/*
+	convert unix-time time_t to 4 digit hex string
+*/
+void time2Str(byte *buf)
+{
+	time_t now = time(NULL);
+	int i=0;
+
+	for(i=3; i>=0;i=i-1)
+	{
+		buf[i] = now % 256;
+		now = now / 256;
+	}
+}
+
+void preparePacket(void *env, uint8_t type)
+{
+	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	uint8_t i = 0, len = 0;
+	time2Str(secBufferTime[thisEnv->id]);
+
+	MSGBUF_SEC2WR[thisEnv->id].buf[0] = '\0';
+	secBufferMAC[thisEnv->id][0] = '\0';
+
+	/*
+		prepare...
+	*/
+	switch(type)
+	{
+		case syncReq:
+			secBufferMAC[thisEnv->id][0] = 0x00;				// DEST = broadcast
+			secBufferMAC[thisEnv->id][1] = 0x00;				// DEST = broadcast
+			secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr FIXME
+			secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr FIXME
+			secBufferMAC[thisEnv->id][4] = syncReq;				// SEC HEADER
+			secBufferMAC[thisEnv->id][5] = secBufferTime[thisEnv->id][0];	// TIME
+			secBufferMAC[thisEnv->id][6] = secBufferTime[thisEnv->id][1];	// ...
+			secBufferMAC[thisEnv->id][7] = secBufferTime[thisEnv->id][2];	// ...
+			secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][3];	// TIME 
+			secBufferMAC[thisEnv->id][9] = '\0';				// delimiter 
+
+			len = 9;		
+		break;
+		case syncRes:
+
+		break;
+		default:
+			printf("prepare(): THIS SHOULD NOT HAPPEN, exit");
+			exit(-1);
+	}
+
+	/*
+		... and generate HMAC
+	*/
+	i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
+	assert(i == 0);
+	if(i != 0)
+	{
+		#ifdef DEBUG
+			printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
+		#endif
+		exit(-1);
+	}
+	#ifdef DEBUG
+		print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
+	#endif
+		
+	// assemble sync request message
+	strcpy(MSGBUF_SEC2WR[thisEnv->id].buf, &secBufferMAC[thisEnv->id][4]);
+	len = strlen(MSGBUF_SEC2WR[thisEnv->id].buf);
+	//printf("len = %d\n\n", len);
+	for(i = 0; i < MACSIZE; i++)
+		MSGBUF_SEC2WR[thisEnv->id].buf[len+i] = sigHMAC[thisEnv->id][i];
+	
+	MSGBUF_SEC2WR[thisEnv->id].buf[len+i+1] = '\0';
+}
 
 void printKey(uint8_t *key, uint8_t keysize)
 {
@@ -57,59 +118,73 @@ void printKey(uint8_t *key, uint8_t keysize)
 }
 
 /*
-	gets pointer to dataframe
-	returns type or INVALID if pkg is unknown / corrupted
-*/
-int checkPkg(uint8_t *pkg)
-{
-	uint8_t type = INVALID;
-
-	
-
-	return type;
-}
-
-/*
 	sec SEND thread
 */
-int secSend(void *env)
+int secWR(void *env)
 {
+	int rc = 0, i = 0;
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
-	printf("ID = %d ", thisEnv->id);
-	debug("SEC SEND ready", pthread_self());
+	#ifdef DEBUG
+		printf("SEC%d: send ready\n", thisEnv->id);
+	#endif
 
+	rc = msgget(MSGKEY_SEC2WR, MSG_PERM | IPC_CREAT);
+	if(rc == -1)
+	{
+		printf("SEC%d-WR: message queue msgget() failed\n", thisEnv->id);
+		exit(-1);
+	}
+	#ifdef DEBUG
+		printf("SEC%d-WR: msgget() OK\n", thisEnv->id);
+	#endif
 	while(1)
 	{
+	/*		USE MSQ with blocking msgrcv() instead
+
 		// wait for new data to send over secure line
 		pthread_mutex_lock(&SecMutexWr[thisEnv->id]);
 		pthread_cond_wait(&SecCondWr[thisEnv->id], &SecMutexWr[thisEnv->id]);
-
-		printf("ID = %d, 0x%X", thisEnv->id, secBufferWr[thisEnv->id][0]);
-		debug("sending payload", pthread_self());
-
+		#ifdef DEBUG
+			printf("SEC%d: sending payload = 0x%X\n", thisEnv->id, secBufferWr[thisEnv->id][0]);
+		#endif
 		pthread_mutex_unlock(&SecMutexWr[thisEnv->id]);
+	*/
+		#ifdef DEBUG
+			printf("SEC%d-WR: waiting MSQ data\n", thisEnv->id);
+		#endif
+
+		msgrcv(rc, &MSGBUF_SEC2WR[thisEnv->id], sizeof(MSGBUF_SEC2WR[thisEnv->id]) - sizeof(long), 0, 0);
+		#ifdef DEBUG
+			printf("SEC%d-WR: new MSQ data: ", thisEnv->id);
+			i = 0;
+			while(MSGBUF_SEC2WR[thisEnv->id].buf[i] != '\0')
+			{
+				printf("%02x ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
+				i++;
+			}
+
+			printf("\n");
+		#endif
 	}
 	return 0;
 }
 
 /*
 	sec RECEIVE thread
-							|------> secSend			(msg messages)
+							|------> secWR				(msg messages)
 							|
-	datapath:	secReceive -> secMaster --------|
+	datapath:	secRD	 ---> secMaster --------|
 							|
 							|------> checkDup ----> clrSend		(knx traffic)
 */
-int secReceive(void *env)
+int secRD(void *env)
 {
 	int rc = 0, i = 0;
+	struct msgbuf_t localBuf;
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
-	#ifdef DEBUG
-		printf("SEC%d , waiting for data from EIBD\n", thisEnv->id);
-	#endif
 	while(1)
 	{
-		rc = EIBGetBusMonitorPacket(thisEnv->socket, sizeof(thisEnv->localRDBuf), thisEnv->localRDBuf);
+		rc = EIBGetBusmonitorPacket(thisEnv->secFD, sizeof(thisEnv->localRDBuf), thisEnv->localRDBuf);
 		if(rc == -1)
 		{
 			debug("secReceive(): EIBGetBusMonitorPacket() FAILED", pthread_self());
@@ -117,7 +192,7 @@ int secReceive(void *env)
 		else
 		{
 			for(i=0; i<rc;i++)
-				printf("%X ", thisEnv->localRDBuf);
+				printf("%02x ", (unsigned)thisEnv->localRDBuf);
 
 			decodeFrame(thisEnv->localRDBuf);
 		}
@@ -133,72 +208,93 @@ int secReceive(void *env)
 */
 void keyInit(void *env)
 {
-	int selectRC = 0;
+	int selectRC = 0, rc = 0, MSGID_SEC2WR;
 	struct timeval syncTimeout;
 
 	fd_set set;
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
 	uint8_t buffer[BUFSIZE]; 
 
-	thisEnv->state = INIT;
+	thisEnv->state = STATE_INIT;
 
 	/*	
-		1a) send sync request		(cleartext)
-		1b) wait for sync response	-> obtain global counter(auth)
+		main state machine for SEC - master thread
+		talks to secRD() and secWR()
 	*/
-
 	while(1)
 	{
 		switch(thisEnv->state)
 		{
-			case INIT:
-
-				debug("key Master: INIT", pthread_self());
+			case STATE_INIT:
+				#ifdef DEBUG
+					printf("SEC%d: INIT\n", thisEnv->id);
+				#endif
+	
+				MSGID_SEC2WR = msgget(MSGKEY_SEC2WR, MSG_PERM);
+				if(rc == -1)
+				{
+					printf("SEC%d-MA: message queue msgget() failed\n", thisEnv->id);
+					exit(-1);
+				}
+				#ifdef DEBUG
+					printf("SEC%d-MA: msgget() OK\n", thisEnv->id);
+				#endif
 
 				thisEnv->retryCount = 0;
 				FD_ZERO(&set);
 				FD_SET(thisEnv->Read2MasterPipe[READEND], &set);
-				
-				thisEnv->state = SYNC;
+			
+				thisEnv->state = STATE_SYNC_REQ;
 			break;
-			case SYNC:
-				debug("key Master: SYNC / select() / sending sync req", pthread_self());
-
+			case STATE_SYNC_REQ:
+				#ifdef DEBUG
+					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
+				#endif
+				// prepare MAC for sync request message	
+				prepareSyncReq(env, syncReq);
+				MSGBUF_SEC2WR[thisEnv->id].mtype = MSG_TYPE;
+				msgsnd(MSGID_SEC2WR, &MSGBUF_SEC2WR[thisEnv->id], sizeof(MSGBUF_SEC2WR[thisEnv->id]) - sizeof(long), 0);
+/*
 				pthread_mutex_lock(&SecMutexWr[thisEnv->id]);
 
-				secBufferWr[thisEnv->id][0] = 0xfe;
+				// write to buffer				
 
 				pthread_cond_signal(&SecCondWr[thisEnv->id]);
 				pthread_mutex_unlock(&SecMutexWr[thisEnv->id]);
-
+*/
+				thisEnv->state = STATE_SYNC_WAIT_RESP;
+			break;
+			case STATE_SYNC_WAIT_RESP:
+				#ifdef DEBUG
+					printf("SEC%d: SYNC_WAIT_RESP\n", thisEnv->id);
+				#endif
 				syncTimeout.tv_sec = SYNCTIMEOUT_SEC;
 				syncTimeout.tv_usec = 0;	
 
 				selectRC = select(FD_SETSIZE, &set, NULL, NULL, &syncTimeout);
 
-				#ifdef DEBUG
-					printf("retryCount = %d\n", thisEnv->retryCount);
-				#endif
-	
 				// timeout
 				if(selectRC == 0)
 				{
 					thisEnv->retryCount++;
+					thisEnv->state = STATE_SYNC_REQ;
 		
 					/*
 						seems like there is no other device reachable / online(on this SECline)
 							* reset globalCounter
-							* choose new global key
-							* generate DH parameters	
 					*/
 					if(thisEnv->retryCount == SYNC_RETRIES)
 					{
-						thisEnv->state = CHOOSE_KEY;
-						debug("key Master: give up", pthread_self());
+						thisEnv->state = STATE_RESET_CTR;
+						#ifdef DEBUG
+							printf("SEC%d: key master sync give up\n", thisEnv->id);
+						#endif
 					}
 					else
 					{
-						debug("key Master: timeout, retry", pthread_self());
+						#ifdef DEBUG
+							printf("SEC%d: key master sync timeout\n", thisEnv->id);
+						#endif
 					}
 					
 				}
@@ -207,42 +303,42 @@ void keyInit(void *env)
 				{
 					// error
 					printf("%s - ", strerror(errno));
-					debug("key Master select() ERROR", pthread_self());
+					#ifdef DEBUG
+						printf("SEC%d: select() error\n", thisEnv->id);
+					#endif
 				}
 				// data received
 				else
 				{
 					// fd ready
-					debug("key Master: got sync res", pthread_self());
+					#ifdef DEBUG
+						printf("SEC%d: sync response\n", thisEnv->id);
+					#endif
 					read(thisEnv->Read2MasterPipe[READEND], &buffer[0], sizeof(buffer));
 
-					if(1)	// check package if valid response
-					{
-
-					}
-					else	// no valid SYNC RESPONSE - retry
-					{
-
-					}
+					// SAVE COUNTER!		FIXME	
+					thisEnv->state = STATE_READY;
 				}
 			break;
 
-			// looks like this node is alone - reset global counter and choose global key randomly from key space
-			case CHOOSE_KEY:
+			// looks like this node is alone - reset global counter
+			// FIXME:	maybe choose random counter?
+			//		or additionally use time() information ?
+			case STATE_RESET_CTR:
+				#ifdef DEBUG
+					printf("SEC%d: RESET_CTR\n", thisEnv->id);
+				#endif
 				thisEnv->globalCount = 0;
-				thisEnv->state = READY;
-				if(RAND_bytes(thisEnv->globalKey, GKSIZE) != 1)
-				{
-					debug("key Master: KEY SELECT FAILED!", pthread_self());
-				}
-				printKey(thisEnv->globalKey, GKSIZE);
-				debug("key Master: set globalCtr = 0, choose new key", pthread_self());
+				thisEnv->state = STATE_READY;
+
 			break;
 
 			// node is ready to process datagrams
-			case READY:
-				debug("key Master READY, waiting for data", pthread_self());
-				sleep(10);
+			case STATE_READY:
+				#ifdef DEBUG
+					printf("SEC%d: key master ready\n", thisEnv->id);
+				#endif
+				sleep(100);
 			break;
 
 			default:
@@ -259,50 +355,66 @@ void keyInit(void *env)
 */
 int initSec(void *threadEnv)
 {
-	int (*secRecvThreadfPtr)(void *);
-	secRecvThreadfPtr = &secReceive;
+	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)threadEnv;
 
-	int (*secSendThreadfPtr)(void *);
-	secSendThreadfPtr = &secSend;
+	int (*secRDThreadfPtr)(void *);
+	secRDThreadfPtr = &secRD;
+
+	int (*secWRThreadfPtr)(void *);
+	secWRThreadfPtr = &secWR;
 
 	struct threadEnvSec_t *threadEnvSec = (struct threadEnvSec_t *)threadEnv;
 
-	pthread_t secRecvThread, secSendThread;
-	printf("%u sock = %s id = %d\n", (unsigned)pthread_self(),threadEnvSec->socket, threadEnvSec->id);
+	pthread_t secRDThread, secWRThread;
+	//printf("%u sock = %s id = %d\n", (unsigned)pthread_self(),threadEnvSec->socketPath, threadEnvSec->id);
+	#ifdef DEBUG
+		printf("SEC%d: sock = %s, thread# = %u", threadEnvSec->id, threadEnvSec->socketPath, (unsigned)pthread_self());
+	#endif
+
+	thisEnv->secFD = EIBSocketURL(thisEnv->socketPath);
+	if(EIBOpenBusmonitor(thisEnv->secFD) == -1)
+	{
+		printf("SEC%d: cannot open KNX Connection\n", thisEnv->id);
+		return -1;
+	}
+	else
+	{
+		printf("SEC%d: KNX Connection opened\n", thisEnv->id);
+	}
 
 	// create READ thread
-	if((pthread_create(&secRecvThread, NULL, (void *)secRecvThreadfPtr, (void *)threadEnvSec)) != 0)
+	if((pthread_create(&secRDThread, NULL, (void *)secRDThreadfPtr, (void *)threadEnvSec)) != 0)
 	{
 		printf("sec RECEIVE Thread init failed, exit\n");
-		return -1;
+		exit(-1);
 	}
 
 	// create WRITE thread
-	if((pthread_create(&secSendThread, NULL, (void *)secSendThreadfPtr, (void *)threadEnvSec)) != 0)
+	if((pthread_create(&secWRThread, NULL, (void *)secWRThreadfPtr, (void *)threadEnvSec)) != 0)
 	{
 		printf("sec SEND Thread init failed, exit\n");
-		return -1;
+		exit(-1);
 	}
 
 	/*
 		pipe is used for communication: secRead -> secKeymaster
 		with pipes select() with timeouts can be used!
 	*/
-
 	if(pipe(threadEnvSec->Read2MasterPipe) == -1)
 	{
 		debug("pipe() failed, exit", pthread_self());
-		return 0;
+		exit(-1);
 	}
 
 	#ifdef DEBUG
-		printf("SEC%d / pipFD: %d <- %d\n", threadEnvSec->id, threadEnvSec->Read2MasterPipe[READEND], threadEnvSec->Read2MasterPipe[WRITEEND]);
+		printf("SEC%d: / pipFD: %d <- %d\n", threadEnvSec->id, threadEnvSec->Read2MasterPipe[READEND], threadEnvSec->Read2MasterPipe[WRITEEND]);
 	#endif
 
+	hmacInit(&skey[thisEnv->id], &vkey[thisEnv->id], &slen[threadEnvSec->id], &vlen[threadEnvSec->id]);
 	keyInit(threadEnvSec);
 	
-	pthread_join(secRecvThread, NULL);
-	pthread_join(secRecvThread, NULL);
+	pthread_join(secRDThread, NULL);
+	pthread_join(secWRThread, NULL);
 	printf("goiing home\n");
 	return 0;
 }

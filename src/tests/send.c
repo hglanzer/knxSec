@@ -9,14 +9,24 @@
 main (int ac, char *ag[])
 {
 	uchar buf[255];
-	buf[0] = 0xFA;
-	buf[1] = 0xBC;
-	buf[2] = 0x3;
-	buf[3] = 0x4;
-	int len, i=0;
+	int size, i=0;
 	eibaddr_t myAddr = 22;
-	eibaddr_t dest = 11;
+	eibaddr_t dest = 0x0;
 	EIBConnection *con;
+
+	/*
+		IF EIBSendAPDU is used it seems like the very first byte of the APDU is the APCI
+	*/
+
+	size = 5;
+	buf[0] = 0x0;		// set APCI, first 2 bit
+	buf[1] = 0xfd;		// set APCI, first 2 bit
+	for(i=2; i<size;i++)
+	{
+	//	buf[i] = i;
+		buf[i] = 0x04;
+	}
+	//buf[i] = '\0';
 
 	if (ac != 3)
 	{
@@ -31,28 +41,33 @@ main (int ac, char *ag[])
 	}
 
 	printf("URL opened\n\n");
+	sleep(1);
 
 	if(ag[2][0] == 'b')
 	{
-
-		if (EIBOpenT_Broadcast(con, 0) == -1)
+				// **************** use 1 to see traffic on remote side
+		if (EIBOpenT_Broadcast(con, 1) == -1)
 		{
-			printf("EIBpenT_Broadcast() failed\n\n");
+			printf("EIBOpenT_Broadcast() failed\n\n");
 	        	return -1;
 		}
 
 		printf("broadcast connection opened\n\n");
+		sleep(1);
 
-		if (EIBSendAPDU(con, 2, buf) == -1)
+		dest = 0x00;
+		//if (EIBSendTPDU(con, dest, size, buf) == -1)
+		if (EIBSendAPDU(con, size, buf) == -1)
 		{
-			printf("EIBpenSendTPDU() failed\n\n");
+			printf("EIBOpenSendTPDU() failed\n\n");
         		return -1;
 		}
 	}
 	if(ag[2][0] == 'i')
 	{
 
-		if (EIBOpenT_TPDU(con, myAddr) == -1)
+		if (EIBOpenT_Individual(con, myAddr, FALSE) == -1)
+		//if (EIBOpenT_TPDU(con, myAddr) == -1)
 		{
 			printf("EIBpenT_TPDU() failed\n\n");
 	        	return -1;
@@ -60,7 +75,8 @@ main (int ac, char *ag[])
 
 		printf("connection opened\n\n");
 
-		if (EIBSendTPDU(con, dest, 2, buf) == -1)
+		if (EIBSendAPDU(con, size, buf) == -1)
+		//if (EIBSendTPDU(con, dest, size, buf) == -1)
 		{
 			printf("EIBpenSendTPDU() failed\n\n");
         		return -1;
@@ -68,13 +84,16 @@ main (int ac, char *ag[])
 	}
 	if(ag[2][0] == 'g')
 	{
-		if (EIBOpenT_Group(con, dest, TRUE) == -1)
+		dest = 0x101;
+		//if (EIBOpenT_Group(con, dest, FALSE) == -1)
+		//if (EIBOpenT_Group(con, dest, TRUE) == -1)
+		if (EIBOpen_GroupSocket(con, TRUE) == -1)
 		{
-			printf("EIBpenT_Group) failed\n\n");
+			printf("EIBOpenT_Group() failed\n\n");
 	        	return -1;
 		}
 		printf("connection opened\n\n");
-		if (EIBSendGroup(con, dest, 2, buf) == -1)
+		if (EIBSendGroup(con, dest, size, buf) == -1)
 		{
 			printf("EIBpenSendGroup() failed\n\n");
         		return -1;

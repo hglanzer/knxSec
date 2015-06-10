@@ -5,9 +5,9 @@
 	harald.glanzer@gmail.com
 
 	needs 3 running eib daemones:
-		eibd --listen-local=/tmp/eib.clr  -t31 -e 1.1.x  tpuarts:/dev/tty<DEV-cleartext>
-		eibd --listen-local=/tmp/eib.sec1 -t31 -e 1.1.y  tpuarts:/dev/tty<DEV-secured-1>
-		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.1.z  tpuarts:/dev/tty<DEv-secured-2>
+		eibd --listen-local=/tmp/eib.clr  -t31 -e 1.0.<addr>  tpuarts:/dev/tty<DEV-cleartext>
+		eibd --listen-local=/tmp/eib.sec1 -t31 -e 1.1.<addr> tpuarts:/dev/tty<DEV-secured-1>
+		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.2.<addr>  tpuarts:/dev/tty<DEv-secured-2>
 */
 
 uint8_t	clr2SecBUF[CLSBUFSIZE];
@@ -27,12 +27,17 @@ static struct option long_options[] =
 	{"clrSocket",	required_argument,	NULL, 'c'},
 	{"sec1Socket",	required_argument,	NULL, '1'},
 	{"sec2Socket",	required_argument,	NULL, '2'},
+	{"addr",required_argument,	NULL, '3'},
 	{0, 0, 0, 0}
 };
 
 void Usage(char **argv)
 {
-	printf("Usage: %s --clrSocket local:<socket> --sec1Socket local:<socket> --sec2Socket local:<socket>\n", argv[0]);
+	printf("\n\n\nUsage: %s --clrSocket local:<socket> --sec1Socket local:<socket> --sec2Socket local:<socket> --addr <device addr>\n", argv[0]);
+	printf("\tDevice address must be in range [1,15]:\n");
+	printf("\t\tSEC0 Line: 1.0.<device addr>\n");
+	printf("\t\tSEC1 Line: 1.1.<device addr>\n");
+	printf("\t\tCLR  Line: 1.2.<device addr>\n\n");
 	exit(EXIT_FAILURE);
 }
 
@@ -49,7 +54,7 @@ void debug(char *str, pthread_t id)
 */
 int main(int argc, char **argv)
 {
-	int c, i=0, option_index = 0;
+	int c, i=0, option_index = 0, tmp = 0, dig=0;
 	
 	/*
 		thread - variables
@@ -72,7 +77,7 @@ int main(int argc, char **argv)
 	if((pthread_mutexattr_settype(&mutexAttr, PTHREAD_MUTEX_RECURSIVE_NP)) != 0)
 		printf("mutex set attr failed\n");
 	
-	while((c = getopt_long(argc, argv, "hc:1:2:", long_options, &option_index)) != EOF)
+	while((c = getopt_long(argc, argv, "hc:1:2:3:4:", long_options, &option_index)) != EOF)
 	//while((c = getopt(argc, argv, "hs:")) != EOF)
 	{
 		switch (c)
@@ -88,18 +93,41 @@ int main(int argc, char **argv)
 			// options	END
 			// arguments 	START
 			case '1':
-				printf("\tARG: %s for SEC1 SOCKET\n", &optarg[0]);
-				threadEnvSec1.socket = &optarg[0];	
+				printf("\tARG: %20s for SEC1 SOCKET\n", &optarg[0]);
+				threadEnvSec1.socketPath = &optarg[0];	
 				threadEnvSec1.id = SEC1;
 			break;
 			case '2':
-				printf("\tARG: %s for SEC2  SOCKET\n", &optarg[0]);
-				threadEnvSec2.socket = &optarg[0];	
+				printf("\tARG: %20s for SEC2 SOCKET\n", &optarg[0]);
+				threadEnvSec2.socketPath = &optarg[0];	
 				threadEnvSec2.id = SEC2;
 			break;
+			case '3':
+				printf("\tARG: %d for CLR/SEC1/SEC2 Device Addr\n", optarg[0]);
+				// addr scheme 1.<SEC#>.<addr>
+				for(i=(strlen(optarg)-1);i >= 0;i=i-1)
+				{
+					dig = (int)pow(10,(strlen(optarg)-(i+1)));
+					tmp = tmp + (optarg[i]-0x30)*dig;
+				}
+			
+				if((tmp < 16 ) && (tmp > 0))	
+				{
+					threadEnvClr.addrInt  = optarg[0];			//1.0.<addr> 
+					threadEnvSec1.addrInt = optarg[0];			//1.1.<addr>
+					threadEnvSec2.addrInt = optarg[0];			//1.2.<addr>
+					threadEnvClr.addrStr  = &optarg[0];			//1.0.<addr> 
+					threadEnvSec1.addrStr = &optarg[0];			//1.1.<addr>
+					threadEnvSec2.addrStr = &optarg[0];			//1.2.<addr>
+				}
+				else
+				{
+					Usage(argv);
+				}
+			break;
 			case 'c':
-				printf("\tARG: %s for CLS SOCKET\n", &optarg[0]);
-				threadEnvClr.socket = &optarg[0];	
+				printf("\tARG: %20s for CLR  SOCKET\n", &optarg[0]);
+				threadEnvClr.socketPath = &optarg[0];	
 			break;
 			default:
 				assert(0);
@@ -130,6 +158,9 @@ int main(int argc, char **argv)
 		printf("clrThread thread init failed, exit\n");
 		return -1;
 	}
+
+	// FIXME: just to separate debug messages
+	sleep(2);
 
 	// create secure-knx master thread 1	
 	if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec1)) != 0)

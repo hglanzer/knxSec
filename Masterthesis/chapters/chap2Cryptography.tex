@@ -2,7 +2,7 @@
 
 As already stated, two very fundamental differences regarding the key used in a cryptographic system can be found. Symmetric ciphers, where 
 the same key is used for encryption and decryption, outperform its asymmetric counterparts in regards of data throughput by a factor of about 1000 \cite{5412055}.
-Additionally, they need shorter keys to achieve the same level of security - both arguments encourage it's use in embedded devices because of its less computing
+Additionally, they need shorter keys to achieve the same level of security - both arguments encourage its use in embedded devices because of its less computing
 and memory demands.
 \\
 The big disadvantage of symmetric ciphers is that the key must be known to sender
@@ -14,7 +14,7 @@ Asymmetric or public key cryptography solves the problem of key distribution by 
 key must be be protected from disclosure, while the \textit{public} key can be published without harming security. For encryption, the public key of the receiver
 is used, who in turn will use his private key to decrypt the message. 
 \\
-To be able to take benefit from the advantages of booth schemes, a hybrid approach is possible: at first, public key cryptography is used to negotiate a symmetric session
+To be able to take benefit from the advantages of both schemes, a hybrid approach is possible: at first, public key cryptography is used to negotiate a symmetric session
 key, which then can be used to encrypt the actual, sensitive data.
 
 \subsection{Stream Ciphers}
@@ -56,7 +56,7 @@ Decryption can be achieved by applying the \gls{xor} operation to key and cipher
 \end{center}
 Obviously, the security of the cipher heavily depends on the quality of the \gls{prng}. If a truly random source is used to generate the key stream, this cipher
 has perfect secrecy: for a n-character ciphertext, \textbf{all} n-character cleartexts are equally probable, and vice versa. 
-The reason for this is the \gls{xor} operation: booth outcomes are equally probable, introducing one bit of randomness into every data bit. 
+The reason for this is the \gls{xor} operation: both outcomes are equally probable, introducing one bit of randomness into every data bit. 
 \\
 Additionally, the \gls{xor} operation can be built easily in hardware, accelerating the encryption or decryption process.
 \\
@@ -212,7 +212,7 @@ Also called "Rijndael" after its developers Joan Daemen und Vincent Rijmen, \gls
 proposed by the \gls{nist} in 2001. Basic properties are a block size of 128 bit, and possible key sizes
 of 128, 192 or 256 bit.
 \\
-The operation, shown in figure \ref{fig:aesEnc}, starts by copying the input block into a square matrix, called "State",
+The operation, shown in Figure \ref{fig:aesEnc}, starts by copying the input block into a square matrix, called "State",
 followed by a \gls{xor} combination of the first round 
 key and the matrix. Then, 9, 11 or 13 rounds, depending on the key size, are performed: substitution by S-Boxes, permutation by shifting rows, 
 another substitution by mixing columns and applying the round key. A last round, omitting the mix-columns stage, concludes the encryption.
@@ -244,7 +244,7 @@ in the clear text, thus the name error propagation \cite{burda}.
 \gls{ecb} can be used to gain confidentiality and allows the parallel processing of all input blocks. This mode does not use any \gls{iv} or nonce, therefore
 repeating input blocks are mapped to the same output blocks under the same key, implementing a deterministic encryption scheme.
 This is problematic, which can be seen quite intuitively by comparing 
-figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor, this mode should never be used.
+Figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefore, this mode should never be used.
 \\
  \begin{minipage}{\linewidth}
       \centering
@@ -267,10 +267,10 @@ figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefor, this mode should never 
 
 \subsubsection{\gls{cbc}}
 
-This mode uses an \gls{iv} and can therefor be used for encryption of same messages without changing the key. Additionally, \gls{cbc} can also be used
+This mode uses an \gls{iv} and can therefore be used for encryption of same messages without changing the key. Additionally, \gls{cbc} can also be used
 for \gls{mac2} generation, as shown in section \ref{Integrity}.
 \\
-Encrypting a message is shown in figure \ref{fig:cbc_encrypt}.
+Encrypting a message is shown in Figure \ref{fig:cbc_encrypt}.
 \begin{center}
 $ C_0 = E(k, (M_0 \bigoplus IV ) )  $
 \\
@@ -280,7 +280,7 @@ $...$
 \\
 $ C_i = E(k, (M_i \bigoplus C_{i-1} ) )  $
 \end{center}
-To reverse the process, i.e. decrypt the message, see figure \ref{fig:cbc_encrypt}
+To reverse the process, i.e. decrypt the message, see Figure \ref{fig:cbc_encrypt}
 \begin{center}
 $ M_0 = D(k, C_0) \bigoplus IV $
 \\
@@ -315,7 +315,7 @@ be taken for the counter not to overflow within the lifetime of a key.
 \subsubsection{\gls{ctr} mode}
 
 This confidentiality mode generates a key stream by encrypting a counter value with a block cipher. The key stream is then applied to the cleartext
-blocks with the \gls{xor} operation, as shown in figure \ref{fig:ctr}. For the last block, the key stream is truncated to match the size of the cleartext block.
+blocks with the \gls{xor} operation, as shown in Figure \ref{fig:ctr}. For the last block, the key stream is truncated to match the size of the cleartext block.
 \\
 Decryption works by generating the same key stream on the receiver's side, and applying the \gls{xor} operation to the ciphertext blocks, similar to the
 decryption process used in the Vernam cipher.
@@ -341,7 +341,7 @@ concatenation before encrypting the counter:
 to the size of one transmission unit. For initialization, an unpredictable \gls{iv} is set as input for the underlying block cipher. Then, in every
 processing step a new transmission unit is generated by \gls{xor}ing the $s$ most significant bits
 of the output of the encryption function with the $s$ bit message unit. After that, the \gls{iv} is shifted to the left and the gap is filled
-by the newly generated character, as shown in figure \ref{fig:cfb}:
+by the newly generated character, as shown in Figure \ref{fig:cfb}:
 \\
 \\
  $C[0] = E(k, IV[0:b-1])[b-1:b-s-1] \bigoplus M[0]$\\
@@ -391,13 +391,13 @@ Digital signatures are based on public key cryptography and are introduced in se
 providing integrity and authenticity. 
 \\
 The basic way to protect a data unit - be it a message traveling from sender to recipient or a file saved for later usage - from modification by a third party is to
-generate a tag $t$, also called \gls{mac2}, and concatenating this tag to the message, as shown in figure \ref{fig:tag}.
-Verifying the integrity is done by re-generating the tag and comparing it to the saved on. 
+generate a tag $t$, also called \gls{mac2}, and concatenating this tag to the message, as shown in Figure \ref{fig:tag}.
+Verifying the integrity is done by re-generating the tag and comparing it to the saved one. 
 \\
 \\
-In contrast to confidentiality modes, which should always be combined with a method to guarantee integrity (as shown in FIXME), 
+In contrast to confidentiality modes, which should always be combined with a method to guarantee integrity, 
 integrity-only modes do have a right to exist. For example, archives containing source code for open source project, available from the internet, must not be
-encrypted but should be secured against modification. For example, the UNIX based operating system "FreeBSD" uses asymmetric keys to protect it's package
+encrypted but should be secured against modification. For example, the UNIX based operating system "FreeBSD" uses asymmetric keys to protect its package
 management system from adversary modification.
 \\
 \\
@@ -406,14 +406,14 @@ Combining integrity and confidentiality in a security scheme called \gls{ae} wil
 \\
 As tag generation and tag verification algorithms, keyed or unkeyed cryptographic secure hash functions are used.
 For integrity-only, keyed hash functions must be used, or
-otherwise an arbitrary entity can modify the message undetectable by regenerating the correct tag. Therefor, a simple checksum like a \gls{crc} or an unkeyed 
+otherwise an arbitrary entity can modify the message undetectable by regenerating the correct tag. Therefore, a simple checksum like a \gls{crc} or an unkeyed 
 hash function can not provide integrity only, simply because the function value can be re-generated by an adversary modifying the message, allowing to mount
 an attack called \gls{mac2} forgery.
-Nevertheless, in combination with a confidentiality mode such an unkeyed function \textit{may} be secure, although it's use is discouraged because many applications operating
+Nevertheless, in combination with a confidentiality mode such an unkeyed function \textit{may} be secure, although its use is discouraged because many applications operating
 this way are broken and can be attacked (i.e. \gls{ssh} version 1 \cite{zalewskissh}).
 \\
 \\
-A hash functions takes as input an arbitrary large message $\mathcal{M}$ and generates a hash value $t = h(\mathcal{M})$ of fixed size, therefor $|M| >> |t|$. This many-to-one
+A hash functions takes as input an arbitrary large message $\mathcal{M}$ and generates a hash value $t = h(\mathcal{M})$ of fixed size, therefore $|M| >> |t|$. This many-to-one
 mapping implies the existence of collisions, i.e. the existence of distinct messages $m_1, m_2$ which are mapped to the same tag $t$.
 \begin{figure}
     \centering
@@ -434,7 +434,7 @@ Important representatives of cryptographically secure hash functions are the fam
 length, defined by \gls{nist} \cite{nistSHA}. For \gls{sha}-1, an attack to find collisions was found \cite{Wang05findingcollisions} and should therefor not
 be used anymore.
 \\
-Because these hash functions lack a secret key and therefor would allow \gls{mac2} forgery, a construction called \gls{hmac} can be used, which takes 
+Because these hash functions lack a secret key and therefore would allow \gls{mac2} forgery, a construction called \gls{hmac} can be used, which takes 
 additionally to the message $m$ as input a key $k$, and $ipad$ and $opad$ being constant values \cite{hmac}.
 
 \begin{align}
@@ -443,7 +443,7 @@ additionally to the message $m$ as input a key $k$, and $ipad$ and $opad$ being 
 \\
 \\
 A different way for tag-generation, called \gls{cbc}-\gls{mac2}, is based on block ciphers, utilizing a construction similar to \gls{cbc} mode encryption,
-shown in figure \ref{fig:cbc_MAC}. 
+shown in Figure \ref{fig:cbc_MAC}. 
 
 \begin{figure}\label{cbcMAC}
     \centering
@@ -467,7 +467,7 @@ submitted data must be protected from a passive adversary. One example would be 
 \\
 \\
 The need to additionally provide integrity and authenticity measurements is maybe not that obvious, but can be motivated in various ways. For example, two entities
-sharing an initial key known to booth of them which want to negotiate a temporary session key could randomly choose the temporary key, encrypt it and send it
+sharing an initial key known to both of them which want to negotiate a temporary session key could randomly choose the temporary key, encrypt it and send it
 to the other side. Even if a passive adversary knows that the package he monitors will be used as session key he cannot derive it, provided a secure cipher is
 used.  In contrast, an active attacker can intercept and modify the encrypted session key, and afterwards inject the modified message. The receiver
 would then decrypt the package, thus obtaining a modified session key. After all, the two entities would use two different keeps, crippling their communication.
@@ -500,35 +500,33 @@ insecure. For "mac-then-encrypt", used in \gls{ssl}, the same holds true, but th
 
 \subsection{CCM}
 
-CCM\footnote{http://tools.ietf.org/html/rfc3610}, short for \textit{Counter with CBC-MAC} combines CBC for authentication and CTR mode for encryption.
-CBC generates the MAC for the message first, appends this MAC to the cleartext data and afterwards encrypts data + MAC with counter mode, thus using a
-\textit{MAC-then-Encrypt} scheme. The only
-supported block size is 128-bit blocks, so it is possible, but not mandatory, to use 128-bit AES as underlying block cipher.
+\gls{ccm} \footnote{http://tools.ietf.org/html/rfc3610}, combines \gls{cbc} for authentication and \gls{ctr} for encryption.
+\gls{ccm} generates the \gls{mac2} for the message first, appends this \gls{mac2} to the cleartext data and afterwards encrypts data and \gls{mac2} with counter mode, thus using a
+\textit{MAC-then-Encrypt} scheme. The only supported block size is 128-bit blocks, so it is possible, but not mandatory, to use 128-bit \gls{aes} as underlying block cipher.
 \\
 Two application dependent parameters have to be fixed first: 
 \begin{itemize}
- \item M: Number of octets in the MAC field. A shorter MAC obviously means less overhead, but it also makes it easier for an adversary to guess the correct
- value of a MAC, so valid values are $M \in \{4, 6, 8, 10, 12, 14, 16\}$. FIXME: shorter MACs insecure, border=4 ? 
+ \item M: Number of octets in the \gls{mac2} field. A shorter \gls{mac2} obviously means less overhead, but it also makes it easier for an adversary to guess the correct
+ value of a \gls{mac}, so valid values are $M \in \{4, 6, 8, 10, 12, 14, 16\}$. 
  \item L: Number of octets in the length field. This is a trade-off between the maximum message size and the size of the nonce. Valid values are $2 \leq L \leq 18$.
  For example, when setting $L = 2$, 2 bytes are reserved for the length field, which means that the biggest message that can be encrypted is of size 64kB. The actual
- length of the message is filled into the field named 'length(msg)', as shown in figure \ref{fig:cbc_MAC}.
+ length of the message is filled into the field named 'length(msg)', as shown in Figure \ref{fig:cbc_MAC}.
 \end{itemize}
+Both parameters are encoded in the very first byte of the first message block, thus reducing the possible maximum size of the nounce, as shown in Figure \ref{fig:cbc_Flags}.
+Bit 6 of the length field is set to 1 if additional authenticated data are sent, and bit 7 is reserved and set to 0.
 
-Both parameters are encoded in the very first byte of the first message block, thus reducing the possible maxium size of the nounce, as shown in figure \ref{fig:cbc_Flags}.
-Bit 6 of the length field is set to 1 if additional authenicated data(FIXME) are sent, and bit 7 is reserved and set to 0.
 
+\subsubsection{Generating the \gls{mac2}}
 
-\subsubsection{Generating the MAC}
-
-As shown in chapter \ref{authenticity} in figure\ref{fig:cbc_MAC}, the first message block $M_0$ is \gls{xor}'d with a nonce or initialization vector(IV, see figure
-\ref{fig:ccrMacIV}), which \textbf{must be unique per key}.FIXME
+As shown in Figure \ref{fig:cbc_MAC}, the first message block $M_0$ is \gls{xor}'d with a nonce or \gls{iv} (see Figure
+\ref{fig:ccrMacIV}), which must be unique per key to avoid deterministic encryption.
 The result of the \gls{xor} operation is then feed to the block-cipher to get the first cipherblock $C_0$. The encrypted data $C_0$ gets \gls{xor}'d with the next message block $M_1$, and this
 result becomes the input for the block cipher, and so on, iterating over all $n$ message blocks to determine the tag $t$:
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/CCMCBCIV.eps}
-    \caption{IV for CBC MAC}
+    \caption{\gls{iv} for \gls{cbc} \gls{mac2}}
     \label{fig:ccrMacIV}
 \end{figure}
 
@@ -544,24 +542,24 @@ result becomes the input for the block cipher, and so on, iterating over all $n$
  \\
 \end{center}
 
-The resulting tag $t$ can be truncated, corresponding to the chosen MAC size $M$:
+The resulting tag $t$ can be truncated, corresponding to the chosen \gls{mac2} size $M$:
 \begin{center}
   $t = C_n[M:0]$, with $M \in \{4, 6, 8, 10, 12, 14, 16\}$
 \end{center}
 which means that the tag $t$ consists of the least significant $M$ bytes of the output of the last encryption block.
 
-\subsubsection{Encrypting Data and MAC}
+\subsubsection{Encrypting Data and \gls{mac2}}
 
-Counter-mode is used for encrypting the actual payload and the concatenated, CBC mode generated MAC.
+\gls{ctr} is used for encrypting the actual payload and the concatenated, \gls{cbc} mode generated \gls{mac2}.
 Thus, authenticated encryption is achieved in a manner also called 'mac-then-encrypt'. While authenticated
-encryption modes implementing this ordering(generate mac first, then encrypt data and mac) \textit{may}
-be vulnerable to padding oracle attacks(FIXME), counter mode effectively avoids these simply because
-there is no padding needed, as will be shown.
-
-Counter mode implements a weaker form of the one time pad by generating a keystream of sufficient
-length, and then applying the \gls{xor} operation to the keystream and the data, as shown in figure \ref{fig:ctr}.
-
-
+encryption modes implementing this ordering (generating the \gls{mac2} first, then encrypt data and \gls{mac2}) \textit{may}
+be vulnerable to padding oracle attacks \cite{eurocryptVaudenay02}, \gls{ctr} effectively avoids these attacks simply because
+there is no padding needed.
+\\
+\gls{ctr} implements a weaker form of the one time pad by generating a keystream of sufficient
+length, and then applying the \gls{xor} operation to the keystream and the data, as shown in Figure \ref{fig:ctr}.
+\\
+\\
 First, keyblocks with 16 byte length each are generated by encrypting the nounce, a flag and a counter with the key. These 
 keyblocks are then concatenated and trimmed to the proper length (i.e., the length of the message to encrypt). This obtained keystream
 is then bitwise \gls{xor}'ed with the cleartextmessage (which consists of the data and the MAC), yielding the final encryption.
@@ -591,23 +589,23 @@ An entity wanting to send an encrypted message to a receiver can then look up th
 ciphertext to the recipient, who then can decrypt the message. 
 \\
 \\
-It is remarkable that any algorithm establishing public keys must authenticate it's participants, or it will be vulnerable to man-in-the-middle attacks.
+It is remarkable that any algorithm establishing public keys must authenticate its participants, or it will be vulnerable to man-in-the-middle attacks.
 
 \subsection{Merkle Puzzles}
 In \cite{Merkle}, Ralph C. Merkle developed an algorithm for key exchange between two parties. While the algorithm is based on symmetric ciphers and is
-not practicable, it motivates the usage of public key systems based on algebraic structures and is therefor introduced.
+not practicable, it motivates the usage of public key systems based on algebraic structures and is therefore introduced.
 \\
 \\
 The key idea is that the necessary work by the two legitimate parties when negotiating a key is bounded by $O(n)$, while an adversary must spend $O(n^2)$ to 
 also calculate the key, thus generating a quadratic gap. 
 Merkle defines a puzzle as cipher text that is supposed to be broken. This can be achieved by restricting the size of the symmetric key used such that an
-exhaustive search can be finished in feasible time. Every puzzle contains an id and a session key, booth chosen randomly, as well as a static string,
+exhaustive search can be finished in feasible time. Every puzzle contains an id and a session key, both chosen randomly, as well as a static string,
 known to all participants.
 \\
 The party initiating the key exchange, called $X$, generates $n$ such puzzles and sends all of them to the receiver $Y$. $Y$ picks one puzzle at random and
 decrypts it by trying all possible keys. Because of the static string inside the puzzle, $Y$ knows for sure when the correct key has been tried.
-$Y$ then extracts the session key and sends the corresponding id back to $X$. Subsequently, booth parties can use the session key referenced by the id for encryption.
-An eavesdropper $Z$, monitoring all puzzles, cannot directly determine which of them is containing the returned id and therefor does not know the session key the 
+$Y$ then extracts the session key and sends the corresponding id back to $X$. Subsequently, both parties can use the session key referenced by the id for encryption.
+An eavesdropper $Z$, monitoring all puzzles, cannot directly determine which of them is containing the returned id and therefore does not know the session key the 
 two parties agreed on - the only possibility for $Z$ is to attack \textbf{all} puzzles, squaring the effort spent by $X$ and $Y$.
 \\
 If, for example, one puzzle can be broken by $2^{32}$ computations, and $2^{32}$ different puzzles are used, $X$ must prepare, save and send $2^{32}$ puzzles
@@ -620,7 +618,7 @@ as shown in \cite{Barak09merklepuzzles}.
 To further increase the effort an attacker has to spend a different approach has to be found. It turns out that hard mathematical problems exist that are 
 suitable for such a purpose. 
 \\
-Therefor, in the next sections three important public key algorithms are introduced: \gls{dh} key exchange, based on prime fields, \gls{ecc}, and RSA.
+Therefore, in the next sections three important public key algorithms are introduced: \gls{dh} key exchange, based on prime fields, \gls{ecc}, and RSA.
 \subsection{\gls{dh} Key-Exchange}
 
 Whitfield Diffie and Martin Hellman proposed a way to solve the problem for key-exchange based on finite fields
@@ -630,13 +628,13 @@ is based on the hardness of the \gls{dlp}, as shown in \ref{refDLP}.
 \\
 \\
 With the original \gls{dh} algorithm, 2 entities - $A$ and $B$ - use exponentiation over finite fields to agree on a shared secret, which
-then can be used parametrize a block or stream cipher. The first step for booth entities is to agree on the set of parameters $\{p, g\}$, where $p$ is a 
+then can be used parametrize a block or stream cipher. The first step for both entities is to agree on the set of parameters $\{p, g\}$, where $p$ is a 
 large prime and $g$ is a generator of the cyclic group ${Z_p}^*$. These parameters are not secret and
 can thus be sent over an unsecured channel.
 Additionally, each entity randomly chooses an integer $x$ from the interval $(1, q-2]$, and calculates the value $y = g^x \pmod p$. $x$ is the private key,
 $y$, which is computationally easy to calculate, is the public key. $A$ sends its public key $y_A \equiv g^{x_A} \pmod p$ to $B$, and $B$ its public key
 $y_B \equiv g^{x_B} \pmod p$ to $A$. Due to the characteristics of exponentiation, $A$ and $B$ can now easily derive the shared secret by using its counterpart's
-public key and raising it to the power of it's own private key in the domain of ${Z_p}^*$:
+public key and raising it to the power of its own private key in the domain of ${Z_p}^*$:
 
 \begin{center}
  $k_B \equiv {y_A}^{x_B} \equiv (g^{x_A})^{x_B} \equiv g^{x_A*x_B} \pmod p $\\
@@ -664,13 +662,13 @@ To build a public key system, two users $A$ and $B$ initially agree on a set of 
  \item the order of $P$, denoted $n$
 \end{itemize}
 After agreeing on this set, $A$ selects a randomly chosen integer $k_A$, calculates $P_A = k_A*P$ and sends
-this point to $B$, who in turn randomly chooses $k_B$ and sends $P_B = k_B*P$ to $A$. Subsequently, booth can calculate the point $k_A*k_B*P$, which can be used
+this point to $B$, who in turn randomly chooses $k_B$ and sends $P_B = k_B*P$ to $A$. Subsequently, both can calculate the point $k_A*k_B*P$, which can be used
 to derive a key.
 
 \subsection{Multi-party key negotiation}
-\gls{dh} and therefor also the \gls{ecdlp} can be generalized to $n$ parties, obtaining one key in common. The key negotiation procedure for 3 parties, using
+\gls{dh} and therefore also the \gls{ecdlp} can be generalized to $n$ parties, obtaining one key in common. The key negotiation procedure for 3 parties, using
 classical \gls{dh}, is
-shown in figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all 3 parties $A$, $B$ and $C$ already agreed upon $(p,g)$.
+shown in Figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all 3 parties $A$, $B$ and $C$ already agreed upon $(p,g)$.
 \begin{figure}
     \centering
     \begin{tikzpicture}[scale=0.2]
@@ -727,14 +725,14 @@ shown in figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all 3
   \caption{\gls{dh} Round 2}
     \label{fig:dh2}
 \end{figure}
-After finishing the second communication round, every party raises the last received value to it's own private key and thus derives the shared secret.
+After finishing the second communication round, every party raises the last received value to its own private key and thus derives the shared secret.
 \begin{align}
  ((g^b)^c)^a = ((g^c)^a)^b = ((g^a)^b)^c = g^{a*b*c}
 \end{align}
 This algorithm can be generalized to $n$ parties, using $(n-1)$ communication rounds. Obviously, this algorithm may not be practicable for a large $n$. Additionally,
 a complete new run must be executed whenever a new node joins.
 \\
-Additionally, this key agreement mechanism (as well as all others presented so far) uses not authentication and is therefor vulnerable to active attacks.
+Additionally, this key agreement mechanism (as well as all others presented so far) uses no authentication and is therefore vulnerable to active attacks.
 
 \subsection{RSA}
 
@@ -796,7 +794,7 @@ cryptographically secure hash functions, so the same requirements as listed in \
 \\
 \\
 Nevertheless, due to the use of asymmetric keys, an important semantic difference between \glspl{mac2} and digital signatures emerges: for a \gls{mac2} 
-a key is shared by at least 2 entities. A digital signature, in contrast, is generated by utilizing the private key of an entity. Therefor,
+a key is shared by at least 2 entities. A digital signature, in contrast, is generated by utilizing the private key of an entity. Therefore,
 digital signatures can also provide non-repudiation.
 This property allows to convince an unbiased "judge" that a message, signed by the sender, was indeed sent by this sender, i.e. the message was not
 forged by a third party. This is an important difference to \glspl{mac2}, where such a behavior is not possible.
@@ -810,7 +808,7 @@ the hash of the message and comparing it to the decrypted hash.
 
 \subsubsection{\gls{ecdsa}}
 
-FIXME Based on the idea of Scott Vanstone, this signature algorithm is the \gls{ecc} variant of the \gls{dsa}, standardized by \gls{nist} \cite{nistECDSA}.
+Based on the idea of Scott Vanstone, this signature algorithm is the \gls{ecc} variant of the \gls{dsa}, standardized by \gls{nist} \cite{nistECDSA}.
 Analog to the \gls{ecdlp}, as shown in section \ref{ecdp}, the domain parameters are public knowledge. The signer of the message chooses a random integer $k$ and
 computes the coordinates $(x_Q, y_Q)$ of a new point $Q$ by multiplying $k*P = Q$. Afterwards, $x_Q$ is converted to an integer, obtaining $r = x_Q' \pmod n$. Finally,
 by using his private key $d$, $s$ is calculated:
@@ -845,7 +843,7 @@ TODO: BIRTHDAY PARADOXON
 % A system is an entity that interacts with other entities, which constitute the environment for the system and
 % can be other systems, humans or the physical world \cite{1335465}. Fundamental properties of communication systems
 % are \textit{functionality, performance, security and dependability}. The system provides services to the user(s) 
-% of the system through it's service interface, described by the functional specification. Whenever the provided service
+% of the system through its service interface, described by the functional specification. Whenever the provided service
 % deviates from correct service a system failure occurs. 
 % An informal definition of a dependable system is a system which delivers a service that can be justifiable trusted. More formally,
 % dependability consists of the following attributes:
