@@ -30,9 +30,7 @@ int clrSend(void)
 
 int checkClrPkg(uint8_t *pkg, uint8_t len)
 {
-	uint8_t type = INVALID;
-
-	return type;
+	return 0;
 }
 
 int clrReceive(void)

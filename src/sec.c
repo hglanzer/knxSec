@@ -43,21 +43,66 @@ void time2Str(byte *buf)
 	}
 }
 
-void prepareSyncReq(void *env)
+void preparePacket(void *env, uint8_t type)
 {
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	uint8_t i = 0, len = 0;
 	time2Str(secBufferTime[thisEnv->id]);
 
-	secBufferMAC[thisEnv->id][0] = 0;				// DEST = broadcast
-	secBufferMAC[thisEnv->id][1] = 0;				// DEST = broadcast
-	secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr FIXME
-	secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr FIXME
-	secBufferMAC[thisEnv->id][4] = syncReq;				// SEC HEADER
-	secBufferMAC[thisEnv->id][5] = secBufferTime[thisEnv->id][0];	// TIME
-	secBufferMAC[thisEnv->id][6] = secBufferTime[thisEnv->id][1];	// ...
-	secBufferMAC[thisEnv->id][7] = secBufferTime[thisEnv->id][2];	// ...
-	secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][3];	// TIME 
-	secBufferMAC[thisEnv->id][9] = '\0';				// delimiter 
+	MSGBUF_SEC2WR[thisEnv->id].buf[0] = '\0';
+	secBufferMAC[thisEnv->id][0] = '\0';
+
+	/*
+		prepare...
+	*/
+	switch(type)
+	{
+		case syncReq:
+			secBufferMAC[thisEnv->id][0] = 0x00;				// DEST = broadcast
+			secBufferMAC[thisEnv->id][1] = 0x00;				// DEST = broadcast
+			secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr FIXME
+			secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr FIXME
+			secBufferMAC[thisEnv->id][4] = syncReq;				// SEC HEADER
+			secBufferMAC[thisEnv->id][5] = secBufferTime[thisEnv->id][0];	// TIME
+			secBufferMAC[thisEnv->id][6] = secBufferTime[thisEnv->id][1];	// ...
+			secBufferMAC[thisEnv->id][7] = secBufferTime[thisEnv->id][2];	// ...
+			secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][3];	// TIME 
+			secBufferMAC[thisEnv->id][9] = '\0';				// delimiter 
+
+			len = 9;		
+		break;
+		case syncRes:
+
+		break;
+		default:
+			printf("prepare(): THIS SHOULD NOT HAPPEN, exit");
+			exit(-1);
+	}
+
+	/*
+		... and generate HMAC
+	*/
+	i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
+	assert(i == 0);
+	if(i != 0)
+	{
+		#ifdef DEBUG
+			printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
+		#endif
+		exit(-1);
+	}
+	#ifdef DEBUG
+		print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
+	#endif
+		
+	// assemble sync request message
+	strcpy(MSGBUF_SEC2WR[thisEnv->id].buf, &secBufferMAC[thisEnv->id][4]);
+	len = strlen(MSGBUF_SEC2WR[thisEnv->id].buf);
+	//printf("len = %d\n\n", len);
+	for(i = 0; i < MACSIZE; i++)
+		MSGBUF_SEC2WR[thisEnv->id].buf[len+i] = sigHMAC[thisEnv->id][i];
+	
+	MSGBUF_SEC2WR[thisEnv->id].buf[len+i+1] = '\0';
 }
 
 void printKey(uint8_t *key, uint8_t keysize)
@@ -170,7 +215,7 @@ void keyInit(void *env)
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
 	uint8_t buffer[BUFSIZE]; 
 
-	thisEnv->state = INIT;
+	thisEnv->state = STATE_INIT;
 
 	/*	
 		main state machine for SEC - master thread
@@ -180,7 +225,7 @@ void keyInit(void *env)
 	{
 		switch(thisEnv->state)
 		{
-			case INIT:
+			case STATE_INIT:
 				#ifdef DEBUG
 					printf("SEC%d: INIT\n", thisEnv->id);
 				#endif
@@ -199,32 +244,14 @@ void keyInit(void *env)
 				FD_ZERO(&set);
 				FD_SET(thisEnv->Read2MasterPipe[READEND], &set);
 			
-				thisEnv->state = SYNC_REQ;
+				thisEnv->state = STATE_SYNC_REQ;
 			break;
-			case SYNC_REQ:
+			case STATE_SYNC_REQ:
 				#ifdef DEBUG
 					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
 				#endif
 				// prepare MAC for sync request message	
-				prepareSyncReq(env);
-				rc = generateHMAC(secBufferMAC[thisEnv->id], 9, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
-				assert(rc == 0);
-				if(rc != 0)
-				{
-					#ifdef DEBUG
-						printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
-					#endif
-					exit(-1);
-				}
-				#ifdef DEBUG
-					print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
-				#endif
-				
-				// assemble sync request message
-				strcpy(MSGBUF_SEC2WR[thisEnv->id].buf, &secBufferMAC[thisEnv->id][4]);
-
-// FIXME: RESTRICT MAC SIZE TO 4 BYTE (use define) - CHECK FOR BUFFER OVERFLOWS!!!! strncat()
-				strcat(MSGBUF_SEC2WR[thisEnv->id].buf, sigHMAC[thisEnv->id]);
+				prepareSyncReq(env, syncReq);
 				MSGBUF_SEC2WR[thisEnv->id].mtype = MSG_TYPE;
 				msgsnd(MSGID_SEC2WR, &MSGBUF_SEC2WR[thisEnv->id], sizeof(MSGBUF_SEC2WR[thisEnv->id]) - sizeof(long), 0);
 /*
@@ -235,9 +262,9 @@ void keyInit(void *env)
 				pthread_cond_signal(&SecCondWr[thisEnv->id]);
 				pthread_mutex_unlock(&SecMutexWr[thisEnv->id]);
 */
-				thisEnv->state = SYNC_WAIT_RESP;
+				thisEnv->state = STATE_SYNC_WAIT_RESP;
 			break;
-			case SYNC_WAIT_RESP:
+			case STATE_SYNC_WAIT_RESP:
 				#ifdef DEBUG
 					printf("SEC%d: SYNC_WAIT_RESP\n", thisEnv->id);
 				#endif
@@ -250,7 +277,7 @@ void keyInit(void *env)
 				if(selectRC == 0)
 				{
 					thisEnv->retryCount++;
-					thisEnv->state = SYNC_REQ;
+					thisEnv->state = STATE_SYNC_REQ;
 		
 					/*
 						seems like there is no other device reachable / online(on this SECline)
@@ -258,7 +285,7 @@ void keyInit(void *env)
 					*/
 					if(thisEnv->retryCount == SYNC_RETRIES)
 					{
-						thisEnv->state = RESET_CTR;
+						thisEnv->state = STATE_RESET_CTR;
 						#ifdef DEBUG
 							printf("SEC%d: key master sync give up\n", thisEnv->id);
 						#endif
@@ -290,24 +317,24 @@ void keyInit(void *env)
 					read(thisEnv->Read2MasterPipe[READEND], &buffer[0], sizeof(buffer));
 
 					// SAVE COUNTER!		FIXME	
-					thisEnv->state = READY;
+					thisEnv->state = STATE_READY;
 				}
 			break;
 
 			// looks like this node is alone - reset global counter
 			// FIXME:	maybe choose random counter?
 			//		or additionally use time() information ?
-			case RESET_CTR:
+			case STATE_RESET_CTR:
 				#ifdef DEBUG
 					printf("SEC%d: RESET_CTR\n", thisEnv->id);
 				#endif
 				thisEnv->globalCount = 0;
-				thisEnv->state = READY;
+				thisEnv->state = STATE_READY;
 
 			break;
 
 			// node is ready to process datagrams
-			case READY:
+			case STATE_READY:
 				#ifdef DEBUG
 					printf("SEC%d: key master ready\n", thisEnv->id);
 				#endif

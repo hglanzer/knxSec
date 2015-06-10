@@ -43,7 +43,7 @@ int decodeFrame(uchar *frame)
 		printf("%d.%d.%d -> ", srcAreaAddress(frame), srcLineAddress(frame),srcDeviceAddress(frame));	
 		if(isIndivAddrStd(frame))	// std frame for indiv. address
 		{
-			printf("%d.%d.%d -> ", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
+			printf("%d.%d.%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
 		}
 		else			// std frame for group address
 		{
@@ -101,6 +101,7 @@ int main (int ac, char *ag[])
 	       	return -1;
 	}
 
+	printf("entering loop\n");
 	while(1)
 	{
 		printf("waiting...");
@@ -113,7 +114,7 @@ int main (int ac, char *ag[])
 		else
 		{
 			for(i=0; i < rc; i++)
-				printf("%X ", buf[i]);
+				printf("%02X ", buf[i]);
 
 
 			decodeFrame(buf);

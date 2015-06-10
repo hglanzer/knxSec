@@ -2,7 +2,7 @@ int initSec(void *);
 int secRD(void *);
 int secWR(void *);
 void keyInit(void *);
-void prepareSyncReq(void *);
+void preparePacket(void *, uint8_t);
 void time2Str(unsigned char *buf);
 
 #define SYNCTIMEOUT_SEC 3
@@ -18,37 +18,14 @@ void time2Str(unsigned char *buf);
 
 #define SECLINES	2
 
-#define	INIT		0
-#define	SYNC_REQ	1
-#define SYNC_WAIT_RESP	2
-#define RESET_CTR	3
-#define READY		4
+#define	STATE_INIT		0
+#define	STATE_SYNC_REQ		1
+#define STATE_SYNC_WAIT_RESP	2
+#define STATE_RESET_CTR		3
+#define STATE_READY		4
 
 #define READEND		0
 #define WRITEEND	1
-
-/*
-		TYPES OF PACKAGES
-#define		SYNC_REQ	0
-#define		SYNC_RES	1
-
-#define		JOIN_REQ	2
-#define		JOIN_RES	3
-
-#define		DISC_REQ	4
-#define		DISC_RES	5
-
-#define		DATA_SRV	6
-#define		RES1		7
-#define		RES2		8
-#define		RES3		9
-#define		RES4		0xA
-#define		RES5		0xB
-#define		RES6		0xC
-#define		RES7		0xD
-#define		RES8		0xE
-*/
-#define		INVALID		0xF
 
 /*
 		ENCRYPTION / AUTHENTICATION MODES
