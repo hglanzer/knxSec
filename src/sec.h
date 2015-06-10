@@ -26,6 +26,13 @@ void keyInit(void *);
 #define WRITEEND	1
 
 /*
+		MAKROS for EIB Addr
+*/
+#define AreaAddress(adr) ((uint8_t)(adr >> 4 ))
+#define LineAddress(adr) ((uint8_t)(adr & 0x0F))
+#define EIBADDR(area,line,device) (((area << 4 | line) << 8) | device)
+
+/*
 		TYPES OF PACKAGES
 */
 #define		syncReq		0x02

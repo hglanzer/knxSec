@@ -5,6 +5,7 @@
 
 #define AreaAddress(adr) ((uint8_t)(adr >> 4 ))
 #define LineAddress(adr) ((uint8_t)(adr & 0x0F))
+#define EIBADDR(area,line,device) (((area << 4 | line) << 8) | device)
 
 main (int ac, char *ag[])
 {
@@ -65,9 +66,10 @@ main (int ac, char *ag[])
 	}
 	if(ag[2][0] == 'i')
 	{
-
-		if (EIBOpenT_Individual(con, myAddr, FALSE) == -1)
-		//if (EIBOpenT_TPDU(con, myAddr) == -1)
+			
+		dest = EIBADDR(2,4,120);
+		if (EIBOpenT_Individual(con, dest, FALSE) == -1)
+		//if (EIBOpenT_TPDU(con, dest) == -1)
 		{
 			printf("EIBpenT_TPDU() failed\n\n");
 	        	return -1;
@@ -84,7 +86,7 @@ main (int ac, char *ag[])
 	}
 	if(ag[2][0] == 'g')
 	{
-		dest = 0x101;
+		dest = 0x1201;
 		//if (EIBOpenT_Group(con, dest, FALSE) == -1)
 		//if (EIBOpenT_Group(con, dest, TRUE) == -1)
 		if (EIBOpen_GroupSocket(con, TRUE) == -1)

@@ -49,7 +49,8 @@ void preparePacket(void *env, uint8_t type)
 	uint8_t i = 0, len = 0;
 	time2Str(secBufferTime[thisEnv->id]);
 
-	MSGBUF_SEC2WR[thisEnv->id].buf[0] = '\0';
+	MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = '\0';
+	//MSGBUF_SEC2WR[thisEnv->id].buf[0] = '\0';
 	secBufferMAC[thisEnv->id][0] = '\0';
 
 	/*
@@ -58,6 +59,7 @@ void preparePacket(void *env, uint8_t type)
 	switch(type)
 	{
 		case syncReq:
+		//	secBufferMAC[thisEnv->id][0] = (EIBADDR(1,thisEnv->id, thisEnv->addrInt));		// SRC  = my addr 
 			secBufferMAC[thisEnv->id][0] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
 			secBufferMAC[thisEnv->id][1] = thisEnv->addrInt;		// SRC  = my addr
 			secBufferMAC[thisEnv->id][2] = 0x00;				// DEST = broadcast
@@ -75,9 +77,7 @@ void preparePacket(void *env, uint8_t type)
 			assert(i == 0);
 			if(i != 0)
 			{
-				#ifdef DEBUG
 				printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
-				#endif
 				exit(-1);
 			}
 			#ifdef DEBUG
@@ -86,16 +86,20 @@ void preparePacket(void *env, uint8_t type)
 			// assemble sync request message
 			for(i = 0; i <= len - 5; i++)
 			{
-				MSGBUF_SEC2WR[thisEnv->id].buf[i] = secBufferMAC[thisEnv->id][i+4];
+				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i] = secBufferMAC[thisEnv->id][i+4];
+				//MSGBUF_SEC2WR[thisEnv->id].buf[i] = secBufferMAC[thisEnv->id][i+4];
 				//printf("%02X ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
 			}
 			for(i = 0; i < MACSIZE; i++)
 			{
-				MSGBUF_SEC2WR[thisEnv->id].buf[i+(len-4)] = sigHMAC[thisEnv->id][i];
+				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i+(len-4)] = sigHMAC[thisEnv->id][i];
+				//MSGBUF_SEC2WR[thisEnv->id].buf[i+(len-4)] = sigHMAC[thisEnv->id][i];
 				//printf("%02X ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
 			}
 		
-			MSGBUF_SEC2WR[thisEnv->id].buf[len-4+MACSIZE] = '\0';
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[len-4+MACSIZE] = '\0';
+			MSGBUF_SEC2WR[thisEnv->id].frame.len = (len-4+MACSIZE);
+			
 		break;
 		case syncRes:
 
@@ -104,16 +108,6 @@ void preparePacket(void *env, uint8_t type)
 			printf("prepare(): THIS SHOULD NOT HAPPEN, exit");
 			exit(-1);
 	}
-
-	/*
-		... and generate HMAC
-	*/
-	/*
-	strcpy(MSGBUF_SEC2WR[thisEnv->id].buf, (const char *)&secBufferMAC[thisEnv->id][4]);
-	len = strlen(MSGBUF_SEC2WR[thisEnv->id].buf);
-	printf("len = %d\n\n", len);
-	*/
-	
 }
 
 void printKey(uint8_t *key, uint8_t keysize)
@@ -135,6 +129,7 @@ int secWR(void *env)
 {
 	int rc = 0, i = 0;
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	EIBConnection *con;
 	#ifdef DEBUG
 		printf("SEC%d: send ready\n", thisEnv->id);
 	#endif
@@ -165,12 +160,48 @@ int secWR(void *env)
 		#endif
 
 		msgrcv(rc, &MSGBUF_SEC2WR[thisEnv->id], sizeof(MSGBUF_SEC2WR[thisEnv->id]) - sizeof(long), 0, 0);
+
+		switch(MSGBUF_SEC2WR[thisEnv->id].frame.type)	
+		{
+			case syncReq:		// this is a broadcast message
+
+				con = EIBSocketURL(thisEnv->socketPath);
+				#ifdef DEBUG
+					printf("SEC%d-WR: opening %s\n", thisEnv->id, thisEnv->socketPath);
+				#endif
+				if (!con)
+				{
+					printf("SEC%d-WR: EIBSocketURL() failed\n\n", thisEnv->id);
+					exit(-1);
+				}
+
+				if (EIBOpenT_Broadcast(con, 1) == -1)
+				{
+					printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
+					exit(-1);
+				}
+				if (EIBSendAPDU(con, MSGBUF_SEC2WR[thisEnv->id].frame.len, (unsigned char *)MSGBUF_SEC2WR[thisEnv->id].frame.buf) == -1)
+				{
+					printf("EIBOpenSendTPDU() failed\n\n");
+        				exit(-1);
+				}
+				#ifdef DEBUG
+					printf("SEC%d-WR: SEND OK\n", thisEnv->id);
+				#endif
+				EIBClose(con);
+
+			break;
+			case syncRes:
+
+			break;
+		}
 		#ifdef DEBUG
 			printf("SEC%d-WR: new MSQ data: ", thisEnv->id);
 			i = 0;
-			while(MSGBUF_SEC2WR[thisEnv->id].buf[i] != '\0')
+			while(MSGBUF_SEC2WR[thisEnv->id].frame.buf[i] != '\0')
+			//while(MSGBUF_SEC2WR[thisEnv->id].buf[i] != '\0')
 			{
-				printf("%02x ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
+				printf("%02x ", MSGBUF_SEC2WR[thisEnv->id].frame.buf[i]);
 				i++;
 			}
 
@@ -264,6 +295,7 @@ void keyInit(void *env)
 				// prepare MAC for sync request message	
 				preparePacket(env, syncReq);
 				MSGBUF_SEC2WR[thisEnv->id].mtype = MSG_TYPE;
+				MSGBUF_SEC2WR[thisEnv->id].frame.type = syncReq;
 				msgsnd(MSGID_SEC2WR, &MSGBUF_SEC2WR[thisEnv->id], sizeof(MSGBUF_SEC2WR[thisEnv->id]) - sizeof(long), 0);
 /*
 				pthread_mutex_lock(&SecMutexWr[thisEnv->id]);

@@ -59,7 +59,15 @@
 #define MSG_PERM	0666
 #define MSG_TYPE	1
 
+struct packet_t
+{
+	char buf[256];
+	uint8_t type;
+	uint8_t len;
+};
 struct msgbuf_t {
 	long mtype;       /* message type, must be > 0 */
-	char buf[256];    /* message data */
+//	char buf[256];    /* message data */
+	struct packet_t frame;
 };
+
