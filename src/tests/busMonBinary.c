@@ -94,13 +94,14 @@ int main (int ac, char *ag[])
 	}
 	printf("URL opened\n\n");
 
-	//if (EIBOpenBusmonitor(con) == -1)
-	if (EIBOpenVBusmonitor(con) == -1)
+	if (EIBOpenBusmonitor(con) == -1)
+	//if (EIBOpenVBusmonitor(con) == -1)
 	{
 		printf("EIBOpenBusmonitor() failed\n\n");
 	       	return -1;
 	}
 
+	printf("entering loop\n");
 	while(1)
 	{
 		printf("waiting...");
@@ -113,7 +114,7 @@ int main (int ac, char *ag[])
 		else
 		{
 			for(i=0; i < rc; i++)
-				printf("%X ", buf[i]);
+				printf("%02X ", buf[i]);
 
 
 			decodeFrame(buf);
