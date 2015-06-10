@@ -1,3 +1,4 @@
+\label{chap5}
 \section{Master daemon}
 
 \subsection{KNX addressing scheme}
@@ -8,6 +9,11 @@ For the secured network, the address ranges starting at address 1.1.1 to address
 1 and 2 respectively, which allows a maximum of 15 gateways. Different addresses are used mainly because it facilitates debugging. 
 On the unsecured lines, every gateway uses an address from the range 1.0.1 - 1.0.15. Addresses are assigned in a linearly ascending way, so gateway number 1
 uses addresses 1.1.1 and 1.2.1 for secure lines 1 and 2, and 1.0.1 for its unsecured line.
+
+\subsection{EIBD \gls{api}}
+
+Use 
+
 
 \section{Evaluation}
 
