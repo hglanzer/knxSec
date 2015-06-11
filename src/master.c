@@ -20,6 +20,7 @@ pthread_mutex_t SecMutexWr[SECLINES];
 pthread_cond_t  SecCondWr[SECLINES];
 byte secBufferMAC[SECLINES][BUFSIZE];
 byte secBufferWr[SECLINES][BUFSIZE];
+byte secRDbuf[SECLINES][BUFSIZE];
 byte secBufferTime[SECLINES][BUFSIZE];
 
 EVP_PKEY *skey[SECLINES];
@@ -31,6 +32,7 @@ struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 EIBConnection *secFDWR[SECLINES];
 EIBConnection *secFDRD[SECLINES];
 uint32_t globalCount[SECLINES];
+time_t now[SECLINES];
 
 static struct option long_options[] =
 {

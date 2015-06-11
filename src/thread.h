@@ -8,9 +8,10 @@ struct threadEnvClr_t
 struct threadEnvSec_t
 {
 	uint8_t id;
+	char *socketPath;
+
 	uint8_t addrInt;
 	char *addrStr;
-	char *socketPath;
 	int Read2MasterPipe[2];
 	uint8_t state;
 	uint8_t retryCount;

@@ -8,6 +8,7 @@ extern pthread_mutex_t secMutex;
 
 extern byte secBufferMAC[SECLINES][BUFSIZE];
 extern byte secBufferWr[SECLINES][BUFSIZE];
+extern byte secRDbuf[SECLINES][BUFSIZE];
 extern byte secBufferTime[SECLINES][BUFSIZE];
 
 extern EVP_PKEY *skey[SECLINES];
@@ -19,6 +20,8 @@ extern struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 extern EIBConnection *secFDWR[SECLINES];
 extern EIBConnection *secFDRD[SECLINES];
 extern uint32_t globalCount[SECLINES];
+
+extern time_t now[SECLINES];
 
 //struct threadEnvSec_t *thisEnv[SECLINES];
 
@@ -36,23 +39,26 @@ uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13
 /*
 	convert unix-time time_t to 4 digit hex string
 */
-void time2Str(byte *buf)
+void time2Str(void *env, byte *buf)
 {
-	time_t now = time(NULL);
+	pthread_mutex_lock(&mainMutex);
+	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	now[thisEnv->id] = time(NULL);
 	int i=0;
 
 	for(i=3; i>=0;i=i-1)
 	{
-		buf[i] = now % 256;
-		now = now / 256;
+		buf[i] = now[thisEnv->id] % 256;
+		now[thisEnv->id] = now[thisEnv->id] / 256;
 	}
+	pthread_mutex_unlock(&mainMutex);
 }
 
 void preparePacket(void *env, uint8_t type)
 {
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
 	uint8_t i = 0, len = 0;
-	time2Str(secBufferTime[thisEnv->id]);
+	time2Str(env, secBufferTime[thisEnv->id]);
 
 	MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = '\0';
 	secBufferMAC[thisEnv->id][0] = '\0';
@@ -84,30 +90,26 @@ void preparePacket(void *env, uint8_t type)
 				printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
 				exit(-1);
 			}
-/*
 			#ifdef DEBUG
 				print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
 			#endif
-*/
 			// assemble sync request message
 			for(i = 0; i <= len - 5; i++)
 			{
-	//			MSGBUF_SEC2WR[thisEnv->id].frame.buf[i] = secBufferMAC[thisEnv->id][i+4];
-				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i] = thisEnv->id;
-
-				//MSGBUF_SEC2WR[thisEnv->id].buf[i] = secBufferMAC[thisEnv->id][i+4];
+				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i] = secBufferMAC[thisEnv->id][i+4];
 				//printf("%02X ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
 			}
 			for(i = 0; i < MACSIZE; i++)
 			{
 				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i+(len-4)] = sigHMAC[thisEnv->id][i];
-				//MSGBUF_SEC2WR[thisEnv->id].buf[i+(len-4)] = sigHMAC[thisEnv->id][i];
 				//printf("%02X ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
 			}
 		
 			MSGBUF_SEC2WR[thisEnv->id].frame.buf[len-4+MACSIZE] = '\0';
 			MSGBUF_SEC2WR[thisEnv->id].frame.len = (len-4+MACSIZE);
-			
+
+			// call write thread directly from here
+			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncReq, env);
 		break;
 		case syncRes:
 
@@ -121,7 +123,6 @@ void preparePacket(void *env, uint8_t type)
 void printKey(uint8_t *key, uint8_t keysize)
 {
 	int i = 0;
-	
 	printf("0x");
 	for(i = 0; i < keysize; i++)
 	{
@@ -210,36 +211,87 @@ int secWR(void *env)
 	}
 	return 0;
 }
+int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
+{
+	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+
+	switch(type)	
+	{
+		case syncReq:		// this is a broadcast message
+
+			secFDWR[thisEnv->id] = EIBSocketURL(thisEnv->socketPath);
+			#ifdef DEBUG
+				printf("\tSEC%d-WR **NEW**: %s with FD @ %p / %u\n", thisEnv->id, thisEnv->socketPath, secFDWR[thisEnv->id], (unsigned)pthread_self());
+			#endif
+			if (!secFDWR[thisEnv->id])
+			{
+				printf("SEC%d-WR: EIBSocketURL() with FD @ %p failed\n\n", thisEnv->id, secFDWR[thisEnv->id]);
+				exit(-1);
+			}
+
+			if ((EIBOpenT_Broadcast(secFDWR[thisEnv->id], 0)) == -1)
+			{
+				printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
+				exit(-1);
+			}
+			if (EIBSendAPDU(secFDWR[thisEnv->id], len, (const uint8_t *)buf) == -1)
+			{
+				printf("EIBOpenSendTPDU() failed\n\n");
+       				exit(-1);
+			}
+			#ifdef DEBUG
+				printf("\tSEC%d-WR: SEND OK to FD @ %p\n", thisEnv->id, secFDWR[thisEnv->id]);
+			#endif
+			EIBClose(secFDWR[thisEnv->id]);
+			//EIBClose(thisEnv->secFDWR);
+
+		break;
+		case syncRes:
+
+		break;
+		default:
+			printf("default: ARGL\n");
+		
+	}
+	return 0;
+}
 
 /*
 	sec RECEIVE thread
-							|------> secWR				(msg messages)
-							|
-	datapath:	secRD	 ---> secMaster --------|
-							|
-							|------> checkDup ----> clrSend		(knx traffic)
 */
 int secRD(void *env)
 {
-	struct msgbuf_t localBuf;
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	uint8_t i = 0, rc = 0;
+	
+	secFDRD[thisEnv->id] = EIBSocketURL(thisEnv->socketPath);
+	#ifdef DEBUG
+		printf("\tSEC%d-RD: %s with FD @ %p / %u\n", thisEnv->id, thisEnv->socketPath, secFDWR[thisEnv->id], (unsigned)pthread_self());
+	#endif
+	if (!secFDRD[thisEnv->id])
+	{
+		printf("\tSEC%d-RD: EIBSocketURL() with FD @ %p failed\n\n", thisEnv->id, secFDRD[thisEnv->id]);
+		exit(-1);
+	}
+	if (EIBOpenVBusmonitor(secFDRD[thisEnv->id]) == -1)
+	{
+		printf("\tSEC%d-RD: EIBOpenBusmonitor() failed\n\n", thisEnv->id);
+	       	exit(-1);
+	}
+
 	while(1)
 	{
-		sleep(10);
-/*
-		rc = EIBGetBusmonitorPacket(thisEnv->secFDRD, sizeof(thisEnv->localRDBuf), thisEnv->localRDBuf);
-		if(rc == -1)
+		if((rc == EIBGetBusmonitorPacket(secFDRD[thisEnv->id], sizeof(secRDbuf[thisEnv->id]), secRDbuf[thisEnv->id])) == -1)
 		{
-			debug("secReceive(): EIBGetBusMonitorPacket() FAILED", pthread_self());
+			printf("\tSEC%d: EIBGetVBusMonitorPacket() FAILED", thisEnv->id);
 		}
 		else
 		{
 			for(i=0; i<rc;i++)
-				printf("%02x ", (unsigned)thisEnv->localRDBuf);
+				printf("%02x ", (unsigned)secRDbuf[thisEnv->id]);
 
-			decodeFrame(thisEnv->localRDBuf);
+			//decodeFrame(thisEnv->localRDBuf);
 		}
-*/		
 	}
 	return 0;
 }
@@ -251,7 +303,6 @@ int secRD(void *env)
 */
 void keyInit(void *env)
 {
-	pthread_mutex_lock(&mainMutex);
 	int selectRC = 0;
 	struct timeval syncTimeout;
 
@@ -293,15 +344,10 @@ void keyInit(void *env)
 				#endif
 				// prepare MAC for sync request message	
 				preparePacket(env, syncReq);
-				MSGBUF_SEC2WR[thisEnv->id].mtype = MSG_TYPE;
-				MSGBUF_SEC2WR[thisEnv->id].frame.type = syncReq;
-				msgsnd(thisEnv->MSGIDsecMASTER, &MSGBUF_SEC2WR[thisEnv->id], sizeof(MSGBUF_SEC2WR[thisEnv->id]) - sizeof(long), 0);
-/*
-			
-				pthread_mutex_lock(&SecMutexWr[thisEnv->id]);
-				pthread_cond_signal(&SecCondWr[thisEnv->id]);
-				pthread_mutex_unlock(&SecMutexWr[thisEnv->id]);
-*/
+//MSGBUF_SEC2WR[thisEnv->id].mtype = MSG_TYPE;
+//MSGBUF_SEC2WR[thisEnv->id].frame.type = syncReq;
+//msgsnd(thisEnv->MSGIDsecMASTER, &MSGBUF_SEC2WR[thisEnv->id], sizeof(MSGBUF_SEC2WR[thisEnv->id]) - sizeof(long), 0);
+
 				thisEnv->state = STATE_SYNC_WAIT_RESP;
 			break;
 			case STATE_SYNC_WAIT_RESP:
@@ -311,7 +357,6 @@ void keyInit(void *env)
 				syncTimeout.tv_sec = SYNCTIMEOUT_SEC;
 				syncTimeout.tv_usec = 0;	
 
-				pthread_mutex_unlock(&mainMutex);
 				selectRC = select(FD_SETSIZE, &set, NULL, NULL, &syncTimeout);
 
 				// timeout
@@ -396,35 +441,20 @@ void keyInit(void *env)
 */
 int initSec(void *threadEnv)
 {
-	pthread_mutex_lock(&mainMutex);
+pthread_mutex_lock(&mainMutex);
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)threadEnv;
 
-	int (*secRDThreadfPtr)(void *);
-	secRDThreadfPtr = &secRD;
-
-	int (*secWRThreadfPtr)(void *);
-	secWRThreadfPtr = &secWR;
-
-
-	pthread_t secRDThread, secWRThread;
-	//printf("%u sock = %s id = %d\n", (unsigned)pthread_self(),threadEnvSec->socketPath, threadEnvSec->id);
 	#ifdef DEBUG
 		printf("SEC%d: sock = %s, thread# = %u\n", thisEnv->id, thisEnv->socketPath, (unsigned)pthread_self());
 	#endif
-/*
 	// create READ thread
+	int (*secRDThreadfPtr)(void *);
+	secRDThreadfPtr = &secRD;
+
+	pthread_t secRDThread;
 	if((pthread_create(&secRDThread, NULL, (void *)secRDThreadfPtr, threadEnv)) != 0)
-	//if((pthread_create(&secRDThread, NULL, (void *)secRDThreadfPtr, (void *)threadEnvSec)) != 0)
 	{
 		printf("sec RECEIVE Thread init failed, exit\n");
-		exit(-1);
-	}
-*/
-	// create WRITE thread
-	if((pthread_create(&secWRThread, NULL, (void *)secWRThreadfPtr, threadEnv)) != 0)
-	//if((pthread_create(&secWRThread, NULL, (void *)secWRThreadfPtr, (void *)threadEnvSec)) != 0)
-	{
-		printf("sec SEND Thread init failed, exit\n");
 		exit(-1);
 	}
 
@@ -443,11 +473,10 @@ int initSec(void *threadEnv)
 	#endif
 
 	hmacInit(&skey[thisEnv->id], &vkey[thisEnv->id], &slen[thisEnv->id], &vlen[thisEnv->id]);
-	pthread_mutex_unlock(&mainMutex);
+pthread_mutex_unlock(&mainMutex);
 	keyInit(threadEnv);
 	
-	pthread_join(secRDThread, NULL);
-	pthread_join(secWRThread, NULL);
+	//pthread_join(secRDThread, NULL);
 	printf("goiing home\n");
 	return 0;
 }

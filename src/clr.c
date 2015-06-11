@@ -38,7 +38,7 @@ void clrRD(void *threadEnv)
 		if (!thisEnv->clrFD)
 		{
 			printf("CLR : opening %s failed\n", thisEnv->socketPath);
-			return -1;
+			exit(-1);
 		}
 		#ifdef DEBUG
 			printf("CLR : socket opened\n");

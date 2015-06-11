@@ -1,6 +1,7 @@
 int initSec(void *);
-int secReceive(void *);
-int secSend(void *);
+int secWRnew(char *, uint8_t , uint8_t , void *);
+int secWR(void *);
+int secRD(void *);
 void keyInit(void *);
 
 #define SYNCTIMEOUT_SEC 3

@@ -85,7 +85,7 @@ int hmacInit(EVP_PKEY** skey, EVP_PKEY** vkey, size_t* slen, size_t* vlen)
 			use static hkey as base for signing/verification key for HMAC
 		*/
 		strcpy((char *)hkey, "\x4B\x48\xAA\xBF\x4C\x84\x3E\xDC\x99\x01\x98\x16\x03\xE1\x32\xBE\x67\x06\x69\xD5\xAC\xA8\x27\x20\x2C\x26\x61\x5D\x17\xC8\x20\xE2");
-		//print_it("*** FIXME *** STATIC HMAC key\n", hkey, size);
+	//	print_it("*** FIXME *** STATIC HMAC key\n", hkey, size);
 	
 		*skey = EVP_PKEY_new_mac_key(EVP_PKEY_HMAC, NULL, hkey, size);
 		assert(*skey != NULL);
@@ -127,13 +127,11 @@ int generateHMAC(const byte* msg, size_t mlen, byte** sig, size_t* slen, EVP_PKE
 {
 	#ifdef DEBUG
 		int i = 0;
-/*
 		printf("\t\t this is generateHMAC, msg = ");
 		for(i=0; i< mlen; i++)
 			printf("%x ", msg[i]);
 	
 		printf("\n");
-*/
 	#endif
     int result = -1;
     if(!msg || !mlen || !sig || !pkey) {
