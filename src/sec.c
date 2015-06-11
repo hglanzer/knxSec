@@ -328,7 +328,7 @@ void keyInit(void *env)
 				thisEnv->MSGIDsecMASTER = msgget(MSGKEY_SEC2WR, MSG_PERM);
 				if(thisEnv->MSGIDsecMASTER == -1)
 				{
-					printf("SEC%d-MA: message queue msgget() failed\n", thisEnv->id);
+					printf("SEC%d-MA: message queue msgget() failed: %s\n", thisEnv->id, strerror(errno));
 					exit(-1);
 				}
 
