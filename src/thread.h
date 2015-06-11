@@ -5,7 +5,8 @@ struct threadEnvClr_t
 	uint8_t addrInt;
 	EIBConnection *clrFD;
 };
-struct threadEnvSec_t
+typedef struct
+//struct threadEnvSec_t
 {
 	uint8_t id;
 	char *socketPath;
@@ -18,4 +19,4 @@ struct threadEnvSec_t
 	uint8_t tmpsecWR;
 	int MSGIDsecWR;
 	int MSGIDsecMASTER;
-};
+}threadEnvSec_t;

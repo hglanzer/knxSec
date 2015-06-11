@@ -73,8 +73,8 @@ int main(int argc, char **argv)
 		thread - variables
 	*/
 	struct threadEnvClr_t threadEnvClr; 
-	struct threadEnvSec_t threadEnvSec1; 
-	struct threadEnvSec_t threadEnvSec2; 
+	threadEnvSec_t threadEnvSec1; 
+	threadEnvSec_t threadEnvSec2; 
 	
 	int (*clrMasterStart)(void *);
 	clrMasterStart = &initClr;

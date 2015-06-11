@@ -42,7 +42,7 @@ uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13
 void time2Str(void *env, byte *buf)
 {
 	pthread_mutex_lock(&mainMutex);
-	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	now[thisEnv->id] = time(NULL);
 	int i=0;
 
@@ -56,7 +56,7 @@ void time2Str(void *env, byte *buf)
 
 void preparePacket(void *env, uint8_t type)
 {
-	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0, len = 0;
 	time2Str(env, secBufferTime[thisEnv->id]);
 
@@ -136,7 +136,7 @@ void printKey(uint8_t *key, uint8_t keysize)
 */
 int secWR(void *env)
 {
-	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	printf("\tSEC%d-WR: %s with FD @ %p / %u\n", thisEnv->id, thisEnv->socketPath, secFDWR[thisEnv->id], (unsigned)pthread_self());
 
 	thisEnv->MSGIDsecWR = msgget(MSGKEY_SEC2WR, MSG_PERM | IPC_CREAT);
@@ -213,7 +213,7 @@ int secWR(void *env)
 }
 int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 {
-	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 
 	switch(type)	
 	{
@@ -261,8 +261,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 */
 int secRD(void *env)
 {
-pthread_mutex_lock(&mainMutex);
-	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0, rc = 0;
 	
 	secFDRD[thisEnv->id] = EIBSocketURL(thisEnv->socketPath);
@@ -283,7 +282,6 @@ pthread_mutex_lock(&mainMutex);
 	#endif
 	while(1)
 	{
-pthread_mutex_unlock(&mainMutex);
 		if((rc == EIBGetBusmonitorPacket(secFDRD[thisEnv->id], sizeof(secRDbuf[thisEnv->id]), secRDbuf[thisEnv->id])) == -1)
 		{
 			printf("\tSEC%d: EIBGetVBusMonitorPacket() FAILED", thisEnv->id);
@@ -310,7 +308,7 @@ void keyInit(void *env)
 	struct timeval syncTimeout;
 
 	fd_set set;
-	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t buffer[BUFSIZE]; 
 
 	thisEnv->state = STATE_INIT;
@@ -446,7 +444,7 @@ void keyInit(void *env)
 int initSec(void *threadEnv)
 {
 pthread_mutex_lock(&mainMutex);
-	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)threadEnv;
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)threadEnv;
 
 	#ifdef DEBUG
 		printf("SEC%d: sock = %s, thread# = %u\n", thisEnv->id, thisEnv->socketPath, (unsigned)pthread_self());
