@@ -261,6 +261,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 */
 int secRD(void *env)
 {
+pthread_mutex_lock(&mainMutex);
 	struct threadEnvSec_t *thisEnv = (struct threadEnvSec_t *)env;
 	uint8_t i = 0, rc = 0;
 	
@@ -277,8 +278,12 @@ int secRD(void *env)
 	       	exit(-1);
 	}
 
+	#ifdef DEBUG
+	printf("\tSEC%d-RD: READY\n", thisEnv->id);
+	#endif
 	while(1)
 	{
+pthread_mutex_unlock(&mainMutex);
 		if((rc == EIBGetBusmonitorPacket(secFDRD[thisEnv->id], sizeof(secRDbuf[thisEnv->id]), secRDbuf[thisEnv->id])) == -1)
 		{
 			printf("\tSEC%d: EIBGetVBusMonitorPacket() FAILED", thisEnv->id);
