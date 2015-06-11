@@ -324,14 +324,15 @@ void keyInit(void *env)
 				#ifdef DEBUG
 					printf("SEC%d: INIT\n", thisEnv->id);
 				#endif
-	
+
+/*	
 				thisEnv->MSGIDsecMASTER = msgget(MSGKEY_SEC2WR, MSG_PERM);
 				if(thisEnv->MSGIDsecMASTER == -1)
 				{
 					printf("SEC%d-MA: message queue msgget() failed: %s\n", thisEnv->id, strerror(errno));
 					exit(-1);
 				}
-
+*/
 				thisEnv->retryCount = 0;
 				FD_ZERO(&set);
 				FD_SET(thisEnv->Read2MasterPipe[READEND], &set);
