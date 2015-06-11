@@ -190,12 +190,14 @@ int main(int argc, char **argv)
 		return -1;
 	}
 //	sleep(1);
+/*
 	// create secure-knx master thread 2
 	if((pthread_create(&sec2MasterThread, NULL, (void *)secMasterStart, &threadEnvSec2)) != 0)
 	{
 		printf("sec2Thread thread init failed, exit\n");
 		return -1;
 	}
+*/
 	#ifdef DEBUG
 		printf("\n\nMaster   Thread %u, waiting for kids\n", (unsigned)pthread_self());
 		printf("sec1Mst  Thread: %u\n", (unsigned)sec1MasterThread);
@@ -204,7 +206,7 @@ int main(int argc, char **argv)
 	#endif
 //	pthread_join(clrMasterThread, &clrThreadRetval);
 	pthread_join(sec1MasterThread, &sec1ThreadRetval);
-	pthread_join(sec2MasterThread, &sec2ThreadRetval);
+//	pthread_join(sec2MasterThread, &sec2ThreadRetval);
 
 	#ifdef DEBUG
 		printf("all threads gone, exit\n");
