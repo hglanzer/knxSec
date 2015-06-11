@@ -1,5 +1,7 @@
-int initClr();
-void sendClsPackage(void);
+
+int initClr(void *);
+void clrRD(void *);
+void clrWR(void *);
 int mainStateMachine(EIBConnection *master);
 
 #define MAX_CLR_SIZE	64

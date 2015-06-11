@@ -9,38 +9,50 @@
 //extern pthread_mutex_t clr2SecMutexWr[2];
 //extern pthread_cond_t  clr2SecCondWr[2];
 
-EIBConnection *clrFD;
-
 int clrState = UNINIT;
-
-void sendClrPackage(void)
-{
-	debug("SEND PACKAGE", pthread_self());
-}
-
-int clrSend(void)
-{
-	while(1)
-	{
-	//	debug("CLS: blocking(MUTEX)", pthread_self());
-		sleep(10);
-	}
-	return 0;
-}
 
 int checkClrPkg(uint8_t *pkg, uint8_t len)
 {
 	return 0;
 }
 
-int clrReceive(void)
+void clrWR(void *threadEnv)
 {
+	while(1)
+	{
+	//	debug("CLS: blocking(MUTEX)", pthread_self());
+		sleep(10);
+	}
+}
+
+void clrRD(void *threadEnv)
+{
+	struct threadEnvClr_t *thisEnv = (struct threadEnvClr_t *)threadEnv;
 	int len = 0;
 	struct packetStruct *packet;
 	packet = malloc(sizeof(struct packetStruct));
 
 	while(1)
 	{
+		thisEnv->clrFD = EIBSocketURL(thisEnv->socketPath);
+		if (!thisEnv->clrFD)
+		{
+			printf("CLR : opening %s failed\n", thisEnv->socketPath);
+			return -1;
+		}
+		#ifdef DEBUG
+			printf("CLR : socket opened\n");
+		#endif
+	
+		if(EIBOpenBusmonitor(thisEnv->clrFD) == -1)
+		{
+			printf("CLR : cannot open KNX Connection\n");
+			exit(-1);
+		}
+		#ifdef DEBUG
+			printf("CLR : busmonitor started\n");
+		#endif
+		
 		// block SEC send call for syncronization
 		#ifdef DEBUG
 			printf("CLR : receive() locking\n");
@@ -49,16 +61,16 @@ int clrReceive(void)
 //		pthread_mutex_lock(&clr2SecMutexWr[1]);
 
 		// blocking call to get next package
-		len = EIBGetBusmonitorPacket (clrFD, sizeof(*packet), (uint8_t *)packet);
+		len = EIBGetBusmonitorPacket (thisEnv->clrFD, sizeof(*packet), (uint8_t *)packet);
 		if (len == -1)
 		{
 			printf("GET failed\n");
-			return -1;
+			exit(-1);
 		}
 
 		if (len > MAX_CLR_SIZE)
 		{
-			debug("discarding oversized clr package",  pthread_self());
+			//debug("discarding oversized clr package",  pthread_self());
 		}
 		else
 		{
@@ -66,7 +78,7 @@ int clrReceive(void)
 			printf("\tLen = %d / CTRL: %x / %x.%x.%x\n", len, packet->ctrl, \
 				AreaAddress(packet->srcAreaLine), LineAddress(packet->srcAreaLine), packet->srcDev);
 			#ifdef DEBUG
-				debug("CLS _____unlocking", pthread_self());
+				//debug("CLS _____unlocking", pthread_self());
 			#endif
 			
 //			pthread_cond_signal(&clr2SecCondWr[0]);
@@ -76,8 +88,6 @@ int clrReceive(void)
 //			pthread_mutex_unlock(&clr2SecMutexWr[1]);
 		}
 	}
-
-	return 0;
 }
 
 int mainStateMachine(EIBConnection *clrFD)
@@ -87,54 +97,31 @@ int mainStateMachine(EIBConnection *clrFD)
 
 int initClr(void *env)
 {
-	struct threadEnvClr_t *arg = (struct threadEnvClr_t *) env;
+	struct threadEnvClr_t *threadEnvClr = (struct threadEnvClr_t *) env;
 
-	int (*clrSendThreadfPtr)(void);
-	clrSendThreadfPtr = &clrSend;
-	int (*clrRecvThreadfPtr)(void);
-	clrRecvThreadfPtr = &clrReceive;
+	void (*clrSendThreadfPtr)(void *);
+	clrSendThreadfPtr = &clrWR;
+	void (*clrRecvThreadfPtr)(void *);
+	clrRecvThreadfPtr = &clrRD;
 
 	pthread_t clrRecvThread, clrSendThread;
 
-	debug("THIS IS **CLR**", pthread_self());
-	clrFD = EIBSocketURL(arg->socketPath);
-	
-	if (!clrFD)
-	{
-		printf("%s", arg->socketPath);
-		debug("CLR: EIBSocketURL() failed", pthread_self());
-		return -1;
-	}
-	#ifdef DEBUG
-		printf("CLR : socket opened\n");
-	#endif
-	
-	if(EIBOpenBusmonitor(clrFD) == -1)
-	{
-		printf("CLR : cannot open KNX Connection\n");
-		return -1;
-	}
-
-	#ifdef DEBUG
-		printf("CLR : busmonitor started\n");
-	#endif
-
-	if((pthread_create(&clrSendThread, NULL, (void *)clrSendThreadfPtr, NULL)) != 0)
+	//debug("THIS IS **CLR**", pthread_self());
+	if((pthread_create(&clrSendThread, NULL, (void *)clrSendThreadfPtr, (void *)threadEnvClr)) != 0)
 	{
 		printf("CLR : SEND Thread init failed, exit\n");
 		return -1;
 	}
-	if((pthread_create(&clrRecvThread, NULL, (void *)clrRecvThreadfPtr, NULL)) != 0)
+	if((pthread_create(&clrRecvThread, NULL, (void *)clrRecvThreadfPtr, (void *)threadEnvClr)) != 0)
 	{
 		printf("CLR : RECEIVE Thread init failed, exit\n");
 		return -1;
 	}
-
 	#ifdef DEBUG
 		printf("CLR : send/recv threads startet, waiting for kids\n");
 	#endif
 	pthread_join(clrRecvThread, NULL);
 	pthread_join(clrSendThread, NULL);
-	debug("CLS going home", pthread_self());
+	printf("CLR going home\n");
 	return 0;
 }

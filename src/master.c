@@ -13,8 +13,24 @@
 uint8_t	clr2SecBUF[CLSBUFSIZE];
 uint8_t	sec2ClrBUF[SECBUFSIZE];
 
+pthread_mutex_t mainMutex;
+pthread_mutex_t secMutex;
+
 pthread_mutex_t SecMutexWr[SECLINES];
 pthread_cond_t  SecCondWr[SECLINES];
+byte secBufferMAC[SECLINES][BUFSIZE];
+byte secBufferWr[SECLINES][BUFSIZE];
+byte secBufferTime[SECLINES][BUFSIZE];
+
+EVP_PKEY *skey[SECLINES];
+EVP_PKEY *vkey[SECLINES];
+size_t slen[SECLINES];
+size_t vlen[SECLINES];
+byte *sigHMAC[SECLINES];
+struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
+EIBConnection *secFDWR[SECLINES];
+EIBConnection *secFDRD[SECLINES];
+uint32_t globalCount[SECLINES];
 
 static struct option long_options[] =
 {
@@ -41,11 +57,6 @@ void Usage(char **argv)
 	exit(EXIT_FAILURE);
 }
 
-void debug(char *str, pthread_t id)
-{
-	printf(" %u: %s\n", (unsigned)id, str);
-}
-
 /*
 	master prozess: creates 3 threads:
 		- 2 secLine threads
@@ -63,7 +74,7 @@ int main(int argc, char **argv)
 	struct threadEnvSec_t threadEnvSec1; 
 	struct threadEnvSec_t threadEnvSec2; 
 	
-	int (*clrMasterStart)(void);
+	int (*clrMasterStart)(void *);
 	clrMasterStart = &initClr;
 
 	int (*secMasterStart)(void *);
@@ -134,7 +145,7 @@ int main(int argc, char **argv)
 		}
 	}
 
-	for(i=0; i < 2; i++)
+	for(i=0; i < SECLINES; i++)
 	{
 		// create condition variables for syncronization clr(recv) -> sec(send)
 		if(pthread_cond_init(&SecCondWr[i], NULL) != 0)
@@ -150,39 +161,46 @@ int main(int argc, char **argv)
 			return -1;
 		}
 	}
-
-
+	if(pthread_mutex_init(&mainMutex, NULL) != 0)
+	{
+		printf("mainMutex init failed, exit");
+		return -1;
+	}
+	if(pthread_mutex_init(&secMutex, NULL) != 0)
+	{
+		printf("secMutex init failed, exit");
+		return -1;
+	}
+/*
 	// create cleartext-knx master thread
 	if((pthread_create(&clrMasterThread, NULL, (void *)clrMasterStart, &threadEnvClr)) != 0)
 	{
 		printf("clrThread thread init failed, exit\n");
 		return -1;
 	}
-
+*/
 	// FIXME: just to separate debug messages
-	sleep(2);
-
+	sleep(1);
 	// create secure-knx master thread 1	
 	if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec1)) != 0)
 	{
 		printf("sec1Thread thread init failed, exit\n");
 		return -1;
 	}
-
+//	sleep(1);
 	// create secure-knx master thread 2
 	if((pthread_create(&sec2MasterThread, NULL, (void *)secMasterStart, &threadEnvSec2)) != 0)
 	{
 		printf("sec2Thread thread init failed, exit\n");
 		return -1;
 	}
-
 	#ifdef DEBUG
 		printf("\n\nMaster   Thread %u, waiting for kids\n", (unsigned)pthread_self());
 		printf("sec1Mst  Thread: %u\n", (unsigned)sec1MasterThread);
 		printf("sec2Mst  Thread: %u\n", (unsigned)sec2MasterThread);
 		printf("clearMst Thread: %u\n\n\n", (unsigned)clrMasterThread);
 	#endif
-	pthread_join(clrMasterThread, &clrThreadRetval);
+//	pthread_join(clrMasterThread, &clrThreadRetval);
 	pthread_join(sec1MasterThread, &sec1ThreadRetval);
 	pthread_join(sec2MasterThread, &sec2ThreadRetval);
 
