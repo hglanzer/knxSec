@@ -265,9 +265,7 @@ int secRD(void *env)
 	uint8_t i = 0, rc = 0;
 	
 	secFDRD[thisEnv->id] = EIBSocketURL(thisEnv->socketPath);
-	#ifdef DEBUG
-		printf("\tSEC%d-RD: %s with FD @ %p / %u\n", thisEnv->id, thisEnv->socketPath, secFDWR[thisEnv->id], (unsigned)pthread_self());
-	#endif
+
 	if (!secFDRD[thisEnv->id])
 	{
 		printf("\tSEC%d-RD: EIBSocketURL() with FD @ %p failed\n\n", thisEnv->id, secFDRD[thisEnv->id]);
@@ -477,7 +475,7 @@ pthread_mutex_lock(&mainMutex);
 pthread_mutex_unlock(&mainMutex);
 	keyInit(threadEnv);
 	
-	//pthread_join(secRDThread, NULL);
+	pthread_join(secRDThread, NULL);
 	printf("goiing home\n");
 	return 0;
 }
