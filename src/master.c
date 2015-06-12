@@ -11,7 +11,6 @@
 */
 
 pthread_mutex_t mainMutex;
-pthread_mutex_t secMutex;
 
 pthread_mutex_t SecMutexWr[SECLINES];
 pthread_cond_t  SecCondWr[SECLINES];
@@ -27,13 +26,12 @@ size_t slen[SECLINES];
 size_t vlen[SECLINES];
 byte *sigHMAC[SECLINES];
 struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
-EIBConnection *secFDWR[SECLINES];
-EIBConnection *secFDRD[SECLINES];
 uint32_t globalCount[SECLINES];
 
 time_t now[SECLINES];
 
-pthread_key_t sec;
+threadEnvSec_t threadEnvSec[SECLINES]; 
+threadEnvClr_t threadEnvClr; 
 
 static struct option long_options[] =
 {
@@ -73,8 +71,6 @@ int main(int argc, char **argv)
 	/*
 		thread - variables
 	*/
-	struct threadEnvClr_t threadEnvClr; 
-	threadEnvSec_t threadEnvSec[SECLINES]; 
 	
 	int (*clrMasterStart)(void *);
 	clrMasterStart = &initClr;
@@ -82,8 +78,12 @@ int main(int argc, char **argv)
 	int (*secMasterStart)(void *);
 	secMasterStart = &initSec;
 
+	void (*secRDThreadfPtr)(void *);
+	secRDThreadfPtr = &secRD;
+
 	void *clrThreadRetval, *sec1ThreadRetval, *sec2ThreadRetval;
 	pthread_t sec1MasterThread, sec2MasterThread, clrMasterThread;
+	pthread_t sec1RDThread, sec2RDThread;
 
 	pthread_mutexattr_t mutexAttr;
 	pthread_mutexattr_init(&mutexAttr);
@@ -165,14 +165,8 @@ int main(int argc, char **argv)
 		printf("mainMutex init failed, exit");
 		return -1;
 	}
-	if(pthread_mutex_init(&secMutex, NULL) != 0)
-	{
-		printf("secMutex init failed, exit");
-		return -1;
-	}
 
 
-	pthread_key_create(&sec, NULL);
 /*
 	// create cleartext-knx master thread
 	if((pthread_create(&clrMasterThread, NULL, (void *)clrMasterStart, &threadEnvClr)) != 0)
@@ -181,23 +175,31 @@ int main(int argc, char **argv)
 		return -1;
 	}
 */
-	// FIXME: just to separate debug messages
-	sleep(1);
 	// create secure-knx master thread 1	
 	if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[0])) != 0)
 	{
 		printf("sec1Thread thread init failed, exit\n");
 		return -1;
 	}
-//	sleep(1);
-/*
+	//sleep(1);
 	// create secure-knx master thread 2
 	if((pthread_create(&sec2MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[1])) != 0)
 	{
 		printf("sec2Thread thread init failed, exit\n");
 		return -1;
 	}
-*/
+	// create READ thread
+
+	if((pthread_create(&sec1RDThread, NULL, (void *)secRDThreadfPtr, &threadEnvSec[0])) != 0)
+	{
+		printf("sec RECEIVE Thread init failed, exit\n");
+		exit(-1);
+	}
+	if((pthread_create(&sec2RDThread, NULL, (void *)secRDThreadfPtr, &threadEnvSec[1])) != 0)
+	{
+		printf("sec RECEIVE Thread init failed, exit\n");
+		exit(-1);
+	}
 	#ifdef DEBUG
 		printf("\n\nMaster   Thread %u, waiting for kids\n", (unsigned)pthread_self());
 		printf("sec1Mst  Thread: %u\n", (unsigned)sec1MasterThread);
@@ -206,7 +208,9 @@ int main(int argc, char **argv)
 	#endif
 //	pthread_join(clrMasterThread, &clrThreadRetval);
 	pthread_join(sec1MasterThread, &sec1ThreadRetval);
-//	pthread_join(sec2MasterThread, &sec2ThreadRetval);
+	pthread_join(sec2MasterThread, &sec2ThreadRetval);
+	pthread_join(sec1RDThread, &sec1ThreadRetval);
+	pthread_join(sec2RDThread, &sec2ThreadRetval);
 
 	#ifdef DEBUG
 		printf("all threads gone, exit\n");

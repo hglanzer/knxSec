@@ -63,6 +63,21 @@ main (int ac, char *ag[])
 			printf("EIBOpenSendTPDU() failed\n\n");
         		return -1;
 		}
+
+	EIBClose (con);
+	con = EIBSocketURL (ag[1]);
+	if (!con)
+	{
+		printf("EIBSocketURL() failed\n\n");
+        	return -1;
+	}
+	printf("re-opening connection\n");
+		if (EIBOpenT_Broadcast(con, 1) == -1)
+		{
+			printf("EIBOpenT_Broadcast() failed\n\n");
+	        	return -1;
+		}
+	printf("finito\n");
 	}
 	if(ag[2][0] == 'i')
 	{

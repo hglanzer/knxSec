@@ -41,6 +41,8 @@ then
 		eibd -e 1.2.$1 tpuarts:/dev/knxSEC2 --listen-local=/tmp/knxSEC2 $OPT &
 
 		echo "starting master daemon"
+		sleep 1
+		#./master --clrSocket local:/tmp/knxCLR --sec1Socket /tmp/knxSEC1 --sec2Socket /tmp/knxSEC2 --addr $1
 		./master --clrSocket local:/tmp/knxCLR --sec1Socket local:/tmp/knxSEC1 --sec2Socket local:/tmp/knxSEC2 --addr $1
 	else
 		echo "usage: "

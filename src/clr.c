@@ -27,7 +27,7 @@ void clrWR(void *threadEnv)
 
 void clrRD(void *threadEnv)
 {
-	struct threadEnvClr_t *thisEnv = (struct threadEnvClr_t *)threadEnv;
+	threadEnvClr_t *thisEnv = (threadEnvClr_t *)threadEnv;
 	int len = 0;
 	struct packetStruct *packet;
 	packet = malloc(sizeof(struct packetStruct));
@@ -97,7 +97,7 @@ int mainStateMachine(EIBConnection *clrFD)
 
 int initClr(void *env)
 {
-	struct threadEnvClr_t *threadEnvClr = (struct threadEnvClr_t *) env;
+	threadEnvClr_t *threadEnvClr = (threadEnvClr_t *) env;
 
 	void (*clrSendThreadfPtr)(void *);
 	clrSendThreadfPtr = &clrWR;
