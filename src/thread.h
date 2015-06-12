@@ -12,7 +12,6 @@ typedef struct
 	char *socketPath;
 
 	uint8_t addrInt;
-	char *addrStr;
 	int Read2MasterPipe[2];
 	uint8_t state;
 	uint8_t retryCount;

@@ -10,14 +10,12 @@
 		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.2.<addr>  tpuarts:/dev/tty<DEv-secured-2>
 */
 
-uint8_t	clr2SecBUF[CLSBUFSIZE];
-uint8_t	sec2ClrBUF[SECBUFSIZE];
-
 pthread_mutex_t mainMutex;
 pthread_mutex_t secMutex;
 
 pthread_mutex_t SecMutexWr[SECLINES];
 pthread_cond_t  SecCondWr[SECLINES];
+
 byte secBufferMAC[SECLINES][BUFSIZE];
 byte secBufferWr[SECLINES][BUFSIZE];
 byte secRDbuf[SECLINES][BUFSIZE];
@@ -32,7 +30,10 @@ struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 EIBConnection *secFDWR[SECLINES];
 EIBConnection *secFDRD[SECLINES];
 uint32_t globalCount[SECLINES];
+
 time_t now[SECLINES];
+
+pthread_key_t sec;
 
 static struct option long_options[] =
 {
@@ -73,8 +74,7 @@ int main(int argc, char **argv)
 		thread - variables
 	*/
 	struct threadEnvClr_t threadEnvClr; 
-	threadEnvSec_t threadEnvSec1; 
-	threadEnvSec_t threadEnvSec2; 
+	threadEnvSec_t threadEnvSec[SECLINES]; 
 	
 	int (*clrMasterStart)(void *);
 	clrMasterStart = &initClr;
@@ -107,13 +107,13 @@ int main(int argc, char **argv)
 			// arguments 	START
 			case '1':
 				printf("\tARG: %20s for SEC1 SOCKET\n", &optarg[0]);
-				threadEnvSec1.socketPath = &optarg[0];	
-				threadEnvSec1.id = SEC1;
+				threadEnvSec[0].socketPath = &optarg[0];	
+				threadEnvSec[0].id = SEC1;
 			break;
 			case '2':
 				printf("\tARG: %20s for SEC2 SOCKET\n", &optarg[0]);
-				threadEnvSec2.socketPath = &optarg[0];	
-				threadEnvSec2.id = SEC2;
+				threadEnvSec[1].socketPath = &optarg[0];	
+				threadEnvSec[1].id = SEC2;
 			break;
 			case '3':
 				printf("\tARG: %d for CLR/SEC1/SEC2 Device Addr\n", optarg[0]);
@@ -127,11 +127,8 @@ int main(int argc, char **argv)
 				if((tmp < 16 ) && (tmp > 0))	
 				{
 					threadEnvClr.addrInt  = optarg[0];			//1.0.<addr> 
-					threadEnvSec1.addrInt = optarg[0];			//1.1.<addr>
-					threadEnvSec2.addrInt = optarg[0];			//1.2.<addr>
-					threadEnvClr.addrStr  = &optarg[0];			//1.0.<addr> 
-					threadEnvSec1.addrStr = &optarg[0];			//1.1.<addr>
-					threadEnvSec2.addrStr = &optarg[0];			//1.2.<addr>
+					threadEnvSec[0].addrInt = optarg[0];			//1.1.<addr>
+					threadEnvSec[1].addrInt = optarg[0];			//1.2.<addr>
 				}
 				else
 				{
@@ -173,6 +170,9 @@ int main(int argc, char **argv)
 		printf("secMutex init failed, exit");
 		return -1;
 	}
+
+
+	pthread_key_create(&sec, NULL);
 /*
 	// create cleartext-knx master thread
 	if((pthread_create(&clrMasterThread, NULL, (void *)clrMasterStart, &threadEnvClr)) != 0)
@@ -184,7 +184,7 @@ int main(int argc, char **argv)
 	// FIXME: just to separate debug messages
 	sleep(1);
 	// create secure-knx master thread 1	
-	if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec1)) != 0)
+	if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[0])) != 0)
 	{
 		printf("sec1Thread thread init failed, exit\n");
 		return -1;
@@ -192,7 +192,7 @@ int main(int argc, char **argv)
 //	sleep(1);
 /*
 	// create secure-knx master thread 2
-	if((pthread_create(&sec2MasterThread, NULL, (void *)secMasterStart, &threadEnvSec2)) != 0)
+	if((pthread_create(&sec2MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[1])) != 0)
 	{
 		printf("sec2Thread thread init failed, exit\n");
 		return -1;

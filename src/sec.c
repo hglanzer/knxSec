@@ -1,5 +1,15 @@
 #include "globals.h"
 
+/*
+	harald glanzer, 0727156
+	harald.glanzer@gmail.com
+
+	needs 3 running eib daemones:
+		eibd --listen-local=/tmp/eib.clr  -t31 -e 1.0.<addr>  tpuarts:/dev/tty<DEV-cleartext>
+		eibd --listen-local=/tmp/eib.sec1 -t31 -e 1.1.<addr> tpuarts:/dev/tty<DEV-secured-1>
+		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.2.<addr>  tpuarts:/dev/tty<DEv-secured-2>
+*/
+
 extern pthread_mutex_t SecMutexWr[SECLINES];
 extern pthread_cond_t  SecCondWr[SECLINES];
 
@@ -23,6 +33,7 @@ extern uint32_t globalCount[SECLINES];
 
 extern time_t now[SECLINES];
 
+extern pthread_key_t sec;
 //struct threadEnvSec_t *thisEnv[SECLINES];
 
 //FIXME: this is very insecure.
@@ -264,6 +275,7 @@ int secRD(void *env)
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0, rc = 0;
 	
+	//secFDRD[*(uint8_t *)pthread_getspecific(sec)] = EIBSocketURL(thisEnv->socketPath);
 	secFDRD[thisEnv->id] = EIBSocketURL(thisEnv->socketPath);
 
 	if (!secFDRD[thisEnv->id])
@@ -445,6 +457,8 @@ int initSec(void *threadEnv)
 {
 pthread_mutex_lock(&mainMutex);
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)threadEnv;
+
+	pthread_setspecific(sec, &(thisEnv->id));
 
 	#ifdef DEBUG
 		printf("SEC%d: sock = %s, thread# = %u\n", thisEnv->id, thisEnv->socketPath, (unsigned)pthread_self());
