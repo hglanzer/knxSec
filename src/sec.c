@@ -315,18 +315,23 @@ void secRD(void *env)
 				if(tmp.type == stdFrame)
 				{
 					thisEnv->secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
-					thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by  
+					thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by routers
 					i = verifyHMAC(thisEnv->secRDbuf, 11, &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
 				}
 				else
 				{
 		// FIXME: 
 				}
+
 				assert(i == 0);
 				if(i != 0)
 				{
-					printf("SEC%d: FATAL, verify() failed, exit\n", thisEnv->id);
-					exit(-1);
+					printf("SEC%d: verifyHMAC() failed, possible attack?\n", thisEnv->id);
+					for(i=0; i<rc;i++)
+					{
+						printf("%02x ", thisEnv->secRDbuf[i]);
+					}
+					printf("\n");
 				}
 			}
 		}
