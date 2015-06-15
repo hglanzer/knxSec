@@ -13,22 +13,11 @@
 extern pthread_mutex_t SecMutexWr[SECLINES];
 extern pthread_cond_t  SecCondWr[SECLINES];
 
-extern pthread_mutex_t mainMutex;
-
 extern byte secBufferMAC[SECLINES][BUFSIZE];
-extern byte secBufferWr[SECLINES][BUFSIZE];
-extern byte secRDbuf[SECLINES][BUFSIZE];
 extern byte secBufferTime[SECLINES][BUFSIZE];
 
-extern EVP_PKEY *skey[SECLINES];
-extern EVP_PKEY *vkey[SECLINES];
-extern size_t slen[SECLINES];
-extern size_t vlen[SECLINES];
 extern byte *sigHMAC[SECLINES];
 extern struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
-extern uint32_t globalCount[SECLINES];
-
-extern time_t now[SECLINES];
 
 //struct threadEnvSec_t *thisEnv[SECLINES];
 
@@ -49,13 +38,13 @@ uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13
 void time2Str(void *env, byte *buf)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	now[thisEnv->id] = time(NULL);
+	thisEnv->now = time(NULL);
 	int i=0;
 
 	for(i=3; i>=0;i=i-1)
 	{
-		buf[i] = now[thisEnv->id] % 256;
-		now[thisEnv->id] = now[thisEnv->id] / 256;
+		buf[i] = thisEnv->now % 256;
+		thisEnv->now = thisEnv->now / 256;
 	}
 }
 
@@ -88,7 +77,8 @@ void preparePacket(void *env, uint8_t type)
 
 			len = 9;		
 
-			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
+			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &thisEnv->slen, thisEnv->skey);
+			//i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
 			assert(i == 0);
 			if(i != 0)
 			{
@@ -263,7 +253,6 @@ void secRD(void *env)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0, rc = 0;
-	uint8_t locBuf[30];
 
 	thisEnv->secFDRD = EIBSocketURL(thisEnv->socketPath);
 	if (!thisEnv->secFDRD)
@@ -287,22 +276,22 @@ void secRD(void *env)
 		#ifdef DEBUG
 			printf("\tSEC%d-RD: READY\n", thisEnv->id);
 		#endif
-		rc = EIBGetBusmonitorPacket(thisEnv->secFDRD, sizeof(locBuf), locBuf);
+		rc = EIBGetBusmonitorPacket(thisEnv->secFDRD, sizeof(thisEnv->secRDbuf), thisEnv->secRDbuf);
 		if(rc == -1)
-		//if((rc == EIBGetBusmonitorPacket(thisEnv->secFDRD, sizeof(secRDbuf[thisEnv->id]), secRDbuf[thisEnv->id])) == -1)
 		{
 			printf("\tSEC%d: EIBGetVBusMonitorPacket() FAILED", thisEnv->id);
 		}
 		else
 		{
+			decodeFrame(thisEnv->secRDbuf);
+			printf("\tSEC%d: RAW: ", thisEnv->id);
+			
 			for(i=0; i<rc;i++)
 			{
-				printf("%02x ", (unsigned)locBuf[i]);
-				//printf("%02x ", (unsigned)secRDbuf[thisEnv->id]);	FIXME - double - array
+				printf("%02x ", thisEnv->secRDbuf[i]);
 			}
 			printf("\n");
 
-			//decodeFrame(thisEnv->localRDBuf);
 		}
 	}
 	EIBClose(thisEnv->secFDRD);	
@@ -427,7 +416,7 @@ void keyInit(void *env)
 				#ifdef DEBUG
 					printf("SEC%d: RESET_CTR\n", thisEnv->id);
 				#endif
-				globalCount[thisEnv->id] = 0;
+				thisEnv->globalCount = 0;
 				thisEnv->state = STATE_READY;
 
 			break;
@@ -473,7 +462,8 @@ int initSec(void *threadEnv)
 		printf("SEC%d: / pipFD: %d <- %d\n", thisEnv->id, thisEnv->Read2MasterPipe[READEND], thisEnv->Read2MasterPipe[WRITEEND]);
 	#endif
 
-	hmacInit(&skey[thisEnv->id], &vkey[thisEnv->id], &slen[thisEnv->id], &vlen[thisEnv->id]);
+	hmacInit(&thisEnv->skey, &thisEnv->vkey, &thisEnv->slen, &thisEnv->vlen);
+	//hmacInit(&skey[thisEnv->id], &vkey[thisEnv->id], &slen[thisEnv->id], &vlen[thisEnv->id]);
 	keyInit(threadEnv);
 	
 	printf("goiing home\n");

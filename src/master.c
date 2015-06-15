@@ -10,25 +10,14 @@
 		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.2.<addr>  tpuarts:/dev/tty<DEv-secured-2>
 */
 
-pthread_mutex_t mainMutex;
-
 pthread_mutex_t SecMutexWr[SECLINES];
 pthread_cond_t  SecCondWr[SECLINES];
 
 byte secBufferMAC[SECLINES][BUFSIZE];
-byte secBufferWr[SECLINES][BUFSIZE];
-byte secRDbuf[SECLINES][BUFSIZE];
 byte secBufferTime[SECLINES][BUFSIZE];
 
-EVP_PKEY *skey[SECLINES];
-EVP_PKEY *vkey[SECLINES];
-size_t slen[SECLINES];
-size_t vlen[SECLINES];
 byte *sigHMAC[SECLINES];
 struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
-uint32_t globalCount[SECLINES];
-
-time_t now[SECLINES];
 
 threadEnvSec_t threadEnvSec[SECLINES]; 
 threadEnvClr_t threadEnvClr; 
@@ -160,12 +149,6 @@ int main(int argc, char **argv)
 			return -1;
 		}
 	}
-	if(pthread_mutex_init(&mainMutex, NULL) != 0)
-	{
-		printf("mainMutex init failed, exit");
-		return -1;
-	}
-
 
 /*
 	// create cleartext-knx master thread

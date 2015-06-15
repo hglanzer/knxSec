@@ -53,14 +53,6 @@ void keyInit(void *);
 #define		INVALID		0xF
 
 /*
-		ENCRYPTION / AUTHENTICATION MODES
-*/
-#define		NOSEC		(0<<4)
-#define		AUTHONLY	(1<<4)
-#define		AUTHENC		(2<<4)
-#define		RES_SECMODE	(3<<4)
-
-/*
 		KIND OF CIPHERS USED for ENCRYPTION
 */
 #define		NONE		(0<<6)

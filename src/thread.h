@@ -12,6 +12,14 @@ typedef struct
 	char *socketPath;
 	EIBConnection *secFDWR;
 	EIBConnection *secFDRD;
+	uint32_t globalCount;
+	EVP_PKEY *skey;
+	EVP_PKEY *vkey;
+	size_t slen;
+	size_t vlen;
+	time_t now;
+	uint8_t secRDbuf[BUFSIZE];
+
 	uint8_t addrInt;
 	int Read2MasterPipe[2];
 	uint8_t state;
