@@ -69,16 +69,17 @@ void preparePacket(void *env, uint8_t type)
 			secBufferMAC[thisEnv->id][2] = thisEnv->addrInt;		// SRC  = my addr
 			secBufferMAC[thisEnv->id][3] = 0x00;				// DEST = broadcast
 			secBufferMAC[thisEnv->id][4] = 0x00;				// DEST = broadcast
-			secBufferMAC[thisEnv->id][5] = 0x88;				// set address type + len(8 byte payload), 
+			secBufferMAC[thisEnv->id][5] = 0x88;				// set address type + len( byte payload), 
 											// but IGNORE TTL!!
-			secBufferMAC[thisEnv->id][6] = syncReq;				// SEC HEADER	=~	ACPI
-			secBufferMAC[thisEnv->id][7] = secBufferTime[thisEnv->id][0];	// TIME
-			secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][1];	// ...
-			secBufferMAC[thisEnv->id][9] = secBufferTime[thisEnv->id][2];	// ...
-			secBufferMAC[thisEnv->id][10] = secBufferTime[thisEnv->id][3];	// TIME 
+			secBufferMAC[thisEnv->id][6] = 0x00;				// SEC HEADER	=~	ACPI
+			secBufferMAC[thisEnv->id][7] = syncReq;				// SEC HEADER	=~	ACPI
+			secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][0];	// TIME
+			secBufferMAC[thisEnv->id][9] = secBufferTime[thisEnv->id][1];	// ...
+			secBufferMAC[thisEnv->id][10] = secBufferTime[thisEnv->id][2];	// ...
+			secBufferMAC[thisEnv->id][11] = secBufferTime[thisEnv->id][3];	// TIME 
 //			secBufferMAC[thisEnv->id][9] = '\0';				// delimiter 
 
-			len = 11;		
+			len = 12;		
 
 			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &thisEnv->slen, thisEnv->skey);
 			assert(i == 0);
@@ -91,6 +92,7 @@ void preparePacket(void *env, uint8_t type)
 				print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
 			#endif
 			// assemble sync request message
+/*
 			for(i = 0; i <= len - 5; i++)
 			{
 				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i] = secBufferMAC[thisEnv->id][i+4];
@@ -101,12 +103,14 @@ void preparePacket(void *env, uint8_t type)
 				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i+(len-4)] = sigHMAC[thisEnv->id][i];
 				//printf("%02X ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
 			}
+*/
 		
 			MSGBUF_SEC2WR[thisEnv->id].frame.buf[len-4+MACSIZE] = '\0';
 			MSGBUF_SEC2WR[thisEnv->id].frame.len = (len-4+MACSIZE);
 
 			// call write thread directly from here
-			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncReq, env);
+			//secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncReq, env);
+			secWRnew((char *)&secBufferMAC[thisEnv->id][7], 9, syncReq, env);
 		break;
 		case syncRes:
 
