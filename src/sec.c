@@ -325,7 +325,7 @@ void secRD(void *env)
 				assert(i == 0);
 				if(i != 0)
 				{
-					printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
+					printf("SEC%d: FATAL, verify() failed, exit\n", thisEnv->id);
 					exit(-1);
 				}
 			}

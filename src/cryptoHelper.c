@@ -129,7 +129,7 @@ int generateHMAC(const byte* msg, size_t mlen, byte** sig, size_t* slen, EVP_PKE
 		int i = 0;
 		printf("\t\t this is generateHMAC, msg = ");
 		for(i=0; i< mlen; i++)
-			printf("%x ", msg[i]);
+			printf("%02x ", msg[i]);
 	
 		printf("\n");
 	#endif
