@@ -286,7 +286,7 @@ void secRD(void *env)
 		}
 		else
 		{
-			if(rc < 8)
+			if(rc < (10 + MACSIZE))
 			{
 				printf("\tSEC%d: ** SHORT ** - RAW: ", thisEnv->id);
 				for(i=0; i<rc;i++)
@@ -316,7 +316,7 @@ void secRD(void *env)
 				{
 					thisEnv->secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
 					thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by  
-					i = verifyHMAC(&thisEnv->secRDbuf[1], 10 + MACSIZE, &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
+					i = verifyHMAC(&thisEnv->secRDbuf, 11 + MACSIZE, &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
 				}
 				else
 				{
