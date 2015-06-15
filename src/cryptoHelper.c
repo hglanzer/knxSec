@@ -243,7 +243,18 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
         assert(0);
         return -1;
     }
+	#ifdef DEBUG
+		uint8_t i;
+		printf("\n\tthis is generateHMAC\n\tMSG = ");
+		for(i=0; i< mlen; i++)
+			printf("%02x ", msg[i]);
+	
+		printf("\n\tMAC = ");
+		for(i=0; i<slen;i++)
+			printf("%02x ", sig[i]);
 
+		printf("\n");
+	#endif
     EVP_MD_CTX* ctx = NULL;
     
     do

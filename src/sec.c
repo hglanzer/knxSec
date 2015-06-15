@@ -64,21 +64,23 @@ void preparePacket(void *env, uint8_t type)
 	{
 		case syncReq:
 		//	secBufferMAC[thisEnv->id][0] = (EIBADDR(1,thisEnv->id, thisEnv->addrInt));		// SRC  = my addr 
-			secBufferMAC[thisEnv->id][0] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
-			secBufferMAC[thisEnv->id][1] = thisEnv->addrInt;		// SRC  = my addr
-			secBufferMAC[thisEnv->id][2] = 0x00;				// DEST = broadcast
+			secBufferMAC[thisEnv->id][0] = 0x80;				// set correct frame type(std frame)
+			secBufferMAC[thisEnv->id][1] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
+			secBufferMAC[thisEnv->id][2] = thisEnv->addrInt;		// SRC  = my addr
 			secBufferMAC[thisEnv->id][3] = 0x00;				// DEST = broadcast
-			secBufferMAC[thisEnv->id][4] = syncReq;				// SEC HEADER
-			secBufferMAC[thisEnv->id][5] = secBufferTime[thisEnv->id][0];	// TIME
-			secBufferMAC[thisEnv->id][6] = secBufferTime[thisEnv->id][1];	// ...
-			secBufferMAC[thisEnv->id][7] = secBufferTime[thisEnv->id][2];	// ...
-			secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][3];	// TIME 
+			secBufferMAC[thisEnv->id][4] = 0x00;				// DEST = broadcast
+			secBufferMAC[thisEnv->id][5] = 0x88;				// set address type + len(8 byte payload), 
+											// but IGNORE TTL!!
+			secBufferMAC[thisEnv->id][6] = syncReq;				// SEC HEADER	=~	ACPI
+			secBufferMAC[thisEnv->id][7] = secBufferTime[thisEnv->id][0];	// TIME
+			secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][1];	// ...
+			secBufferMAC[thisEnv->id][9] = secBufferTime[thisEnv->id][2];	// ...
+			secBufferMAC[thisEnv->id][10] = secBufferTime[thisEnv->id][3];	// TIME 
 //			secBufferMAC[thisEnv->id][9] = '\0';				// delimiter 
 
-			len = 9;		
+			len = 11;		
 
 			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &thisEnv->slen, thisEnv->skey);
-			//i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &slen[thisEnv->id], skey[thisEnv->id]);
 			assert(i == 0);
 			if(i != 0)
 			{
@@ -284,6 +286,15 @@ void secRD(void *env)
 		}
 		else
 		{
+			if(rc < 8)
+			{
+				printf("\tSEC%d: ** SHORT ** - RAW: ", thisEnv->id);
+				for(i=0; i<rc;i++)
+				{
+					printf("%02x ", thisEnv->secRDbuf[i]);
+				}
+				printf(" = %d bytes total\n", rc);
+			}
 			decodeFrame(thisEnv->secRDbuf, &tmp);
 			if(tmp.srcDev == thisEnv->addrInt)
 			{
@@ -303,7 +314,9 @@ void secRD(void *env)
 				#endif
 				if(tmp.type == stdFrame)
 				{
-					i = verifyHMAC(thisEnv->secRDbuf, 9, &thisEnv->secRDbuf[rc-4], MACSIZE, thisEnv->skey);
+					secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
+					secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by  
+					i = verifyHMAC(&thisEnv->secRDbuf[1], 10 + MACSIZE, &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
 				}
 				else
 				{
