@@ -29,8 +29,8 @@ void clrRD(void *threadEnv)
 {
 	threadEnvClr_t *thisEnv = (threadEnvClr_t *)threadEnv;
 	int len = 0;
-	struct packetStruct *packet;
-	packet = malloc(sizeof(struct packetStruct));
+	knxPacket *packet;
+	packet = malloc(sizeof(knxPacket));
 
 	while(1)
 	{
@@ -53,10 +53,6 @@ void clrRD(void *threadEnv)
 			printf("CLR : busmonitor started\n");
 		#endif
 		
-		// block SEC send call for syncronization
-		#ifdef DEBUG
-			printf("CLR : receive() locking\n");
-		#endif
 //		pthread_mutex_lock(&clr2SecMutexWr[0]);
 //		pthread_mutex_lock(&clr2SecMutexWr[1]);
 
@@ -74,18 +70,7 @@ void clrRD(void *threadEnv)
 		}
 		else
 		{
-			//printf("%x\n", packet->atNcpiLength & 0x80);
-			printf("\tLen = %d / CTRL: %x / %x.%x.%x\n", len, packet->ctrl, \
-				AreaAddress(packet->srcAreaLine), LineAddress(packet->srcAreaLine), packet->srcDev);
-			#ifdef DEBUG
-				//debug("CLS _____unlocking", pthread_self());
-			#endif
-			
-//			pthread_cond_signal(&clr2SecCondWr[0]);
-//			pthread_cond_signal(&clr2SecCondWr[1]);
-	
-//			pthread_mutex_unlock(&clr2SecMutexWr[0]);
-//			pthread_mutex_unlock(&clr2SecMutexWr[1]);
+			;;
 		}
 	}
 }

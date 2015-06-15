@@ -115,9 +115,9 @@ int main(int argc, char **argv)
 			
 				if((tmp < 16 ) && (tmp > 0))	
 				{
-					threadEnvClr.addrInt  = optarg[0];			//1.0.<addr> 
-					threadEnvSec[0].addrInt = optarg[0];			//1.1.<addr>
-					threadEnvSec[1].addrInt = optarg[0];			//1.2.<addr>
+					threadEnvClr.addrInt  = tmp;			//1.0.<addr> 
+					threadEnvSec[0].addrInt = tmp;			//1.1.<addr>
+					threadEnvSec[1].addrInt = tmp;			//1.2.<addr>
 				}
 				else
 				{

@@ -252,6 +252,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 void secRD(void *env)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
+	knxPacket tmp;
 	uint8_t i = 0, rc = 0;
 
 	thisEnv->secFDRD = EIBSocketURL(thisEnv->socketPath);
@@ -262,7 +263,7 @@ void secRD(void *env)
 	}
 	else
 	{
-		printf("  SEC%d-RD: EIBSocketURL() success %s\n", thisEnv->id, thisEnv->socketPath);
+		printf("  SEC%d-RD: EIBSocketURL() success %s\n, listening with own dev addr = %d", thisEnv->id, thisEnv->socketPath, thisEnv->addrInt);
 	}
 
 	if (EIBOpenVBusmonitor(thisEnv->secFDRD) == -1)
@@ -283,15 +284,38 @@ void secRD(void *env)
 		}
 		else
 		{
-			decodeFrame(thisEnv->secRDbuf);
-			printf("\tSEC%d: RAW: ", thisEnv->id);
-			
-			for(i=0; i<rc;i++)
+			decodeFrame(thisEnv->secRDbuf, &tmp);
+			if(tmp.srcDev == thisEnv->addrInt)
 			{
-				printf("%02x ", thisEnv->secRDbuf[i]);
+				#ifdef DEBUG
+					printf("\tSEC%d: ignore own broadcast message from dev %d\n ", thisEnv->id, thisEnv->addrInt);
+				#endif
 			}
-			printf("\n");
-
+			else
+			{
+				#ifdef DEBUG
+					printf("\tSEC%d: RAW: ", thisEnv->id);
+					for(i=0; i<rc;i++)
+					{
+						printf("%02x ", thisEnv->secRDbuf[i]);
+					}
+					printf(" = %d bytes total\n", rc);
+				#endif
+				if(tmp.type == stdFrame)
+				{
+					i = verifyHMAC(thisEnv->secRDbuf, 9, &thisEnv->secRDbuf[rc-4], MACSIZE, thisEnv->skey);
+				}
+				else
+				{
+		// FIXME: 
+				}
+				assert(i == 0);
+				if(i != 0)
+				{
+					printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
+					exit(-1);
+				}
+			}
 		}
 	}
 	EIBClose(thisEnv->secFDRD);	
@@ -463,7 +487,6 @@ int initSec(void *threadEnv)
 	#endif
 
 	hmacInit(&thisEnv->skey, &thisEnv->vkey, &thisEnv->slen, &thisEnv->vlen);
-	//hmacInit(&skey[thisEnv->id], &vkey[thisEnv->id], &slen[thisEnv->id], &vlen[thisEnv->id]);
 	keyInit(threadEnv);
 	
 	printf("goiing home\n");

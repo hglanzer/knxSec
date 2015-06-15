@@ -227,11 +227,6 @@ int generateHMAC(const byte* msg, size_t mlen, byte** sig, size_t* slen, EVP_PKE
         ctx = NULL;
     }
    
-/*
-		JUST USING SUBSTRING OF MAC TO SAVE SPACE!!
-
-*/
- 
     /* Convert to 0/1 result */
     return !!result;
 }

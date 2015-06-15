@@ -6,7 +6,6 @@ typedef struct
 	EIBConnection *clrFD;
 }threadEnvClr_t;
 typedef struct
-//struct threadEnvSec_t
 {
 	uint8_t id;
 	char *socketPath;
@@ -19,8 +18,8 @@ typedef struct
 	size_t vlen;
 	time_t now;
 	uint8_t secRDbuf[BUFSIZE];
-
 	uint8_t addrInt;
+
 	int Read2MasterPipe[2];
 	uint8_t state;
 	uint8_t retryCount;

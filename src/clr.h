@@ -1,4 +1,3 @@
-
 int initClr(void *);
 void clrRD(void *);
 void clrWR(void *);
