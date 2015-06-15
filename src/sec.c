@@ -314,8 +314,8 @@ void secRD(void *env)
 				#endif
 				if(tmp.type == stdFrame)
 				{
-					secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
-					secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by  
+					thisEnv->secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
+					thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by  
 					i = verifyHMAC(&thisEnv->secRDbuf[1], 10 + MACSIZE, &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
 				}
 				else
