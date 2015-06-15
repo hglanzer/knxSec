@@ -92,25 +92,22 @@ void preparePacket(void *env, uint8_t type)
 				print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
 			#endif
 			// assemble sync request message
-/*
-			for(i = 0; i <= len - 5; i++)
-			{
-				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i] = secBufferMAC[thisEnv->id][i+4];
-				//printf("%02X ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
-			}
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = secBufferMAC[thisEnv->id][7];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[1] = secBufferMAC[thisEnv->id][8];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[2] = secBufferMAC[thisEnv->id][9];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[3] = secBufferMAC[thisEnv->id][10];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[4] = secBufferMAC[thisEnv->id][11];
+			// ... and append MAC
 			for(i = 0; i < MACSIZE; i++)
 			{
-				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i+(len-4)] = sigHMAC[thisEnv->id][i];
-				//printf("%02X ", MSGBUF_SEC2WR[thisEnv->id].buf[i]);
+				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i+5] = sigHMAC[thisEnv->id][i];
 			}
-*/
 		
-			MSGBUF_SEC2WR[thisEnv->id].frame.buf[len-4+MACSIZE] = '\0';
-			MSGBUF_SEC2WR[thisEnv->id].frame.len = (len-4+MACSIZE);
+			//MSGBUF_SEC2WR[thisEnv->id].frame.buf[len-4+MACSIZE] = '\0';
+			MSGBUF_SEC2WR[thisEnv->id].frame.len = (9);
 
 			// call write thread directly from here
-			//secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncReq, env);
-			secWRnew((char *)&secBufferMAC[thisEnv->id][7], 9, syncReq, env);
+			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncReq, env);
 		break;
 		case syncRes:
 
