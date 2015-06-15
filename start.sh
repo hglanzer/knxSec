@@ -28,17 +28,14 @@ then
 
 		cd src
 
-		echo "clr"	
-		#eibd tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR $OPT  &
-		eibd -e 1.0.$1 tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR $OPT  &
-		sleep 1
-		echo "sec1"
 		#eibd tpuarts:/dev/knxSEC1 --listen-local=/tmp/knxSEC1 $OPT &
-		eibd -e 1.1.$1 tpuarts:/dev/knxSEC1 --listen-local=/tmp/knxSEC1 $OPT &
-		sleep 1
-		echo "sec2"
+		eibd -e 1.0.$1 tpuarts:/dev/knxSEC1 --listen-local=/tmp/knxSEC1 $OPT &
+		#sleep 1
 		#eibd tpuarts:/dev/knxSEC2 --listen-local=/tmp/knxSEC2 $OPT &
-		eibd -e 1.2.$1 tpuarts:/dev/knxSEC2 --listen-local=/tmp/knxSEC2 $OPT &
+		eibd -e 1.1.$1 tpuarts:/dev/knxSEC2 --listen-local=/tmp/knxSEC2 $OPT &
+		#sleep 1
+		#eibd tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR $OPT  &
+		eibd -e 1.2.$1 tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR $OPT  &
 
 		echo "starting master daemon"
 		sleep 1

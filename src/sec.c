@@ -71,15 +71,14 @@ void preparePacket(void *env, uint8_t type)
 			secBufferMAC[thisEnv->id][4] = 0x00;				// DEST = broadcast
 			secBufferMAC[thisEnv->id][5] = 0x88;				// set address type + len( byte payload), 
 											// but IGNORE TTL!!
-			secBufferMAC[thisEnv->id][6] = 0x00;				// SEC HEADER	=~	ACPI
-			secBufferMAC[thisEnv->id][7] = syncReq;				// SEC HEADER	=~	ACPI
-			secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][0];	// TIME
-			secBufferMAC[thisEnv->id][9] = secBufferTime[thisEnv->id][1];	// ...
-			secBufferMAC[thisEnv->id][10] = secBufferTime[thisEnv->id][2];	// ...
-			secBufferMAC[thisEnv->id][11] = secBufferTime[thisEnv->id][3];	// TIME 
+			secBufferMAC[thisEnv->id][6] = syncReq;				// SEC HEADER	=~	ACPI
+			secBufferMAC[thisEnv->id][7] = secBufferTime[thisEnv->id][0];	// TIME
+			secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][1];	// ...
+			secBufferMAC[thisEnv->id][9] = secBufferTime[thisEnv->id][2];	// ...
+			secBufferMAC[thisEnv->id][10] = secBufferTime[thisEnv->id][3];	// TIME 
 //			secBufferMAC[thisEnv->id][9] = '\0';				// delimiter 
 
-			len = 12;		
+			len = 11;		
 
 			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &thisEnv->slen, thisEnv->skey);
 			assert(i == 0);
@@ -92,11 +91,11 @@ void preparePacket(void *env, uint8_t type)
 				print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
 			#endif
 			// assemble sync request message
-			MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = secBufferMAC[thisEnv->id][7];
-			MSGBUF_SEC2WR[thisEnv->id].frame.buf[1] = secBufferMAC[thisEnv->id][8];
-			MSGBUF_SEC2WR[thisEnv->id].frame.buf[2] = secBufferMAC[thisEnv->id][9];
-			MSGBUF_SEC2WR[thisEnv->id].frame.buf[3] = secBufferMAC[thisEnv->id][10];
-			MSGBUF_SEC2WR[thisEnv->id].frame.buf[4] = secBufferMAC[thisEnv->id][11];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = secBufferMAC[thisEnv->id][6];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[1] = secBufferMAC[thisEnv->id][7];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[2] = secBufferMAC[thisEnv->id][8];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[3] = secBufferMAC[thisEnv->id][9];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[4] = secBufferMAC[thisEnv->id][10];
 			// ... and append MAC
 			for(i = 0; i < MACSIZE; i++)
 			{
