@@ -33,8 +33,8 @@ void saveGlobalCounter(void *env, uint8_t *buffer)
 	uint32_t exp = 1;
 	for(i = 0; i<GLOBALCOUNTSIZE;i++)
 	{
-		thisEnv->secGlobalCountInt += buffer[GLOBALCOUNTSIZE-(i+1)] * exp;
-		thisEnv->secGlobalCount[i] = buffer[i];
+		thisEnv->secGlobalCountInt += buffer[i] * exp;
+		thisEnv->secGlobalCount[i] = buffer[GLOBALCOUNTSIZE-(i+1)];
 		exp = exp * 256;
 		printf("%02x ", buffer[i]);
 	}
