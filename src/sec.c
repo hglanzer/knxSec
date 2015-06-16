@@ -28,10 +28,8 @@ uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13
 
 
 /*
-	harald glanzer
-	secure line thread
+	FIXME:	use window for check, now sender-recp must be perfectly syncronized
 */
-
 int checkFreshness(void *env, uint8_t *buffer)
 {
 	uint8_t i=0;
