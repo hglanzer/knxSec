@@ -321,7 +321,8 @@ void secRD(void *env)
 					{
 						thisEnv->secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
 						thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by routers
-						i = verifyHMAC(thisEnv->secRDbuf, 11, &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
+						//	check the MAC, use the first x bytes: header + payload (withouth MAC, without FCK)
+						i = verifyHMAC(thisEnv->secRDbuf, (rc - MACSIZE - 1), &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
 					}
 					else
 					{
