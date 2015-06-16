@@ -414,8 +414,11 @@ void secRD(void *env)
 							}
 							printf(" / %d bytes total\n", rc);
 						}
-						// MAC is OK - process message
-						write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
+						else
+						{
+							// MAC is OK - process message
+							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
+						}
 					}
 					else
 					{	// FIXME: 
