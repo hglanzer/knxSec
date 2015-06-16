@@ -245,6 +245,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 
 /*
 	sec RECEIVE thread
+		writes received data to main-sec-thread over pipe
 */
 void secRD(void *env)
 {
@@ -252,6 +253,8 @@ void secRD(void *env)
 	knxPacket tmp;
 	uint8_t i = 0, rc = 0;
 
+	// this side provides the data
+	close(thisEnv->Read2MasterPipe[READEND]);
 	thisEnv->secFDRD = EIBSocketURL(thisEnv->socketPath);
 	if (!thisEnv->secFDRD)
 	{
@@ -329,7 +332,6 @@ void secRD(void *env)
 			// FIXME: 
 					}
 
-					assert(i == 0);
 					if(i != 0)
 					{
 						printf("SEC%d: verifyHMAC() failed, possible attack?\n", thisEnv->id);
@@ -338,7 +340,9 @@ void secRD(void *env)
 							printf("%02x ", thisEnv->secRDbuf[i]);
 						}
 						printf(" / %d bytes total\n", rc);
+						break;
 					}
+					// MAC is OK - process message
 				}
 			}
 		}
@@ -488,7 +492,8 @@ void keyInit(void *env)
 
 /*
 	entry point function from main thread - called 2 times
-	generates 1 RECEIVE and 1 SEND thread
+		uses secWRnew to write data to bus
+		communicates with read-thread secRD() over pipe
 */
 int initSec(void *threadEnv)
 {
@@ -506,6 +511,7 @@ int initSec(void *threadEnv)
 		printf("pipe() failed, exit\n");
 		exit(-1);
 	}
+	close(thisEnv->Read2MasterPipe[WRITEEND]);
 
 	#ifdef DEBUG
 		printf("SEC%d: / pipFD: %d <- %d\n", thisEnv->id, thisEnv->Read2MasterPipe[READEND], thisEnv->Read2MasterPipe[WRITEEND]);
