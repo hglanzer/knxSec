@@ -340,7 +340,6 @@ void secRD(void *env)
 							printf("%02x ", thisEnv->secRDbuf[i]);
 						}
 						printf(" / %d bytes total\n", rc);
-						break;
 					}
 					// MAC is OK - process message
 				}
