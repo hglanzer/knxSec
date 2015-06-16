@@ -39,7 +39,7 @@ int checkFreshness(void *env, uint8_t *buffer)
 	time2Str(env, secBufferTime[thisEnv->id]);
 	for(i=0;i<4;i++)
 	{
-		printf("comparing %d - %d", secBufferTime[thisEnv->id][i], buffer[i]);
+		printf("SEC%d: comparing %02x - %02x\n", thisEnv->id, secBufferTime[thisEnv->id][i], buffer[i]);
 		if(secBufferTime[thisEnv->id][i] != buffer[i])
 		{
 			return FALSE;
