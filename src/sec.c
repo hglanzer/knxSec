@@ -87,9 +87,9 @@ void preparePacket(void *env, uint8_t type)
 				printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
 				exit(-1);
 			}
-			#ifdef DEBUG
-				print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
-			#endif
+		//	#ifdef DEBUG
+		//		print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
+		//	#endif
 			// assemble sync request message
 			MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = secBufferMAC[thisEnv->id][6];
 			MSGBUF_SEC2WR[thisEnv->id].frame.buf[1] = secBufferMAC[thisEnv->id][7];
@@ -211,18 +211,13 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 		printf("  SEC%d-WR: EIBSocketURL() failed: %s\n\n", thisEnv->id, thisEnv->socketPath);
 		exit(-1);
 	}
-	else
-	{
-		printf("  SEC%d-WR: EIBSocketURL() success %s\n", thisEnv->id, thisEnv->socketPath);
-	}
 
 	switch(type)	
 	{
 		case syncReq:		// this is a broadcast message
 
-
-			if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 1)) == -1)
-			//if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 0)) == -1)
+			//if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 1)) == -1)
+			if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 0)) == -1)
 			{
 				printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
 				exit(-1);
@@ -233,7 +228,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
        				exit(-1);
 			}
 			#ifdef DEBUG
-				printf("  SEC%d-WR: SEND OK to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
+				printf("\tSEC%d-WR: SEND OK to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
 			#endif
 
 		break;
@@ -260,12 +255,12 @@ void secRD(void *env)
 	thisEnv->secFDRD = EIBSocketURL(thisEnv->socketPath);
 	if (!thisEnv->secFDRD)
 	{
-		printf("  SEC%d-RD: EIBSocketURL() failed: %s\n\n", thisEnv->id, thisEnv->socketPath);
-		exit(-1);
+		printf("\tSEC%d-RD: EIBSocketURL() failed: %s\n\n", thisEnv->id, thisEnv->socketPath);
+		exit(-1);		// FIXME: retries...!?
 	}
 	else
 	{
-		printf("  SEC%d-RD: EIBSocketURL() success %s\n, listening with own dev addr = %d", thisEnv->id, thisEnv->socketPath, thisEnv->addrInt);
+		printf("\tSEC%d-RD: EIBSocketURL() success %s\n, listening with own dev addr = %d", thisEnv->id, thisEnv->socketPath, thisEnv->addrInt);
 	}
 
 	if (EIBOpenVBusmonitor(thisEnv->secFDRD) == -1)
@@ -282,56 +277,67 @@ void secRD(void *env)
 		rc = EIBGetBusmonitorPacket(thisEnv->secFDRD, sizeof(thisEnv->secRDbuf), thisEnv->secRDbuf);
 		if(rc == -1)
 		{
-			printf("\tSEC%d: EIBGetVBusMonitorPacket() FAILED", thisEnv->id);
+			printf("\tSEC%d-RD: EIBGetVBusMonitorPacket() FAILED", thisEnv->id);
 		}
 		else
 		{
-			if(rc < (10 + MACSIZE))
+			if(rc == 1)
 			{
-				printf("\tSEC%d: ** SHORT ** - RAW: ", thisEnv->id);
+				if(thisEnv->secRDbuf[0] == 0xCC)
+					printf("\tSEC%d-RD: ACK\n", thisEnv->id);
+				else
+					printf("\tSEC%d-RD: unknown 1 byte", thisEnv->id);
+			}
+			// this should NOT happen
+			else if(rc < (10 + MACSIZE))
+			{
+				printf("\tSEC%d-RD: ** SHORT ** - RAW: ", thisEnv->id);
 				for(i=0; i<rc;i++)
 				{
 					printf("%02x ", thisEnv->secRDbuf[i]);
 				}
 				printf(" = %d bytes total\n", rc);
 			}
-			decodeFrame(thisEnv->secRDbuf, &tmp);
-			if(tmp.srcDev == thisEnv->addrInt)
-			{
-				#ifdef DEBUG
-					printf("\tSEC%d: ignore own broadcast message from dev %d\n ", thisEnv->id, thisEnv->addrInt);
-				#endif
-			}
 			else
 			{
-				#ifdef DEBUG
-					printf("\tSEC%d: RAW: ", thisEnv->id);
-					for(i=0; i<rc;i++)
-					{
-						printf("%02x ", thisEnv->secRDbuf[i]);
-					}
-					printf(" = %d bytes total\n", rc);
-				#endif
-				if(tmp.type == stdFrame)
+				decodeFrame(thisEnv->secRDbuf, &tmp);
+				if(tmp.srcDev == thisEnv->addrInt)
 				{
-					thisEnv->secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
-					thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by routers
-					i = verifyHMAC(thisEnv->secRDbuf, 11, &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
+					#ifdef DEBUG
+						printf("\tSEC%d-RD: ignore own broadcast message from dev %d\n ", thisEnv->id, thisEnv->addrInt);
+					#endif
 				}
 				else
 				{
-		// FIXME: 
-				}
-
-				assert(i == 0);
-				if(i != 0)
-				{
-					printf("SEC%d: verifyHMAC() failed, possible attack?\n", thisEnv->id);
-					for(i=0; i<rc;i++)
+					#ifdef DEBUG
+						printf("\tSEC%d-RD: RAW: ", thisEnv->id);
+						for(i=0; i<rc;i++)
+						{
+							printf("%02x ", thisEnv->secRDbuf[i]);
+						}
+						printf(" = %d bytes total\n", rc);
+					#endif
+					if(tmp.type == stdFrame)
 					{
-						printf("%02x ", thisEnv->secRDbuf[i]);
+						thisEnv->secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
+						thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by routers
+						i = verifyHMAC(thisEnv->secRDbuf, 11, &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
 					}
-					printf("\n");
+					else
+					{
+			// FIXME: 
+					}
+
+					assert(i == 0);
+					if(i != 0)
+					{
+						printf("SEC%d: verifyHMAC() failed, possible attack?\n", thisEnv->id);
+						for(i=0; i<rc;i++)
+						{
+							printf("%02x ", thisEnv->secRDbuf[i]);
+						}
+						printf(" / %d bytes total\n", rc);
+					}
 				}
 			}
 		}
