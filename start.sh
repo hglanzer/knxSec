@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OPT="--tpuarts-ack-all-group --tpuarts-ack-all-individual -t16"
+OPT="--tpuarts-ack-all-group --tpuarts-ack-all-individual"
 
 echo "******************************"
 echo "*startfile ignores CLR device*"
