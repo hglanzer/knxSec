@@ -324,22 +324,22 @@ void secRD(void *env)
 						thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by routers
 						//	check the MAC, use the first x bytes: header + payload (withouth MAC, without FCK)
 						i = verifyHMAC(thisEnv->secRDbuf, (rc - MACSIZE - 1), &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
+
+						if(i != 0)
+						{
+							printf("SEC%d: verifyHMAC() failed, possible attack?\n", thisEnv->id);
+							for(i=0; i<rc;i++)
+							{
+								printf("%02x ", thisEnv->secRDbuf[i]);
+							}
+							printf(" / %d bytes total\n", rc);
+						}
+						// MAC is OK - process message
+						write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
 					}
 					else
-					{
-			// FIXME: 
+					{	// FIXME: 
 					}
-
-					if(i != 0)
-					{
-						printf("SEC%d: verifyHMAC() failed, possible attack?\n", thisEnv->id);
-						for(i=0; i<rc;i++)
-						{
-							printf("%02x ", thisEnv->secRDbuf[i]);
-						}
-						printf(" / %d bytes total\n", rc);
-					}
-					// MAC is OK - process message
 				}
 			}
 		}
@@ -453,7 +453,12 @@ void keyInit(void *env)
 						printf("SEC%d: sync response\n", thisEnv->id);
 					#endif
 					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], sizeof(buffer));
+/*
+					while()
+					{
 
+					}
+*/
 					// SAVE COUNTER!		FIXME	
 					thisEnv->state = STATE_READY;
 				}
@@ -476,7 +481,17 @@ void keyInit(void *env)
 				#ifdef DEBUG
 					printf("SEC%d: key master ready\n", thisEnv->id);
 				#endif
-				sleep(100);
+				while(1)
+				{
+					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 1);
+					if(buffer[0] == syncReq)
+					{
+						#ifdef DEBUG
+							printf("SEC%d: got syncReq\n", thisEnv->id);
+						#endif
+						
+					}
+				}
 			break;
 
 			default:
