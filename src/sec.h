@@ -1,3 +1,4 @@
+void updateGlobalCount(void *);
 int checkFreshness(void *, uint8_t *);
 void time2Str(void *, unsigned char *);
 int initSec(void *);
@@ -16,6 +17,7 @@ void keyInit(void *);
 #define GKSIZE		32	// global key size [byte]
 #define MACSIZE		4
 #define DIGESTSIZE	256
+#define GLOBALCOUNTSIZE	4
 
 #define SECLINES	2
 

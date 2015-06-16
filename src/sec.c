@@ -26,6 +26,25 @@ extern struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 //	read from file to memory, securely delete file, delete buffer after initial phase...?
 uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x30\x31";
 
+void updateGlobalCount(void *env)
+{
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
+	uint32_t buf;
+	uint8_t i=0;
+	buf = thisEnv->secGlobalCountInt;
+	for(i=0; i<GLOBALCOUNTSIZE;i++)
+	{
+		thisEnv->secGlobalCount[i] = buf % 256;
+		buf = buf / 256;
+	}
+		#ifdef DEBUG
+			printf("SEC%d: countInt = %d, str = ",  thisEnv->id, thisEnv->secGlobalCountInt);
+			printf("%02x ", thisEnv->secGlobalCount[i]);
+		printf("\n");
+		#endif
+
+	thisEnv->secGlobalCountInt++;
+}
 
 /*
 	FIXME:	use window for check, now sender-recp must be perfectly syncronized
@@ -76,7 +95,6 @@ void preparePacket(void *env, uint8_t type)
 	switch(type)
 	{
 		case syncReq:
-		//	secBufferMAC[thisEnv->id][0] = (EIBADDR(1,thisEnv->id, thisEnv->addrInt));		// SRC  = my addr 
 			secBufferMAC[thisEnv->id][0] = 0x80;				// set correct frame type(std frame)
 			secBufferMAC[thisEnv->id][1] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
 			secBufferMAC[thisEnv->id][2] = thisEnv->addrInt;		// SRC  = my addr
@@ -89,7 +107,6 @@ void preparePacket(void *env, uint8_t type)
 			secBufferMAC[thisEnv->id][8] = secBufferTime[thisEnv->id][1];	// ...
 			secBufferMAC[thisEnv->id][9] = secBufferTime[thisEnv->id][2];	// ...
 			secBufferMAC[thisEnv->id][10] = secBufferTime[thisEnv->id][3];	// TIME 
-//			secBufferMAC[thisEnv->id][9] = '\0';				// delimiter 
 
 			len = 11;		
 
@@ -103,6 +120,7 @@ void preparePacket(void *env, uint8_t type)
 		//	#ifdef DEBUG
 		//		print_it("HMAC / SYNC", sigHMAC[thisEnv->id], DIGESTSIZE/8);
 		//	#endif
+
 			// assemble sync request message
 			MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = secBufferMAC[thisEnv->id][6];
 			MSGBUF_SEC2WR[thisEnv->id].frame.buf[1] = secBufferMAC[thisEnv->id][7];
@@ -122,6 +140,55 @@ void preparePacket(void *env, uint8_t type)
 			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncReq, env);
 		break;
 		case syncRes:
+			secBufferMAC[thisEnv->id][0] = 0x80;				// set correct frame type(std frame)
+			secBufferMAC[thisEnv->id][1] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
+			secBufferMAC[thisEnv->id][2] = thisEnv->addrInt;		// SRC  = my addr
+			secBufferMAC[thisEnv->id][3] = 0x00;				// DEST = broadcast	FIXME - set correct address
+			secBufferMAC[thisEnv->id][4] = 0x00;				// DEST = broadcast	FIXME - set correct address
+			secBufferMAC[thisEnv->id][5] = 0x88;				// set address type + len( byte payload), 
+											// but IGNORE TTL!!
+			// assemble the payload
+			secBufferMAC[thisEnv->id][6] = syncRes;				// SEC HEADER	=~	ACPI
+			secBufferMAC[thisEnv->id][7] = thisEnv->secGlobalCount[0];	// global Counter
+			secBufferMAC[thisEnv->id][8] = thisEnv->secGlobalCount[1];	// ...
+			secBufferMAC[thisEnv->id][9] = thisEnv->secGlobalCount[2];	// ...
+			secBufferMAC[thisEnv->id][10] = thisEnv->secGlobalCount[3];	// global counter
+			secBufferMAC[thisEnv->id][11] = secBufferTime[thisEnv->id][0];	// TIME
+			secBufferMAC[thisEnv->id][12] = secBufferTime[thisEnv->id][1];	// ...
+			secBufferMAC[thisEnv->id][13] = secBufferTime[thisEnv->id][2];	// ...
+			secBufferMAC[thisEnv->id][14] = secBufferTime[thisEnv->id][3];	// TIME 
+			
+			len = 15;
+
+			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &thisEnv->slen, thisEnv->skey);
+			assert(i == 0);
+			if(i != 0)
+			{
+				printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
+				exit(-1);
+			}
+
+			// now that we got the MAC, prepare the actual payload
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = secBufferMAC[thisEnv->id][6];
+			// append global counter
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[1] = secBufferMAC[thisEnv->id][7];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[2] = secBufferMAC[thisEnv->id][8];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[3] = secBufferMAC[thisEnv->id][9];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[4] = secBufferMAC[thisEnv->id][10];
+			// append actual time
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[5] = secBufferMAC[thisEnv->id][11];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[6] = secBufferMAC[thisEnv->id][12];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[7] = secBufferMAC[thisEnv->id][13];
+			MSGBUF_SEC2WR[thisEnv->id].frame.buf[8] = secBufferMAC[thisEnv->id][14];
+			// append MAC
+			for(i = 0; i < MACSIZE; i++)
+			{
+				MSGBUF_SEC2WR[thisEnv->id].frame.buf[i+9] = sigHMAC[thisEnv->id][i];
+			}
+			MSGBUF_SEC2WR[thisEnv->id].frame.len = (13);
+
+			// call write thread directly from here
+			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncReq, env);
 
 		break;
 		default:
@@ -484,7 +551,12 @@ void keyInit(void *env)
 				#ifdef DEBUG
 					printf("SEC%d: RESET_CTR\n", thisEnv->id);
 				#endif
-				thisEnv->globalCount = 0;
+
+				/*
+					FIXME: increase security by choosing from random insteat setting to zero....?!
+				*/
+				thisEnv->secGlobalCountInt = 0x01020304;
+				updateGlobalCount(thisEnv);
 				thisEnv->state = STATE_READY;
 
 			break;

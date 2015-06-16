@@ -11,13 +11,14 @@ typedef struct
 	char *socketPath;
 	EIBConnection *secFDWR;
 	EIBConnection *secFDRD;
-	uint32_t globalCount;
 	EVP_PKEY *skey;
 	EVP_PKEY *vkey;
 	size_t slen;
 	size_t vlen;
 	time_t now;
 	uint8_t secRDbuf[BUFSIZE];
+	uint8_t secGlobalCount[GLOBALCOUNTSIZE];
+	uint32_t secGlobalCountInt;
 	uint8_t addrInt;
 	fd_set set;			// used for pipe-timeout
 	int RD2MasterPipe[2];
