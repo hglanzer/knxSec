@@ -19,7 +19,6 @@ typedef struct
 	time_t now;
 	uint8_t secRDbuf[BUFSIZE];
 	uint8_t addrInt;
-
 	fd_set set;			// used for pipe-timeout
 	int RD2MasterPipe[2];
 	uint8_t state;

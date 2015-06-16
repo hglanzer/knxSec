@@ -5,9 +5,9 @@
 	harald.glanzer@gmail.com
 
 	needs 3 running eib daemones:
-		eibd --listen-local=/tmp/eib.clr  -t31 -e 1.0.<addr>  tpuarts:/dev/tty<DEV-cleartext>
-		eibd --listen-local=/tmp/eib.sec1 -t31 -e 1.1.<addr> tpuarts:/dev/tty<DEV-secured-1>
-		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.2.<addr>  tpuarts:/dev/tty<DEv-secured-2>
+		eibd --listen-local=/tmp/eib.sec1 -t31 -e 1.0.<addr> tpuarts:/dev/tty<DEV-secured-1>
+		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.1.<addr> tpuarts:/dev/tty<DEv-secured-2>
+		eibd --listen-local=/tmp/eib.clr  -t31 -e 1.2.<addr> tpuarts:/dev/tty<DEV-cleartext>
 */
 
 pthread_mutex_t SecMutexWr[SECLINES];
@@ -48,9 +48,11 @@ void Usage(char **argv)
 }
 
 /*
-	master prozess: creates 3 threads:
-		- 2 secLine threads
-		- 1 clrThreadLine threads
+	master prozess: creates 6 threads:
+		- 2 secLine-Main threads
+		- 2 secLine-read threads
+		- 1 clrLine-Main threads
+		- 1 clrLine-read threads
 
 */
 int main(int argc, char **argv)
@@ -162,6 +164,12 @@ int main(int argc, char **argv)
 	/*
 		pipe is used for communication: secRead -> secKeymaster
 		with pipes select() with timeouts can be used!
+
+		in a fork'ed environment, booth processes inherit booth file descriptors  
+			writer closes READend
+			reader closes WRITEend
+
+		... but this is not necessary for a threaded environment
 	*/
 	if(pipe(threadEnvSec[0].RD2MasterPipe) == -1)
 	{
@@ -170,7 +178,7 @@ int main(int argc, char **argv)
 	}
 	if(pipe(threadEnvSec[1].RD2MasterPipe) == -1)
 	{
-		printf("pipe() for SEC0 failed, exit\n");
+		printf("pipe() for SEC1 failed, exit\n");
 		exit(-1);
 	}
 	// create secure-knx master thread 1	

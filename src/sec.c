@@ -253,8 +253,6 @@ void secRD(void *env)
 	knxPacket tmp;
 	uint8_t i = 0, rc = 0;
 
-	// this side provides the data
-	//close(thisEnv->RD2MasterPipe[READEND]);
 	thisEnv->secFDRD = EIBSocketURL(thisEnv->socketPath);
 	if (!thisEnv->secFDRD)
 	{
@@ -263,7 +261,7 @@ void secRD(void *env)
 	}
 	else
 	{
-		printf("\tSEC%d-RD: EIBSocketURL() success %s\n, listening with own dev addr = %d", thisEnv->id, thisEnv->socketPath, thisEnv->addrInt);
+		printf("\tSEC%d-RD: EIBSocketURL() OK %s, using addr %d\n", thisEnv->id, thisEnv->socketPath, thisEnv->addrInt);
 	}
 
 	if (EIBOpenVBusmonitor(thisEnv->secFDRD) == -1)
@@ -387,7 +385,6 @@ void keyInit(void *env)
 */
 				thisEnv->retryCount = 0;
 				
-			//	close(thisEnv->RD2MasterPipe[WRITEEND]);
 				FD_ZERO(&thisEnv->set);
 				FD_SET(thisEnv->RD2MasterPipe[READEND], &thisEnv->set);
 			
