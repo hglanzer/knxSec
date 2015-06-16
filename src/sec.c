@@ -547,7 +547,7 @@ void keyInit(void *env)
 					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 1);
 					if(buffer[0] == syncRes)
 					{
-						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);
+						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 8);
 						if(rc == 8)
 						{
 							rc = checkFreshness(thisEnv, &buffer[4]);
@@ -560,6 +560,7 @@ void keyInit(void *env)
 									printf("%02x ", buffer[2]);
 									printf("%02x\n", buffer[3]);
 								#endif
+								thisEnv->state = STATE_READY;
 							}
 							else
 							{
@@ -574,7 +575,6 @@ void keyInit(void *env)
 						// FIXME: delete RD2MasterPipe buffer!!
 						printf("SEC%d: need syncResponse, got shit - FIXME\n", thisEnv->id);
 					}
-					thisEnv->state = STATE_READY;
 				}
 			break;
 
