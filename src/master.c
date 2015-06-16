@@ -158,6 +158,21 @@ int main(int argc, char **argv)
 		return -1;
 	}
 */
+
+	/*
+		pipe is used for communication: secRead -> secKeymaster
+		with pipes select() with timeouts can be used!
+	*/
+	if(pipe(threadEnvSec[0].RD2MasterPipe) == -1)
+	{
+		printf("pipe() for SEC0 failed, exit\n");
+		exit(-1);
+	}
+	if(pipe(threadEnvSec[1].RD2MasterPipe) == -1)
+	{
+		printf("pipe() for SEC0 failed, exit\n");
+		exit(-1);
+	}
 	// create secure-knx master thread 1	
 	if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[0])) != 0)
 	{

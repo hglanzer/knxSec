@@ -254,7 +254,7 @@ void secRD(void *env)
 	uint8_t i = 0, rc = 0;
 
 	// this side provides the data
-	//close(thisEnv->Read2MasterPipe[READEND]);
+	//close(thisEnv->RD2MasterPipe[READEND]);
 	thisEnv->secFDRD = EIBSocketURL(thisEnv->socketPath);
 	if (!thisEnv->secFDRD)
 	{
@@ -307,7 +307,7 @@ void secRD(void *env)
 				if(tmp.srcDev == thisEnv->addrInt)
 				{
 					#ifdef DEBUG
-						printf("\tSEC%d-RD: ignore own broadcast message from dev %d\n ", thisEnv->id, thisEnv->addrInt);
+						printf("\tSEC%d-RD: ignore own broadcast message from devAddr %d\n ", thisEnv->id, thisEnv->addrInt);
 					#endif
 				}
 				else
@@ -387,9 +387,9 @@ void keyInit(void *env)
 */
 				thisEnv->retryCount = 0;
 				
-			//	close(thisEnv->Read2MasterPipe[WRITEEND]);
+			//	close(thisEnv->RD2MasterPipe[WRITEEND]);
 				FD_ZERO(&thisEnv->set);
-				FD_SET(thisEnv->Read2MasterPipe[READEND], &thisEnv->set);
+				FD_SET(thisEnv->RD2MasterPipe[READEND], &thisEnv->set);
 			
 				thisEnv->state = STATE_SYNC_REQ;
 			break;
@@ -455,7 +455,7 @@ void keyInit(void *env)
 					#ifdef DEBUG
 						printf("SEC%d: sync response\n", thisEnv->id);
 					#endif
-					read(thisEnv->Read2MasterPipe[READEND], &buffer[0], sizeof(buffer));
+					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], sizeof(buffer));
 
 					// SAVE COUNTER!		FIXME	
 					thisEnv->state = STATE_READY;
@@ -502,18 +502,9 @@ int initSec(void *threadEnv)
 	#ifdef DEBUG
 		printf("SEC%d: sock = %s, thread# = %u\n", thisEnv->id, thisEnv->socketPath, (unsigned)pthread_self());
 	#endif
-	/*
-		pipe is used for communication: secRead -> secKeymaster
-		with pipes select() with timeouts can be used!
-	*/
-	if(pipe(thisEnv->Read2MasterPipe) == -1)
-	{
-		printf("pipe() failed, exit\n");
-		exit(-1);
-	}
 
 	#ifdef DEBUG
-		printf("SEC%d: / pipFD: %d <- %d\n", thisEnv->id, thisEnv->Read2MasterPipe[READEND], thisEnv->Read2MasterPipe[WRITEEND]);
+		printf("SEC%d: / pipFD: %d <- %d\n", thisEnv->id, thisEnv->RD2MasterPipe[READEND], thisEnv->RD2MasterPipe[WRITEEND]);
 	#endif
 
 	hmacInit(&thisEnv->skey, &thisEnv->vkey, &thisEnv->slen, &thisEnv->vlen);

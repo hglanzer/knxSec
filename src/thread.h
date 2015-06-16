@@ -21,7 +21,7 @@ typedef struct
 	uint8_t addrInt;
 
 	fd_set set;			// used for pipe-timeout
-	int Read2MasterPipe[2];
+	int RD2MasterPipe[2];
 	uint8_t state;
 	uint8_t retryCount;
 	uint8_t tmpsecWR;
