@@ -1,4 +1,5 @@
-void updateGlobalCount(void *);
+void saveGlobalCount(void *, uint8_t *);
+void incGlobalCount(void *);
 int checkFreshness(void *, uint8_t *);
 void time2Str(void *, unsigned char *);
 int initSec(void *);
@@ -7,7 +8,7 @@ int secWR(void *);
 void secRD(void *);
 void keyInit(void *);
 
-#define SYNCTIMEOUT_SEC 3
+#define SYNCTIMEOUT_SEC 2
 #define SYNC_RETRIES 3
 #define JOINTIMEOUT_SEC 3
 #define JOIN_RETRIES 3

@@ -26,7 +26,20 @@ extern struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 //	read from file to memory, securely delete file, delete buffer after initial phase...?
 uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x30\x31";
 
-void updateGlobalCount(void *env)
+void saveGlobalCounter(void *env, uint8_t *buffer)
+{
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
+	uint8_t i = 0;
+	uint32_t exp = 1;
+	for(i=0; i<GLOBALCOUNTSIZE;i++)
+	{
+		thisEnv->secGlobalCountInt += buffer[i] * exp;
+		exp = exp * 16;
+	}
+	printf("saved counterInt = %d", thisEnv->secGlobalCountInt);
+}
+
+void incGlobalCount(void *env)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint32_t buf;
@@ -56,7 +69,7 @@ int checkFreshness(void *env, uint8_t *buffer)
 	time2Str(env, secBufferTime[thisEnv->id]);
 	for(i=0;i<4;i++)
 	{
-		printf("SEC%d: comparing %02x - %02x\n", thisEnv->id, secBufferTime[thisEnv->id][i], buffer[i]);
+		//printf("SEC%d: comparing %02x - %02x\n", thisEnv->id, secBufferTime[thisEnv->id][i], buffer[i]);
 		if(secBufferTime[thisEnv->id][i] != buffer[i])
 		{
 			return FALSE;
@@ -560,6 +573,7 @@ void keyInit(void *env)
 									printf("%02x ", buffer[2]);
 									printf("%02x\n", buffer[3]);
 								#endif
+								saveGlobalCounter(thisEnv, &buffer[0]);
 								thisEnv->state = STATE_READY;
 							}
 							else
@@ -572,7 +586,8 @@ void keyInit(void *env)
 					}
 					else
 					{
-						// FIXME: delete RD2MasterPipe buffer!!
+						// delete RD2MasterPipe buffer!!
+						read(thisEnv->RD2MasterPipe[READEND], &buffer[0], sizeof(buffer));
 						printf("SEC%d: need syncResponse, got shit - FIXME\n", thisEnv->id);
 					}
 				}
@@ -589,7 +604,7 @@ void keyInit(void *env)
 					FIXME: increase security by choosing from random insteat setting to zero....?!
 				*/
 				thisEnv->secGlobalCountInt = 0x01020304;
-				updateGlobalCount(thisEnv);
+				incGlobalCount(thisEnv);
 				thisEnv->state = STATE_READY;
 
 			break;
