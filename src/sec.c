@@ -31,7 +31,7 @@ void saveGlobalCounter(void *env, uint8_t *buffer)
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0;
 	uint32_t exp = 1;
-	for(i = GLOBALCOUNTSIZE; i>0;i++)
+	for(i = GLOBALCOUNTSIZE; i>0;i=i-1)
 	{
 		thisEnv->secGlobalCountInt += buffer[i-1] * exp;
 		exp = exp * 256;
