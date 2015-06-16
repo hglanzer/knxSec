@@ -387,6 +387,8 @@ void keyInit(void *env)
 				}
 */
 				thisEnv->retryCount = 0;
+				
+				close(thisEnv->Read2MasterPipe[WRITEEND]);
 				FD_ZERO(&set);
 				FD_SET(thisEnv->Read2MasterPipe[READEND], &set);
 			
@@ -510,7 +512,6 @@ int initSec(void *threadEnv)
 		printf("pipe() failed, exit\n");
 		exit(-1);
 	}
-	close(thisEnv->Read2MasterPipe[WRITEEND]);
 
 	#ifdef DEBUG
 		printf("SEC%d: / pipFD: %d <- %d\n", thisEnv->id, thisEnv->Read2MasterPipe[READEND], thisEnv->Read2MasterPipe[WRITEEND]);
