@@ -32,6 +32,21 @@ uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13
 	secure line thread
 */
 
+int checkFreshness(void *env, uint8_t *buffer)
+{
+	uint8_t i=0;
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
+	time2Str(env, secBufferTime[thisEnv->id]);
+	for(i=0;i<4;i++)
+	{
+		printf("comparing %d - %d", secBufferTime[thisEnv->id][i], buffer[i]);
+		if(secBufferTime[thisEnv->id][i] != buffer[i])
+		{
+			return FALSE;
+		}
+	}
+	return TRUE;
+}
 /*
 	convert unix-time time_t to 4 digit hex string
 */
@@ -354,7 +369,7 @@ void secRD(void *env)
 */
 void keyInit(void *env)
 {
-	int selectRC = 0;
+	int selectRC = 0, rc = 0;
 	struct timeval syncTimeout;
 
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
@@ -483,13 +498,38 @@ void keyInit(void *env)
 				#endif
 				while(1)
 				{
-					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 1);
+					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 1);	// FIXME - must be non-blocking!!
 					if(buffer[0] == syncReq)
 					{
 						#ifdef DEBUG
 							printf("SEC%d: got syncReq\n", thisEnv->id);
 						#endif
+							rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);
+							if(rc == 4)
+							{
+								rc = checkFreshness(thisEnv, &buffer[0]);
+								if(rc)
+								{
+									printf("SEC%d: got fresh syncReq\n", thisEnv->id);
+									preparePacket(env, syncRes);
+								}
+								else
+								{
+									printf("SEC%d: outdated syncReq\n", thisEnv->id);	
+								}
+							}
+							else
+							{
+								printf("SEC%d: malformed syncReq\n", thisEnv->id);
+							}
 						
+					}
+					else
+					{
+						#ifdef DEBUG
+							printf("SEC%d: got unknown input\n", thisEnv->id);
+						#endif
+
 					}
 				}
 			break;

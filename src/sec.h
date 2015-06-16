@@ -1,3 +1,5 @@
+int checkFreshness(void *, uint8_t *);
+void time2Str(void *, unsigned char *);
 int initSec(void *);
 int secWRnew(char *, uint8_t , uint8_t , void *);
 int secWR(void *);
