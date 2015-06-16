@@ -34,7 +34,7 @@ void saveGlobalCounter(void *env, uint8_t *buffer)
 	for(i=0; i<GLOBALCOUNTSIZE;i++)
 	{
 		thisEnv->secGlobalCountInt += buffer[i] * exp;
-		exp = exp * 16;
+		exp = exp * 256;
 		printf("%02x ", buffer[i]);
 	}
 	printf("saved counterInt = %d\n", thisEnv->secGlobalCountInt);
