@@ -254,7 +254,7 @@ void secRD(void *env)
 	uint8_t i = 0, rc = 0;
 
 	// this side provides the data
-	close(thisEnv->Read2MasterPipe[READEND]);
+	//close(thisEnv->Read2MasterPipe[READEND]);
 	thisEnv->secFDRD = EIBSocketURL(thisEnv->socketPath);
 	if (!thisEnv->secFDRD)
 	{
