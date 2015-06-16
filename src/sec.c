@@ -31,12 +31,16 @@ void saveGlobalCounter(void *env, uint8_t *buffer)
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0;
 	uint32_t exp = 1;
+
+printf("buffer = ");
+	for(i = 0; i<GLOBALCOUNTSIZE;i++)
+		printf("%02x ", buffer[i]);
+
 	for(i = 0; i<GLOBALCOUNTSIZE;i++)
 	{
-		thisEnv->secGlobalCountInt += buffer[i] * exp;
-		thisEnv->secGlobalCount[i] = buffer[GLOBALCOUNTSIZE-(i+1)];
+		thisEnv->secGlobalCountInt += buffer[GLOBALCOUNTSIZE-(i+1)] * exp;
+		thisEnv->secGlobalCount[i] = buffer[i];
 		exp = exp * 256;
-		printf("%02x ", buffer[i]);
 	}
 	printf("saved counterInt = %d\n", thisEnv->secGlobalCountInt);
 }
