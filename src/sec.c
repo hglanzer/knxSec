@@ -145,7 +145,7 @@ void preparePacket(void *env, uint8_t type)
 			secBufferMAC[thisEnv->id][2] = thisEnv->addrInt;		// SRC  = my addr
 			secBufferMAC[thisEnv->id][3] = 0x00;				// DEST = broadcast	FIXME - set correct address
 			secBufferMAC[thisEnv->id][4] = 0x00;				// DEST = broadcast	FIXME - set correct address
-			secBufferMAC[thisEnv->id][5] = 0x88;				// set address type + len( byte payload), 
+			secBufferMAC[thisEnv->id][5] = 0x8C;				// set address type + len( byte payload), 
 											// but IGNORE TTL!!
 			// assemble the payload
 			secBufferMAC[thisEnv->id][6] = syncRes;				// SEC HEADER	=~	ACPI
@@ -530,7 +530,6 @@ void keyInit(void *env)
 							printf("SEC%d: key master sync timeout\n", thisEnv->id);
 						#endif
 					}
-					
 				}
 				// error occured
 				else if(selectRC < 0)
@@ -545,24 +544,42 @@ void keyInit(void *env)
 				else
 				{
 					// fd ready
-					#ifdef DEBUG
-						printf("SEC%d: sync response\n", thisEnv->id);
-					#endif
-					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], sizeof(buffer));
-/*
-					while()
+					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 1);
+					if(buffer[0] == syncRes)
 					{
-
+						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);
+						if(rc == 8)
+						{
+							rc = checkFreshness(thisEnv, &buffer[4]);
+							if(rc)
+							{
+								#ifdef DEBUG
+									printf("SEC%d: FRESH sync response - counter = ", thisEnv->id);
+									printf("%02x ", buffer[0]);
+									printf("%02x ", buffer[1]);
+									printf("%02x ", buffer[2]);
+									printf("%02x\n", buffer[3]);
+								#endif
+							}
+							else
+							{
+								#ifdef DEBUG
+									printf("SEC%d: OUTDATED sync response\n", thisEnv->id);
+								#endif
+							}
+						}
 					}
-*/
-					// SAVE COUNTER!		FIXME	
+					else
+					{
+						// FIXME: delete RD2MasterPipe buffer!!
+						printf("SEC%d: need syncResponse, got shit - FIXME\n", thisEnv->id);
+					}
 					thisEnv->state = STATE_READY;
 				}
 			break;
 
 			// looks like this node is alone - reset global counter
 			// FIXME:	maybe choose random counter?
-			//		or additionally use time() information ?
 			case STATE_RESET_CTR:
 				#ifdef DEBUG
 					printf("SEC%d: RESET_CTR\n", thisEnv->id);
@@ -590,7 +607,7 @@ void keyInit(void *env)
 						#ifdef DEBUG
 							printf("SEC%d: got syncReq\n", thisEnv->id);
 						#endif
-							rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);
+							rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);	// FIXME - non-blocking
 							if(rc == 4)
 							{
 								rc = checkFreshness(thisEnv, &buffer[0]);
