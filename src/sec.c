@@ -359,7 +359,6 @@ void keyInit(void *env)
 	int selectRC = 0;
 	struct timeval syncTimeout;
 
-	fd_set set;
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t buffer[BUFSIZE]; 
 
@@ -388,9 +387,9 @@ void keyInit(void *env)
 */
 				thisEnv->retryCount = 0;
 				
-				close(thisEnv->Read2MasterPipe[WRITEEND]);
-				FD_ZERO(&set);
-				FD_SET(thisEnv->Read2MasterPipe[READEND], &set);
+			//	close(thisEnv->Read2MasterPipe[WRITEEND]);
+				FD_ZERO(&thisEnv->set);
+				FD_SET(thisEnv->Read2MasterPipe[READEND], &thisEnv->set);
 			
 				thisEnv->state = STATE_SYNC_REQ;
 			break;
@@ -413,7 +412,7 @@ void keyInit(void *env)
 				syncTimeout.tv_sec = SYNCTIMEOUT_SEC;
 				syncTimeout.tv_usec = 0;	
 
-				selectRC = select(FD_SETSIZE, &set, NULL, NULL, &syncTimeout);
+				selectRC = select(FD_SETSIZE, &thisEnv->set, NULL, NULL, &syncTimeout);
 
 				// timeout
 				if(selectRC == 0)

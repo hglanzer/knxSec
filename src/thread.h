@@ -20,6 +20,7 @@ typedef struct
 	uint8_t secRDbuf[BUFSIZE];
 	uint8_t addrInt;
 
+	fd_set set;			// used for pipe-timeout
 	int Read2MasterPipe[2];
 	uint8_t state;
 	uint8_t retryCount;
