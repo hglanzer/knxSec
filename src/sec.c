@@ -188,7 +188,7 @@ void preparePacket(void *env, uint8_t type)
 			MSGBUF_SEC2WR[thisEnv->id].frame.len = (13);
 
 			// call write thread directly from here
-			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncReq, env);
+			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncRes, env);
 
 		break;
 		default:
@@ -308,11 +308,24 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
        				exit(-1);
 			}
 			#ifdef DEBUG
-				printf("\tSEC%d-WR: SEND OK to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
+				printf("\tSEC%d-WR: REQUEST to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
 			#endif
 
 		break;
 		case syncRes:
+			if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 0)) == -1)
+			{
+				printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
+				exit(-1);
+			}
+			if (EIBSendAPDU(thisEnv->secFDWR, len, (const uint8_t *)buf) == -1)
+			{
+				printf("EIBOpenSendTPDU() failed\n\n");
+       				exit(-1);
+			}
+			#ifdef DEBUG
+				printf("\tSEC%d-WR: RESPONSE to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
+			#endif
 
 		break;
 		default:

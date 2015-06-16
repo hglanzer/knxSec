@@ -243,7 +243,6 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
         assert(0);
         return -1;
     }
-/*
 		uint8_t i;
 		printf("\n\tthis is verifyHMAC\n\tMSG = ");
 		for(i=0; i< mlen; i++)
@@ -254,8 +253,6 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
 			printf("%02x ", sig[i]);
 
 		printf("\n");
-	#endif
-*/
     EVP_MD_CTX* ctx = NULL;
     
     do
