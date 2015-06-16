@@ -386,9 +386,6 @@ void secRD(void *env)
 
 	while(1)
 	{
-		#ifdef DEBUG
-			printf("\tSEC%d-RD: READY\n", thisEnv->id);
-		#endif
 		rc = EIBGetBusmonitorPacket(thisEnv->secFDRD, sizeof(thisEnv->secRDbuf), thisEnv->secRDbuf);
 		if(rc == -1)
 		{
@@ -627,28 +624,24 @@ void keyInit(void *env)
 					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 1);	// FIXME - must be non-blocking!!
 					if(buffer[0] == syncReq)
 					{
-						#ifdef DEBUG
-							printf("SEC%d: got syncReq\n", thisEnv->id);
-						#endif
-							rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);	// FIXME - non-blocking
-							if(rc == 4)
+						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);	// FIXME - non-blocking
+						if(rc == 4)
+						{
+							rc = checkFreshness(thisEnv, &buffer[0]);
+							if(rc)
 							{
-								rc = checkFreshness(thisEnv, &buffer[0]);
-								if(rc)
-								{
-									printf("SEC%d: got fresh syncReq\n", thisEnv->id);
-									preparePacket(env, syncRes);
-								}
-								else
-								{
-									printf("SEC%d: outdated syncReq\n", thisEnv->id);	
-								}
+								printf("SEC%d: got fresh syncReq\n", thisEnv->id);
+								preparePacket(env, syncRes);
 							}
 							else
 							{
-								printf("SEC%d: malformed syncReq\n", thisEnv->id);
+								printf("SEC%d: outdated syncReq\n", thisEnv->id);	
 							}
-						
+						}
+						else
+						{
+							printf("SEC%d: malformed syncReq\n", thisEnv->id);
+						}
 					}
 					else
 					{
