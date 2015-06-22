@@ -229,79 +229,6 @@ void printKey(uint8_t *key, uint8_t keysize)
 	printf("\n");
 }
 
-/*
-	sec SEND thread
-
-	OLD DISABLED	- now handled by sec - master thread
-int secWR(void *env)
-{
-	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	printf("\tSEC%d-WR: %s with FD @ %p / %u\n", thisEnv->id, thisEnv->socketPath, thisEnv->secFDWR, (unsigned)pthread_self());
-
-	thisEnv->MSGIDsecWR = msgget(MSGKEY_SEC2WR, MSG_PERM | IPC_CREAT);
-	if(thisEnv->MSGIDsecWR == -1)
-	{
-		printf("SEC%d-WR: message queue msgget() failed\n", thisEnv->id);
-		exit(-1);
-	}
-	while(1)
-	{
-		//wait for new data to send over secure line
-		//pthread_mutex_lock(&SecMutexWr[thisEnv->id]);
-		//pthread_cond_wait(&SecCondWr[thisEnv->id], &SecMutexWr[thisEnv->id]);
-		//pthread_mutex_unlock(&SecMutexWr[thisEnv->id]);
-		//msgrcv(thisEnv->MSGIDsecWR, &MSGBUF_SEC2WR[thisEnv->id], sizeof(MSGBUF_SEC2WR[thisEnv->id]) - sizeof(long), 0, 0);
-
-		switch(MSGBUF_SEC2WR[thisEnv->id].frame.type)	
-		{
-			case syncReq:		// this is a broadcast message
-
-				thisEnv->secFDWR = EIBSocketURL(thisEnv->socketPath);
-				#ifdef DEBUG
-					printf("\tSEC%d-WR: %s with FD @ %p / %u\n", thisEnv->id, thisEnv->socketPath, thisEnv->secFDWR, (unsigned)pthread_self());
-				#endif
-				if (!(thisEnv->secFDWR))
-				{
-					printf("SEC%d-WR: EIBSocketURL() with FD @ %p failed\n\n", thisEnv->id, thisEnv->secFDWR);
-					exit(-1);
-				}
-
-				if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 0)) == -1)
-				{
-					printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
-					exit(-1);
-				}
-				if (EIBSendAPDU(thisEnv->secFDWR, MSGBUF_SEC2WR[thisEnv->id].frame.len, (unsigned char *)MSGBUF_SEC2WR[thisEnv->id].frame.buf) == -1)
-				{
-					printf("EIBOpenSendTPDU() failed\n\n");
-        				exit(-1);
-				}
-				#ifdef DEBUG
-					printf("\tSEC%d-WR: SEND OK to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
-				#endif
-				EIBClose(thisEnv->secFDWR);
-				//EIBClose(thisEnv->secFDWR);
-
-			break;
-			case syncRes:
-
-			break;
-		}
-		#ifdef DEBUG
-			printf("\tSEC%d-WR: new MSQ data: ", thisEnv->id);
-			thisEnv->tmpsecWR = 0;
-			while(MSGBUF_SEC2WR[thisEnv->id].frame.buf[thisEnv->tmpsecWR] != '\0')
-			{
-				printf("%02x ", MSGBUF_SEC2WR[thisEnv->id].frame.buf[thisEnv->tmpsecWR]);
-				thisEnv->tmpsecWR++;
-			}
-
-			printf("\n");
-		#endif
-	}
-	return 0;
-}
-*/
 int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
@@ -587,6 +514,13 @@ void keyInit(void *env)
 									printf("SEC%d: OUTDATED sync response\n", thisEnv->id);
 								#endif
 							}
+						}
+						else
+						{
+							#ifdef DEBUG
+								printf("SEC%d: expected 8 byte syncResp, got %d\n", thisEnv->id, rc);
+							#endif
+
 						}
 					}
 					else
