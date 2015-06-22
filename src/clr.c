@@ -41,15 +41,19 @@ void clrRD(void *threadEnv)
 	#ifdef DEBUG
 		printf("CLR : socket opened\n");
 	#endif
-	
-	if(EIBOpenVBusmonitor(thisEnv->clrFD) == -1)
-	{
-		printf("CLR : cannot open KNX Connection\n");
-		exit(-1);
+
+	while(1)
+	{	
+		if(EIBOpenVBusmonitor(thisEnv->clrFD) == -1)
+		{
+			printf("CLR : cannot open KNX Connection\n");
+			exit(-1);
+		}
+		#ifdef DEBUG
+			printf("CLR : busmonitor started\n");
+		#endif
+		sleep(5);
 	}
-	#ifdef DEBUG
-		printf("CLR : busmonitor started\n");
-	#endif
 
 	while(1)
 	{
