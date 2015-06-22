@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OPT="--tpuarts-ack-all-group --tpuarts-ack-all-individual"
+OPT="--tpuarts-ack-all-group --tpuarts-ack-all-individual -t24"
 
 echo "*************************************"
 echo "*ignoreing dev - file for CLR device*"
@@ -35,7 +35,7 @@ then
 		eibd -e 1.1.$1 tpuarts:/dev/knxSEC2 --listen-local=/tmp/knxSEC2 $OPT &
 		#sleep 1
 		#eibd tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR $OPT  &
-		eibd -e 1.2.$1 tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR $OPT -t24 &
+		eibd -e 1.2.$1 tpuarts:/dev/knxCLR  --listen-local=/tmp/knxCLR $OPT &
 
 		echo "starting master daemon"
 		sleep 1
