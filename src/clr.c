@@ -33,29 +33,31 @@ void clrRD(void *threadEnv)
 	packet = malloc(sizeof(knxPacket));
 
 	thisEnv->clrFD = EIBSocketURL(thisEnv->socketPath);
-	if (!thisEnv->clrFD)
-	{
-		printf("CLR : opening %s failed\n", thisEnv->socketPath);
-		exit(-1);
-	}
-	#ifdef DEBUG
-		printf("CLR : socket opened\n");
-	#endif
 
 	while(1)
 	{	
-		if(EIBOpenVBusmonitor(thisEnv->clrFD) == -1)
+		if (!thisEnv->clrFD)
 		{
-			printf("CLR : cannot open KNX Connection\n");
-			sleep(5);
+			printf("CLR : opening %s failed\n", thisEnv->socketPath);
 		}
 		else
 		{
-		#ifdef DEBUG
-			printf("CLR : busmonitor started\n");
-		#endif
-		break;
+			#ifdef DEBUG
+				printf("CLR : socket opened\n");
+			#endif
+			if(EIBOpenVBusmonitor(thisEnv->clrFD) == -1)
+			{
+				printf("CLR : cannot open KNX Connection\n");
+			}
+			else
+			{
+				#ifdef DEBUG
+					printf("CLR : busmonitor started\n");
+				#endif
+				break;
+			}
 		}
+		sleep(5);
 	}
 
 	while(1)
