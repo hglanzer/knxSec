@@ -119,7 +119,7 @@ void time2Str(void *env, byte *buf)
 	}
 }
 
-void preparePacket(void *env, uint8_t type)
+void preparePacket(void *env, uint8_t type, uint8_t *dest)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0, len = 0;
@@ -182,9 +182,9 @@ void preparePacket(void *env, uint8_t type)
 			secBufferMAC[thisEnv->id][0] = 0x80;				// set correct frame type(std frame)
 			secBufferMAC[thisEnv->id][1] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
 			secBufferMAC[thisEnv->id][2] = thisEnv->addrInt;		// SRC  = my addr
-			secBufferMAC[thisEnv->id][3] = 0x00;				// DEST = broadcast	FIXME - set correct address
-			secBufferMAC[thisEnv->id][4] = 0x00;				// DEST = broadcast	FIXME - set correct address
-			secBufferMAC[thisEnv->id][5] = 0x8C;				// set address type + len( byte payload), 
+			secBufferMAC[thisEnv->id][3] = dest[0];				// DEST = broadcast	FIXME - set correct address
+			secBufferMAC[thisEnv->id][4] = dest[1];				// DEST = broadcast	FIXME - set correct address
+			secBufferMAC[thisEnv->id][5] = 0x0C;				// set address type + len( byte payload), 
 											// but IGNORE TTL!!
 			// assemble the payload
 			secBufferMAC[thisEnv->id][6] = syncRes;				// SEC HEADER	=~	ACPI
@@ -250,6 +250,7 @@ void printKey(uint8_t *key, uint8_t keysize)
 int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
+	eibaddr_t dest = 0x0;
 
 	thisEnv->secFDWR = EIBSocketURL(thisEnv->socketPath);
 	if (!thisEnv->secFDWR)
@@ -279,14 +280,16 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 
 		break;
 		case syncRes:
-			if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 0)) == -1)
+			dest = buf[3]<<8 | buf[4];
+			// this is a UNICAST message
+			if ((EIBOpenT_Individual(thisEnv->secFDWR, dest, FALSE)) == -1)
 			{
-				printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
+				printf("SEC%d-WR: EIBOpenT_Individual() failed\n\n", thisEnv->id);
 				exit(-1);
 			}
 			if (EIBSendAPDU(thisEnv->secFDWR, len, (const uint8_t *)buf) == -1)
 			{
-				printf("EIBOpenSendTPDU() failed\n\n");
+				printf("EIBOpenSendAPDU() failed\n\n");
        				exit(-1);
 			}
 			//#ifdef DEBUG
@@ -377,7 +380,14 @@ void secRD(void *env)
 					if(tmp.type == stdFrame)
 					{
 						thisEnv->secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
-						thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by routers
+						if(tmp.indivAdr)
+						{
+							thisEnv->secRDbuf[5] &= 0x0F;	// zero-out TTL, which gets changed by routers
+						}
+						else
+						{
+							thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by routers
+						}
 						//	check the MAC, use the first x bytes: header + payload (withouth MAC, without FCK)
 						i = verifyHMAC(thisEnv->secRDbuf, (rc - MACSIZE - 1), &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
 
@@ -460,7 +470,7 @@ void keyInit(void *env)
 					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
 				#endif
 				// prepare MAC for sync request message	
-				preparePacket(env, syncReq);
+				preparePacket(env, syncReq, NULL);
 				thisEnv->state = STATE_SYNC_WAIT_RESP;
 			break;
 			case STATE_SYNC_WAIT_RESP:
@@ -599,7 +609,7 @@ void keyInit(void *env)
 							if(rc)
 							{
 								printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[0]>>4), src[0]&0x0F, src[1]);
-								preparePacket(env, syncRes);
+								preparePacket(env, syncRes, &src[0]);
 							}
 							else
 							{

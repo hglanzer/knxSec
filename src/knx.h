@@ -1,6 +1,7 @@
 typedef struct
 {
 	uint8_t type;
+	uint8_t indivAdr;
 	uint8_t srcArea;
 	uint8_t srcLine;
 	uint8_t srcDev;

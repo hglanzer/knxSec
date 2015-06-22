@@ -12,10 +12,12 @@ int decodeFrame(unsigned char *frame, knxPacket *packet)
 		packet->srcArea = srcAreaAddress(frame);
 		if(isIndivAddrStd(frame))	// std frame for indiv. address
 		{
+			packet->indivAdr = 1;
 			printf("%d.%d.%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
 		}
 		else			// std frame for group address
 		{
+			packet->indivAdr = 0;
 			printf("%d/%d/%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
 		}
 		printf(" STD: dataLen=%d / TTL=%d / TCPI=%d / ", lengthStd(frame), hopcountStd(frame), tpciStd(frame));
