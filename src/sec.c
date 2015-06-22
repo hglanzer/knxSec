@@ -280,7 +280,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 
 		break;
 		case syncRes:
-			dest = dest[0]<<8 | dest[1];
+			destEib = dest[0]<<8 | dest[1];
 			// this is a UNICAST message
 			if ((EIBOpenT_Individual(thisEnv->secFDWR, dest, FALSE)) == -1)
 			{
