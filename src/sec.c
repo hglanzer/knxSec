@@ -365,7 +365,7 @@ void secRD(void *env)
 
 						if(i != 0)
 						{
-							printf("SEC%d: verifyHMAC() failed, possible attack?\n", thisEnv->id);
+							printf("\tSEC%d-RD: verifyHMAC() failed/attack?\n", thisEnv->id);
 							for(i=0; i<rc;i++)
 							{
 								printf("%02x ", thisEnv->secRDbuf[i]);
@@ -375,7 +375,7 @@ void secRD(void *env)
 						else
 						{
 							// MAC is OK - process message
-							printf("SEC%d: writing %d bytes to pipe\n", thisEnv->id, rc-6-MACSIZE-1);
+							printf("\tSEC%d-RD: writing %d bytes to pipe\n", thisEnv->id, rc-6-MACSIZE-1);
 							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
 						}
 					}
@@ -511,6 +511,8 @@ void keyInit(void *env)
 							}
 							else
 							{
+								thisEnv->retryCount++;
+								thisEnv->state = STATE_SYNC_REQ;
 								#ifdef DEBUG
 									printf("SEC%d: OUTDATED sync response\n", thisEnv->id);
 								#endif
@@ -521,11 +523,14 @@ void keyInit(void *env)
 							#ifdef DEBUG
 								printf("SEC%d: expected 8 byte syncResp, got %d\n", thisEnv->id, rc);
 							#endif
-
+							thisEnv->retryCount++;
+							thisEnv->state = STATE_SYNC_REQ;
 						}
 					}
 					else
 					{
+						thisEnv->retryCount++;
+						thisEnv->state = STATE_SYNC_REQ;
 						// delete RD2MasterPipe buffer!!
 						read(thisEnv->RD2MasterPipe[READEND], &buffer[0], sizeof(buffer));
 						printf("SEC%d: need syncResponse, got shit - FIXME\n", thisEnv->id);
