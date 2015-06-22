@@ -32,26 +32,27 @@ void clrRD(void *threadEnv)
 	knxPacket *packet;
 	packet = malloc(sizeof(knxPacket));
 
+	thisEnv->clrFD = EIBSocketURL(thisEnv->socketPath);
+	if (!thisEnv->clrFD)
+	{
+		printf("CLR : opening %s failed\n", thisEnv->socketPath);
+		exit(-1);
+	}
+	#ifdef DEBUG
+		printf("CLR : socket opened\n");
+	#endif
+	
+	if(EIBOpenVBusmonitor(thisEnv->clrFD) == -1)
+	{
+		printf("CLR : cannot open KNX Connection\n");
+		exit(-1);
+	}
+	#ifdef DEBUG
+		printf("CLR : busmonitor started\n");
+	#endif
+
 	while(1)
 	{
-		thisEnv->clrFD = EIBSocketURL(thisEnv->socketPath);
-		if (!thisEnv->clrFD)
-		{
-			printf("CLR : opening %s failed\n", thisEnv->socketPath);
-			exit(-1);
-		}
-		#ifdef DEBUG
-			printf("CLR : socket opened\n");
-		#endif
-	
-		if(EIBOpenBusmonitor(thisEnv->clrFD) == -1)
-		{
-			printf("CLR : cannot open KNX Connection\n");
-			exit(-1);
-		}
-		#ifdef DEBUG
-			printf("CLR : busmonitor started\n");
-		#endif
 		
 //		pthread_mutex_lock(&clr2SecMutexWr[0]);
 //		pthread_mutex_lock(&clr2SecMutexWr[1]);
@@ -70,6 +71,7 @@ void clrRD(void *threadEnv)
 		}
 		else
 		{
+			printf("got new knx package\n");
 			;;
 		}
 	}
@@ -84,5 +86,6 @@ int initClr(void *env)
 {
 	threadEnvClr_t *threadEnvClr = (threadEnvClr_t *) env;
 	printf("CLR going home\n");
+
 	return 0;
 }

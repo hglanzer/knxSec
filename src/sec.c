@@ -74,7 +74,6 @@ int checkFreshness(void *env, uint8_t *buffer)
 {
 	long myTime = 0, exp = 1, i=0;
 	time_t now = time(NULL);
-	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 /*	
 	time2Str(env, secBufferTime[thisEnv->id]);
 	for(i=0;i<4;i++)
