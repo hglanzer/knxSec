@@ -83,30 +83,6 @@ int mainStateMachine(EIBConnection *clrFD)
 int initClr(void *env)
 {
 	threadEnvClr_t *threadEnvClr = (threadEnvClr_t *) env;
-
-	void (*clrSendThreadfPtr)(void *);
-	clrSendThreadfPtr = &clrWR;
-	void (*clrRecvThreadfPtr)(void *);
-	clrRecvThreadfPtr = &clrRD;
-
-	pthread_t clrRecvThread, clrSendThread;
-
-	//debug("THIS IS **CLR**", pthread_self());
-	if((pthread_create(&clrSendThread, NULL, (void *)clrSendThreadfPtr, (void *)threadEnvClr)) != 0)
-	{
-		printf("CLR : SEND Thread init failed, exit\n");
-		return -1;
-	}
-	if((pthread_create(&clrRecvThread, NULL, (void *)clrRecvThreadfPtr, (void *)threadEnvClr)) != 0)
-	{
-		printf("CLR : RECEIVE Thread init failed, exit\n");
-		return -1;
-	}
-	#ifdef DEBUG
-		printf("CLR : send/recv threads startet, waiting for kids\n");
-	#endif
-	pthread_join(clrRecvThread, NULL);
-	pthread_join(clrSendThread, NULL);
 	printf("CLR going home\n");
 	return 0;
 }

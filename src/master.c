@@ -62,19 +62,20 @@ int main(int argc, char **argv)
 	/*
 		thread - variables
 	*/
+	void (*clrSendThreadfPtr)(void *);
+	clrSendThreadfPtr = &initClr;
+	void (*clrRecvThreadfPtr)(void *);
+	clrRecvThreadfPtr = &clrRD;
 	
-	int (*clrMasterStart)(void *);
-	clrMasterStart = &initClr;
-
 	int (*secMasterStart)(void *);
 	secMasterStart = &initSec;
-
 	void (*secRDThreadfPtr)(void *);
 	secRDThreadfPtr = &secRD;
 
 	void *clrThreadRetval, *sec1ThreadRetval, *sec2ThreadRetval;
-	pthread_t sec1MasterThread, sec2MasterThread, clrMasterThread;
+ 	pthread_t clrMasterThread, clrRDThread;
 	pthread_t sec1RDThread, sec2RDThread;
+	pthread_t sec1MasterThread, sec2MasterThread;
 
 	pthread_mutexattr_t mutexAttr;
 	pthread_mutexattr_init(&mutexAttr);
@@ -181,31 +182,56 @@ int main(int argc, char **argv)
 		printf("pipe() for SEC1 failed, exit\n");
 		exit(-1);
 	}
-	// create secure-knx master thread 1	
+	/*
+		----------------	create SEC threads
+					secure-knx master thread 1	
+	*/
 	if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[0])) != 0)
 	{
 		printf("sec1Thread thread init failed, exit\n");
 		return -1;
 	}
-	//sleep(1);
-	// create secure-knx master thread 2
+
+	//				secure-knx master thread 2
 	if((pthread_create(&sec2MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[1])) != 0)
 	{
 		printf("sec2Thread thread init failed, exit\n");
 		return -1;
 	}
-	// create READ thread
 
+	//				create READ thread 1
 	if((pthread_create(&sec1RDThread, NULL, (void *)secRDThreadfPtr, &threadEnvSec[0])) != 0)
 	{
 		printf("sec RECEIVE Thread init failed, exit\n");
 		exit(-1);
 	}
+
+	//				create READ thread 2
 	if((pthread_create(&sec2RDThread, NULL, (void *)secRDThreadfPtr, &threadEnvSec[1])) != 0)
 	{
 		printf("sec RECEIVE Thread init failed, exit\n");
 		exit(-1);
 	}
+
+	/*
+		----------------	create CLR threads
+	//				create MASTER thread 
+	*/
+	if((pthread_create(&clrMasterThread, NULL, (void *)clrSendThreadfPtr, &threadEnvClr)) != 0)
+	{
+		printf("CLR : SEND MasterThread init failed, exit\n");
+		return -1;
+	}
+	//				create READ thread
+	if((pthread_create(&clrRDThread, NULL, (void *)clrRecvThreadfPtr, &threadEnvClr)) != 0)
+	{
+		printf("CLR : RECEIVE Thread init failed, exit\n");
+		return -1;
+	}
+	#ifdef DEBUG
+		printf("CLR : send/recv threads startet, waiting for kids\n");
+	#endif
+
 	#ifdef DEBUG
 		printf("\n\nMaster   Thread %u, waiting for kids\n", (unsigned)pthread_self());
 		printf("sec1Mst  Thread: %u\n", (unsigned)sec1MasterThread);
@@ -213,6 +239,9 @@ int main(int argc, char **argv)
 		printf("clearMst Thread: %u\n\n\n", (unsigned)clrMasterThread);
 	#endif
 //	pthread_join(clrMasterThread, &clrThreadRetval);
+	pthread_join(clrMasterThread, &clrThreadRetval);
+	pthread_join(clrRDThread, &clrThreadRetval);
+
 	pthread_join(sec1MasterThread, &sec1ThreadRetval);
 	pthread_join(sec2MasterThread, &sec2ThreadRetval);
 	pthread_join(sec1RDThread, &sec1ThreadRetval);

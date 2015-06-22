@@ -41,6 +41,7 @@ void keyInit(void *);
 /*
 		TYPES OF PACKAGES
 */
+#define		clrData		0x01
 #define		syncReq		0x02
 #define		syncRes		0x03
 #define		discReq		0x04

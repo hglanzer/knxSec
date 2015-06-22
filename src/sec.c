@@ -596,37 +596,42 @@ void keyInit(void *env)
 				{
 					// read src + type
 					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 3);	// FIXME - must be non-blocking!!
-					if(buffer[2] == syncReq)
+					switch(buffer[2])
 					{
-						// save src address from last frame
-						src[0] = buffer[0];
-						src[1] = buffer[1];
+						case syncReq:
+							// save src address from last frame
+							src[0] = buffer[0];
+							src[1] = buffer[1];
 
-						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);	// FIXME - non-blocking
-						if(rc == 4)
-						{
-							rc = checkFreshness(thisEnv, &buffer[0]);
-							if(rc)
+							rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);	// FIXME - non-blocking
+							if(rc == 4)
 							{
-								printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[0]>>4), src[0]&0x0F, src[1]);
-								preparePacket(env, syncRes, &src[0]);
+								rc = checkFreshness(thisEnv, &buffer[0]);
+								if(rc)
+								{
+									printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[0]>>4), src[0]&0x0F, src[1]);
+									preparePacket(env, syncRes, &src[0]);
+								}
+								else
+								{
+									printf("SEC%d: outdated syncReq\n", thisEnv->id);	
+								}
 							}
 							else
 							{
-								printf("SEC%d: outdated syncReq\n", thisEnv->id);	
+								printf("SEC%d: malformed syncReq\n", thisEnv->id);
 							}
-						}
-						else
-						{
-							printf("SEC%d: malformed syncReq\n", thisEnv->id);
-						}
-					}
-					else
-					{
-						#ifdef DEBUG
-							printf("SEC%d: got unknown input\n", thisEnv->id);
-						#endif
 
+						break;
+
+						case discReq:				
+							;;
+						break;
+
+						case clrData:
+
+						default: 	
+							printf("SEC%d: got unknown input\n", thisEnv->id);
 					}
 				}
 			break;
