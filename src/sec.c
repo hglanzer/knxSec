@@ -393,12 +393,12 @@ void secRD(void *env)
 						else
 						{
 							// MAC is OK - process message
-							printf("\tSEC%d-RD: writing %d bytes to pipe\n", thisEnv->id, rc-6-MACSIZE-1);
-							// write payload to pipe
-							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
-							// ... and append SRC address
-							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[1], 1);
-							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[2], 1);
+							printf("\tSEC%d-RD: writing %d + 2 bytes to pipe\n", thisEnv->id, rc-6-MACSIZE-1);
+							// write address + payload to pipe
+							thisEnv->secRDbuf[4] = thisEnv->secRDbuf[1];
+							thisEnv->secRDbuf[5] = thisEnv->secRDbuf[2];
+							// total-bytes - (header - src) - MACSIZE - FCK
+							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[4], rc - 4 - MACSIZE - 1);
 						}
 					}
 					else
@@ -422,7 +422,7 @@ void keyInit(void *env)
 	struct timeval syncTimeout;
 
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	uint8_t buffer[BUFSIZE]; 
+	uint8_t buffer[BUFSIZE], src[2]; 
 
 	thisEnv->state = STATE_INIT;
 
@@ -509,11 +509,11 @@ void keyInit(void *env)
 				else
 				{
 					// fd ready
-					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 1);
-					if(buffer[0] == syncRes)
+					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 3);
+					if(buffer[2] == syncRes)
 					{
-						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 10);
-						if(rc == 10)
+						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 8);
+						if(rc == 8)
 						{
 							rc = checkFreshness(thisEnv, &buffer[4]);
 							if(rc)
@@ -550,7 +550,7 @@ void keyInit(void *env)
 					{
 						thisEnv->retryCount++;
 						thisEnv->state = STATE_SYNC_REQ;
-						// delete RD2MasterPipe buffer!!
+						// empty RD2MasterPipe buffer!!	FIXME: correct???
 						read(thisEnv->RD2MasterPipe[READEND], &buffer[0], sizeof(buffer));
 						printf("SEC%d: need syncResponse, got shit - FIXME\n", thisEnv->id);
 					}
@@ -584,16 +584,21 @@ void keyInit(void *env)
 				#endif
 				while(1)
 				{
-					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 1);	// FIXME - must be non-blocking!!
-					if(buffer[0] == syncReq)
+					// read src + type
+					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 3);	// FIXME - must be non-blocking!!
+					if(buffer[2] == syncReq)
 					{
-						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 6);	// FIXME - non-blocking
-						if(rc == 6)
+						// save src address from last frame
+						src[0] = buffer[0];
+						src[0] = buffer[1];
+
+						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);	// FIXME - non-blocking
+						if(rc == 4)
 						{
 							rc = checkFreshness(thisEnv, &buffer[0]);
 							if(rc)
 							{
-								printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (buffer[4]>>4), buffer[4]&0x0F, buffer[5]);
+								printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[4]>>4), src[4]&0x0F, src[5]);
 								preparePacket(env, syncRes);
 							}
 							else
