@@ -92,15 +92,13 @@ int checkFreshness(void *env, uint8_t *buffer)
 		myTime = myTime + buffer[i-1]*exp;
 		exp = exp*256;
 	}
-	printf("check_freshness: %ld - %ld = %ld", now, myTime, labs(myTime-now));
+	//printf("check_freshness: %ld - %ld = %ld\n", now, myTime, labs(myTime-now));
 	if(abs(myTime - now) < 5)
 	{
-		printf("considering FRESH\n");
 		return TRUE;
 	}
 	else
 	{
-		printf("considering OUTDATED\n");
 		return FALSE;
 	}
 }
@@ -396,6 +394,8 @@ void secRD(void *env)
 						{
 							// MAC is OK - process message
 							printf("\tSEC%d-RD: writing %d bytes to pipe\n", thisEnv->id, rc-6-MACSIZE-1);
+							write(thisEnv->RD2MasterPipe[WRITEEND], secRDbuf[1] 1);
+							write(thisEnv->RD2MasterPipe[WRITEEND], secRDbuf[2] 1);
 							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
 						}
 					}
@@ -510,20 +510,20 @@ void keyInit(void *env)
 					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 1);
 					if(buffer[0] == syncRes)
 					{
-						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 8);
-						if(rc == 8)
+						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 10);
+						if(rc == 10)
 						{
-							rc = checkFreshness(thisEnv, &buffer[4]);
+							rc = checkFreshness(thisEnv, &buffer[6]);
 							if(rc)
 							{
 								#ifdef DEBUG
 									printf("SEC%d: FRESH sync response - counter = ", thisEnv->id);
-									printf("%02x ", buffer[0]);
-									printf("%02x ", buffer[1]);
 									printf("%02x ", buffer[2]);
-									printf("%02x\n", buffer[3]);
+									printf("%02x ", buffer[3]);
+									printf("%02x ", buffer[4]);
+									printf("%02x\n", buffer[5]);
 								#endif
-								saveGlobalCount(thisEnv, &buffer[0]);
+								saveGlobalCount(thisEnv, &buffer[2]);
 								thisEnv->state = STATE_READY;
 							}
 							else
@@ -585,10 +585,10 @@ void keyInit(void *env)
 					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 1);	// FIXME - must be non-blocking!!
 					if(buffer[0] == syncReq)
 					{
-						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);	// FIXME - non-blocking
-						if(rc == 4)
+						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 6);	// FIXME - non-blocking
+						if(rc == 6)
 						{
-							rc = checkFreshness(thisEnv, &buffer[0]);
+							rc = checkFreshness(thisEnv, &buffer[2]);
 							if(rc)
 							{
 								printf("SEC%d: got fresh syncReq\n", thisEnv->id);
