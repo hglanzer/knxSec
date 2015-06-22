@@ -590,7 +590,7 @@ void keyInit(void *env)
 					{
 						// save src address from last frame
 						src[0] = buffer[0];
-						src[0] = buffer[1];
+						src[1] = buffer[1];
 
 						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);	// FIXME - non-blocking
 						if(rc == 4)
