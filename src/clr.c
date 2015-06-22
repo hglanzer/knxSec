@@ -47,12 +47,15 @@ void clrRD(void *threadEnv)
 		if(EIBOpenVBusmonitor(thisEnv->clrFD) == -1)
 		{
 			printf("CLR : cannot open KNX Connection\n");
-			exit(-1);
+			sleep(5);
 		}
+		else
+		{
 		#ifdef DEBUG
 			printf("CLR : busmonitor started\n");
 		#endif
-		sleep(5);
+		break;
+		}
 	}
 
 	while(1)
