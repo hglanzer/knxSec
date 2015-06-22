@@ -282,7 +282,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 		case syncRes:
 			destEib = dest[0]<<8 | dest[1];
 			// this is a UNICAST message
-			if ((EIBOpenT_Individual(thisEnv->secFDWR, dest, FALSE)) == -1)
+			if ((EIBOpenT_Individual(thisEnv->secFDWR, destEib, FALSE)) == -1)
 			{
 				printf("SEC%d-WR: EIBOpenT_Individual() failed\n\n", thisEnv->id);
 				exit(-1);
