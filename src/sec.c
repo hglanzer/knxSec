@@ -394,11 +394,11 @@ void secRD(void *env)
 						{
 							// MAC is OK - process message
 							printf("\tSEC%d-RD: writing %d bytes to pipe\n", thisEnv->id, rc-6-MACSIZE-1);
-							// write SRC address
+							// write payload to pipe
+							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
+							// ... and append SRC address
 							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[1], 1);
 							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[2], 1);
-							// ... and payload to pipe
-							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
 						}
 					}
 					else
@@ -515,17 +515,17 @@ void keyInit(void *env)
 						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 10);
 						if(rc == 10)
 						{
-							rc = checkFreshness(thisEnv, &buffer[6]);
+							rc = checkFreshness(thisEnv, &buffer[4]);
 							if(rc)
 							{
 								#ifdef DEBUG
 									printf("SEC%d: FRESH sync response - counter = ", thisEnv->id);
-									printf("%02x ", buffer[2]);
 									printf("%02x ", buffer[3]);
-									printf("%02x ", buffer[4]);
-									printf("%02x\n", buffer[5]);
+									printf("%02x ", buffer[2]);
+									printf("%02x ", buffer[1]);
+									printf("%02x\n", buffer[0]);
 								#endif
-								saveGlobalCount(thisEnv, &buffer[2]);
+								saveGlobalCount(thisEnv, &buffer[0]);
 								thisEnv->state = STATE_READY;
 							}
 							else
@@ -540,7 +540,7 @@ void keyInit(void *env)
 						else
 						{
 							#ifdef DEBUG
-								printf("SEC%d: expected 8 byte syncResp, got %d\n", thisEnv->id, rc);
+								printf("SEC%d: expected 10 byte syncResp, got %d\n", thisEnv->id, rc);
 							#endif
 							thisEnv->retryCount++;
 							thisEnv->state = STATE_SYNC_REQ;
@@ -590,10 +590,10 @@ void keyInit(void *env)
 						rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 6);	// FIXME - non-blocking
 						if(rc == 6)
 						{
-							rc = checkFreshness(thisEnv, &buffer[2]);
+							rc = checkFreshness(thisEnv, &buffer[0]);
 							if(rc)
 							{
-								printf("SEC%d: got fresh syncReq\n", thisEnv->id);
+								printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (buffer[4]>>4), buffer[4]&0x0F, buffer[5]);
 								preparePacket(env, syncRes);
 							}
 							else
