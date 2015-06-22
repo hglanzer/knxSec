@@ -394,8 +394,10 @@ void secRD(void *env)
 						{
 							// MAC is OK - process message
 							printf("\tSEC%d-RD: writing %d bytes to pipe\n", thisEnv->id, rc-6-MACSIZE-1);
-							write(thisEnv->RD2MasterPipe[WRITEEND], secRDbuf[1], 1);
-							write(thisEnv->RD2MasterPipe[WRITEEND], secRDbuf[2], 1);
+							// write SRC address
+							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[1], 1);
+							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[2], 1);
+							// ... and payload to pipe
 							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
 						}
 					}
