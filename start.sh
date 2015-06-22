@@ -6,8 +6,8 @@ echo "*************************************"
 echo "*ignoreing dev - file for CLR device*"
 echo "*************************************"
 
-if [ -a /dev/knxSEC1 ] && [ -a /dev/knxSEC2 ]
-#if [ -a /dev/knxCLR ] && [ -a /dev/knxSEC1 ] && [ -a /dev/knxSEC2 ]
+#if [ -a /dev/knxSEC1 ] && [ -a /dev/knxSEC2 ]
+if [ -a /dev/knxCLR ] && [ -a /dev/knxSEC1 ] && [ -a /dev/knxSEC2 ]
 then
 	echo "device files exist - OK"
 else

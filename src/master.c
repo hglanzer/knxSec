@@ -217,7 +217,6 @@ int main(int argc, char **argv)
 		----------------	create CLR threads
 	//				create MASTER thread 
 	*/
-/*
 	if((pthread_create(&clrMasterThread, NULL, (void *)clrSendThreadfPtr, &threadEnvClr)) != 0)
 	{
 		printf("CLR : SEND MasterThread init failed, exit\n");
@@ -242,7 +241,6 @@ int main(int argc, char **argv)
 //	pthread_join(clrMasterThread, &clrThreadRetval);
 	pthread_join(clrMasterThread, &clrThreadRetval);
 	pthread_join(clrRDThread, &clrThreadRetval);
-*/
 	pthread_join(sec1MasterThread, &sec1ThreadRetval);
 	pthread_join(sec2MasterThread, &sec2ThreadRetval);
 	pthread_join(sec1RDThread, &sec1ThreadRetval);
