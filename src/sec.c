@@ -598,7 +598,7 @@ void keyInit(void *env)
 							rc = checkFreshness(thisEnv, &buffer[0]);
 							if(rc)
 							{
-								printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[4]>>4), src[4]&0x0F, src[5]);
+								printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[0]>>4), src[0]&0x0F, src[1]);
 								preparePacket(env, syncRes);
 							}
 							else
