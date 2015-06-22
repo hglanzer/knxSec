@@ -72,8 +72,10 @@ void incGlobalCount(void *env)
 */
 int checkFreshness(void *env, uint8_t *buffer)
 {
-	uint8_t i=0;
+	long myTime = 0, exp = 1, i=0;
+	time_t now = time(NULL);
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
+/*	
 	time2Str(env, secBufferTime[thisEnv->id]);
 	for(i=0;i<4;i++)
 	{
@@ -83,8 +85,26 @@ int checkFreshness(void *env, uint8_t *buffer)
 			return FALSE;
 		}
 	}
-	return TRUE;
+*/
+//	convert unix-time time_t to 4 digit hex string
+	for(i=0; i<3;i++)
+	{
+		myTime = myTime + buffer[i]*exp;
+		exp = exp*256;
+	}
+	printf("check_freshness: %ld - %ld = %ld", now, myTime, labs(myTime-now));
+	if(abs(myTime - now) < 5)
+	{
+		printf("considering FRESH\n");
+		return TRUE;
+	}
+	else
+	{
+		printf("considering OUTDATED\n");
+		return FALSE;
+	}
 }
+
 /*
 	convert unix-time time_t to 4 digit hex string
 */
@@ -271,9 +291,9 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 				printf("EIBOpenSendTPDU() failed\n\n");
        				exit(-1);
 			}
-			#ifdef DEBUG
-				printf("\tSEC%d-WR: RESPONSE to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
-			#endif
+			//#ifdef DEBUG
+			//	printf("\tSEC%d-WR: RESPONSE to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
+			//#endif
 
 		break;
 		default:
@@ -432,16 +452,13 @@ void keyInit(void *env)
 			
 				thisEnv->state = STATE_SYNC_REQ;
 			break;
+
 			case STATE_SYNC_REQ:
 				#ifdef DEBUG
 					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
 				#endif
 				// prepare MAC for sync request message	
 				preparePacket(env, syncReq);
-//MSGBUF_SEC2WR[thisEnv->id].mtype = MSG_TYPE;
-//MSGBUF_SEC2WR[thisEnv->id].frame.type = syncReq;
-//msgsnd(thisEnv->MSGIDsecMASTER, &MSGBUF_SEC2WR[thisEnv->id], sizeof(MSGBUF_SEC2WR[thisEnv->id]) - sizeof(long), 0);
-
 				thisEnv->state = STATE_SYNC_WAIT_RESP;
 			break;
 			case STATE_SYNC_WAIT_RESP:
