@@ -26,7 +26,7 @@ extern struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 //	read from file to memory, securely delete file, delete buffer after initial phase...?
 uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x30\x31";
 
-void saveGlobalCounter(void *env, uint8_t *buffer)
+void saveGlobalCount(void *env, uint8_t *buffer)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0;
@@ -36,10 +36,10 @@ printf("buffer = ");
 	for(i = 0; i<GLOBALCOUNTSIZE;i++)
 		printf("%02x ", buffer[i]);
 
-	for(i = 0; i<GLOBALCOUNTSIZE;i++)
+	for(i = GLOBALCOUNTSIZE;i > 0; i=i-1)
 	{
-		thisEnv->secGlobalCountInt += buffer[GLOBALCOUNTSIZE-(i+1)] * exp;
-		thisEnv->secGlobalCount[i] = buffer[i];
+		thisEnv->secGlobalCountInt += buffer[i-1] * exp;
+		thisEnv->secGlobalCount[i-1] = buffer[i-1];
 		exp = exp * 256;
 	}
 	printf("saved counterInt = %d\n", thisEnv->secGlobalCountInt);
@@ -578,7 +578,7 @@ void keyInit(void *env)
 									printf("%02x ", buffer[2]);
 									printf("%02x\n", buffer[3]);
 								#endif
-								saveGlobalCounter(thisEnv, &buffer[0]);
+								saveGlobalCount(thisEnv, &buffer[0]);
 								thisEnv->state = STATE_READY;
 							}
 							else
@@ -608,8 +608,12 @@ void keyInit(void *env)
 				/*
 					FIXME: increase security by choosing from random insteat setting to zero....?!
 				*/
-				thisEnv->secGlobalCountInt = 0x01020304;
-				incGlobalCount(thisEnv);
+				//incGlobalCount(thisEnv);
+				buffer[0] = 0x01;	// highest digit
+				buffer[1] = 0x02;
+				buffer[2] = 0x03;	
+				buffer[3] = 0x04;	// lowest digit
+				saveGlobalCount(thisEnv, &buffer[0]);
 				thisEnv->state = STATE_READY;
 
 			break;
