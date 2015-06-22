@@ -176,14 +176,14 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest)
 			MSGBUF_SEC2WR[thisEnv->id].frame.len = (9);
 
 			// call write thread directly from here
-			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncReq, env);
+			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncReq, env, NULL);
 		break;
 		case syncRes:
 			secBufferMAC[thisEnv->id][0] = 0x80;				// set correct frame type(std frame)
 			secBufferMAC[thisEnv->id][1] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
 			secBufferMAC[thisEnv->id][2] = thisEnv->addrInt;		// SRC  = my addr
-			secBufferMAC[thisEnv->id][3] = dest[0];				// DEST = broadcast	FIXME - set correct address
-			secBufferMAC[thisEnv->id][4] = dest[1];				// DEST = broadcast	FIXME - set correct address
+			secBufferMAC[thisEnv->id][3] = dest[0];				// DEST = src of requester
+			secBufferMAC[thisEnv->id][4] = dest[1];				
 			secBufferMAC[thisEnv->id][5] = 0x0C;				// set address type + len( byte payload), 
 											// but IGNORE TTL!!
 			// assemble the payload
@@ -227,7 +227,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest)
 			MSGBUF_SEC2WR[thisEnv->id].frame.len = (13);
 
 			// call write thread directly from here
-			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncRes, env);
+			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncRes, env, dest);
 
 		break;
 		default:
@@ -247,10 +247,10 @@ void printKey(uint8_t *key, uint8_t keysize)
 	printf("\n");
 }
 
-int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
+int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	eibaddr_t dest = 0x0;
+	eibaddr_t destEib = 0x0;
 
 	thisEnv->secFDWR = EIBSocketURL(thisEnv->socketPath);
 	if (!thisEnv->secFDWR)
@@ -280,7 +280,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env)
 
 		break;
 		case syncRes:
-			dest = buf[3]<<8 | buf[4];
+			dest = dest[0]<<8 | dest[1];
 			// this is a UNICAST message
 			if ((EIBOpenT_Individual(thisEnv->secFDWR, dest, FALSE)) == -1)
 			{
