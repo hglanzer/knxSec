@@ -87,7 +87,7 @@ int checkFreshness(void *env, uint8_t *buffer)
 	}
 */
 //	convert unix-time time_t to 4 digit hex string
-	for(i=0; i<3;i++)
+	for(i=0; i<4;i++)
 	{
 		myTime = myTime + buffer[i]*exp;
 		exp = exp*256;
