@@ -375,6 +375,7 @@ void secRD(void *env)
 						else
 						{
 							// MAC is OK - process message
+							printf("SEC%d: writing %d bytes to pipe\n", thisEnv->id, rc-6-MACSIZE-1);
 							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
 						}
 					}
