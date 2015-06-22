@@ -57,7 +57,7 @@ void clrRD(void *threadEnv)
 				break;
 			}
 		}
-		sleep(5);
+		sleep(60);
 	}
 
 	while(1)
