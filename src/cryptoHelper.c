@@ -1,6 +1,12 @@
 #include "globals.h"
 
+void handleErrors()
+{
+	printf("handleErrors(): something bad happend\n");
+}
+
 /*
+	just prints buff in HEX
 */
 void print_it(const char* label, const byte* buff, size_t len)
 {
@@ -323,4 +329,89 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
     
     /* Convert to 0/1 result */
     return !!result;
+}
+
+/*
+	pkey is a pointer to this' side PUBLIC key
+*/
+void genECpubKey(EVP_PKEY *pkey)
+{
+	EVP_PKEY_CTX *pctx;
+	EVP_PKEY_CTX *kctx;
+
+/* NB: assumes pkey, peerkey have been already set up */
+	EVP_PKEY *params = NULL;
+
+	/*
+		Create the context for parameter generation 
+		for algorithm EVP_PKEY_EC, standard( = NULL) engine
+		returns context for pubkey algorithm
+	*/
+	if(NULL == (pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_EC, NULL)))
+		handleErrors();
+	/*	Initialise the parameter generation	*/
+	if(1 != EVP_PKEY_paramgen_init(pctx))
+		handleErrors();
+	/*	We're going to use the ANSI X9.62 Prime 256v1 curve	*/
+	if(1 != EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, NID_X9_62_prime256v1))
+		handleErrors();
+
+	/*	Create the parameter object params */
+	if (!EVP_PKEY_paramgen(pctx, &params))
+		handleErrors();
+
+	/*	Create the context for the key generation	*/
+	if(NULL == (kctx = EVP_PKEY_CTX_new(params, NULL)))
+		handleErrors();
+
+	/*	Generate the key	*/
+	if(1 != EVP_PKEY_keygen_init(kctx))
+		handleErrors();
+
+	if (1 != EVP_PKEY_keygen(kctx, &pkey))
+		handleErrors();
+
+	EVP_PKEY_free(params);
+	EVP_PKEY_CTX_free(kctx);
+	EVP_PKEY_CTX_free(pctx);
+}
+
+unsigned char *deriveSharedSecret(EVP_PKEY *pkey, EVP_PKEY *peerkey, size_t *secret_len)
+{
+	EVP_PKEY_CTX *ctx;
+	unsigned char *secret;
+
+	/* 
+		provide the peer with our public key	= pkey
+		get the peer's public key		= peerkey
+peerkey = get_peerkey(pkey);
+	 * how this is done will be specific to your circumstances */
+
+	/* Create the context for the shared secret derivation */
+	if(NULL == (ctx = EVP_PKEY_CTX_new(pkey, NULL)))
+		handleErrors();
+	/* Initialise */
+	if(1 != EVP_PKEY_derive_init(ctx))
+		handleErrors();
+	/* Provide the peer public key */
+	if(1 != EVP_PKEY_derive_set_peer(ctx, peerkey))
+		handleErrors();
+	/* Determine buffer length for shared secret */
+	if(1 != EVP_PKEY_derive(ctx, NULL, secret_len))
+		handleErrors();
+	/* Create the buffer */
+	if(NULL == (secret = OPENSSL_malloc(*secret_len)))
+		handleErrors();
+	/* Derive the shared secret */
+	if(1 != (EVP_PKEY_derive(ctx, secret, secret_len)))
+		handleErrors();
+
+	/*	we got our secret - free unused memory	*/
+	EVP_PKEY_CTX_free(ctx);
+	EVP_PKEY_free(peerkey);
+	EVP_PKEY_free(pkey);
+
+	/* Never use a derived secret directly. Typically it is passed
+	 * through some hash function to produce a key */
+	return secret;
 }

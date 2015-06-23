@@ -1,10 +1,37 @@
 typedef struct
 {
+	uint32_t indCount;
+	eibaddr_t src;
+	eibaddr_t dest;
+	uint8_t key[ECKSIZE];
+	uint8_t active;
+	uint8_t frame[BUFSIZE];
+	EVP_PKEY *pkey;
+}indCounters_t;
+
+typedef struct
+{
+	uint8_t id;
+	indCounters_t indCounters[10];		// FIXME: this is static
+	int CLR2DiscPipe[2];
+}threadEnvSecDisc_t;
+
+/*
+	CLR thread ENV
+*/
+typedef struct
+{
 	char *socketPath;
 	char *addrStr;		// allowed device addesses: 1-15
 	uint8_t addrInt;
 	EIBConnection *clrFD;
+	int *CLR2Disc1PipePtr[2];
+	int *CLR2Disc2PipePtr[2];
 }threadEnvClr_t;
+
+/*
+	SEC threads ENV
+*/
 typedef struct
 {
 	uint8_t id;

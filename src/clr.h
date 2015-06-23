@@ -1,4 +1,4 @@
-int initClr(void *);
+void initClr(void *);
 void clrRD(void *);
 void clrWR(void *);
 int mainStateMachine(EIBConnection *master);

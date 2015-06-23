@@ -17,9 +17,13 @@
 #include<sys/select.h>
 #include<string.h>
 #include<errno.h>
+
 #include<openssl/rand.h>
 #include<openssl/ssl.h>
 #include<openssl/err.h>
+#include<openssl/evp.h>
+#include<openssl/ec.h>
+
 #include<sys/types.h>
 #include<sys/ipc.h>
 #include<sys/msg.h>

@@ -20,7 +20,9 @@ byte *sigHMAC[SECLINES];
 struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 
 threadEnvSec_t threadEnvSec[SECLINES]; 
+threadEnvSecDisc_t threadEnvSecDisc[SECLINES];
 threadEnvClr_t threadEnvClr; 
+
 
 static struct option long_options[] =
 {
@@ -67,15 +69,19 @@ int main(int argc, char **argv)
 	void (*clrRecvThreadfPtr)(void *);
 	clrRecvThreadfPtr = &clrRD;
 	
-	int (*secMasterStart)(void *);
+	void (*secMasterStart)(void *);
 	secMasterStart = &initSec;
 	void (*secRDThreadfPtr)(void *);
 	secRDThreadfPtr = &secRD;
+	void (*secDiscoveryStart)(void *);
+	secDiscoveryStart = &initDiscoverySec;
 
 	void *clrThreadRetval, *sec1ThreadRetval, *sec2ThreadRetval;
+
  	pthread_t clrMasterThread, clrRDThread;
 	pthread_t sec1RDThread, sec2RDThread;
 	pthread_t sec1MasterThread, sec2MasterThread;
+	pthread_t sec1DiscoveryThread, sec2DiscoveryThread;
 
 	pthread_mutexattr_t mutexAttr;
 	pthread_mutexattr_init(&mutexAttr);
@@ -101,11 +107,13 @@ int main(int argc, char **argv)
 				printf("\tARG: %20s for SEC1 SOCKET\n", &optarg[0]);
 				threadEnvSec[0].socketPath = &optarg[0];	
 				threadEnvSec[0].id = SEC1;
+				threadEnvSecDisc[0].id = SEC1;
 			break;
 			case '2':
 				printf("\tARG: %20s for SEC2 SOCKET\n", &optarg[0]);
 				threadEnvSec[1].socketPath = &optarg[0];	
 				threadEnvSec[1].id = SEC2;
+				threadEnvSecDisc[1].id = SEC2;
 			break;
 			case '3':
 				printf("\tARG: %d for CLR/SEC1/SEC2 Device Addr\n", optarg[0]);
@@ -172,6 +180,23 @@ int main(int argc, char **argv)
 
 		... but this is not necessary for a threaded environment
 	*/
+	if(pipe(threadEnvSecDisc[0].CLR2DiscPipe) == -1)
+	{
+		printf("pipe() for DISC0 failed, exit\n");
+		exit(-1);
+	}
+	if(pipe(threadEnvSecDisc[1].CLR2DiscPipe) == -1)
+	{
+		printf("pipe() for DISC1 failed, exit\n");
+		exit(-1);
+	}
+
+	threadEnvClr.CLR2Disc1PipePtr[READEND] = &threadEnvSecDisc[0].CLR2DiscPipe[READEND];
+	threadEnvClr.CLR2Disc1PipePtr[WRITEEND] = &threadEnvSecDisc[0].CLR2DiscPipe[WRITEEND];
+
+	threadEnvClr.CLR2Disc2PipePtr[READEND] = &threadEnvSecDisc[1].CLR2DiscPipe[READEND];
+	threadEnvClr.CLR2Disc2PipePtr[WRITEEND] = &threadEnvSecDisc[1].CLR2DiscPipe[WRITEEND];
+	
 	if(pipe(threadEnvSec[0].RD2MasterPipe) == -1)
 	{
 		printf("pipe() for SEC0 failed, exit\n");
@@ -208,6 +233,20 @@ int main(int argc, char **argv)
 
 	//				create READ thread 2
 	if((pthread_create(&sec2RDThread, NULL, (void *)secRDThreadfPtr, &threadEnvSec[1])) != 0)
+	{
+		printf("sec RECEIVE Thread init failed, exit\n");
+		exit(-1);
+	}
+
+	//				create DISCOVERY thread 1
+	if((pthread_create(&sec1DiscoveryThread, NULL, (void *)secDiscoveryStart, &threadEnvSecDisc[0])) != 0)
+	{
+		printf("sec RECEIVE Thread init failed, exit\n");
+		exit(-1);
+	}
+
+	//				create DISCOVERY thread 2
+	if((pthread_create(&sec2DiscoveryThread, NULL, (void *)secDiscoveryStart, &threadEnvSecDisc[1])) != 0)
 	{
 		printf("sec RECEIVE Thread init failed, exit\n");
 		exit(-1);

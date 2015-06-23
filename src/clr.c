@@ -29,8 +29,7 @@ void clrRD(void *threadEnv)
 {
 	threadEnvClr_t *thisEnv = (threadEnvClr_t *)threadEnv;
 	int len = 0;
-	knxPacket *packet;
-	packet = malloc(sizeof(knxPacket));
+	uint8_t buffer[BUFSIZE], i=0;
 
 	thisEnv->clrFD = EIBSocketURL(thisEnv->socketPath);
 
@@ -67,7 +66,7 @@ void clrRD(void *threadEnv)
 //		pthread_mutex_lock(&clr2SecMutexWr[1]);
 
 		// blocking call to get next package
-		len = EIBGetBusmonitorPacket (thisEnv->clrFD, sizeof(*packet), (uint8_t *)packet);
+		len = EIBGetBusmonitorPacket (thisEnv->clrFD, BUFSIZE, buffer);
 		if (len == -1)
 		{
 			printf("GET failed\n");
@@ -80,8 +79,14 @@ void clrRD(void *threadEnv)
 		}
 		else
 		{
-			printf("got new knx package\n");
-			;;
+			printf("CLR  : got %d byte: ", len);
+			for(i=0;i<len;i++)
+			{
+				printf("%02X ", buffer[i]);
+			}
+			printf("\n");
+			write(*thisEnv->CLR2Disc1PipePtr[WRITEEND], &buffer[0], len);
+			write(*thisEnv->CLR2Disc2PipePtr[WRITEEND], &buffer[0], len);
 		}
 	}
 }
@@ -91,10 +96,9 @@ int mainStateMachine(EIBConnection *clrFD)
 	return 0;
 }
 
-int initClr(void *env)
+void initClr(void *env)
 {
 	threadEnvClr_t *threadEnvClr = (threadEnvClr_t *) env;
 	printf("CLR going home\n");
 
-	return 0;
 }

@@ -229,6 +229,11 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest)
 			secWRnew(MSGBUF_SEC2WR[thisEnv->id].frame.buf, MSGBUF_SEC2WR[thisEnv->id].frame.len, syncRes, env, dest);
 
 		break;
+
+		case discReq:
+			printf("SEC%d: generating discREQ\n", thisEnv->id);
+			
+		break;
 		default:
 			printf("prepare(): THIS SHOULD NOT HAPPEN, exit");
 			exit(-1);
@@ -644,11 +649,69 @@ void keyInit(void *env)
 }
 
 /*
+	this thread handles discovery requests and responses
+*/
+void initDiscoverySec(void *threadEnv)
+{
+	uint8_t rc = 0, i=0;
+	uint8_t buffer[BUFSIZE];
+	eibaddr_t src, dest;
+	threadEnvSecDisc_t *thisEnv = (threadEnvSecDisc_t *)threadEnv;
+	while(1)
+	{
+		while(1)
+		{
+			/*
+				 use timeout when reading from CLR2DiscPipe
+					--> ONLY timeout triggers a cleanup (sets all ACTIVE records to INACTIVE)
+					--> this guarantees a MINIUM duration for a record to be active
+			*/
+
+			rc = read(thisEnv->CLR2DiscPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
+			src = (buffer[1]<<8) | buffer[2];
+			dest = (buffer[3]<<8) | buffer[4];
+			#ifdef DEBUG
+				printf("DIS-%d: got %03d byte %04d->%04d: ", thisEnv->id, rc, src, dest);
+				for(i=0; i < rc; i++)
+				{
+					printf("%02X ", buffer[i]);
+				}
+				//printf("\n");
+			#endif
+
+			for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
+			{
+				if(thisEnv->indCounters[i].src == src)
+				{
+					printf(" / found src at index %02d, counter = %02d\n", i, thisEnv->indCounters[i].indCount);
+					thisEnv->indCounters[i].indCount++;							// FIXME: handle overflow
+					break;
+				}
+				if(thisEnv->indCounters[i].src == 0x00)
+				{
+					printf(" / NOT found, adding src at index %d\n", i);
+					thisEnv->indCounters[i].src = src;
+					thisEnv->indCounters[i].indCount = 0x01;
+					break;
+				}
+			}		
+			thisEnv->indCounters[i].dest = dest;
+			thisEnv->indCounters[i].active = TRUE;;
+
+			genECpubKey(thisEnv->indCounters[i].pkey);
+			preparePacket(thisEnv, discReq, &buffer[3]);
+			
+		}
+	}
+}
+
+
+/*
 	entry point function from main thread - called 2 times
 		uses secWRnew to write data to bus
 		communicates with read-thread secRD() over pipe
 */
-int initSec(void *threadEnv)
+void initSec(void *threadEnv)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)threadEnv;
 
@@ -664,5 +727,4 @@ int initSec(void *threadEnv)
 	keyInit(threadEnv);
 	
 	printf("goiing home\n");
-	return 0;
 }

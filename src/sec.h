@@ -2,7 +2,8 @@ void saveGlobalCount(void *, uint8_t *);
 void incGlobalCount(void *);
 int checkFreshness(void *, uint8_t *);
 void time2Str(void *, unsigned char *);
-int initSec(void *);
+void initDiscoverySec(void *);
+void initSec(void *);
 int secWRnew(char *, uint8_t , uint8_t , void *, uint8_t *);
 int secWR(void *);
 void secRD(void *);
@@ -16,6 +17,7 @@ void keyInit(void *);
 #define BUFSIZE		256
 #define PSKSIZE		32	// preshared key size
 #define GKSIZE		32	// global key size [byte]
+#define ECKSIZE		32
 #define MACSIZE		4
 #define DIGESTSIZE	256
 #define GLOBALCOUNTSIZE	4
