@@ -6,7 +6,8 @@ typedef struct
 	uint8_t key[ECKSIZE];
 	uint8_t active;
 	uint8_t frame[BUFSIZE];
-	EVP_PKEY *pkey;
+	EVP_PKEY *pkey;		// this is the key pair
+	uint8_t pubKey[DHPUBKSIZE];		// this is the low-level public key
 }indCounters_t;
 
 /*

@@ -118,7 +118,7 @@ void time2Str(void *env, byte *buf)
 	}
 }
 
-void preparePacket(void *env, uint8_t type, uint8_t *dest)
+void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0, len = 0;
@@ -231,8 +231,45 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest)
 		break;
 
 		case discReq:
-			printf("SEC%d: generating discREQ\n", thisEnv->id);
-			
+			printf("SEC%d: generating discREQ: ", thisEnv->id);
+
+			printf("\n");		
+			secBufferMAC[thisEnv->id][0] = 0x00;				// set CTRL
+			secBufferMAC[thisEnv->id][1] = 0x00;				// set CTRLE
+			secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
+			secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr
+			secBufferMAC[thisEnv->id][4] = 0x00;				// DEST = broadcast message
+			secBufferMAC[thisEnv->id][5] = 0x00;				
+			secBufferMAC[thisEnv->id][6] = 0x4A;				// set len = 1 + 4 + 65 + 4(type + ctr + DH + MAC)
+			// assemble the payload
+			secBufferMAC[thisEnv->id][7] = discReq;				// SEC HEADER	=~	ACPI
+			secBufferMAC[thisEnv->id][8] = thisEnv->secGlobalCount[0];	// global Counter
+			secBufferMAC[thisEnv->id][9] = thisEnv->secGlobalCount[1];	// ...
+			secBufferMAC[thisEnv->id][10] = thisEnv->secGlobalCount[2];	// ...
+			secBufferMAC[thisEnv->id][11] = thisEnv->secGlobalCount[3];	// global counter
+
+			// append DH key
+			for(i=0;i<DHPUBKSIZE;i++)
+			{
+				printf("%02X ", dhPubKey[i]);
+				secBufferMAC[thisEnv->id][i+12] = dhPubKey[i];
+			}
+			// append the wanted group adress				FIXME:		encrypt FIRST!!
+			secBufferMAC[thisEnv->id][12+DHPUBKSIZE] = dest[0];
+			secBufferMAC[thisEnv->id][12+DHPUBKSIZE] = dest[1];
+			len = 12 + DHPUBKSIZE + 2;				// static stuff + DH key + wanted GA
+
+			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &thisEnv->slen, thisEnv->skey);
+			assert(i == 0);
+			if(i != 0)
+			{
+				printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
+				exit(-1);
+			}
+
+			// call write thread directly from here
+			printf("SEC%d: writing discovery Request\n", thisEnv->id);
+			secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+4+DHPUBKSIZE+2+4), discReq, env, NULL);
 		break;
 		default:
 			printf("prepare(): THIS SHOULD NOT HAPPEN, exit");
@@ -300,6 +337,19 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 			//	printf("\tSEC%d-WR: RESPONSE to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
 			//#endif
 
+		break;
+		case discReq:
+			printf("SEC%d-WR: GOT %d bytes to write\n\n", thisEnv->id, len);
+			if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 0)) == -1)
+			{
+				printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
+				exit(-1);
+			}
+			if (EIBSendAPDU(thisEnv->secFDWR, len, (const uint8_t *)buf) == -1)
+			{
+				printf("EIBOpenSendTPDU() failed\n\n");
+       				exit(-1);
+			}
 		break;
 		default:
 			printf("default: ARGL\n");
@@ -475,7 +525,7 @@ void keyInit(void *env)
 					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
 				#endif
 				// prepare MAC for sync request message	
-				preparePacket(env, syncReq, NULL);
+				preparePacket(env, syncReq, NULL, NULL);
 				thisEnv->state = STATE_SYNC_WAIT_RESP;
 			break;
 			case STATE_SYNC_WAIT_RESP:
@@ -650,7 +700,7 @@ void keyInit(void *env)
 									if(rc)
 									{
 										printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[0]>>4), src[0]&0x0F, src[1]);
-										preparePacket(env, syncRes, &src[0]);
+										preparePacket(env, syncRes, &src[0], NULL);
 									}
 									else
 									{
@@ -672,7 +722,7 @@ void keyInit(void *env)
 								// suck in the whole cleartext knx frame
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								srcEIB = (buffer[1]<<8) | buffer[2];
-								destEIB = (buffer[3]<<8) | buffer[4];
+								destEIB = (buffer[3]<<8) | buffer[4];		// this is the wanted group address we want to resolve
 								#ifdef DEBUG
 									printf("DIS-%d: got %03d byte %04d->%04d: ", thisEnv->id, rc, srcEIB, destEIB);
 									for(i=0; i < rc; i++)
@@ -695,14 +745,15 @@ void keyInit(void *env)
 										printf(" / NOT found, adding src at index %d\n", i);
 										thisEnv->indCounters[i].src = srcEIB;
 										thisEnv->indCounters[i].indCount = 0x01;
+										thisEnv->indCounters[i].pkey = EVP_PKEY_new();
 										break;
 									}
 								}		
 								thisEnv->indCounters[i].dest = destEIB;
 								thisEnv->indCounters[i].active = TRUE;;
 			
-								genECpubKey(thisEnv->indCounters[i].pkey);
-								preparePacket(thisEnv, discReq, &buffer[3]);
+								genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].pubKey);
+								preparePacket(thisEnv, discReq, &buffer[3], thisEnv->indCounters[i].pubKey);
 								break;
 
 							default: 	
@@ -736,6 +787,7 @@ void initSec(void *threadEnv)
 	#ifdef DEBUG
 		printf("SEC%d: / pipFD: %d <- %d\n", thisEnv->id, thisEnv->RD2MasterPipe[READEND], thisEnv->RD2MasterPipe[WRITEEND]);
 	#endif
+
 
 	hmacInit(&thisEnv->skey, &thisEnv->vkey, &thisEnv->slen, &thisEnv->vlen);
 	keyInit(threadEnv);

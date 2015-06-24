@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OPT="--tpuarts-ack-all-group --tpuarts-ack-all-individual"
+OPT="--tpuarts-ack-all-group --tpuarts-ack-all-individual -t 28"
 
 echo "*************************************"
 echo "*ignoreing dev - file for CLR device*"

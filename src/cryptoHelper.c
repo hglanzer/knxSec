@@ -334,13 +334,16 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
 /*
 	pkey is a pointer to this' side PUBLIC key
 */
-void genECpubKey(EVP_PKEY *pkey)
+void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 {
 	EVP_PKEY_CTX *pctx;
 	EVP_PKEY_CTX *kctx;
-
-/* NB: assumes pkey, peerkey have been already set up */
+	int i =0;
 	EVP_PKEY *params = NULL;
+	EC_KEY * ecKey = NULL;
+	EC_POINT *ecPoint = NULL;
+	size_t ecPoint_size;
+
 
 	/*
 		Create the context for parameter generation 
@@ -371,9 +374,85 @@ void genECpubKey(EVP_PKEY *pkey)
 	if (1 != EVP_PKEY_keygen(kctx, &pkey))
 		handleErrors();
 
+/*
+		FINDINDS
+	
+	typedef struct evp_pkey_st EVP_KEY		defined in evp.h
+
+	struct evp_pkey_st
+        {
+        int type;
+        int save_type;
+        int references;
+        const EVP_PKEY_ASN1_METHOD *ameth;
+        ENGINE *engine;
+        union   {
+		...
+                struct ec_key_st *ec;  
+                } pkey;
+        int save_parameters;
+        STACK_OF(X509_ATTRIBUTE) *attributes; 
+        } 
+
+	this struct holds a pointer to 
+				ec_key_st	(= EC_KEY, typedef again)
+
+
+*/
+/*
+	how to extract the public key...		needs group context...
+
+		Pass the EVP_PKEY to EVP_PKEY_get1_EC_KEY() to get an EC_KEY.
+		Pass the EC_KEY to EC_KEY_get0_public_key() to get an EC_POINT.
+		Pass the EC_POINT to EC_POINT_point2oct() to get octets, which are just unsigned char *.
+
+	EC_POINT_point2oct():
+ 		* Encodes a EC_POINT object to a octet string
+ 		*  \param  group  underlying EC_GROUP object
+		*  \param  p      EC_POINT object
+		*  \param  form   point conversion form
+		*  \param  buf    memory buffer for the result. If NULL the function returns
+		*                 required buffer size.
+		*  \param  len    length of the memory buffer
+		*  \param  ctx    BN_CTX object (optional)			--> OK TO SET TO NULL
+		*  \return the length of the encoded octet string or 0 if an error occurred
+	
+		size_t EC_POINT_point2oct(const EC_GROUP *group, const EC_POINT *p, point_conversion_form_t form, unsigned char *buf, size_t len, BN_CTX *ctx);
+
+	use this to get point conversion form:
+		point_conversion_form_t EC_GROUP_get_point_conversion_form(const EC_GROUP *);
+ */
+
+	// ecKey only used to obtain public key from EVP_PKEY
+	ecKey = EC_KEY_new();
+	if(!ecKey)
+		handleErrors();
+	// 	convert EVP key -> EC key
+	ecKey = EVP_PKEY_get1_EC_KEY(pkey);
+	if(!ecKey)
+		handleErrors();
+	//	get point(=pubkey) from converted EC key (=~ EVP key)
+	ecPoint = (EC_POINT *) EC_KEY_get0_public_key(ecKey);
+	if(!ecPoint)
+		handleErrors();
+
+	ecPoint_size = EC_POINT_point2oct(EC_KEY_get0_group(ecKey), ecPoint, EC_KEY_get_conv_form(ecKey), buf, BUFSIZE, NULL);	
+	if(!ecPoint_size)
+		handleErrors();
+	if(ecPoint_size != DHPUBKSIZE)
+	{
+		printf("DH PUBKEYSIZE CHANGED / FIXME\n");
+		exit(-1);
+	}
+	printf("\t\t\t  ");
+	for(i=0; i<ecPoint_size;i++)
+		printf("%02X ", buf[i]);
+	
+	printf(" / total %d\n", ecPoint_size);
 	EVP_PKEY_free(params);
 	EVP_PKEY_CTX_free(kctx);
 	EVP_PKEY_CTX_free(pctx);
+	EC_KEY_free(ecKey);
 }
 
 unsigned char *deriveSharedSecret(EVP_PKEY *pkey, EVP_PKEY *peerkey, size_t *secret_len)

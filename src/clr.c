@@ -9,13 +9,6 @@
 //extern pthread_mutex_t clr2SecMutexWr[2];
 //extern pthread_cond_t  clr2SecCondWr[2];
 
-int clrState = UNINIT;
-
-int checkClrPkg(uint8_t *pkg, uint8_t len)
-{
-	return 0;
-}
-
 void clrWR(void *threadEnv)
 {
 	while(1)
@@ -94,11 +87,6 @@ void clrRD(void *threadEnv)
 			write(*thisEnv->CLR2Master2PipePtr[WRITEEND], &buffer[0], len+3);
 		}
 	}
-}
-
-int mainStateMachine(EIBConnection *clrFD)
-{
-	return 0;
 }
 
 void initClr(void *env)
