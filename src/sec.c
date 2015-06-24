@@ -436,7 +436,8 @@ void keyInit(void *env)
 	struct timeval syncTimeout;
 
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	uint8_t buffer[BUFSIZE], src[2]; 
+	uint8_t buffer[BUFSIZE], src[2], i=0; 
+	eibaddr_t srcEIB, destEIB;
 
 	thisEnv->state = STATE_INIT;
 
@@ -633,6 +634,41 @@ void keyInit(void *env)
 						break;
 
 						case clrData:
+							// suck in the whole cleartext knx frame
+							rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
+							srcEIB = (buffer[1]<<8) | buffer[2];
+							destEIB = (buffer[3]<<8) | buffer[4];
+							#ifdef DEBUG
+								printf("DIS-%d: got %03d byte %04d->%04d: ", thisEnv->id, rc, srcEIB, destEIB);
+								for(i=0; i < rc; i++)
+								{
+									printf("%02X ", buffer[i]);
+								}
+								//printf("\n");
+							#endif
+
+							for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
+							{
+								if(thisEnv->indCounters[i].src == srcEIB)
+								{
+									printf(" / found src at index %02d, counter = %02d\n", i, thisEnv->indCounters[i].indCount);
+									thisEnv->indCounters[i].indCount++;							// FIXME: handle overflow
+									break;
+								}
+								if(thisEnv->indCounters[i].src == 0x00)
+								{
+									printf(" / NOT found, adding src at index %d\n", i);
+									thisEnv->indCounters[i].src = srcEIB;
+									thisEnv->indCounters[i].indCount = 0x01;
+									break;
+								}
+							}		
+							thisEnv->indCounters[i].dest = destEIB;
+							thisEnv->indCounters[i].active = TRUE;;
+		
+							genECpubKey(thisEnv->indCounters[i].pkey);
+							preparePacket(thisEnv, discReq, &buffer[3]);
+							break;
 
 						default: 	
 							printf("SEC%d: got unknown input\n", thisEnv->id);
@@ -647,64 +683,6 @@ void keyInit(void *env)
 				
 	printf("key Master EXIT\n");
 }
-
-/*
-	this thread handles discovery requests and responses
-*/
-void initDiscoverySec(void *threadEnv)
-{
-	uint8_t rc = 0, i=0;
-	uint8_t buffer[BUFSIZE];
-	eibaddr_t src, dest;
-	threadEnvSecDisc_t *thisEnv = (threadEnvSecDisc_t *)threadEnv;
-	while(1)
-	{
-		while(1)
-		{
-			/*
-				 use timeout when reading from CLR2DiscPipe
-					--> ONLY timeout triggers a cleanup (sets all ACTIVE records to INACTIVE)
-					--> this guarantees a MINIUM duration for a record to be active
-			*/
-
-			rc = read(thisEnv->CLR2DiscPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
-			src = (buffer[1]<<8) | buffer[2];
-			dest = (buffer[3]<<8) | buffer[4];
-			#ifdef DEBUG
-				printf("DIS-%d: got %03d byte %04d->%04d: ", thisEnv->id, rc, src, dest);
-				for(i=0; i < rc; i++)
-				{
-					printf("%02X ", buffer[i]);
-				}
-				//printf("\n");
-			#endif
-
-			for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
-			{
-				if(thisEnv->indCounters[i].src == src)
-				{
-					printf(" / found src at index %02d, counter = %02d\n", i, thisEnv->indCounters[i].indCount);
-					thisEnv->indCounters[i].indCount++;							// FIXME: handle overflow
-					break;
-				}
-				if(thisEnv->indCounters[i].src == 0x00)
-				{
-					printf(" / NOT found, adding src at index %d\n", i);
-					thisEnv->indCounters[i].src = src;
-					thisEnv->indCounters[i].indCount = 0x01;
-					break;
-				}
-			}		
-			thisEnv->indCounters[i].dest = dest;
-			thisEnv->indCounters[i].active = TRUE;;
-
-			genECpubKey(thisEnv->indCounters[i].pkey);
-			preparePacket(thisEnv, discReq, &buffer[3]);
-			
-		}
-	}
-}
-
 
 /*
 	entry point function from main thread - called 2 times

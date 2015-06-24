@@ -9,13 +9,6 @@ typedef struct
 	EVP_PKEY *pkey;
 }indCounters_t;
 
-typedef struct
-{
-	uint8_t id;
-	indCounters_t indCounters[10];		// FIXME: this is static
-	int CLR2DiscPipe[2];
-}threadEnvSecDisc_t;
-
 /*
 	CLR thread ENV
 */
@@ -25,8 +18,8 @@ typedef struct
 	char *addrStr;		// allowed device addesses: 1-15
 	uint8_t addrInt;
 	EIBConnection *clrFD;
-	int *CLR2Disc1PipePtr[2];
-	int *CLR2Disc2PipePtr[2];
+	int *CLR2Master1PipePtr[2];
+	int *CLR2Master2PipePtr[2];
 }threadEnvClr_t;
 
 /*
@@ -43,6 +36,7 @@ typedef struct
 	size_t slen;
 	size_t vlen;
 	time_t now;
+	indCounters_t indCounters[10];		// FIXME: this is static
 	uint8_t secRDbuf[BUFSIZE];
 	uint8_t secGlobalCount[GLOBALCOUNTSIZE];
 	uint32_t secGlobalCountInt;

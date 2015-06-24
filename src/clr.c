@@ -65,8 +65,12 @@ void clrRD(void *threadEnv)
 //		pthread_mutex_lock(&clr2SecMutexWr[0]);
 //		pthread_mutex_lock(&clr2SecMutexWr[1]);
 
-		// blocking call to get next package
-		len = EIBGetBusmonitorPacket (thisEnv->clrFD, BUFSIZE, buffer);
+		/*
+ 			blocking call to get next package
+			leave space for 3 bytes at the begining because of pipe-format(src[0],src[1],secHeader,kxn-frame)
+		*/
+		
+		len = EIBGetBusmonitorPacket (thisEnv->clrFD, BUFSIZE, &buffer[3]);
 		if (len == -1)
 		{
 			printf("GET failed\n");
@@ -85,8 +89,9 @@ void clrRD(void *threadEnv)
 				printf("%02X ", buffer[i]);
 			}
 			printf("\n");
-			write(*thisEnv->CLR2Disc1PipePtr[WRITEEND], &buffer[0], len);
-			write(*thisEnv->CLR2Disc2PipePtr[WRITEEND], &buffer[0], len);
+			buffer[2] = clrData;
+			write(*thisEnv->CLR2Master1PipePtr[WRITEEND], &buffer[0], len+3);
+			write(*thisEnv->CLR2Master2PipePtr[WRITEEND], &buffer[0], len+3);
 		}
 	}
 }
@@ -99,6 +104,7 @@ int mainStateMachine(EIBConnection *clrFD)
 void initClr(void *env)
 {
 	threadEnvClr_t *threadEnvClr = (threadEnvClr_t *) env;
+	clrWR(env);
 	printf("CLR going home\n");
 
 }
