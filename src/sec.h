@@ -10,9 +10,8 @@ void secRD(void *);
 void keyInit(void *);
 
 #define SYNCTIMEOUT_SEC 2
+#define CLEANUPTIMEOUT_SEC 1
 #define SYNC_RETRIES 3
-#define JOINTIMEOUT_SEC 3
-#define JOIN_RETRIES 3
 
 #define BUFSIZE		256
 #define PSKSIZE		32	// preshared key size

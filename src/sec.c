@@ -599,79 +599,104 @@ void keyInit(void *env)
 				#endif
 				while(1)
 				{
-					// read src + type
-					read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 3);	// FIXME - must be non-blocking!!
-					switch(buffer[2])
-					{
-						case syncReq:
-							// save src address from last frame
-							src[0] = buffer[0];
-							src[1] = buffer[1];
+					FD_ZERO(&thisEnv->set);
+					FD_SET(thisEnv->RD2MasterPipe[READEND], &thisEnv->set);
+					syncTimeout.tv_sec = 2;
+					syncTimeout.tv_usec = 0;	
 
-							rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);	// FIXME - non-blocking
-							if(rc == 4)
-							{
-								rc = checkFreshness(thisEnv, &buffer[0]);
-								if(rc)
+					selectRC = select(FD_SETSIZE, &thisEnv->set, NULL, NULL, &syncTimeout);
+					// whenever timeout occurs here - cleanup recent active discovery-request stuff
+					if(selectRC == 0)
+					{
+						#ifdef DEBUG
+							printf("SEC%d: cleanup run now...\n", thisEnv->id);
+						#endif
+					}
+					// error occured
+					else if(selectRC < 0)
+					{
+						// error
+						printf("%s - ", strerror(errno));
+						#ifdef DEBUG
+							printf("SEC%d: cleanup / select() error\n", thisEnv->id);
+						#endif
+					}
+					else
+					{
+						// read src + type
+						read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 3);	// FIXME - must be non-blocking!!
+						switch(buffer[2])
+						{
+							case syncReq:
+								// save src address from last frame
+								src[0] = buffer[0];
+								src[1] = buffer[1];
+	
+								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4);	// FIXME - non-blocking
+								if(rc == 4)
 								{
-									printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[0]>>4), src[0]&0x0F, src[1]);
-									preparePacket(env, syncRes, &src[0]);
+									rc = checkFreshness(thisEnv, &buffer[0]);
+									if(rc)
+									{
+										printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[0]>>4), src[0]&0x0F, src[1]);
+										preparePacket(env, syncRes, &src[0]);
+									}
+									else
+									{
+										printf("SEC%d: outdated syncReq\n", thisEnv->id);	
+									}
 								}
 								else
 								{
-									printf("SEC%d: outdated syncReq\n", thisEnv->id);	
+									printf("SEC%d: malformed syncReq\n", thisEnv->id);
 								}
-							}
-							else
-							{
-								printf("SEC%d: malformed syncReq\n", thisEnv->id);
-							}
-
-						break;
-
-						case discReq:				
-							;;
-						break;
-
-						case clrData:
-							// suck in the whole cleartext knx frame
-							rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
-							srcEIB = (buffer[1]<<8) | buffer[2];
-							destEIB = (buffer[3]<<8) | buffer[4];
-							#ifdef DEBUG
-								printf("DIS-%d: got %03d byte %04d->%04d: ", thisEnv->id, rc, srcEIB, destEIB);
-								for(i=0; i < rc; i++)
-								{
-									printf("%02X ", buffer[i]);
-								}
-								//printf("\n");
-							#endif
-
-							for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
-							{
-								if(thisEnv->indCounters[i].src == srcEIB)
-								{
-									printf(" / found src at index %02d, counter = %02d\n", i, thisEnv->indCounters[i].indCount);
-									thisEnv->indCounters[i].indCount++;							// FIXME: handle overflow
-									break;
-								}
-								if(thisEnv->indCounters[i].src == 0x00)
-								{
-									printf(" / NOT found, adding src at index %d\n", i);
-									thisEnv->indCounters[i].src = srcEIB;
-									thisEnv->indCounters[i].indCount = 0x01;
-									break;
-								}
-							}		
-							thisEnv->indCounters[i].dest = destEIB;
-							thisEnv->indCounters[i].active = TRUE;;
-		
-							genECpubKey(thisEnv->indCounters[i].pkey);
-							preparePacket(thisEnv, discReq, &buffer[3]);
+	
 							break;
+	
+							case discReq:				
+								;;
+						break;
+	
+							case clrData:
+								// suck in the whole cleartext knx frame
+								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
+								srcEIB = (buffer[1]<<8) | buffer[2];
+								destEIB = (buffer[3]<<8) | buffer[4];
+								#ifdef DEBUG
+									printf("DIS-%d: got %03d byte %04d->%04d: ", thisEnv->id, rc, srcEIB, destEIB);
+									for(i=0; i < rc; i++)
+									{
+										printf("%02X ", buffer[i]);
+									}
+									//printf("\n");
+								#endif
+	
+								for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
+								{
+									if(thisEnv->indCounters[i].src == srcEIB)
+									{
+										printf(" / found src at index %02d, counter = %02d\n", i, thisEnv->indCounters[i].indCount);
+										thisEnv->indCounters[i].indCount++;							// FIXME: handle overflow
+										break;
+									}
+									if(thisEnv->indCounters[i].src == 0x00)
+									{
+										printf(" / NOT found, adding src at index %d\n", i);
+										thisEnv->indCounters[i].src = srcEIB;
+										thisEnv->indCounters[i].indCount = 0x01;
+										break;
+									}
+								}		
+								thisEnv->indCounters[i].dest = destEIB;
+								thisEnv->indCounters[i].active = TRUE;;
+			
+								genECpubKey(thisEnv->indCounters[i].pkey);
+								preparePacket(thisEnv, discReq, &buffer[3]);
+								break;
 
-						default: 	
-							printf("SEC%d: got unknown input\n", thisEnv->id);
+							default: 	
+								printf("SEC%d: got unknown input\n", thisEnv->id);
+						}
 					}
 				}
 			break;
