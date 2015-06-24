@@ -599,12 +599,23 @@ void keyInit(void *env)
 				#endif
 				while(1)
 				{
+					/*
+						using select() with timeout. every timeout executes a cleanup run to de-activate old discoveryrequest-entries
+							FIXME:	every time new data arrives, the timeout is reset. this delays the cleanup run, or disables them
+							totally if data arrives faster than the timeout occurs
+
+					*/
 					FD_ZERO(&thisEnv->set);
 					FD_SET(thisEnv->RD2MasterPipe[READEND], &thisEnv->set);
+
+					//	instead of setting this to constant values, set to diff from last run to keep cleanup runs at constant basis
 					syncTimeout.tv_sec = 2;
 					syncTimeout.tv_usec = 0;	
 
 					selectRC = select(FD_SETSIZE, &thisEnv->set, NULL, NULL, &syncTimeout);
+					// 	select() updates tv_sec, tv_usec, this can be used to re-calculcate a new timeout if necessary		
+					//printf("SEC%d: remainting time for sleep: %ld,%ld\n", thisEnv->id, syncTimeout.tv_sec, syncTimeout.tv_usec);
+
 					// whenever timeout occurs here - cleanup recent active discovery-request stuff
 					if(selectRC == 0)
 					{

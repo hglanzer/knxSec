@@ -86,7 +86,7 @@ void clrRD(void *threadEnv)
 			printf("CLR  : got %d byte: ", len);
 			for(i=0;i<len;i++)
 			{
-				printf("%02X ", buffer[i]);
+				printf("%02X ", buffer[i+3]);
 			}
 			printf("\n");
 			buffer[2] = clrData;
