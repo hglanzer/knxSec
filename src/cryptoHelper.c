@@ -437,7 +437,6 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 		exit(-1);
 	}
 
-	uint8_t yBit;
 	BIGNUM *xCoord;
 	BIGNUM *yCoord;
 	xCoord = BN_new();

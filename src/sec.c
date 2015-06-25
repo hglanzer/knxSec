@@ -669,9 +669,12 @@ void keyInit(void *env)
 					// whenever timeout occurs here - cleanup recent active discovery-request stuff
 					if(selectRC == 0)
 					{
+	/*
 						#ifdef DEBUG
 							printf("SEC%d: cleanup run now...\n", thisEnv->id);
 						#endif
+	*/
+						;;
 					}
 					// error occured
 					else if(selectRC < 0)
