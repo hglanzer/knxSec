@@ -237,12 +237,12 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 			       |______________	0 = point-to-point extended, 1 = group addressed extended
 
 	*/
-
+	// HATSCH
 		case discReq:
 			printf("SEC%d: generating discREQ: ", thisEnv->id);
 
 			printf("\n");		
-			secBufferMAC[thisEnv->id][0] = 0x00;				// set CTRL
+			secBufferMAC[thisEnv->id][0] = 0x00;				// set CTRL			just use frame type bit
 			secBufferMAC[thisEnv->id][1] = 0x10;				// set CTRLE		(ignore TTL)
 			secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
 			secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr
@@ -480,14 +480,14 @@ void secRD(void *env)
 					}
 					else if(tmp.type == extFrame)
 					{
-						thisEnv->secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
+						thisEnv->secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority	HATSCH
 						if(tmp.indivAdr)
 						{
-							thisEnv->secRDbuf[5] &= 0x0F;	// zero-out TTL, which gets changed by routers
+							thisEnv->secRDbuf[1] &= 0x00;	// zero-out TTL, which gets changed by routers
 						}
 						else
 						{
-							thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by routers
+							thisEnv->secRDbuf[1] &= 0x10;	// zero-out TTL, which gets changed by routers
 						}
 						i = verifyHMAC(thisEnv->secRDbuf, (rc - MACSIZE - 1), &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
 
