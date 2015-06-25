@@ -230,17 +230,25 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 
 		break;
 
+	/*
+			CTRLE: tTTL  xxxx
+			       | |     |______	RESERVED, set to ZERO
+			       | |____________	TTL / MASK to ignore
+			       |______________	0 = point-to-point extended, 1 = group addressed extended
+
+	*/
+
 		case discReq:
 			printf("SEC%d: generating discREQ: ", thisEnv->id);
 
 			printf("\n");		
 			secBufferMAC[thisEnv->id][0] = 0x00;				// set CTRL
-			secBufferMAC[thisEnv->id][1] = 0x00;				// set CTRLE
+			secBufferMAC[thisEnv->id][1] = 0x10;				// set CTRLE		(ignore TTL)
 			secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
 			secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr
 			secBufferMAC[thisEnv->id][4] = 0x00;				// DEST = broadcast message
 			secBufferMAC[thisEnv->id][5] = 0x00;				
-			secBufferMAC[thisEnv->id][6] = 0x4A;				// set len = 1 + 4 + 65 + 4(type + ctr + DH + MAC)
+			secBufferMAC[thisEnv->id][6] = 0x2C;				// set len = 1 + 4 + 33 + 2 + 4(type + ctr + DH + G.A. + MAC)
 			// assemble the payload
 			secBufferMAC[thisEnv->id][7] = discReq;				// SEC HEADER	=~	ACPI
 			secBufferMAC[thisEnv->id][8] = thisEnv->secGlobalCount[0];	// global Counter
@@ -251,7 +259,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 			// append DH key
 			for(i=0;i<DHPUBKSIZE;i++)
 			{
-				printf("%02X ", dhPubKey[i]);
+//				printf("%02X ", dhPubKey[i]);
 				secBufferMAC[thisEnv->id][i+12] = dhPubKey[i];
 			}
 			// append the wanted group adress				FIXME:		encrypt FIRST!!
@@ -266,10 +274,14 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 				printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
 				exit(-1);
 			}
-
+			// append MAC
+			for(i = 0; i < MACSIZE; i++)
+			{
+				secBufferMAC[thisEnv->id][i+1+7+4+33+2] = sigHMAC[thisEnv->id][i];
+			}
 			// call write thread directly from here
 			printf("SEC%d: writing discovery Request\n", thisEnv->id);
-			secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+4+DHPUBKSIZE+2+4), discReq, env, NULL);
+			secWRnew((char *)&secBufferMAC[thisEnv->id][6], (1+1+4+DHPUBKSIZE+2+4), discReq, env, NULL);
 		break;
 		default:
 			printf("prepare(): THIS SHOULD NOT HAPPEN, exit");
