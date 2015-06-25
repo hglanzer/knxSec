@@ -26,6 +26,19 @@ extern struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 //	read from file to memory, securely delete file, delete buffer after initial phase...?
 uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x30\x31";
 
+/*
+	checks if received counter value > globalCtr
+		if yes:	inc counter
+			decrypts GA with new counter value
+			checks if this GW is responsible for the wanted G.A.
+*/
+int checkGA(void *env, uint8_t *encGA, uint8_t *globalCtr)
+{
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
+
+	printf("SEC-GA%d: got GA %02X %02X, counter = %02X %02X %02X %02X\n", thisEnv->id, encGA[0], encGA[1], globalCtr[0], globalCtr[1], globalCtr[2], globalCtr[3]);
+
+}
 void saveGlobalCount(void *env, uint8_t *buffer)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
@@ -504,6 +517,19 @@ void secRD(void *env)
 								printf("%02x ", thisEnv->secRDbuf[i]);
 							}
 							printf(" / %d bytes total\n", rc);
+						}
+
+	//FIXME: check global counter
+	//FIXME: decrypt G.A.
+
+						// is this GW responsible for the received G.A.?
+						if(checkGA(env, &thisEnv->secRDbuf[rc-7]), &thisEnv->secRDbuf[rc-7-33-4])
+						{
+
+						}
+						else
+						{
+
 						}
 
 					}
