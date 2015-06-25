@@ -20,7 +20,7 @@ int decodeFrame(uint8_t *, knxPacket *);
 #define frameType	7
 #define repeatedFrame	5
 
-// field definitions
+// field definitions	STD frames
 #define STDctrlField	0
 #define STDsrcField1	1
 #define STDsrcField2	2
@@ -29,14 +29,11 @@ int decodeFrame(uint8_t *, knxPacket *);
 #define STDlenField	5		// also contains AT + NCPI (=TTL)
 #define STDapciField	6
 #define STDpayloadField	7
-//	MACROS
-#define srcAreaAddress(frame)		(frame[STDsrcField1] >> 4)
-#define srcLineAddress(frame)		((frame[STDsrcField1] & 0x0F))
-#define srcDeviceAddress(frame)		(frame[STDsrcField2])
 
-#define destAreaAddress(frame)		((frame[STDdestField1] >> 4 ))
-#define destLineAddress(frame)		((frame[STDdestField1] & 0x0F))
-#define destDeviceAddress(frame)	(frame[STDdestField2])
+// field definitions	EXT frames
+#define EXTpayloadField	8
+
+//	MACROS
 
 #define isRepeated(frame) ((frame[STDctrlField] >> repeatedFrame) ^ 0x01)
 
@@ -51,7 +48,24 @@ int decodeFrame(uint8_t *, knxPacket *);
 #define hopcountStd(frame)		((frame[5] >> 4)& 0x07)		// = NCPI
 #define tpciStd(frame)			(frame[6] >> 2)			// see 03_03_4_ Transport Layer...pdf
 
+#define srcAreaAddress(frame)		(frame[STDsrcField1] >> 4)
+#define srcLineAddress(frame)		((frame[STDsrcField1] & 0x0F))
+#define srcDeviceAddress(frame)		(frame[STDsrcField2])
+
+#define destAreaAddress(frame)		((frame[STDdestField1] >> 4 ))
+#define destLineAddress(frame)		((frame[STDdestField1] & 0x0F))
+#define destDeviceAddress(frame)	(frame[STDdestField2])
 // Extended Frame specific macros
 // addr type on different locations for std / ext frames
 #define isGroupAddrExt(frame)		((frame[1] >> 7) & 0x01)
 #define isIndivAddrExt(frame)		((frame[1] >> 7) ^ 0x01)
+
+#define srcAreaAddressExt(frame)		(frame[2] >> 4)
+#define srcLineAddressExt(frame)		((frame[3] & 0x0F))
+#define srcDeviceAddressExt(frame)		(frame[3])
+
+#define destAreaAddressExt(frame)		((frame[4] >> 4 ))
+#define destLineAddressExt(frame)		((frame[4] & 0x0F))
+#define destDeviceAddressExt(frame)		(frame[5])
+#define lengthExt(frame)			(frame[6])
+#define hopcountExt(frame)			((frame[] >> 4)& 0x07)		// = NCPI

@@ -29,30 +29,26 @@ int decodeFrame(unsigned char *frame, knxPacket *packet)
 	}
 	else if(isExtFrame(frame))	// extended frame received
 	{
-		printf("EXT frame ");
 		packet->type = extFrame;
 		packet->srcDev = frame[3];
 		
-		if(isIndivAddrExt(frame))	// std frame for indiv. address
+		printf("%d.%d.%d -> ", srcAreaAddressExt(frame), srcLineAddressExt(frame),srcDeviceAddressExt(frame));	
+		if(isIndivAddrExt(frame))	// STD frame for indiv. address
 		{
 			packet->indivAdr = 1;
-			printf("%d.%d.%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
+			printf("%d.%d.%d", destAreaAddressExt(frame), destLineAddressExt(frame), destDeviceAddressExt(frame));	
 		}
-		else			// std frame for group address
+		else			// Ext group / broadcast
 		{
 			packet->indivAdr = 0;
-			printf("%d/%d/%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
+			printf("%d/%d/%d", destAreaAddressExt(frame), destLineAddressExt(frame), destDeviceAddressExt(frame));	
 		}
-	/*
-		if(isIndivAddrStd)	// extended frame for indiv. address
+		printf(" EXT: dataLen=%d / TTL=%d / ", lengthExt(frame), hopcountExt(frame));
+		for(i=0; i<lengthExt(frame); i++)
 		{
-
+			printf("%02x ", frame[EXTpayloadField + i]);
 		}
-		else			// extended frame for group address
-		{
-
-		}
-	*/
+		printf("\n");
 	}
 	else
 	{
