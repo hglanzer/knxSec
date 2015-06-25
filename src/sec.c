@@ -523,7 +523,7 @@ void secRD(void *env)
 	//FIXME: decrypt G.A.
 
 						// is this GW responsible for the received G.A.?
-						if(checkGA(env, &thisEnv->secRDbuf[rc-7]), &thisEnv->secRDbuf[rc-7-33-4])
+						if(checkGA(env, &thisEnv->secRDbuf[rc-7], &thisEnv->secRDbuf[rc-7-33-4]))
 						{
 
 						}
