@@ -286,7 +286,8 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 			}
 			// call write thread directly from here
 			printf("SEC%d: writing discovery Request\n", thisEnv->id);
-			secWRnew((char *)&secBufferMAC[thisEnv->id][6], (1+1+4+DHPUBKSIZE+2+4), discReq, env, NULL);
+								// secHdr + TPCI + CTR + DH + G.A. + MAC
+			secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+1+4+DHPUBKSIZE+2+4), discReq, env, NULL);
 		break;
 		default:
 			printf("prepare(): THIS SHOULD NOT HAPPEN, exit");
