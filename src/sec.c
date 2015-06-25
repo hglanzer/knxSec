@@ -249,24 +249,28 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 			secBufferMAC[thisEnv->id][4] = 0x00;				// DEST = broadcast message
 			secBufferMAC[thisEnv->id][5] = 0x00;				
 			secBufferMAC[thisEnv->id][6] = 0x2C;				// set len = 1 + 4 + 33 + 2 + 4(type + ctr + DH + G.A. + MAC)
+
+			// for EXT frames an additional octet (TPCI) follows
+			secBufferMAC[thisEnv->id][7] = 0x00;				
+
 			// assemble the payload
-			secBufferMAC[thisEnv->id][7] = discReq;				// SEC HEADER	=~	ACPI
-			secBufferMAC[thisEnv->id][8] = thisEnv->secGlobalCount[0];	// global Counter
-			secBufferMAC[thisEnv->id][9] = thisEnv->secGlobalCount[1];	// ...
-			secBufferMAC[thisEnv->id][10] = thisEnv->secGlobalCount[2];	// ...
-			secBufferMAC[thisEnv->id][11] = thisEnv->secGlobalCount[3];	// global counter
+			secBufferMAC[thisEnv->id][8] = discReq;				// SEC HEADER	=~	ACPI
+			secBufferMAC[thisEnv->id][9] = thisEnv->secGlobalCount[0];	// global Counter
+			secBufferMAC[thisEnv->id][10] = thisEnv->secGlobalCount[1];	// ...
+			secBufferMAC[thisEnv->id][11] = thisEnv->secGlobalCount[2];	// ...
+			secBufferMAC[thisEnv->id][12] = thisEnv->secGlobalCount[3];	// global counter
 
 			// append DH key
 			for(i=0;i<DHPUBKSIZE;i++)
 			{
 //				printf("%02X ", dhPubKey[i]);
-				secBufferMAC[thisEnv->id][i+12] = dhPubKey[i];
+				secBufferMAC[thisEnv->id][i+13] = dhPubKey[i];
 			}
 
 			// append the wanted group adress				FIXME:		encrypt FIRST!!
-			secBufferMAC[thisEnv->id][12+DHPUBKSIZE] = dest[0];
-			secBufferMAC[thisEnv->id][12+DHPUBKSIZE+1] = dest[1];
-			len = 12 + DHPUBKSIZE + 2;				// static stuff + DH key + wanted GA
+			secBufferMAC[thisEnv->id][13+DHPUBKSIZE] = dest[0];
+			secBufferMAC[thisEnv->id][13+DHPUBKSIZE+1] = dest[1];
+			len = 13 + DHPUBKSIZE + 2;				// static stuff + DH key + wanted GA
 
 			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &thisEnv->slen, thisEnv->skey);
 			assert(i == 0);

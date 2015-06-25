@@ -19,13 +19,13 @@ main (int ac, char *ag[])
 		IF EIBSendAPDU is used it seems like the very first byte of the APDU is the APCI
 	*/
 
-	size = 56;
+	size = 20;
 	buf[0] = 0x40;		// set APCI, first 2 bit
 	buf[1] = 0x40;		// set APCI, first 2 bit
 	for(i=2; i<size;i++)
 	{
-	//	buf[i] = i;
-		buf[i] = 0x04;
+		buf[i] = i;
+	//	buf[i] = 0x04;
 	}
 	//buf[i] = '\0';
 
