@@ -32,6 +32,17 @@ int decodeFrame(unsigned char *frame, knxPacket *packet)
 		printf("EXT frame ");
 		packet->type = extFrame;
 		packet->srcDev = frame[3];
+		
+		if(isIndivAddrExt(frame))	// std frame for indiv. address
+		{
+			packet->indivAdr = 1;
+			printf("%d.%d.%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
+		}
+		else			// std frame for group address
+		{
+			packet->indivAdr = 0;
+			printf("%d/%d/%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
+		}
 	/*
 		if(isIndivAddrStd)	// extended frame for indiv. address
 		{

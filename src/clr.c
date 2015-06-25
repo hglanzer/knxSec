@@ -23,6 +23,7 @@ void clrRD(void *threadEnv)
 	threadEnvClr_t *thisEnv = (threadEnvClr_t *)threadEnv;
 	int len = 0;
 	uint8_t buffer[BUFSIZE], i=0;
+	knxPacket tmpPkt;
 
 	thisEnv->clrFD = EIBSocketURL(thisEnv->socketPath);
 
@@ -76,17 +77,26 @@ void clrRD(void *threadEnv)
 		}
 		else
 		{
-/*
 			printf("CLR  : got %d byte: ", len);
 			for(i=0;i<len;i++)
 			{
 				printf("%02X ", buffer[i+3]);
 			}
-*/
-			printf("\n");
-			buffer[2] = clrData;
-			write(*thisEnv->CLR2Master1PipePtr[WRITEEND], &buffer[0], len+3);
-			write(*thisEnv->CLR2Master2PipePtr[WRITEEND], &buffer[0], len+3);
+				printf("\n");
+			decodeFrame(&buffer[3], &tmpPkt);
+
+			if(tmpPkt.type == stdFrame)
+			{
+				buffer[0] = buffer[6];
+				buffer[1] = buffer[7];
+				buffer[2] = clrData;
+				write(*thisEnv->CLR2Master1PipePtr[WRITEEND], &buffer[0], len+3);
+				write(*thisEnv->CLR2Master2PipePtr[WRITEEND], &buffer[0], len+3);
+			}
+			else
+			{
+				printf("TODO: handle CRL extended frames\n");
+			}
 		}
 	}
 }

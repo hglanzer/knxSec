@@ -51,3 +51,7 @@ int decodeFrame(uint8_t *, knxPacket *);
 #define hopcountStd(frame)		((frame[5] >> 4)& 0x07)		// = NCPI
 #define tpciStd(frame)			(frame[6] >> 2)			// see 03_03_4_ Transport Layer...pdf
 
+// Extended Frame specific macros
+// addr type on different locations for std / ext frames
+#define isGroupAddrExt(frame)		((frame[1] >> 7) & 0x01)
+#define isIndivAddrExt(frame)		((frame[1] >> 7) ^ 0x01)

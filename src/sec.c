@@ -262,9 +262,10 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 //				printf("%02X ", dhPubKey[i]);
 				secBufferMAC[thisEnv->id][i+12] = dhPubKey[i];
 			}
+
 			// append the wanted group adress				FIXME:		encrypt FIRST!!
 			secBufferMAC[thisEnv->id][12+DHPUBKSIZE] = dest[0];
-			secBufferMAC[thisEnv->id][12+DHPUBKSIZE] = dest[1];
+			secBufferMAC[thisEnv->id][12+DHPUBKSIZE+1] = dest[1];
 			len = 12 + DHPUBKSIZE + 2;				// static stuff + DH key + wanted GA
 
 			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &thisEnv->slen, thisEnv->skey);
@@ -477,8 +478,33 @@ void secRD(void *env)
 							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[4], rc - 4 - MACSIZE - 1);
 						}
 					}
+					else if(tmp.type == extFrame)
+					{
+						thisEnv->secRDbuf[0] &= 0x80;	// zero-out repeat flag + priority
+						if(tmp.indivAdr)
+						{
+							thisEnv->secRDbuf[5] &= 0x0F;	// zero-out TTL, which gets changed by routers
+						}
+						else
+						{
+							thisEnv->secRDbuf[5] &= 0x8F;	// zero-out TTL, which gets changed by routers
+						}
+						i = verifyHMAC(thisEnv->secRDbuf, (rc - MACSIZE - 1), &thisEnv->secRDbuf[rc-5], MACSIZE, thisEnv->skey);
+
+						if(i != 0)
+						{
+							printf("\tSEC%d-RD: verifyHMAC() failed/attack?\n", thisEnv->id);
+							for(i=0; i<rc;i++)
+							{
+								printf("%02x ", thisEnv->secRDbuf[i]);
+							}
+							printf(" / %d bytes total\n", rc);
+						}
+
+					}
 					else
-					{	// FIXME: 
+					{	
+						printf("SEC%d-RD: got unknown frame type\n",thisEnv->id);
 					}
 				}
 			}
