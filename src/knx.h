@@ -68,4 +68,4 @@ int decodeFrame(uint8_t *, knxPacket *);
 #define destLineAddressExt(frame)		((frame[4] & 0x0F))
 #define destDeviceAddressExt(frame)		(frame[5])
 #define lengthExt(frame)			(frame[6])
-#define hopcountExt(frame)			((frame[] >> 4)& 0x07)		// = NCPI
+#define hopcountExt(frame)			((frame[1] >> 4)& 0x07)		// = NCPI
