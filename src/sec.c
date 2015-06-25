@@ -282,7 +282,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 			// append MAC
 			for(i = 0; i < MACSIZE; i++)
 			{
-				secBufferMAC[thisEnv->id][i+1+7+4+33+2] = sigHMAC[thisEnv->id][i];
+				secBufferMAC[thisEnv->id][i+2+7+4+33+2] = sigHMAC[thisEnv->id][i];
 			}
 			// call write thread directly from here
 			printf("SEC%d: writing discovery Request\n", thisEnv->id);
