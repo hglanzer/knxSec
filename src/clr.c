@@ -76,11 +76,13 @@ void clrRD(void *threadEnv)
 		}
 		else
 		{
+/*
 			printf("CLR  : got %d byte: ", len);
 			for(i=0;i<len;i++)
 			{
 				printf("%02X ", buffer[i+3]);
 			}
+*/
 			printf("\n");
 			buffer[2] = clrData;
 			write(*thisEnv->CLR2Master1PipePtr[WRITEEND], &buffer[0], len+3);

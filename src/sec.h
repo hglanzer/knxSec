@@ -17,7 +17,7 @@ void keyInit(void *);
 #define PSKSIZE		32	// preshared key size
 #define GKSIZE		32	// global key size [byte]
 #define ECKSIZE		32
-#define DHPUBKSIZE	65
+#define DHPUBKSIZE	33	// this is the COMPRESSED form: y 1 byte, x 32 byte
 #define MACSIZE		4
 #define DIGESTSIZE	256
 #define GLOBALCOUNTSIZE	4

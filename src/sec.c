@@ -723,6 +723,7 @@ void keyInit(void *env)
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								srcEIB = (buffer[1]<<8) | buffer[2];
 								destEIB = (buffer[3]<<8) | buffer[4];		// this is the wanted group address we want to resolve
+	/*
 								#ifdef DEBUG
 									printf("DIS-%d: got %03d byte %04d->%04d: ", thisEnv->id, rc, srcEIB, destEIB);
 									for(i=0; i < rc; i++)
@@ -731,6 +732,7 @@ void keyInit(void *env)
 									}
 									//printf("\n");
 								#endif
+	*/
 	
 								for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
 								{

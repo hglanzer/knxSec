@@ -356,7 +356,9 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 	if(1 != EVP_PKEY_paramgen_init(pctx))
 		handleErrors();
 	/*	We're going to use the ANSI X9.62 Prime 256v1 curve	*/
+	//if(1 != EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, SN_sect233k1))
 	if(1 != EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, NID_X9_62_prime256v1))
+	//if(1 != EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, NID_X9_62_prime192v1))
 		handleErrors();
 
 	/*	Create the parameter object params */
@@ -377,29 +379,6 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 /*
 		FINDINDS
 	
-	typedef struct evp_pkey_st EVP_KEY		defined in evp.h
-
-	struct evp_pkey_st
-        {
-        int type;
-        int save_type;
-        int references;
-        const EVP_PKEY_ASN1_METHOD *ameth;
-        ENGINE *engine;
-        union   {
-		...
-                struct ec_key_st *ec;  
-                } pkey;
-        int save_parameters;
-        STACK_OF(X509_ATTRIBUTE) *attributes; 
-        } 
-
-	this struct holds a pointer to 
-				ec_key_st	(= EC_KEY, typedef again)
-
-
-*/
-/*
 	how to extract the public key...		needs group context...
 
 		Pass the EVP_PKEY to EVP_PKEY_get1_EC_KEY() to get an EC_KEY.
@@ -432,6 +411,10 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 	if(!ecKey)
 		handleErrors();
 	//	get point(=pubkey) from converted EC key (=~ EVP key)
+
+	// set to compressed form
+	EC_KEY_set_conv_form(ecKey, POINT_CONVERSION_COMPRESSED);
+
 	ecPoint = (EC_POINT *) EC_KEY_get0_public_key(ecKey);
 	if(!ecPoint)
 		handleErrors();
@@ -441,14 +424,56 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 		handleErrors();
 	if(ecPoint_size != DHPUBKSIZE)
 	{
-		printf("DH PUBKEYSIZE CHANGED / FIXME\n");
-		exit(-1);
+		printf("\n\nDH PUBKEYSIZE CHANGED, = %d / FIXME\n", ecPoint_size);
+			exit(-1);
 	}
-	printf("\t\t\t  ");
 	for(i=0; i<ecPoint_size;i++)
 		printf("%02X ", buf[i]);
 	
-	printf(" / total %d\n", ecPoint_size);
+	printf(" %dbyte, format %d\n", ecPoint_size, EC_KEY_get_conv_form(ecKey));
+	if(!EC_POINT_is_on_curve(EC_KEY_get0_group(ecKey), ecPoint, NULL))
+	{
+		printf("ERROR: point not on curve\n");
+		exit(-1);
+	}
+
+	uint8_t yBit;
+	BIGNUM *xCoord;
+	BIGNUM *yCoord;
+	xCoord = BN_new();
+	yCoord = BN_new();
+
+/*
+	these functions are used to 'uncompress'	
+
+	if(!EC_POINT_set_compressed_coordinates_GF2m(EC_KEY_get0_group(ecKey), ecPoint, xCoord, yBit, NULL))
+	if(!EC_POINT_set_compressed_coordinates_GFp(EC_KEY_get0_group(ecKey), ecPoint, xCoord, yBit, NULL))
+	{
+		printf("compression failed\n");
+	}
+*/
+
+	// these functions always return the 'fullsized' x / y coordinates, no matter of the conv_form
+
+	//if (!EC_POINT_get_affine_coordinates_GF2m(EC_KEY_get0_group(ecKey), ecPoint, xCoord, yCoord, NULL))
+	if (!EC_POINT_get_affine_coordinates_GFp(EC_KEY_get0_group(ecKey), ecPoint, xCoord, yCoord, NULL))
+	{
+		printf("get coord failed\n");
+	}
+	/*
+	else
+	{
+		printf("     x = 0x");
+		BN_print_fp(stdout, xCoord);
+		printf("\n     y = 0x");
+		BN_print_fp(stdout, yCoord);
+		printf("\n");
+	}
+	*/
+	
+	BN_free(xCoord);
+	BN_free(yCoord);
+
 	EVP_PKEY_free(params);
 	EVP_PKEY_CTX_free(kctx);
 	EVP_PKEY_CTX_free(pctx);

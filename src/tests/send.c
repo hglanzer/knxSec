@@ -19,7 +19,7 @@ main (int ac, char *ag[])
 		IF EIBSendAPDU is used it seems like the very first byte of the APDU is the APCI
 	*/
 
-	size = 5;
+	size = 56;
 	buf[0] = 0x40;		// set APCI, first 2 bit
 	buf[1] = 0x40;		// set APCI, first 2 bit
 	for(i=2; i<size;i++)
@@ -77,7 +77,6 @@ main (int ac, char *ag[])
 			printf("EIBOpenT_Broadcast() failed\n\n");
 	        	return -1;
 		}
-	printf("finito\n");
 	}
 	if(ag[2][0] == 'i')
 	{
