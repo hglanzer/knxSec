@@ -855,7 +855,7 @@ void keyInit(void *env)
 										{
 											if(thisEnv->indCounters[i].src == srcEIB)
 											{
-												printf(" / found src at index %02d, counter = %02d\n", i, thisEnv->indCounters[i].indCount);
+												printf("SEC%d: Found src %d, index %02d, ctr %02d\n", thisEnv->id, srcEIB, i, thisEnv->indCounters[i].indCount);
 												// do NOT update counter now - only AFTER the actual knx packet gets delivered
 												//thisEnv->indCounters[i].indCount;
 												break;
@@ -870,7 +870,7 @@ void keyInit(void *env)
 											}
 										}		
 										genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
-
+										printf("SEC%d: deriving secret\n", thisEnv->id);
 										deriveSharedSecret(thisEnv->indCounters[i].pkey, buffer[4], 33);
 
 										dest[0] = buffer[37];
