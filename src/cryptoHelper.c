@@ -390,7 +390,7 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	printf("get group degree\n");
 	/* Calculate the size of the buffer for the shared secret */
 
-	printf("De-serializing, form = %d\n", EC_KEY_set_conv_form(pkey));
+	printf("De-serializing, form = %d\n", EC_KEY_get_conv_form(pkey));
 	/*	To deserialize the public key:
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
 			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.	*/
