@@ -154,10 +154,10 @@ void time2Str(void *env, byte *buf)
 	}
 }
 
-void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
+void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint8_t *dhPubKey)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	uint8_t i = 0, len = 0;
+	uint8_t i = 0, len = 0, destTmp[2];
 	time2Str(env, secBufferTime[thisEnv->id]);
 
 	MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = '\0';
@@ -273,17 +273,24 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 			       |______________	0 = point-to-point extended, 1 = group addressed extended
 
 	*/
-	// HATSCH
-		case discReq:
-			printf("SEC%d: generating discREQ: ", thisEnv->id);
+		case discReq || discRes:
+			if(type == discReq)
+			{
+				printf("SEC%d: generating discREQUEST for G.A = %d %d: ", thisEnv->id, destGA[0], destGA[1]);
+			}
+			if(type == discRes)
+			{
+				printf("SEC%d: generating discRESPONSE to %d %d for G.A = %d %d: ", thisEnv->id, dest[0], dest[1], destGA[0], destGA[1]);
+
+			}
 
 			printf("\n");		
 			secBufferMAC[thisEnv->id][0] = 0x00;				// set CTRL			just use frame type bit
 			secBufferMAC[thisEnv->id][1] = 0x10;				// set CTRLE		(ignore TTL)
 			secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
 			secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr
-			secBufferMAC[thisEnv->id][4] = 0x00;				// DEST = broadcast message
-			secBufferMAC[thisEnv->id][5] = 0x00;				
+			secBufferMAC[thisEnv->id][4] = dest[0];				// DEST = broadcast message
+			secBufferMAC[thisEnv->id][5] = dest[1];				
 			secBufferMAC[thisEnv->id][6] = 0x2C;				// set len = 1 + 4 + 33 + 2 + 4(type + ctr + DH + G.A. + MAC)
 
 			// for EXT frames an additional octet (TPCI) follows
@@ -292,7 +299,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 			incGlobalCount(env);
 
 			// assemble the payload
-			secBufferMAC[thisEnv->id][8] = discReq;				// SEC HEADER	=~	ACPI
+			secBufferMAC[thisEnv->id][8] = type;				// SEC HEADER	=~	ACPI
 			secBufferMAC[thisEnv->id][9] = thisEnv->secGlobalCount[0];	// global Counter
 			secBufferMAC[thisEnv->id][10] = thisEnv->secGlobalCount[1];	// ...
 			secBufferMAC[thisEnv->id][11] = thisEnv->secGlobalCount[2];	// ...
@@ -306,8 +313,8 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 			}
 
 			// append the wanted group adress				FIXME:		encrypt FIRST!!
-			secBufferMAC[thisEnv->id][13+DHPUBKSIZE] = dest[0];
-			secBufferMAC[thisEnv->id][13+DHPUBKSIZE+1] = dest[1];
+			secBufferMAC[thisEnv->id][13+DHPUBKSIZE] = destGA[0];
+			secBufferMAC[thisEnv->id][13+DHPUBKSIZE+1] = destGA[1];
 			len = 13 + DHPUBKSIZE + 2;				// static stuff + DH key + wanted GA
 
 			i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &thisEnv->slen, thisEnv->skey);
@@ -576,7 +583,7 @@ void keyInit(void *env)
 	struct timeval syncTimeout;
 
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	uint8_t buffer[BUFSIZE], src[2], i=0; 
+	uint8_t buffer[BUFSIZE], src[2], dest[2], i=0; 
 	eibaddr_t srcEIB, destEIB;
 
 	thisEnv->state = STATE_INIT;
@@ -615,7 +622,7 @@ void keyInit(void *env)
 					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
 				#endif
 				// prepare MAC for sync request message	
-				preparePacket(env, syncReq, NULL, NULL);
+				preparePacket(env, syncReq, NULL, NULL, NULL);
 				thisEnv->state = STATE_SYNC_WAIT_RESP;
 			break;
 			case STATE_SYNC_WAIT_RESP:
@@ -789,7 +796,7 @@ void keyInit(void *env)
 									if(rc)
 									{
 										printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[0]>>4), src[0]&0x0F, src[1]);
-										preparePacket(env, syncRes, &src[0], NULL);
+										preparePacket(env, syncRes, &src[0], NULL, NULL);
 									}
 									else
 									{
@@ -829,6 +836,30 @@ void keyInit(void *env)
 									if(checkGA(env, &buffer[4+33]))
 									{
 										printf("we are responsible\n");
+										for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
+										{
+											if(thisEnv->indCounters[i].src == srcEIB)
+											{
+												printf(" / found src at index %02d, counter = %02d\n", i, thisEnv->indCounters[i].indCount);
+												// do NOT update counter now - only AFTER the actual knx packet gets delivered
+												//thisEnv->indCounters[i].indCount;
+												break;
+											}
+											if(thisEnv->indCounters[i].src == 0x00)
+											{
+												printf(" / NOT found, adding src at index %d\n", i);
+												thisEnv->indCounters[i].src = srcEIB;
+												thisEnv->indCounters[i].indCount = 0x01;
+												thisEnv->indCounters[i].pkey = EVP_PKEY_new();
+												break;
+											}
+										}		
+										genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
+										dest[0] = buffer[37];
+										dest[1] = buffer[38];
+										preparePacket(thisEnv, discRes, &src[0], &dest[0], thisEnv->indCounters[i].myPubKey);
+		// FIXME: at this point, we can already calculate the shared secret on this side
+
 									}
 									else
 									{
@@ -874,7 +905,9 @@ void keyInit(void *env)
 								thisEnv->indCounters[i].active = TRUE;;
 			
 								genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
-								preparePacket(thisEnv, discReq, &buffer[3], thisEnv->indCounters[i].myPubKey);
+								dest[0] = 0x00;
+								dest[1] = 0x00;
+								preparePacket(thisEnv, discReq, &dest[0], &buffer[3], thisEnv->indCounters[i].myPubKey);
 								break;
 
 							default: 	
