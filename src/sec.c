@@ -339,6 +339,11 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 			}
 			// call write thread directly from here
 			printf("SEC%d: writing discovery Request\n", thisEnv->id);
+
+
+			// the other side will also increment the counter when generating the response or sending the secured KNX payload
+			incGlobalCount(env);
+
 								// secHdr + TPCI + CTR + DH + G.A. + MAC
 			if(type == discReq)
 				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+1+4+DHPUBKSIZE+2+4), discReq, env, NULL);
