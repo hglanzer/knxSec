@@ -345,6 +345,7 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 	EC_POINT *ecPoint = NULL;
 	size_t ecPoint_size;
 	uint16_t i=0;
+	const EC_GROUP *group;
 
 	if(NULL == pkey)
 		printf("BAD: pkey == NULL\n\n");
