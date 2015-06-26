@@ -464,6 +464,7 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	{
 		printf("%02X ", secret[i]);
 	}
+	printf("\n");
 /*
 	printf("\ndigest: ");
 	for(i=0; i<32;i++)
