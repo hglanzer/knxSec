@@ -340,7 +340,7 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
     return !!result;
 }
 
-void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
+void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf, EC_GROUP *group)
 {
 	EC_POINT *ecPoint = NULL;
 	size_t ecPoint_size;
@@ -360,7 +360,9 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 	if(!ecPoint)
 		handleErrors();
 
-	ecPoint_size = EC_POINT_point2oct(EC_KEY_get0_group(pkey), ecPoint, EC_KEY_get_conv_form(pkey), buf, BUFSIZE, NULL);	
+	group = EC_KEY_get0_group(pkey);
+	ecPoint_size = EC_POINT_point2oct(group), ecPoint, EC_KEY_get_conv_form(pkey), buf, BUFSIZE, NULL);	
+	//ecPoint_size = EC_POINT_point2oct(EC_KEY_get0_group(pkey), ecPoint, EC_KEY_get_conv_form(pkey), buf, BUFSIZE, NULL);	
 	if(!ecPoint_size)
 		handleErrors();
 	if(ecPoint_size != DHPUBKSIZE)
@@ -373,21 +375,22 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 		printf("%02X ", buf[i]);
 	
 	printf(" %dbyte, format %d\n", ecPoint_size, EC_KEY_get_conv_form(pkey));
-	if(!EC_POINT_is_on_curve(EC_KEY_get0_group(pkey), ecPoint, NULL))
+	if(!EC_POINT_is_on_curve(group, ecPoint, NULL))
+	//if(!EC_POINT_is_on_curve(EC_KEY_get0_group(pkey), ecPoint, NULL))
 	{
 		printf("ERROR: point not on curve\n");
 		exit(-1);
 	}
 }
 
-unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
+unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey, EC_GROUP *group)
 {
 	int field_size, i=0;
 	size_t secret_len;
 	unsigned char *secret;
 	EC_POINT *peerEcPoint = NULL;
 	EC_KEY *peerEcKey = NULL;
-	EC_GROUP *group = NULL;
+	//EC_GROUP *group = NULL;
 
 	// set to compressed form
 	EC_KEY_set_conv_form(pkey, POINT_CONVERSION_COMPRESSED);
@@ -397,22 +400,23 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	if(!peerEcPoint)
 		handleErrors();
 
-	group = EC_GROUP_new_by_curve_name(OBJ_ln2nid("NID_X9_62_prime256v1"));
 	if(!group)
-		handleErrors();
+	{
+		printf("group was empty\n");
+	}
 	
 	for(i=0;i<33;i++)
 		printf("%02X ", peerPubKey[i]);
 
 	printf("\n");
 
-	//peerEcPoint = EC_POINT_new(group);
+	peerEcPoint = EC_POINT_new(group);
 	//peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
-	//if(peerEcPoint == NULL)
-	//{
-	//	printf("peerEcPoin == NULL\n\n");
-	//	handleErrors();
-	//}
+	if(peerEcPoint == NULL)
+	{
+		printf("peerEcPoint == NULL\n\n");
+		handleErrors();
+	}
 	peerEcKey = EC_KEY_new();
         if(!peerEcKey)
                 handleErrors();

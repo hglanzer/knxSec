@@ -8,6 +8,7 @@ typedef struct
 	uint8_t frame[BUFSIZE];
 	EC_KEY *pkey;		// this is the key pair
 	//EVP_PKEY *pkey;		// this is the key pair
+	EC_GROUP *group;
 	uint8_t myPubKey[DHPUBKSIZE];		// this is MY low-level public key
 	uint8_t peerPubKey[DHPUBKSIZE];		// this is the PEER low-level public key
 }indCounters_t;
