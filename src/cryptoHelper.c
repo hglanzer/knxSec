@@ -340,7 +340,7 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
     return !!result;
 }
 
-void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf, EC_GROUP *group)
+void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 {
 	EC_POINT *ecPoint = NULL;
 	size_t ecPoint_size;
@@ -383,43 +383,34 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf, EC_GROUP *group)
 	}
 }
 
-unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey, EC_GROUP *group)
+unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 {
 	int field_size, i=0;
 	size_t secret_len;
 	unsigned char *secret;
 	EC_POINT *peerEcPoint = NULL;
 	EC_KEY *peerEcKey = NULL;
-	//EC_GROUP *group = NULL;
+	const EC_GROUP *group = NULL;
 
-	// set to compressed form
-	EC_KEY_set_conv_form(pkey, POINT_CONVERSION_COMPRESSED);
-
-	// generate a new point by copying the pkey-publickey
-	peerEcPoint = (EC_POINT *) EC_KEY_get0_public_key(pkey);
-	if(!peerEcPoint)
-		handleErrors();
-
-	if(!group)
-	{
-		printf("group was empty\n");
-	}
-	
 	for(i=0;i<33;i++)
 		printf("%02X ", peerPubKey[i]);
-
 	printf("\n");
 
+
+	peerEcKey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
+        if(!peerEcKey)
+                handleErrors();
+
+	group = EC_KEY_get0_group(peerEcKey);
+	if(!group)
+		handleErrors();
+
 	peerEcPoint = EC_POINT_new(group);
-	//peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
 	if(peerEcPoint == NULL)
 	{
 		printf("peerEcPoint == NULL\n\n");
 		handleErrors();
 	}
-	peerEcKey = EC_KEY_new();
-        if(!peerEcKey)
-                handleErrors();
 
 	printf("De-serializing, form = %d\n", EC_KEY_get_conv_form(pkey));
 	/*	To deserialize the public key:
