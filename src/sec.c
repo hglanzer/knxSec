@@ -48,9 +48,11 @@ uint8_t saveGlobalCount(void *env, uint8_t *buffer)
 	uint8_t i = 0;
 	uint32_t exp = 1, tmp=0;
 
-printf("buffer = ");
+	#ifdef DEBUG
+	printf("buffer = ");
 	for(i = 0; i<GLOBALCOUNTSIZE;i++)
 		printf("%02x ", buffer[i]);
+	#endif
 
 	for(i = GLOBALCOUNTSIZE;i > 0; i=i-1)
 	{
@@ -61,7 +63,9 @@ printf("buffer = ");
 	}
 	if(tmp > thisEnv->secGlobalCountInt)
 	{
+		#ifdef DEBUG
 		printf("saving FRESH counterInt = %d\n", tmp);
+		#endif
 		thisEnv->secGlobalCountInt = tmp;
 		for(i = GLOBALCOUNTSIZE;i > 0; i=i-1)
 		{

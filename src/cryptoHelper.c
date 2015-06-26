@@ -386,18 +386,20 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 
 unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 {
-	int field_size, i=0;
+	EVP_MD_CTX *mdctx;
 	size_t secret_len;
 	unsigned char *secret;
 	EC_POINT *peerEcPoint = NULL;
 	EC_KEY *peerEcKey = NULL;
 	const EC_GROUP *group = NULL;
+	unsigned char *digest;
 
-/*
+	#ifdef DEBUG
+	uint8_t i=0;
 	for(i=0;i<33;i++)
 		printf("%02X ", peerPubKey[i]);
 	printf("\n");
-*/
+	#endif
 
 	peerEcKey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
         if(!peerEcKey)
@@ -418,7 +420,6 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
 			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.	*/
 	if(!EC_POINT_oct2point(group, peerEcPoint, peerPubKey, (size_t)33, NULL))
-	//if(!EC_POINT_oct2point(EC_KEY_get0_group(pkey), peerEcPoint, peerPubKey, (size_t)33, NULL))
 	{
 		handleErrors();
 		return FALSE;
@@ -431,7 +432,6 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 
 	/* Allocate the memory for the shared secret */
 	if(NULL == (secret = OPENSSL_malloc(32))) handleErrors();
-	//if(NULL == (secret = OPENSSL_malloc(&secret_len))) handleErrors();
 
 	/* Derive the shared secret */
 	secret_len = ECDH_compute_key(secret, 32, EC_KEY_get0_public_key(peerEcKey), pkey, NULL);
@@ -442,10 +442,32 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 		return NULL;
 	}
 
+	if((mdctx = EVP_MD_CTX_create()) == NULL)
+		handleErrors();
+
+	if(1 != EVP_DigestInit_ex(mdctx, EVP_sha256(), NULL))
+		handleErrors();
+
+	if(1 != EVP_DigestUpdate(mdctx, secret, 32))
+		handleErrors();
+
+	if((digest = (unsigned char *)OPENSSL_malloc(EVP_MD_size(EVP_sha256()))) == NULL)
+		handleErrors();
+
+	if(1 != EVP_DigestFinal_ex(mdctx, digest, (unsigned int *)32))
+		handleErrors();
+
+	EVP_MD_CTX_destroy(mdctx);
+
 	printf("\n\t\tderived: ");
 	for(i=0; i<32;i++)
 	{
 		printf("%02X ", secret[i]);
+	}
+	printf("\ndigest: ");
+	for(i=0; i<32;i++)
+	{
+		printf("%02X ", digest[i]);
 	}
 	printf("\n");
 
