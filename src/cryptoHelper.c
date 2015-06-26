@@ -338,6 +338,12 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 	uint16_t i=0;
 
 	if(NULL == pkey)
+	{
+		printf("BAD: pkey == NULL\n\n");
+	}
+
+	/* Generate the private and public key */
+	if(1 != EC_KEY_generate_key(pkey))
 		handleErrors();
 
 	// set to compressed form
