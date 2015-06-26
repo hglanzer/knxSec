@@ -277,10 +277,14 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 			if(type == discReq)
 			{
 				printf("SEC%d: generating discREQUEST for G.A = %d %d: ", thisEnv->id, destGA[0], destGA[1]);
+				// this is a broadcast
+				secBufferMAC[thisEnv->id][1] = 0x10;				// set CTRLE		(ignore TTL)
 			}
 			else if(type == discRes)
 			{
 				printf("SEC%d: generating discRESPONSE to %d %d for G.A = %d %d: ", thisEnv->id, dest[0], dest[1], destGA[0], destGA[1]);
+				// this is unicast
+				secBufferMAC[thisEnv->id][1] = 0x00;				// set CTRLE		(ignore TTL)
 
 			}
 			else
@@ -291,7 +295,6 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 
 			printf("\n");		
 			secBufferMAC[thisEnv->id][0] = 0x00;				// set CTRL			just use frame type bit
-			secBufferMAC[thisEnv->id][1] = 0x10;				// set CTRLE		(ignore TTL)
 			secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
 			secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr
 			secBufferMAC[thisEnv->id][4] = dest[0];				// DEST = broadcast message
