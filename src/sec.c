@@ -285,7 +285,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 			// for EXT frames an additional octet (TPCI) follows
 			secBufferMAC[thisEnv->id][7] = 0x00;				
 
-			incGlobalCount(env);
+			//incGlobalCount(env);
 
 			// assemble the payload
 			secBufferMAC[thisEnv->id][8] = discReq;				// SEC HEADER	=~	ACPI
@@ -715,10 +715,6 @@ void keyInit(void *env)
 					printf("SEC%d: RESET_CTR\n", thisEnv->id);
 				#endif
 
-				/*
-					FIXME: increase security by choosing from random insteat setting to zero....?!
-				*/
-				//incGlobalCount(thisEnv);
 				buffer[0] = 0x01;	// highest digit
 				buffer[1] = 0x02;
 				buffer[2] = 0x03;	
