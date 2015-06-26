@@ -827,6 +827,7 @@ void keyInit(void *env)
 								// save src address from last frame
 								src[0] = buffer[0];
 								src[1] = buffer[1];
+								srcEIB = (buffer[0]<<8) | buffer[1];
 
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4+33+2);	// FIXME - non-blocking
 								#ifdef DEBUG
