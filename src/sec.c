@@ -868,6 +868,10 @@ void keyInit(void *env)
 												thisEnv->indCounters[i].indCount = 0x01;
 												//thisEnv->indCounters[i].pkey = EC_KEY_new();
 												thisEnv->indCounters[i].pkey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
+												if(thisEnv->indCounters[i].pkey == NULL)
+												{
+													printf("SEC%d: EC_KEY_new_by_curve_name() failed\n",thisEnv->id);
+												}
 												break;
 											}
 										}		
