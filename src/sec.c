@@ -885,6 +885,11 @@ void keyInit(void *env)
 
 							case discRes:
 								printf("SEC%d: calculating shared secret\n", thisEnv->id);
+								// save src address from last frame
+								src[0] = buffer[0];
+								src[1] = buffer[1];
+
+								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4+33+2);	// FIXME - non-blocking
 							break;
 	
 							case clrData:
@@ -930,7 +935,7 @@ void keyInit(void *env)
 								break;
 
 							default: 	
-								printf("SEC%d: got unknown input\n", thisEnv->id);
+								printf("SEC%d: got unknown type = %d\n", thisEnv->id, buffer[2]);
 						}
 					}
 				}
