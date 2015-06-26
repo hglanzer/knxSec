@@ -2,7 +2,6 @@
 
 int decodeFrame(unsigned char *frame, knxPacket *packet)
 {
-	int i=0;
 	if(isStdFrame(frame))
 	{
 		printf("%d.%d.%d -> ", srcAreaAddress(frame), srcLineAddress(frame),srcDeviceAddress(frame));	
@@ -22,6 +21,7 @@ int decodeFrame(unsigned char *frame, knxPacket *packet)
 		}
 		printf(" STD: dataLen=%d / TTL=%d / TCPI=%d / ", lengthStd(frame), hopcountStd(frame), tpciStd(frame));
 /*
+		int i=0;
 		for(i=0; i<lengthStd(frame); i++)
 		{
 			printf("%02x ", frame[STDpayloadField + i]);
@@ -47,6 +47,7 @@ int decodeFrame(unsigned char *frame, knxPacket *packet)
 		}
 		printf(" EXT: dataLen=%d / TTL=%d / ", lengthExt(frame), hopcountExt(frame));
 /*
+		int i=0;
 		#ifdef DEBUG
 		for(i=0; i<lengthExt(frame); i++)
 		{

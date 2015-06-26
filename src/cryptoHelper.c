@@ -490,6 +490,8 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 	if(!peerEcPoint)
 		handleErrors();
 
+	printf("De-serializing...");
+
 	/*	To deserialize the public key:
 
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
@@ -510,7 +512,7 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 		handleErrors();
 		return FALSE;
 	}
-
+	printf("Done\n");
 
 	/* Create the context for the shared secret derivation */
 	if(NULL == (ctx = EVP_PKEY_CTX_new(pkey, NULL)))
@@ -525,12 +527,14 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 	if(1 != EVP_PKEY_derive(ctx, NULL, secret_len))
 		handleErrors();
 	/* Create the buffer */
+	printf("OPENSSL_malloc()...");
 	secret = OPENSSL_malloc(*secret_len);
 	if(!secret)
 	{
 		printf("OPENSSL_malloc() failed\n");
 		handleErrors();
 	}
+	printf("Done\n");
 	/* Derive the shared secret */
 	if((EVP_PKEY_derive(ctx, secret, secret_len)) <= 0)
 		handleErrors();
