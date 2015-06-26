@@ -341,7 +341,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 			printf("SEC%d: writing discovery Request\n", thisEnv->id);
 								// secHdr + TPCI + CTR + DH + G.A. + MAC
 			if(type == discReq)
-				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+1+4+DHPUBKSIZE+2+4), discRes, env, NULL);
+				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+1+4+DHPUBKSIZE+2+4), discReq, env, NULL);
 			else
 				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+1+4+DHPUBKSIZE+2+4), discRes, env, &dest[0]);
 	}
@@ -670,12 +670,6 @@ void keyInit(void *env)
 						thisEnv->state = STATE_RESET_CTR;
 						#ifdef DEBUG
 							printf("SEC%d: key master sync give up\n", thisEnv->id);
-						#endif
-					}
-					else
-					{
-						#ifdef DEBUG
-							printf("SEC%d: key master sync timeout\n", thisEnv->id);
 						#endif
 					}
 				}
