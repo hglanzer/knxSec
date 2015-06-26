@@ -467,7 +467,7 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 	unsigned char *secret;
 	
 // NECESSARY?	...START
-	EVP_PKEY_CTX *kctx;
+	EVP_PKEY_CTX *pctx;
 	EVP_PKEY *params = NULL;
 	//	Create the context for parameter generation 
 	if(NULL == (pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_EC, NULL)))
