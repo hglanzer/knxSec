@@ -5,11 +5,10 @@ void handleErrors()
 {
 	int e;
 	ERR_load_crypto_strings();
-	printf("handleErrors(): something bad happend, error_string: \n");
 
 	while((e=ERR_get_error()) != 0)
 	{
-		printf("%s, lib=%s, func=%s, reason=%s\n", ERR_error_string(e, NULL), ERR_lib_error_string(e), ERR_func_error_string(e), ERR_reason_error_string(e));
+		printf("\n\t%s, lib=%s, func=%s, reason=%s\n\n", ERR_error_string(e, NULL), ERR_lib_error_string(e), ERR_func_error_string(e), ERR_reason_error_string(e));
 	}
 	
 }
@@ -395,8 +394,9 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	printf("\n");
 
 	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
-	if(!peerEcPoint)
+	if(peerEcPoint == NULL)
 		handleErrors();
+	sleep(1);
 	peerEcKey = EC_KEY_new();
         if(!peerEcKey)
                 handleErrors();
