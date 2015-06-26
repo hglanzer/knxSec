@@ -346,9 +346,7 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 	uint16_t i=0;
 
 	if(NULL == pkey)
-	{
 		printf("BAD: pkey == NULL\n\n");
-	}
 
 	/* Generate the private and public key */
 	if(1 != EC_KEY_generate_key(pkey))
@@ -369,6 +367,7 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 		printf("\n\nDH PUBKEYSIZE CHANGED, = %d / FIXME\n", ecPoint_size);
 			exit(-1);
 	}
+	printf("point = ");
 	for(i=0; i<ecPoint_size;i++)
 		printf("%02X ", buf[i]);
 	
@@ -387,13 +386,17 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	unsigned char *secret;
 	EC_POINT *peerEcPoint;
 	EC_KEY *peerEcKey;
+	EC_GROUP *group;
+
+	group = EC_GROUP_new_by_curve_name(OBJ_sn2nid("NID_X9_62_prime256v1"));
 	
 	for(i=0;i<33;i++)
 		printf("%02X ", peerPubKey[i]);
 
 	printf("\n");
 
-	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
+	peerEcPoint = EC_POINT_new(group);
+	//peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
 	if(peerEcPoint == NULL)
 	{
 		printf("peerEcPoin == NULL\n\n");
@@ -407,7 +410,8 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	/*	To deserialize the public key:
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
 			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.	*/
-	if(!EC_POINT_oct2point(EC_KEY_get0_group(pkey), peerEcPoint, peerPubKey, (size_t)33, NULL))
+	if(!EC_POINT_oct2point(group, peerEcPoint, peerPubKey, (size_t)33, NULL))
+	//if(!EC_POINT_oct2point(EC_KEY_get0_group(pkey), peerEcPoint, peerPubKey, (size_t)33, NULL))
 	{
 		handleErrors();
 		return FALSE;
