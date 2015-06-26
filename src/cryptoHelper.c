@@ -331,6 +331,41 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
     return !!result;
 }
 
+void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
+{
+	EC_POINT *ecPoint = NULL;
+	size_t ecPoint_size;
+	uint16_t i=0;
+
+	if(NULL == pkey)
+		handleErrors();
+
+	// set to compressed form
+	EC_KEY_set_conv_form(pkey, POINT_CONVERSION_COMPRESSED);
+
+	ecPoint = (EC_POINT *) EC_KEY_get0_public_key(pkey);
+	if(!ecPoint)
+		handleErrors();
+
+	ecPoint_size = EC_POINT_point2oct(EC_KEY_get0_group(pkey), ecPoint, EC_KEY_get_conv_form(pkey), buf, BUFSIZE, NULL);	
+	if(!ecPoint_size)
+		handleErrors();
+	if(ecPoint_size != DHPUBKSIZE)
+	{
+		printf("\n\nDH PUBKEYSIZE CHANGED, = %d / FIXME\n", ecPoint_size);
+			exit(-1);
+	}
+	for(i=0; i<ecPoint_size;i++)
+		printf("%02X ", buf[i]);
+	
+	printf(" %dbyte, format %d\n", ecPoint_size, EC_KEY_get_conv_form(pkey));
+	if(!EC_POINT_is_on_curve(group, ecPoint, NULL))
+	{
+		printf("ERROR: point not on curve\n");
+		exit(-1);
+	}
+}
+
 /*
 	pkey is a pointer to this' side keypair
 */
@@ -396,9 +431,7 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf, EC_GROUP *group)
 	if(!ecPoint)
 		handleErrors();
 
-	group = EC_KEY_get0_group(ecKey);
-
-	ecPoint_size = EC_POINT_point2oct(group, ecPoint, EC_KEY_get_conv_form(ecKey), buf, BUFSIZE, NULL);	
+	ecPoint_size = EC_POINT_point2oct(EC_KEY_get0_group(ecKey), ecPoint, EC_KEY_get_conv_form(ecKey), buf, BUFSIZE, NULL);	
 	if(!ecPoint_size)
 		handleErrors();
 	if(ecPoint_size != DHPUBKSIZE)
@@ -410,7 +443,7 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf, EC_GROUP *group)
 		printf("%02X ", buf[i]);
 	
 	printf(" %dbyte, format %d\n", ecPoint_size, EC_KEY_get_conv_form(ecKey));
-	if(!EC_POINT_is_on_curve(group, ecPoint, NULL))
+	if(!EC_POINT_is_on_curve(EC_KEY_get0_group(ecKey), ecPoint, NULL))
 	{
 		printf("ERROR: point not on curve\n");
 		exit(-1);
@@ -434,7 +467,7 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf, EC_GROUP *group)
 	// these functions always return the 'fullsized' x / y coordinates, no matter of the conv_form
 
 	//if (!EC_POINT_get_affine_coordinates_GF2m(EC_KEY_get0_group(ecKey), ecPoint, xCoord, yCoord, NULL))
-	if (!EC_POINT_get_affine_coordinates_GFp(group, ecPoint, xCoord, yCoord, NULL))
+	if (!EC_POINT_get_affine_coordinates_GFp(EC_KEY_get0_group(ecKey), ecPoint, xCoord, yCoord, NULL))
 	{
 		printf("get coord failed\n");
 	}
