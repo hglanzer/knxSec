@@ -332,7 +332,7 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
 }
 
 /*
-	pkey is a pointer to this' side PUBLIC key
+	pkey is a pointer to this' side keypair
 */
 void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 {
@@ -372,18 +372,14 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 	if (1 != EVP_PKEY_keygen(kctx, &pkey))
 		handleErrors();
 
-/*
-		FINDINDS
-	
-	how to extract the public key...		needs group context...
+/*	how to extract the public key...		needs group context...
 
 		Pass the EVP_PKEY to EVP_PKEY_get1_EC_KEY() to get an EC_KEY.
 		Pass the EC_KEY to EC_KEY_get0_public_key() to get an EC_POINT.
 		Pass the EC_POINT to EC_POINT_point2oct() to get octets, which are just unsigned char *.
 
 	use this to get point conversion form:
-		point_conversion_form_t EC_GROUP_get_point_conversion_form(const EC_GROUP *);
- */
+		point_conversion_form_t EC_GROUP_get_point_conversion_form(const EC_GROUP *);		*/
 
 	// ecKey only used to obtain public key from EVP_PKEY
 	ecKey = EC_KEY_new();
@@ -474,7 +470,6 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 	peerEcKey = EC_KEY_new();
 	if(!peerEcKey)
 		handleErrors();
-
 	peerEvpKey = EVP_PKEY_new();
 	if(!peerEvpKey)
 		handleErrors();

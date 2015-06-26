@@ -863,7 +863,7 @@ void keyInit(void *env)
 											}
 											if(thisEnv->indCounters[i].src == 0x00)
 											{
-												printf("SEC%d: NOT found, adding src %d [%d] \n",srcEIB, i);
+												printf("SEC%d: NOT found, adding src %d [%d] \n",thisEnv->id, srcEIB, i);
 												thisEnv->indCounters[i].src = srcEIB;
 												thisEnv->indCounters[i].indCount = 0x01;
 												thisEnv->indCounters[i].pkey = EVP_PKEY_new();
@@ -877,7 +877,6 @@ void keyInit(void *env)
 										dest[0] = buffer[37];
 										dest[1] = buffer[38];
 										preparePacket(thisEnv, discRes, &src[0], &dest[0], thisEnv->indCounters[i].myPubKey);
-		// FIXME: at this point, we can already calculate the shared secret on this side
 
 									}
 									else
