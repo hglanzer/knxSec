@@ -381,16 +381,16 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	EC_POINT *peerEcPoint;
 	EC_KEY *peerEcKey;
 	
-	//printf("get point\n");
+	printf("get point\n");
 	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
 	if(!peerEcPoint)
 		handleErrors();
-	//printf("get ecKey\n");
+	printf("get ecKey\n");
 	peerEcKey = EC_KEY_new();
         if(!peerEcKey)
                 handleErrors();
 
-	//printf("get group degree\n");
+	printf("get group degree\n");
 	/* Calculate the size of the buffer for the shared secret */
 
 /*
