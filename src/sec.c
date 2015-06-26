@@ -157,7 +157,7 @@ void time2Str(void *env, byte *buf)
 void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint8_t *dhPubKey)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	uint8_t i = 0, len = 0, destTmp[2];
+	uint8_t i = 0, len = 0;
 	time2Str(env, secBufferTime[thisEnv->id]);
 
 	MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = '\0';
@@ -424,7 +424,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 		case discRes:
 			printf("SEC%d-WR: GOT %d bytes to write\n\n", thisEnv->id, len);
 			destEib = dest[0]<<8 | dest[1];
-			if ((EIBOpenT_Individual(thisEnv->secFDWR, destEIB, 0)) == -1)
+			if ((EIBOpenT_Individual(thisEnv->secFDWR, destEib, 0)) == -1)
 			{
 				printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
 				exit(-1);
