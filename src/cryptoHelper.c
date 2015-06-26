@@ -4,6 +4,7 @@
 void handleErrors()
 {
 	int e;
+	ERR_load_crypto_strings();
 	printf("handleErrors(): something bad happend, error_string: \n");
 
 	while((e=ERR_get_error()) != 0)
