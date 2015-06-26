@@ -374,7 +374,7 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 
 unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 {
-	int field_size;
+	int field_size, i=0;
 	size_t secret_len;
 	unsigned char *secret;
 	
