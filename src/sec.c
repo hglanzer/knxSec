@@ -340,7 +340,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 			// call write thread directly from here
 			printf("SEC%d: writing discovery Request\n", thisEnv->id);
 								// secHdr + TPCI + CTR + DH + G.A. + MAC
-			if(type == discRes)
+			if(type == discReq)
 				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+1+4+DHPUBKSIZE+2+4), discRes, env, NULL);
 			else
 				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+1+4+DHPUBKSIZE+2+4), discRes, env, &dest[0]);
