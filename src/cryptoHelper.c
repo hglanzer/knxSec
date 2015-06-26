@@ -408,6 +408,7 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 		handleErrors();
 		return FALSE;
 	}
+	printf("set key...\n");
 	if(!EC_KEY_set_public_key(peerEcKey, peerEcPoint))
 	{
 		handleErrors();
