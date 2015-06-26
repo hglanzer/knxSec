@@ -395,8 +395,10 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 
 	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
 	if(peerEcPoint == NULL)
+	{
+		printf("peerEcPoin == NULL\n\n");
 		handleErrors();
-	sleep(1);
+	}
 	peerEcKey = EC_KEY_new();
         if(!peerEcKey)
                 handleErrors();
