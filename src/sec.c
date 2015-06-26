@@ -884,7 +884,7 @@ void keyInit(void *env)
 							break;
 
 							case discRes:
-
+								printf("SEC%d: calculating shared secret\n", thisEnv->id);
 							break;
 	
 							case clrData:
