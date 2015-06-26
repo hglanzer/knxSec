@@ -399,7 +399,7 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	printf("%d\n", (field_size+7)/8);
 	secret_len = (field_size+7)/8;
 */
-	printf("De-serializing...");
+	printf("De-serializing...\n");
 	/*	To deserialize the public key:
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
 			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.	*/
