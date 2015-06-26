@@ -359,7 +359,7 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 		printf("%02X ", buf[i]);
 	
 	printf(" %dbyte, format %d\n", ecPoint_size, EC_KEY_get_conv_form(pkey));
-	if(!EC_POINT_is_on_curve(group, ecPoint, NULL))
+	if(!EC_POINT_is_on_curve(EC_KEY_get0_group(pkey), ecPoint, NULL))
 	{
 		printf("ERROR: point not on curve\n");
 		exit(-1);
