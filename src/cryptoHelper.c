@@ -473,7 +473,7 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 	if(!peerEvpKey)
 		handleErrors();
 
-	myEcKey = EC_KEY_new();
+	myEcKey = EC_KEY_newby_curve_name(NID_X9_62_prime256v1);
 	if(!myEcKey)
 		handleErrors();
 	printf("Converting to EC\n");
