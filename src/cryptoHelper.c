@@ -465,26 +465,6 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 	EC_POINT *peerEcPoint;
 	EVP_PKEY *peerEvpKey;
 	unsigned char *secret;
-	
-// NECESSARY?	...START
-	EVP_PKEY_CTX *pctx;
-	EVP_PKEY *params = NULL;
-	//	Create the context for parameter generation 
-	if(NULL == (pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_EC, NULL)))
-		handleErrors();
-
-	/*	Initialise the parameter generation	*/
-	if(1 != EVP_PKEY_paramgen_init(pctx))
-		handleErrors();
-
-	/*	We're going to use the ANSI X9.62 Prime 256v1 curve	*/
-	if(1 != EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, NID_X9_62_prime256v1))
-		handleErrors();
-
-	/*	Create the parameter object params */
-	if (!EVP_PKEY_paramgen(pctx, &params))
-		handleErrors();
-// NECESSARY?	...END
 
 	peerEcKey = EC_KEY_new();
 	if(!peerEcKey)
@@ -501,7 +481,7 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 	if(!myEcKey)
 		handleErrors();
 
-	printf("De-serializing...");
+	printf("get Point from Key...");
 	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(myEcKey));
 	if(!peerEcPoint)
 		handleErrors();
