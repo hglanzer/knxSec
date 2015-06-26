@@ -882,6 +882,10 @@ void keyInit(void *env)
 									}
 								}
 							break;
+
+							case discReq:				
+
+							break;
 	
 							case clrData:
 								// suck in the whole cleartext knx frame
