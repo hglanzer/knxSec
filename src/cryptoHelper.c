@@ -389,6 +389,8 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	EC_GROUP *group;
 
 	group = EC_GROUP_new_by_curve_name(OBJ_sn2nid("NID_X9_62_prime256v1"));
+	if(!group)
+		handleErrors();
 	
 	for(i=0;i<33;i++)
 		printf("%02X ", peerPubKey[i]);
