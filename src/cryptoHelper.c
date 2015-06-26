@@ -3,7 +3,14 @@
 
 void handleErrors()
 {
-	printf("handleErrors(): something bad happend, error_string: %s\n", ERR_error_string());
+	int e;
+	printf("handleErrors(): something bad happend, error_string: \n");
+
+	while((e=ERR_get_error()) != 0)
+	{
+		printf("%s\n", ERR_error_string(e, NULL));
+	}
+	
 }
 
 /*
