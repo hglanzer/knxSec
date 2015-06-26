@@ -273,15 +273,20 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 			       |______________	0 = point-to-point extended, 1 = group addressed extended
 
 	*/
-		case discReq || discRes:
+		default:
 			if(type == discReq)
 			{
 				printf("SEC%d: generating discREQUEST for G.A = %d %d: ", thisEnv->id, destGA[0], destGA[1]);
 			}
-			if(type == discRes)
+			else if(type == discRes)
 			{
 				printf("SEC%d: generating discRESPONSE to %d %d for G.A = %d %d: ", thisEnv->id, dest[0], dest[1], destGA[0], destGA[1]);
 
+			}
+			else
+			{
+				printf("prepare(): THIS SHOULD NOT HAPPEN, exit");
+				exit(-1);
 			}
 
 			printf("\n");		
@@ -333,10 +338,6 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 			printf("SEC%d: writing discovery Request\n", thisEnv->id);
 								// secHdr + TPCI + CTR + DH + G.A. + MAC
 			secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+1+4+DHPUBKSIZE+2+4), discReq, env, NULL);
-		break;
-		default:
-			printf("prepare(): THIS SHOULD NOT HAPPEN, exit");
-			exit(-1);
 	}
 }
 
