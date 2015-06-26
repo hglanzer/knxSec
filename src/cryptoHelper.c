@@ -393,9 +393,9 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	EC_KEY *peerEcKey = NULL;
 	const EC_GROUP *group = NULL;
 	unsigned char *digest;
+	uint8_t i=0;
 
 	#ifdef DEBUG
-	uint8_t i=0;
 	for(i=0;i<33;i++)
 		printf("%02X ", peerPubKey[i]);
 	printf("\n");
