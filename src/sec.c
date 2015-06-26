@@ -37,13 +37,16 @@ int checkGA(void *env, uint8_t *encGA, uint8_t *globalCtr)
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 
 	printf("SEC-GA%d: got GA %02X %02X, counter = %02X %02X %02X %02X\n", thisEnv->id, encGA[0], encGA[1], globalCtr[0], globalCtr[1], globalCtr[2], globalCtr[3]);
+	printf("FIXME: decrypt + update counter");
+
+	return TRUE;
 
 }
-void saveGlobalCount(void *env, uint8_t *buffer)
+uint8_t saveGlobalCount(void *env, uint8_t *buffer)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0;
-	uint32_t exp = 1;
+	uint32_t exp = 1, tmp=0;
 
 printf("buffer = ");
 	for(i = 0; i<GLOBALCOUNTSIZE;i++)
@@ -51,11 +54,27 @@ printf("buffer = ");
 
 	for(i = GLOBALCOUNTSIZE;i > 0; i=i-1)
 	{
-		thisEnv->secGlobalCountInt += buffer[i-1] * exp;
-		thisEnv->secGlobalCount[i-1] = buffer[i-1];
+		tmp += buffer[i-1] * exp;
+		//thisEnv->secGlobalCountInt += buffer[i-1] * exp;
+		//thisEnv->secGlobalCount[i-1] = buffer[i-1];
 		exp = exp * 256;
 	}
-	printf("saved counterInt = %d\n", thisEnv->secGlobalCountInt);
+	if(tmp > thisEnv->secGlobalCountInt)
+	{
+		printf("saving FRESH counterInt = %d\n", tmp);
+		thisEnv->secGlobalCountInt = tmp;
+		for(i = GLOBALCOUNTSIZE;i > 0; i=i-1)
+		{
+			thisEnv->secGlobalCount[i-1] = buffer[i-1];
+		}
+		return TRUE;
+
+	}
+	else
+	{
+		printf("discarding OUTDATED counterInt = %d\n", tmp);
+		return FALSE;
+	}
 }
 
 void incGlobalCount(void *env)
@@ -265,6 +284,8 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 
 			// for EXT frames an additional octet (TPCI) follows
 			secBufferMAC[thisEnv->id][7] = 0x00;				
+
+			incGlobalCount(env);
 
 			// assemble the payload
 			secBufferMAC[thisEnv->id][8] = discReq;				// SEC HEADER	=~	ACPI
@@ -525,7 +546,7 @@ void secRD(void *env)
 						// is this GW responsible for the received G.A.?
 						if(checkGA(env, &thisEnv->secRDbuf[rc-7], &thisEnv->secRDbuf[rc-7-33-4]))
 						{
-
+							
 						}
 						else
 						{
@@ -826,8 +847,8 @@ void keyInit(void *env)
 								thisEnv->indCounters[i].dest = destEIB;
 								thisEnv->indCounters[i].active = TRUE;;
 			
-								genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].pubKey);
-								preparePacket(thisEnv, discReq, &buffer[3], thisEnv->indCounters[i].pubKey);
+								genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
+								preparePacket(thisEnv, discReq, &buffer[3], thisEnv->indCounters[i].myPubKey);
 								break;
 
 							default: 	

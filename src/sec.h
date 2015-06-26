@@ -1,4 +1,4 @@
-void saveGlobalCount(void *, uint8_t *);
+uint8_t saveGlobalCount(void *, uint8_t *);
 void incGlobalCount(void *);
 int checkFreshness(void *, uint8_t *);
 void time2Str(void *, unsigned char *);
