@@ -6,11 +6,10 @@ void handleErrors()
 	int e;
 	ERR_load_crypto_strings();
 
-	while(ERR_get_error() != 0)
-	//while((e=ERR_get_error()) != 0)
+	while((e=ERR_get_error()) != 0)
 	{
 		printf("\n\nERROR\n\n");
-		//printf("\n\t%s, lib=%s, func=%s, reason=%s\n\n", ERR_error_string(e, NULL), ERR_lib_error_string(e), ERR_func_error_string(e), ERR_reason_error_string(e));
+		printf("\n\t%s, lib=%s, func=%s, reason=%s\n\n", ERR_error_string(e, NULL), ERR_lib_error_string(e), ERR_func_error_string(e), ERR_reason_error_string(e));
 	}
 	
 }
