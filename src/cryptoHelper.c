@@ -380,27 +380,29 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	
 	EC_POINT *peerEcPoint;
 	EC_KEY *peerEcKey;
-	printf("get point\n");
+	
+	//printf("get point\n");
 	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
 	if(!peerEcPoint)
 		handleErrors();
-	printf("get ecKey\n");
+	//printf("get ecKey\n");
 	peerEcKey = EC_KEY_new();
         if(!peerEcKey)
                 handleErrors();
 
-	printf("get group degree\n");
+	//printf("get group degree\n");
 	/* Calculate the size of the buffer for the shared secret */
+
+/*
 	field_size = EC_GROUP_get_degree(EC_KEY_get0_group(pkey));
 	printf("get len = ");
 	printf("%d\n", (field_size+7)/8);
 	secret_len = (field_size+7)/8;
-
+*/
 	printf("De-serializing...");
 	/*	To deserialize the public key:
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
-			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.
-			Pass the EC_KEY to EVP_PKEY_set1_EC_KEY to get an EVP_KEY.	*/
+			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.	*/
 	if(!EC_POINT_oct2point(EC_KEY_get0_group(pkey), peerEcPoint, peerPubKey, 33, NULL))
 	{
 		handleErrors();
@@ -414,16 +416,24 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	printf("Done\n");
 
 	/* Allocate the memory for the shared secret */
-	if(NULL == (secret = OPENSSL_malloc(&secret_len))) handleErrors();
+	if(NULL == (secret = OPENSSL_malloc(32))) handleErrors();
+	//if(NULL == (secret = OPENSSL_malloc(&secret_len))) handleErrors();
 
 	/* Derive the shared secret */
-	secret_len = ECDH_compute_key(secret, secret_len, EC_KEY_get0_public_key(peerEcKey), pkey, NULL);
+	secret_len = ECDH_compute_key(secret, 32, EC_KEY_get0_public_key(peerEcKey), pkey, NULL);
 
 	if(&secret_len <= 0)
 	{
 		OPENSSL_free(secret);
 		return NULL;
 	}
+
+	printf("derived: ");
+	for(i=0; i<32;i++)
+	{
+		printf("%02X ", secret[i]);
+	}
+	printf("\n");
 
 	return secret;
 
