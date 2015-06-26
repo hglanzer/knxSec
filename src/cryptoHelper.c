@@ -385,11 +385,11 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	int field_size, i=0;
 	size_t secret_len;
 	unsigned char *secret;
-	EC_POINT *peerEcPoint;
-	EC_KEY *peerEcKey;
-	EC_GROUP *group;
+	EC_POINT *peerEcPoint = NULL;
+	EC_KEY *peerEcKey = NULL;
+	EC_GROUP *group = NULL;
 
-	group = EC_GROUP_new_by_curve_name(OBJ_sn2nid("NID_X9_62_prime256v1"));
+	group = EC_GROUP_new_by_curve_name(OBJ_ln2nid("NID_X9_62_prime256v1"));
 	if(!group)
 		handleErrors();
 	
