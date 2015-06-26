@@ -36,7 +36,7 @@ int checkGA(void *env, uint8_t *encGA)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 
-	printf("SEC-GA%d: got GA %02X %02X\n", thisEnv->id, encGA[0], encGA[1]);
+	printf("SEC-GA%d: got GA %02X %02X - END\n", thisEnv->id, encGA[0], encGA[1]);
 	printf("FIXME: decrypt\n");
 
 	return TRUE;
