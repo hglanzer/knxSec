@@ -389,6 +389,14 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	EC_KEY *peerEcKey = NULL;
 	EC_GROUP *group = NULL;
 
+	// set to compressed form
+	EC_KEY_set_conv_form(pkey, POINT_CONVERSION_COMPRESSED);
+
+	// generate a new point by copying the pkey-publickey
+	peerEcPoint = (EC_POINT *) EC_KEY_get0_public_key(pkey);
+	if(!peerEcPoint)
+		handleErrors();
+
 	group = EC_GROUP_new_by_curve_name(OBJ_ln2nid("NID_X9_62_prime256v1"));
 	if(!group)
 		handleErrors();
@@ -398,13 +406,13 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 
 	printf("\n");
 
-	peerEcPoint = EC_POINT_new(group);
+	//peerEcPoint = EC_POINT_new(group);
 	//peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
-	if(peerEcPoint == NULL)
-	{
-		printf("peerEcPoin == NULL\n\n");
-		handleErrors();
-	}
+	//if(peerEcPoint == NULL)
+	//{
+	//	printf("peerEcPoin == NULL\n\n");
+	//	handleErrors();
+	//}
 	peerEcKey = EC_KEY_new();
         if(!peerEcKey)
                 handleErrors();
