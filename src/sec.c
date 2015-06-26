@@ -863,7 +863,7 @@ void keyInit(void *env)
 											}
 											if(thisEnv->indCounters[i].src == 0x00)
 											{
-												printf(" / NOT found, adding src at index %d\n", i);
+												printf("SEC%d: NOT found, adding src %d [%d] \n",srcEIB, i);
 												thisEnv->indCounters[i].src = srcEIB;
 												thisEnv->indCounters[i].indCount = 0x01;
 												thisEnv->indCounters[i].pkey = EVP_PKEY_new();

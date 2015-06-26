@@ -482,10 +482,12 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 	myEcKey = EC_KEY_new();
 	if(!myEcKey)
 		handleErrors();
+	printf("Converting to EC\n");
 	myEcKey = EVP_PKEY_get1_EC_KEY(pkey);
 	if(!myEcKey)
 		handleErrors();
 
+	printf("De-serializing...");
 	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(myEcKey));
 	if(!peerEcPoint)
 		handleErrors();
