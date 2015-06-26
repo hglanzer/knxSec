@@ -477,6 +477,10 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 	if(!myEcKey)
 		handleErrors();
 	printf("Converting to EC\n");
+
+	if(pkey == NULL)
+		printf("pkey NULL SUCKZ\n");
+
 	myEcKey = EVP_PKEY_get1_EC_KEY(pkey);
 	if(!myEcKey)
 		handleErrors();
