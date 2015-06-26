@@ -380,6 +380,12 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	EC_POINT *peerEcPoint;
 	EC_KEY *peerEcKey;
 	
+	printf("using this peerPubKey: ");
+	for(i=0;i<33;i++)
+		printf("%02X ", peerPubKey[i]);
+
+	printf("\n");
+
 	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
 	if(!peerEcPoint)
 		handleErrors();
