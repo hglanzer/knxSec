@@ -32,12 +32,12 @@ uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13
 			decrypts GA with new counter value
 			checks if this GW is responsible for the wanted G.A.
 */
-int checkGA(void *env, uint8_t *encGA, uint8_t *globalCtr)
+int checkGA(void *env, uint8_t *encGA)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 
-	printf("SEC-GA%d: got GA %02X %02X, counter = %02X %02X %02X %02X\n", thisEnv->id, encGA[0], encGA[1], globalCtr[0], globalCtr[1], globalCtr[2], globalCtr[3]);
-	printf("FIXME: decrypt + update counter");
+	printf("SEC-GA%d: got GA %02X %02X, counter = %02X %02X %02X %02X\n", thisEnv->id, encGA[0], encGA[1]);
+	printf("FIXME: decrypt\n");
 
 	return TRUE;
 
@@ -509,7 +509,7 @@ void secRD(void *env)
 						else
 						{
 							// MAC is OK - process message
-							// write address + payload to pipe
+							// write src-address + payload to pipe - not interested in the rest of the header
 							thisEnv->secRDbuf[4] = thisEnv->secRDbuf[1];
 							thisEnv->secRDbuf[5] = thisEnv->secRDbuf[2];
 							// total-bytes - (header - src) - MACSIZE - FCK
@@ -539,19 +539,15 @@ void secRD(void *env)
 							}
 							printf(" / %d bytes total\n", rc);
 						}
-
-	//FIXME: check global counter
-	//FIXME: decrypt G.A.
-
-						// is this GW responsible for the received G.A.?
-						if(checkGA(env, &thisEnv->secRDbuf[rc-7], &thisEnv->secRDbuf[rc-7-33-4]))
-						{
-							
-						}
 						else
 						{
-
+							// write src-address + payload to pipe - not interested in the rest of the header
+							thisEnv->secRDbuf[6] = thisEnv->secRDbuf[2];
+							thisEnv->secRDbuf[7] = thisEnv->secRDbuf[3];
+							// MAC is OK, write, write data to pipe
+							write(thisEnv->RD2MasterPipe[WRITEEND], &thisEnv->secRDbuf[6], rc - 6 - MACSIZE - 1);
 						}
+
 
 					}
 					else
@@ -808,8 +804,31 @@ void keyInit(void *env)
 							break;
 	
 							case discReq:				
-								;;
-						break;
+								// save src address from last frame
+								src[0] = buffer[0];
+								src[1] = buffer[1];
+
+								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4+33+2);	// FIXME - non-blocking
+								printf("SEC%d: ", thisEnv->id);
+								for(i=0; i < 39;i++)
+									printf("%02X ", buffer[i]);
+
+								printf("\n");
+								if(saveGlobalCount(env, &buffer[0]))
+								{
+		//FIXME: decrypt G.A.
+
+									// is this GW responsible for the received G.A.?
+									if(checkGA(env, &thisEnv->secRDbuf[4+33]))
+									{
+										printf("we are responsible\n");
+									}
+									else
+									{
+										printf("NOT responsible\n");
+									}
+								}
+							break;
 	
 							case clrData:
 								// suck in the whole cleartext knx frame
