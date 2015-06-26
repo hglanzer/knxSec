@@ -76,7 +76,11 @@ printf("buffer = ");
 		return FALSE;
 	}
 }
-
+/*
+	secGlobalCounter: [0] ... highest digit
+			  ...
+			  [3] ... lowest digit
+*/
 void incGlobalCount(void *env)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
@@ -85,15 +89,15 @@ void incGlobalCount(void *env)
 	
 	thisEnv->secGlobalCountInt++;
 	buf = thisEnv->secGlobalCountInt;
-	for(i=0; i<GLOBALCOUNTSIZE;i++)
+	for(i=GLOBALCOUNTSIZE; i>0;i=i-1)
 	{
-		thisEnv->secGlobalCount[i] = buf % 256;
+		thisEnv->secGlobalCount[i-1] = buf % 256;
 		buf = buf / 256;
 	}
 	#ifdef DEBUG
 		printf("SEC%d: countInt = %d, str = ",  thisEnv->id, thisEnv->secGlobalCountInt);
-		for(i=GLOBALCOUNTSIZE; i>0;i=i-1)
-			printf("%02x ", thisEnv->secGlobalCount[i-1]);
+	for(i=0; i<GLOBALCOUNTSIZE;i++)
+			printf("%02x ", thisEnv->secGlobalCount[i]);
 		
 		printf("\n");
 	#endif
@@ -285,7 +289,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *dhPubKey)
 			// for EXT frames an additional octet (TPCI) follows
 			secBufferMAC[thisEnv->id][7] = 0x00;				
 
-			//incGlobalCount(env);
+			incGlobalCount(env);
 
 			// assemble the payload
 			secBufferMAC[thisEnv->id][8] = discReq;				// SEC HEADER	=~	ACPI
