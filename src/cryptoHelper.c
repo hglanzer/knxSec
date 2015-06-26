@@ -377,15 +377,12 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	int field_size, i=0;
 	size_t secret_len;
 	unsigned char *secret;
-	
 	EC_POINT *peerEcPoint;
 	EC_KEY *peerEcKey;
 	
-	printf("get point\n");
 	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(pkey));
 	if(!peerEcPoint)
 		handleErrors();
-	printf("get ecKey\n");
 	peerEcKey = EC_KEY_new();
         if(!peerEcKey)
                 handleErrors();
@@ -393,17 +390,11 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	printf("get group degree\n");
 	/* Calculate the size of the buffer for the shared secret */
 
-/*
-	field_size = EC_GROUP_get_degree(EC_KEY_get0_group(pkey));
-	printf("get len = ");
-	printf("%d\n", (field_size+7)/8);
-	secret_len = (field_size+7)/8;
-*/
-	printf("De-serializing...\n");
+	printf("De-serializing, form = %d\n", EC_KEY_set_conv_form(pkey));
 	/*	To deserialize the public key:
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
 			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.	*/
-	if(!EC_POINT_oct2point(EC_KEY_get0_group(pkey), peerEcPoint, peerPubKey, 33, NULL))
+	if(!EC_POINT_oct2point(EC_KEY_get0_group(pkey), peerEcPoint, peerPubKey, (size_t)33, NULL))
 	{
 		handleErrors();
 		return FALSE;
