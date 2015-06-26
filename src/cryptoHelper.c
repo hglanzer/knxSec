@@ -360,8 +360,8 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf, EC_GROUP *group)
 	if(!ecPoint)
 		handleErrors();
 
-	group = EC_KEY_get0_group(pkey);
-	ecPoint_size = EC_POINT_point2oct(group), ecPoint, EC_KEY_get_conv_form(pkey), buf, BUFSIZE, NULL);	
+	group = (EC_GROUP *)EC_KEY_get0_group(pkey);
+	ecPoint_size = EC_POINT_point2oct(group, ecPoint, EC_KEY_get_conv_form(pkey), buf, BUFSIZE, NULL);	
 	//ecPoint_size = EC_POINT_point2oct(EC_KEY_get0_group(pkey), ecPoint, EC_KEY_get_conv_form(pkey), buf, BUFSIZE, NULL);	
 	if(!ecPoint_size)
 		handleErrors();
