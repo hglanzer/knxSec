@@ -831,12 +831,14 @@ void keyInit(void *env)
 								src[1] = buffer[1];
 
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4+33+2);	// FIXME - non-blocking
+								#ifdef DEBUG
+								/*
 								printf("SEC%d: ", thisEnv->id);
 								for(i=0; i < 39;i++)
 									printf("%02X ", buffer[i]);
 
 								printf("\n");
-								#ifdef DEBUG
+								*/
 									printf("SEC%d: discovery REQUEST - counter = ", thisEnv->id);
 									printf("%02x ", buffer[0]);
 									printf("%02x ", buffer[1]);

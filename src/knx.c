@@ -21,10 +21,12 @@ int decodeFrame(unsigned char *frame, knxPacket *packet)
 			printf("%d/%d/%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
 		}
 		printf(" STD: dataLen=%d / TTL=%d / TCPI=%d / ", lengthStd(frame), hopcountStd(frame), tpciStd(frame));
+/*
 		for(i=0; i<lengthStd(frame); i++)
 		{
 			printf("%02x ", frame[STDpayloadField + i]);
 		}
+*/
 		printf("\n");
 	}
 	else if(isExtFrame(frame))	// extended frame received
@@ -44,10 +46,14 @@ int decodeFrame(unsigned char *frame, knxPacket *packet)
 			printf("%d/%d/%d", destAreaAddressExt(frame), destLineAddressExt(frame), destDeviceAddressExt(frame));	
 		}
 		printf(" EXT: dataLen=%d / TTL=%d / ", lengthExt(frame), hopcountExt(frame));
+/*
+		#ifdef DEBUG
 		for(i=0; i<lengthExt(frame); i++)
 		{
 			printf("%02x ", frame[EXTpayloadField + i]);
 		}
+		#endif
+*/
 		printf("\n");
 	}
 	else
