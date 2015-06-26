@@ -673,9 +673,6 @@ void keyInit(void *env)
 					if(thisEnv->retryCount == SYNC_RETRIES)
 					{
 						thisEnv->state = STATE_RESET_CTR;
-						#ifdef DEBUG
-							printf("SEC%d: key master sync give up\n", thisEnv->id);
-						#endif
 					}
 				}
 				// error occured
@@ -746,10 +743,10 @@ void keyInit(void *env)
 					printf("SEC%d: RESET_CTR\n", thisEnv->id);
 				#endif
 
-				buffer[0] = 0x01;	// highest digit
-				buffer[1] = 0x02;
-				buffer[2] = 0x03;	
-				buffer[3] = 0x04;	// lowest digit
+				buffer[0] = 0x00;	// highest digit
+				buffer[1] = 0x00;
+				buffer[2] = 0x00;	
+				buffer[3] = 0x01;	// lowest digit
 				saveGlobalCount(thisEnv, &buffer[0]);
 				thisEnv->state = STATE_READY;
 
@@ -891,12 +888,19 @@ void keyInit(void *env)
 							break;
 
 							case discRes:
-								printf("SEC%d: calculating shared secret\n", thisEnv->id);
 								// save src address from last frame
 								src[0] = buffer[0];
 								src[1] = buffer[1];
 
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4+33+2);	// FIXME - non-blocking
+								if(saveGlobalCount(env, &buffer[0]))
+								{
+									printf("SEC%d: calculating shared secret\n", thisEnv->id);
+								}
+								else
+								{
+									printf("SEC%d: discrading outdated discResponse\n", thisEnv->id);
+								}
 							break;
 	
 							case clrData:
