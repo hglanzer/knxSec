@@ -392,7 +392,8 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	printf("get group degree\n");
 	/* Calculate the size of the buffer for the shared secret */
 	field_size = EC_GROUP_get_degree(EC_KEY_get0_group(pkey));
-	printf("get len\n");
+	printf("get len = ");
+	printf("%d\n", (field_size+7)/8);
 	secret_len = (field_size+7)/8;
 
 	printf("De-serializing...");
