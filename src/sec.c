@@ -410,7 +410,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 
 		break;
 		case discReq:
-			printf("SEC%d-WR: GOT %d bytes to write\n\n", thisEnv->id, len);
+			//printf("SEC%d-WR: GOT %d bytes to write\n\n", thisEnv->id, len);
 			if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 0)) == -1)
 			{
 				printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);

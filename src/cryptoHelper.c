@@ -393,10 +393,11 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	EC_KEY *peerEcKey = NULL;
 	const EC_GROUP *group = NULL;
 
+/*
 	for(i=0;i<33;i++)
 		printf("%02X ", peerPubKey[i]);
 	printf("\n");
-
+*/
 
 	peerEcKey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
         if(!peerEcKey)
@@ -413,7 +414,6 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 		handleErrors();
 	}
 
-	printf("De-serializing, form = %d\n", EC_KEY_get_conv_form(pkey));
 	/*	To deserialize the public key:
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
 			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.	*/
@@ -442,7 +442,7 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 		return NULL;
 	}
 
-	printf("derived: ");
+	printf("\n\t\tderived: ");
 	for(i=0; i<32;i++)
 	{
 		printf("%02X ", secret[i]);
