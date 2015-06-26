@@ -883,7 +883,7 @@ void keyInit(void *env)
 								}
 							break;
 
-							case discReq:				
+							case discRes:
 
 							break;
 	
