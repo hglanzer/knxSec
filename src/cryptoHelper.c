@@ -344,7 +344,6 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 	EC_POINT *ecPoint = NULL;
 	size_t ecPoint_size;
 
-
 	//	Create the context for parameter generation 
 	if(NULL == (pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_EC, NULL)))
 		handleErrors();
@@ -466,6 +465,26 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 	EC_POINT *peerEcPoint;
 	EVP_PKEY *peerEvpKey;
 	unsigned char *secret;
+	
+// NECESSARY?	...START
+	EVP_PKEY_CTX *kctx;
+	EVP_PKEY *params = NULL;
+	//	Create the context for parameter generation 
+	if(NULL == (pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_EC, NULL)))
+		handleErrors();
+
+	/*	Initialise the parameter generation	*/
+	if(1 != EVP_PKEY_paramgen_init(pctx))
+		handleErrors();
+
+	/*	We're going to use the ANSI X9.62 Prime 256v1 curve	*/
+	if(1 != EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, NID_X9_62_prime256v1))
+		handleErrors();
+
+	/*	Create the parameter object params */
+	if (!EVP_PKEY_paramgen(pctx, &params))
+		handleErrors();
+// NECESSARY?	...END
 
 	peerEcKey = EC_KEY_new();
 	if(!peerEcKey)
