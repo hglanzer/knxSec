@@ -901,7 +901,18 @@ void keyInit(void *env)
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4+33+2);	// FIXME - non-blocking
 								if(saveGlobalCount(env, &buffer[0]))
 								{
+									for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
+									{
+										if(thisEnv->indCounters[i].src == srcEIB)
+										{
+											printf("SEC%d: Found %d [%02d], ctr %02d\n", thisEnv->id, srcEIB, i, thisEnv->indCounters[i].indCount);
+											// do NOT update counter now - only AFTER the actual knx packet gets delivered
+											//thisEnv->indCounters[i].indCount;
+											break;
+										}
+									}
 									printf("SEC%d: calculating shared secret\n", thisEnv->id);
+									deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4]);
 								}
 								else
 								{
@@ -940,7 +951,6 @@ void keyInit(void *env)
 										thisEnv->indCounters[i].indCount = 0x01;
 										//thisEnv->indCounters[i].pkey = EC_KEY_new();
 										thisEnv->indCounters[i].pkey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
-										//thisEnv->indCounters[i].pkey = EVP_PKEY_new();
 										break;
 									}
 								}		
