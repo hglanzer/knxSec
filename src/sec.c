@@ -671,10 +671,10 @@ void keyInit(void *env)
 							{
 								#ifdef DEBUG
 									printf("SEC%d: FRESH sync response - counter = ", thisEnv->id);
-									printf("%02x ", buffer[3]);
-									printf("%02x ", buffer[2]);
+									printf("%02x ", buffer[0]);
 									printf("%02x ", buffer[1]);
-									printf("%02x\n", buffer[0]);
+									printf("%02x ", buffer[2]);
+									printf("%02x\n", buffer[3]);
 								#endif
 								saveGlobalCount(thisEnv, &buffer[0]);
 								thisEnv->state = STATE_READY;
@@ -814,6 +814,13 @@ void keyInit(void *env)
 									printf("%02X ", buffer[i]);
 
 								printf("\n");
+								#ifdef DEBUG
+									printf("SEC%d: discovery REQUEST - counter = ", thisEnv->id);
+									printf("%02x ", buffer[0]);
+									printf("%02x ", buffer[1]);
+									printf("%02x ", buffer[2]);
+									printf("%02x\n", buffer[3]);
+								#endif
 								if(saveGlobalCount(env, &buffer[0]))
 								{
 		//FIXME: decrypt G.A.
