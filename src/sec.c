@@ -870,6 +870,9 @@ void keyInit(void *env)
 											}
 										}		
 										genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
+
+										deriveSharedSecret(thisEnv->indCounters[i].pkey, buffer[4], 33);
+
 										dest[0] = buffer[37];
 										dest[1] = buffer[38];
 										preparePacket(thisEnv, discRes, &src[0], &dest[0], thisEnv->indCounters[i].myPubKey);

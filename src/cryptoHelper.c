@@ -345,20 +345,16 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 	size_t ecPoint_size;
 
 
-	/*
-		Create the context for parameter generation 
-		for algorithm EVP_PKEY_EC, standard( = NULL) engine
-		returns context for pubkey algorithm
-	*/
+	//	Create the context for parameter generation 
 	if(NULL == (pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_EC, NULL)))
 		handleErrors();
+
 	/*	Initialise the parameter generation	*/
 	if(1 != EVP_PKEY_paramgen_init(pctx))
 		handleErrors();
+
 	/*	We're going to use the ANSI X9.62 Prime 256v1 curve	*/
-	//if(1 != EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, SN_sect233k1))
 	if(1 != EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, NID_X9_62_prime256v1))
-	//if(1 != EVP_PKEY_CTX_set_ec_paramgen_curve_nid(pctx, NID_X9_62_prime192v1))
 		handleErrors();
 
 	/*	Create the parameter object params */
@@ -385,19 +381,6 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 		Pass the EC_KEY to EC_KEY_get0_public_key() to get an EC_POINT.
 		Pass the EC_POINT to EC_POINT_point2oct() to get octets, which are just unsigned char *.
 
-	EC_POINT_point2oct():
- 		* Encodes a EC_POINT object to a octet string
- 		*  \param  group  underlying EC_GROUP object
-		*  \param  p      EC_POINT object
-		*  \param  form   point conversion form
-		*  \param  buf    memory buffer for the result. If NULL the function returns
-		*                 required buffer size.
-		*  \param  len    length of the memory buffer
-		*  \param  ctx    BN_CTX object (optional)			--> OK TO SET TO NULL
-		*  \return the length of the encoded octet string or 0 if an error occurred
-	
-		size_t EC_POINT_point2oct(const EC_GROUP *group, const EC_POINT *p, point_conversion_form_t form, unsigned char *buf, size_t len, BN_CTX *ctx);
-
 	use this to get point conversion form:
 		point_conversion_form_t EC_GROUP_get_point_conversion_form(const EC_GROUP *);
  */
@@ -410,7 +393,6 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 	ecKey = EVP_PKEY_get1_EC_KEY(pkey);
 	if(!ecKey)
 		handleErrors();
-	//	get point(=pubkey) from converted EC key (=~ EVP key)
 
 	// set to compressed form
 	EC_KEY_set_conv_form(ecKey, POINT_CONVERSION_COMPRESSED);
@@ -479,16 +461,56 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 	EC_KEY_free(ecKey);
 }
 
-unsigned char *deriveSharedSecret(EVP_PKEY *pkey, EVP_PKEY *peerkey, size_t *secret_len)
+unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secret_len)
 {
+	uint32_t i=0;
 	EVP_PKEY_CTX *ctx;
+	EC_KEY *peerEcKey;
+	EC_KEY *myEcKey;
+	EC_POINT *peerEcPoint;
+	EVP_PKEY *peerEvpKey;
 	unsigned char *secret;
 
-	/* 
-		provide the peer with our public key	= pkey
-		get the peer's public key		= peerkey
-peerkey = get_peerkey(pkey);
-	 * how this is done will be specific to your circumstances */
+	peerEcKey = EC_KEY_new();
+	if(!peerEcKey)
+		handleErrors();
+
+	peerEvpKey = EVP_PKEY_new();
+	if(!peerEvpKey)
+		handleErrors();
+
+	myEcKey = EC_KEY_new();
+	if(!myEcKey)
+		handleErrors();
+	myEcKey = EVP_PKEY_get1_EC_KEY(pkey);
+	if(!myEcKey)
+		handleErrors();
+
+	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(myEcKey));
+	if(!peerEcPoint)
+		handleErrors();
+
+	/*	To deserialize the public key:
+
+			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
+			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.
+			Pass the EC_KEY to EVP_PKEY_set1_EC_KEY to get an EVP_KEY.	*/
+	if(!EC_POINT_oct2point(EC_KEY_get0_group(myEcKey), peerEcPoint, peerKey, 33, NULL))
+	{
+		handleErrors();
+		return FALSE;
+	}
+	if(!EC_KEY_set_public_key(peerEcKey, peerEcPoint))
+	{
+		handleErrors();
+		return FALSE;
+	}
+	if(!EVP_PKEY_set1_EC_KEY(peerEvpKey, peerEcKey))
+	{
+		handleErrors();
+		return FALSE;
+	}
+
 
 	/* Create the context for the shared secret derivation */
 	if(NULL == (ctx = EVP_PKEY_CTX_new(pkey, NULL)))
@@ -497,21 +519,30 @@ peerkey = get_peerkey(pkey);
 	if(1 != EVP_PKEY_derive_init(ctx))
 		handleErrors();
 	/* Provide the peer public key */
-	if(1 != EVP_PKEY_derive_set_peer(ctx, peerkey))
+	if(1 != EVP_PKEY_derive_set_peer(ctx, peerEvpKey))
 		handleErrors();
 	/* Determine buffer length for shared secret */
 	if(1 != EVP_PKEY_derive(ctx, NULL, secret_len))
 		handleErrors();
 	/* Create the buffer */
-	if(NULL == (secret = OPENSSL_malloc(*secret_len)))
+	secret = OPENSSL_malloc(*secret_len);
+	if(!secret)
+	{
+		printf("OPENSSL_malloc() failed\n");
 		handleErrors();
+	}
 	/* Derive the shared secret */
-	if(1 != (EVP_PKEY_derive(ctx, secret, secret_len)))
+	if((EVP_PKEY_derive(ctx, secret, secret_len)) <= 0)
 		handleErrors();
+
+	printf("len = %d, secret = ", *secret_len);
+	for(i=0; i<*secret_len;i++)
+		printf("%02X", secret[i]);
+	printf("\n");
 
 	/*	we got our secret - free unused memory	*/
 	EVP_PKEY_CTX_free(ctx);
-	EVP_PKEY_free(peerkey);
+	EVP_PKEY_free(peerEvpKey);
 	EVP_PKEY_free(pkey);
 
 	/* Never use a derived secret directly. Typically it is passed
