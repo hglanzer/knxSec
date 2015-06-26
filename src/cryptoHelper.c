@@ -2,7 +2,7 @@
 
 void handleErrors()
 {
-	printf("handleErrors(): something bad happend\n");
+	printf("handleErrors(): something bad happend, error_string: %s\n", ERR_error_string());
 }
 
 /*
@@ -380,7 +380,6 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	EC_POINT *peerEcPoint;
 	EC_KEY *peerEcKey;
 	
-	printf("using this peerPubKey: ");
 	for(i=0;i<33;i++)
 		printf("%02X ", peerPubKey[i]);
 
@@ -393,9 +392,6 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
         if(!peerEcKey)
                 handleErrors();
 
-	printf("get group degree\n");
-	/* Calculate the size of the buffer for the shared secret */
-
 	printf("De-serializing, form = %d\n", EC_KEY_get_conv_form(pkey));
 	/*	To deserialize the public key:
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
@@ -405,13 +401,11 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 		handleErrors();
 		return FALSE;
 	}
-	printf("set key...\n");
 	if(!EC_KEY_set_public_key(peerEcKey, peerEcPoint))
 	{
 		handleErrors();
 		return FALSE;
 	}
-	printf("Done\n");
 
 	/* Allocate the memory for the shared secret */
 	if(NULL == (secret = OPENSSL_malloc(32))) handleErrors();
