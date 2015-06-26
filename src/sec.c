@@ -867,12 +867,13 @@ void keyInit(void *env)
 												thisEnv->indCounters[i].src = srcEIB;
 												thisEnv->indCounters[i].indCount = 0x01;
 												thisEnv->indCounters[i].pkey = EVP_PKEY_new();
+												thisEnv->indCounters[i].ecGroup = EC_GROUP_new();
 												break;
 											}
 										}		
-										genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
+										genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey, thisEnv->indCounters[i].ecGroup);
 										printf("SEC%d: deriving secret\n", thisEnv->id);
-										deriveSharedSecret(thisEnv->indCounters[i].pkey, buffer[4], 33);
+										deriveSharedSecret(thisEnv->indCounters[i].pkey, buffer[4], 33, thisEnv->indCounters[i].ecGroup);
 
 										dest[0] = buffer[37];
 										dest[1] = buffer[38];

@@ -334,7 +334,7 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
 /*
 	pkey is a pointer to this' side keypair
 */
-void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
+void genECpubKey(EVP_PKEY *pkey, uint8_t *buf, EC_GROUP *group)
 {
 	EVP_PKEY_CTX *pctx;
 	EVP_PKEY_CTX *kctx;
@@ -396,7 +396,9 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 	if(!ecPoint)
 		handleErrors();
 
-	ecPoint_size = EC_POINT_point2oct(EC_KEY_get0_group(ecKey), ecPoint, EC_KEY_get_conv_form(ecKey), buf, BUFSIZE, NULL);	
+	group = EC_KEY_get0_group(ecKey);
+
+	ecPoint_size = EC_POINT_point2oct(group, ecPoint, EC_KEY_get_conv_form(ecKey), buf, BUFSIZE, NULL);	
 	if(!ecPoint_size)
 		handleErrors();
 	if(ecPoint_size != DHPUBKSIZE)
@@ -408,7 +410,7 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 		printf("%02X ", buf[i]);
 	
 	printf(" %dbyte, format %d\n", ecPoint_size, EC_KEY_get_conv_form(ecKey));
-	if(!EC_POINT_is_on_curve(EC_KEY_get0_group(ecKey), ecPoint, NULL))
+	if(!EC_POINT_is_on_curve(group, ecPoint, NULL))
 	{
 		printf("ERROR: point not on curve\n");
 		exit(-1);
@@ -432,7 +434,7 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 	// these functions always return the 'fullsized' x / y coordinates, no matter of the conv_form
 
 	//if (!EC_POINT_get_affine_coordinates_GF2m(EC_KEY_get0_group(ecKey), ecPoint, xCoord, yCoord, NULL))
-	if (!EC_POINT_get_affine_coordinates_GFp(EC_KEY_get0_group(ecKey), ecPoint, xCoord, yCoord, NULL))
+	if (!EC_POINT_get_affine_coordinates_GFp(group, ecPoint, xCoord, yCoord, NULL))
 	{
 		printf("get coord failed\n");
 	}
@@ -456,7 +458,7 @@ void genECpubKey(EVP_PKEY *pkey, uint8_t *buf)
 	EC_KEY_free(ecKey);
 }
 
-unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secret_len)
+unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secret_len, EC_GROUP *group)
 {
 	uint32_t i=0;
 	EVP_PKEY_CTX *ctx;
@@ -486,7 +488,7 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 		handleErrors();
 
 	printf("get Point from Key...");
-	peerEcPoint = EC_POINT_new(EC_KEY_get0_group(myEcKey));
+	peerEcPoint = EC_POINT_new(group);
 	if(!peerEcPoint)
 		handleErrors();
 
@@ -497,7 +499,7 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
 			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.
 			Pass the EC_KEY to EVP_PKEY_set1_EC_KEY to get an EVP_KEY.	*/
-	if(!EC_POINT_oct2point(EC_KEY_get0_group(myEcKey), peerEcPoint, peerKey, 33, NULL))
+	if(!EC_POINT_oct2point(group, peerEcPoint, peerKey, 33, NULL))
 	{
 		handleErrors();
 		return FALSE;
