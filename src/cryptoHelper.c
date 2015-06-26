@@ -9,7 +9,7 @@ void handleErrors()
 
 	while((e=ERR_get_error()) != 0)
 	{
-		printf("%s, lib=%s\n, func=%s", ERR_error_string(e, NULL), ERR_lib_error_string(e), ERR_func_error_string(e));
+		printf("%s, lib=%s, func=%s, reason=%s\n", ERR_error_string(e, NULL), ERR_lib_error_string(e), ERR_func_error_string(e), ERR_reason_error_string(e));
 	}
 	
 }
