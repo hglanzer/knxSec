@@ -441,7 +441,7 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 		OPENSSL_free(secret);
 		return NULL;
 	}
-
+/*
 	if((mdctx = EVP_MD_CTX_create()) == NULL)
 		handleErrors();
 
@@ -458,7 +458,7 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 		handleErrors();
 
 	EVP_MD_CTX_destroy(mdctx);
-
+*/
 	printf("\n\t\tderived: ");
 	for(i=0; i<32;i++)
 	{
