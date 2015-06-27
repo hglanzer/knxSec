@@ -875,7 +875,7 @@ void keyInit(void *env)
 											}
 										}		
 										genECpubKeyLow(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
-										printf("SEC%d: deriving secret\n", thisEnv->id);
+										printf("SEC%d: calculating secret, DH_b = ", thisEnv->id);
 										thisEnv->indCounters[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
 
 										printf("SEC%d: got secret: ", thisEnv->id);
@@ -915,7 +915,7 @@ void keyInit(void *env)
 											break;
 										}
 									}
-									printf("SEC%d: calculating shared secret\n", thisEnv->id);
+									printf("SEC%d: calculating secret, DH_b = ", thisEnv->id);
 									thisEnv->indCounters[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
 										
 									printf("SEC%d: got secret: ", thisEnv->id);

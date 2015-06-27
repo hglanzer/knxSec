@@ -340,6 +340,18 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
     return !!result;
 }
 
+/*
+	LOW LEVEL functions
+		despite the recommondation to use the EVP - high level functions, the
+		low-level ones are easier to use, additionally we dont need to convert
+		from EVP -> EC - keys and vice versa(needed to export the public key as char-string)
+
+	this function is the FIRST part of the key-derivation
+
+	pkey	is THIS side's public/private keypair struct
+	buf	is THIS side's serialized public key in compressed form(1byte y, 32byte x)
+		
+*/
 void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 {
 	EC_POINT *ecPoint = NULL;
@@ -384,6 +396,21 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 	}
 }
 
+/*
+	LOW LEVEL functions
+		despite the recommondation to use the EVP - high level functions, the
+		low-level ones are easier to use, additionally we dont need to convert
+		from EVP -> EC - keys and vice versa(needed to export the public key as char-string)
+
+	this function is the SECOND part of the key-derivation, executed after we got the
+	other's side pubkey(triggerd by discReq or discResp)
+
+	pkey		is THIS side's pub/priv key pair structure
+	peerPubKey	is the other's side public key(compressed, serialized form)
+
+	returns the shared secret
+	FIXME:	secret now used directly, apply KDF to get uniformly distributed key!
+*/
 unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey, void *env)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *) env;
@@ -441,16 +468,11 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey, void *en
 		OPENSSL_free(secret);
 		return NULL;
 	}
-	printf("\tSEC-DA%d: derived: ", thisEnv->id);
-	for(i=0; i<32;i++)
-	{
-		printf("%02X ", secret[i]);
-	}
-	printf("\n");
 	return secret;
 }
 /*
 	pkey is a pointer to this' side keypair
+	buf 
 */
 void genECpubKey(EVP_PKEY *pkey, uint8_t *buf, EC_GROUP *group)
 {
@@ -614,7 +636,9 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 
 			Pass the octets to EC_POINT_oct2point() to get an EC_POINT.
 			Pass the EC_POINT to EC_KEY_set_public_key() to get an EC_KEY.
-			Pass the EC_KEY to EVP_PKEY_set1_EC_KEY to get an EVP_KEY.	*/
+			Pass the EC_KEY to EVP_PKEY_set1_EC_KEY to get an EVP_KEY	- only nec. if high-level object is used
+
+	*/
 	if(!EC_POINT_oct2point(group, peerEcPoint, peerKey, 33, NULL))
 	{
 		handleErrors();
