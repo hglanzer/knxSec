@@ -30,7 +30,6 @@ uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13
 
 void ctrInt2Str(uint32_t indCount, uint8_t *indCountStr)
 {
-	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint32_t buf;
 	uint8_t i=0;
 	
