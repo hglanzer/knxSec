@@ -344,7 +344,7 @@ uint8_t * encAES(uint8_t *msg, uint8_t msgLen, uint8_t *ctr, uint8_t *key)
 {
 	EVP_CIPHER_CTX *aesCtx = NULL;
 	uint8_t cipherBuf[BUFSIZE];
-	int cipherLen;
+	int cipherLen, i=0;
 
 	if(!(aesCtx = EVP_CIPHER_CTX_new()))
 		handleErrors();
