@@ -9,6 +9,8 @@
 //extern pthread_mutex_t clr2SecMutexWr[2];
 //extern pthread_cond_t  clr2SecCondWr[2];
 
+extern pthread_mutex_t globalMutex;
+
 void clrWR(void *threadEnv)
 {
 	while(1)

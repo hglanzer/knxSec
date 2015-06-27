@@ -10,8 +10,10 @@
 		eibd --listen-local=/tmp/eib.clr  -t31 -e 1.2.<addr> tpuarts:/dev/tty<DEV-cleartext>
 */
 
-pthread_mutex_t SecMutexWr[SECLINES];
-pthread_cond_t  SecCondWr[SECLINES];
+//pthread_mutex_t SecMutexWr[SECLINES];
+//pthread_cond_t  SecCondWr[SECLINES];
+
+pthread_mutex_t globalMutex;
 
 byte secBufferMAC[SECLINES][BUFSIZE];
 byte secBufferTime[SECLINES][BUFSIZE];
@@ -79,10 +81,14 @@ int main(int argc, char **argv)
 	pthread_t sec1RDThread, sec2RDThread;
 	pthread_t sec1MasterThread, sec2MasterThread;
 
-	pthread_mutexattr_t mutexAttr;
-	pthread_mutexattr_init(&mutexAttr);
-	if((pthread_mutexattr_settype(&mutexAttr, PTHREAD_MUTEX_RECURSIVE_NP)) != 0)
-		printf("mutex set attr failed\n");
+	// use one global mutex for debug messages
+	// we want the default attributes (locking a locked mutext -> suspend)
+	if(pthread_mutex_init(&globalMutex, NULL) != 0)
+	{
+		printf("global mutex init failed, exit");
+		return -1;
+	}
+
 	
 	while((c = getopt_long(argc, argv, "hc:1:2:3:4:", long_options, &option_index)) != EOF)
 	//while((c = getopt(argc, argv, "hs:")) != EOF)
@@ -137,32 +143,6 @@ int main(int argc, char **argv)
 				assert(0);
 		}
 	}
-
-	for(i=0; i < SECLINES; i++)
-	{
-		// create condition variables for syncronization clr(recv) -> sec(send)
-		if(pthread_cond_init(&SecCondWr[i], NULL) != 0)
-		{
-			printf("condition variable %d init failed, exit", i);
-			return -1;
-		}
-
-		// every condition variable needs a mutex
-		if(pthread_mutex_init(&SecMutexWr[i], NULL) != 0)
-		{
-			printf("clr mutex init failed, exit");
-			return -1;
-		}
-	}
-
-/*
-	// create cleartext-knx master thread
-	if((pthread_create(&clrMasterThread, NULL, (void *)clrMasterStart, &threadEnvClr)) != 0)
-	{
-		printf("clrThread thread init failed, exit\n");
-		return -1;
-	}
-*/
 
 	/*
 		pipe is used for communication: secRead -> secKeymaster

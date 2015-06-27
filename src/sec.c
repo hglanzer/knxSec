@@ -10,8 +10,10 @@
 		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.2.<addr>  tpuarts:/dev/tty<DEv-secured-2>
 */
 
-extern pthread_mutex_t SecMutexWr[SECLINES];
-extern pthread_cond_t  SecCondWr[SECLINES];
+//extern pthread_mutex_t SecMutexWr[SECLINES];
+//extern pthread_cond_t  SecCondWr[SECLINES];
+
+extern pthread_mutex_t globalMutex;
 
 extern byte secBufferMAC[SECLINES][BUFSIZE];
 extern byte secBufferTime[SECLINES][BUFSIZE];
@@ -390,9 +392,6 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 				printf("EIBOpenSendTPDU() failed\n\n");
        				exit(-1);
 			}
-			#ifdef DEBUG
-				printf("\tSEC%d-WR: REQUEST to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
-			#endif
 
 		break;
 		case syncRes:
@@ -408,13 +407,9 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 				printf("EIBOpenSendAPDU() failed\n\n");
        				exit(-1);
 			}
-			//#ifdef DEBUG
-			//	printf("\tSEC%d-WR: RESPONSE to FD @ %p\n", thisEnv->id, thisEnv->secFDWR);
-			//#endif
 
 		break;
 		case discReq:
-			//printf("SEC%d-WR: GOT %d bytes to write\n\n", thisEnv->id, len);
 			if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 0)) == -1)
 			{
 				printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
@@ -427,7 +422,6 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 			}
 		break;
 		case discRes:
-			printf("SEC%d-WR: GOT %d bytes to write\n\n", thisEnv->id, len);
 			destEib = dest[0]<<8 | dest[1];
 			if ((EIBOpenT_Individual(thisEnv->secFDWR, destEib, 0)) == -1)
 			{
@@ -828,6 +822,7 @@ void keyInit(void *env)
 							break;
 	
 							case discReq:				
+								pthread_mutex_lock(&globalMutex);
 								// save src address from last frame
 								src[0] = buffer[0];
 								src[1] = buffer[1];
@@ -895,9 +890,11 @@ void keyInit(void *env)
 										printf("NOT responsible\n");
 									}
 								}
+								pthread_mutex_unlock(&globalMutex);
 							break;
 
 							case discRes:
+								pthread_mutex_lock(&globalMutex);
 								// save src address from last frame
 								src[0] = buffer[0];
 								src[1] = buffer[1];
@@ -922,9 +919,11 @@ void keyInit(void *env)
 								{
 									printf("SEC%d: discrading outdated discResponse\n", thisEnv->id);
 								}
+								pthread_mutex_unlock(&globalMutex);
 							break;
 	
 							case clrData:
+								pthread_mutex_lock(&globalMutex);
 								// suck in the whole cleartext knx frame
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								srcEIB = (buffer[1]<<8) | buffer[2];
@@ -966,6 +965,7 @@ void keyInit(void *env)
 								dest[0] = 0x00;
 								dest[1] = 0x00;
 								preparePacket(thisEnv, discReq, &dest[0], &buffer[3], thisEnv->indCounters[i].myPubKey);
+								pthread_mutex_unlock(&globalMutex);
 								break;
 
 							default: 	

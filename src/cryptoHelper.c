@@ -441,24 +441,6 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 		OPENSSL_free(secret);
 		return NULL;
 	}
-/*
-	if((mdctx = EVP_MD_CTX_create()) == NULL)
-		handleErrors();
-
-	if(1 != EVP_DigestInit_ex(mdctx, EVP_sha256(), NULL))
-		handleErrors();
-
-	if(1 != EVP_DigestUpdate(mdctx, secret, 32))
-		handleErrors();
-
-	if((digest = (unsigned char *)OPENSSL_malloc(EVP_MD_size(EVP_sha256()))) == NULL)
-		handleErrors();
-
-	if(1 != EVP_DigestFinal_ex(mdctx, digest, (unsigned int *)32))
-		handleErrors();
-
-	EVP_MD_CTX_destroy(mdctx);
-*/
 	printf("\n\t\tderived: ");
 	for(i=0; i<32;i++)
 	{
@@ -466,12 +448,6 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 	}
 	printf("\n");
 /*
-	printf("\ndigest: ");
-	for(i=0; i<32;i++)
-	{
-		printf("%02X ", digest[i]);
-	}
-	printf("\n");
 */
 	return secret;
 
