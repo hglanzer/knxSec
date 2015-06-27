@@ -363,7 +363,7 @@ uint8_t * encAES(uint8_t *msg, uint8_t msgLen, uint8_t *ctr, uint8_t *key)
 	printf("ENCRYPTED, len = %d, ciphertext = ", cipherLen);
 	for(i=0;i<cipherLen;i++)
 	{
-		printf("%02X ", cipherbuf[i]);
+		printf("%02X ", cipherBuf[i]);
 	}
 	printf("\n");
 
