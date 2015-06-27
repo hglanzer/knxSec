@@ -293,7 +293,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 
 		case dataSrv:
 			// extended frame is required for payload(secHdr + 4byte ctr + 4byte MAC)
-			if(len > (16-(1+4+4)))
+			if(*payloadLen > (16-(1+4+4)))
 			{
 				printf("SEC%d: assembling EXT for dataSrv\n", thisEnv->id);
 				secBufferMAC[thisEnv->id][0] = 0x00;				// set correct frame type(ext frame)
