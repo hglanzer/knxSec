@@ -875,10 +875,8 @@ void keyInit(void *env)
 											}
 										}		
 										genECpubKeyLow(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
-										//genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey, thisEnv->indCounters[i].ecGroup);
 										printf("SEC%d: deriving secret\n", thisEnv->id);
-										deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4]);
-										//deriveSharedSecret(thisEnv->indCounters[i].pkey, &buffer[4], 33, thisEnv->indCounters[i].ecGroup);
+										deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
 
 										dest[0] = buffer[37];
 										dest[1] = buffer[38];
@@ -913,7 +911,7 @@ void keyInit(void *env)
 										}
 									}
 									printf("SEC%d: calculating shared secret\n", thisEnv->id);
-									deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4]);
+									deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
 								}
 								else
 								{

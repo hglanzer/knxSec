@@ -384,8 +384,10 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 	}
 }
 
-unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
+unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey, void *env)
 {
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *) env;
+
 	EVP_MD_CTX *mdctx;
 	size_t secret_len;
 	unsigned char *secret;
@@ -441,7 +443,7 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey)
 		OPENSSL_free(secret);
 		return NULL;
 	}
-	printf("\n\t\tderived: ");
+	printf("\tSEC-DA%d: derived: ", thisEnv->id);
 	for(i=0; i<32;i++)
 	{
 		printf("%02X ", secret[i]);
