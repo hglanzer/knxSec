@@ -850,19 +850,19 @@ void keyInit(void *env)
 									// is this GW responsible for the received G.A.?
 									if(checkGA(env, &buffer[4+33]))
 									{
-										printf("we are responsible\n");
+										printf("SEC%d: responsible for G.A., ", thisEnv->id);
 										for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
 										{
 											if(thisEnv->indCounters[i].src == srcEIB)
 											{
-												printf("SEC%d: Found src %d, index %02d, ctr %02d\n", thisEnv->id, srcEIB, i, thisEnv->indCounters[i].indCount);
+												printf("Found src %d, index %02d, ctr %02d\n", srcEIB, i, thisEnv->indCounters[i].indCount);
 												// do NOT update counter now - only AFTER the actual knx packet gets delivered
 												//thisEnv->indCounters[i].indCount;
 												break;
 											}
 											if(thisEnv->indCounters[i].src == 0x00)
 											{
-												printf("SEC%d: NOT found, adding src %d [%d] \n",thisEnv->id, srcEIB, i);
+												printf("NOT found, adding src %d [%d] \n", srcEIB, i);
 												thisEnv->indCounters[i].src = srcEIB;
 												thisEnv->indCounters[i].indCount = 0x01;
 												//thisEnv->indCounters[i].pkey = EC_KEY_new();
@@ -870,15 +870,16 @@ void keyInit(void *env)
 												if(thisEnv->indCounters[i].pkey == NULL)
 												{
 													printf("SEC%d: EC_KEY_new_by_curve_name() failed\n",thisEnv->id);
+													exit(-1);
 												}
 												break;
 											}
 										}		
 										genECpubKeyLow(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
-										printf("SEC%d: calculating secret, DH_b = ", thisEnv->id);
+										printf("SEC%d: calc secret, parameter: ", thisEnv->id);
 										thisEnv->indCounters[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
 
-										printf("SEC%d: got secret: ", thisEnv->id);
+										printf("SEC%d: derived common secret : ", thisEnv->id);
 										for(j=0;j<32;j++)
 											printf("%02X ", thisEnv->indCounters[i].derivedKey[j]);
 										printf("\n");
@@ -890,7 +891,7 @@ void keyInit(void *env)
 									}
 									else
 									{
-										printf("NOT responsible\n");
+										printf("SEC%d: NOT responsible for G.A.\n", thisEnv->id);
 									}
 								}
 								pthread_mutex_unlock(&globalMutex);
@@ -915,18 +916,19 @@ void keyInit(void *env)
 											break;
 										}
 									}
-									printf("SEC%d: calculating secret, DH_b = ", thisEnv->id);
+									printf("SEC%d: calc secret, parameter:", thisEnv->id);
 									thisEnv->indCounters[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
 										
-									printf("SEC%d: got secret: ", thisEnv->id);
+									printf("SEC%d: derived common secret : ", thisEnv->id);
 									for(j=0;j<32;j++)
 										printf("%02X ", thisEnv->indCounters[i].derivedKey[j]);
 									printf("\n");
+									// finally, we got the SRC of one responsible gateway + a common secret
 
 								}
 								else
 								{
-									printf("SEC%d: discrading outdated discResponse\n", thisEnv->id);
+									printf("SEC%d: discarding old discResponse\n", thisEnv->id);
 								}
 								pthread_mutex_unlock(&globalMutex);
 							break;
@@ -948,7 +950,9 @@ void keyInit(void *env)
 								#endif
 	*/
 	
-								for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
+								// FIXME: this is dirty - only memory for 10 knx sending devices!!
+								// FIXME: this way, only ONE discRequest / srcDevice can be active
+								for(i=0;i<10;i++)	
 								{
 									if(thisEnv->indCounters[i].src == srcEIB)
 									{

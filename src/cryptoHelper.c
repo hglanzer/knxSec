@@ -383,11 +383,13 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 		printf("\n\nDH PUBKEYSIZE CHANGED, = %d / FIXME\n", ecPoint_size);
 			exit(-1);
 	}
+	/*
 	printf("point = ");
 	for(i=0; i<ecPoint_size;i++)
 		printf("%02X ", buf[i]);
 	
 	printf(" %dbyte, format %d\n", ecPoint_size, EC_KEY_get_conv_form(pkey));
+	*/
 	if(!EC_POINT_is_on_curve(group, ecPoint, NULL))
 	//if(!EC_POINT_is_on_curve(EC_KEY_get0_group(pkey), ecPoint, NULL))
 	{
