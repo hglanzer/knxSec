@@ -603,7 +603,7 @@ void keyInit(void *env)
 	struct timeval syncTimeout;
 
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	uint8_t buffer[BUFSIZE], src[2], dest[2], i=0; 
+	uint8_t buffer[BUFSIZE], src[2], dest[2], i=0, j=0; 
 	eibaddr_t srcEIB, destEIB;
 
 	thisEnv->state = STATE_INIT;
@@ -876,7 +876,12 @@ void keyInit(void *env)
 										}		
 										genECpubKeyLow(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
 										printf("SEC%d: deriving secret\n", thisEnv->id);
-										deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
+										thisEnv->indCounters[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
+
+										printf("SEC%d: got secret: ", thisEnv->id);
+										for(j=0;j<32;j++)
+											printf("%02X ", thisEnv->indCounters[i].derivedKey[j]);
+										printf("\n");
 
 										dest[0] = buffer[37];
 										dest[1] = buffer[38];
@@ -911,7 +916,13 @@ void keyInit(void *env)
 										}
 									}
 									printf("SEC%d: calculating shared secret\n", thisEnv->id);
-									deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
+									thisEnv->indCounters[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
+										
+									printf("SEC%d: got secret: ", thisEnv->id);
+									for(j=0;j<32;j++)
+										printf("%02X ", thisEnv->indCounters[i].derivedKey[j]);
+									printf("\n");
+
 								}
 								else
 								{
@@ -956,10 +967,15 @@ void keyInit(void *env)
 									}
 								}		
 								thisEnv->indCounters[i].dest = destEIB;
-								thisEnv->indCounters[i].active = TRUE;;
-			
+								thisEnv->indCounters[i].active = TRUE;
+		
+								// save the KNX package for later usage
+								for(j=0;j<rc;j++)
+								{
+									thisEnv->indCounters[i].frame[j] = buffer[j];
+								}
+	
 								genECpubKeyLow(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
-								//genECpubKey(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
 								dest[0] = 0x00;
 								dest[1] = 0x00;
 								preparePacket(thisEnv, discReq, &dest[0], &buffer[3], thisEnv->indCounters[i].myPubKey);
@@ -982,7 +998,7 @@ void keyInit(void *env)
 }
 
 /*
-	entry point function from main thread - called 2 times
+	entry point function from main thread
 		uses secWRnew to write data to bus
 		communicates with read-thread secRD() over pipe
 */

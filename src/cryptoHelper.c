@@ -388,13 +388,11 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey, void *en
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *) env;
 
-	EVP_MD_CTX *mdctx;
 	size_t secret_len;
 	unsigned char *secret;
 	EC_POINT *peerEcPoint = NULL;
 	EC_KEY *peerEcKey = NULL;
 	const EC_GROUP *group = NULL;
-	unsigned char *digest;
 	uint8_t i=0;
 
 	#ifdef DEBUG
@@ -449,10 +447,7 @@ unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey, void *en
 		printf("%02X ", secret[i]);
 	}
 	printf("\n");
-/*
-*/
 	return secret;
-
 }
 /*
 	pkey is a pointer to this' side keypair
@@ -667,12 +662,15 @@ unsigned char *deriveSharedSecret(EVP_PKEY *pkey, uint8_t *peerKey, size_t *secr
 		printf("%02X", secret[i]);
 	printf("\n");
 
+	EC_KEY_free(peerEcKey);
+	EC_KEY_free(myEcKey);
+	EC_POINT_free(peerEcPoint);
 	/*	we got our secret - free unused memory	*/
 	EVP_PKEY_CTX_free(ctx);
 	EVP_PKEY_free(peerEvpKey);
 	EVP_PKEY_free(pkey);
 
-	/* Never use a derived secret directly. Typically it is passed
+	/* Never use a derived secret directly. Typically it is passed					FIXME:	generate two different keys(MAC, ENC)
 	 * through some hash function to produce a key */
 	return secret;
 }
