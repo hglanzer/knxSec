@@ -33,8 +33,8 @@ void ctrInt2Str(uint32_t indCount, uint8_t *indCountStr)
 	uint32_t buf;
 	uint8_t i=0;
 	
-	printf("converting %d to string: ", indCount);
 	buf = indCount;
+	printf("converting %d to string: ", buf);
 	for(i=INDCOUNTSIZE; i>0;i=i-1)
 	{
 		indCountStr[i-1] = buf % 256;
@@ -43,7 +43,7 @@ void ctrInt2Str(uint32_t indCount, uint8_t *indCountStr)
 
 	printf(" / finished: ");
 	for(i=0;i<INDCOUNTSIZE;i++)
-		printf("%02X ", indCountStr[i-1]);
+		printf("%02X ", indCountStr[i]);
 
 	printf("\n");
 }
@@ -78,8 +78,6 @@ uint8_t saveGlobalCount(void *env, uint8_t *buffer)
 	for(i = GLOBALCOUNTSIZE;i > 0; i=i-1)
 	{
 		tmp += buffer[i-1] * exp;
-		//thisEnv->secGlobalCountInt += buffer[i-1] * exp;
-		//thisEnv->secGlobalCount[i-1] = buffer[i-1];
 		exp = exp * 256;
 	}
 	if(tmp > thisEnv->secGlobalCountInt)
@@ -315,7 +313,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 				secBufferMAC[thisEnv->id][12] = indCountStr[3];
 
 				// we use destGA as pointer to the actual payload
-				if(!encAES(destGA, *payloadLen, *indCount, &dhPubKey[0]))
+				if(!encAES(destGA, *payloadLen, &indCountStr[0], &dhPubKey[0]))
 				{
 					printf("SEC%d: encAES() failed\n", thisEnv->id);
 					return;

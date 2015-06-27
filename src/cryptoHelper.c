@@ -340,8 +340,33 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
     return !!result;
 }
 
-uint8_t * encAES(uint8_t *msg, uint8_t msgLen, uint32_t count, uint8_t *key)
+uint8_t * encAES(uint8_t *msg, uint8_t msgLen, uint8_t *ctr, uint8_t *key)
 {
+	EVP_CIPHER_CTX *aesCtx = NULL;
+	uint8_t cipherBuf[BUFSIZE];
+	int cipherLen;
+
+	if(!(aesCtx = EVP_CIPHER_CTX_new()))
+		handleErrors();
+
+	if(1 != EVP_EncryptInit_ex(aesCtx, EVP_aes_128_ctr(), NULL, key, ctr))	
+		handleErrors();
+
+	if(1 != EVP_EncryptUpdate(aesCtx, &cipherBuf[0], &cipherLen, msg, msgLen))
+		handleErrors();
+
+	if(1 != EVP_EncryptFinal_ex(aesCtx, cipherBuf + cipherLen, &cipherLen))
+		handleErrors();	
+
+	EVP_CIPHER_CTX_free(aesCtx);
+
+	printf("ENCRYPTED, len = %d, ciphertext = ", cipherLen);
+	for(i=0;i<cipherLen;i++)
+	{
+		printf("%02X ", cipherbuf[i]);
+	}
+	printf("\n");
+
 	return NULL;
 }
 
