@@ -33,16 +33,17 @@ void ctrInt2Str(uint32_t indCount, uint8_t *indCountStr)
 	uint32_t buf;
 	uint8_t i=0;
 	
+	printf("converting %d to string: ", indCount);
 	buf = indCount;
 	for(i=INDCOUNTSIZE; i>0;i=i-1)
 	{
-		indCountStr[i] = buf % 256;
+		indCountStr[i-1] = buf % 256;
 		buf = buf / 256;
 	}
 
-	printf("converted %d to string: ", indCount);
+	printf(" / finished: ");
 	for(i=0;i<INDCOUNTSIZE;i++)
-		printf("%02X ", indCountStr[i]);
+		printf("%02X ", indCountStr[i-1]);
 
 	printf("\n");
 }
