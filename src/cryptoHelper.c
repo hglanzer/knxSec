@@ -340,6 +340,11 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
     return !!result;
 }
 
+uint8_t * encAES(uint8_t *msg, uint8_t msgLen, uint32_t count, uint8_t *key)
+{
+	return NULL;
+}
+
 /*
 	LOW LEVEL functions
 		despite the recommondation to use the EVP - high level functions, the
@@ -356,7 +361,6 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 {
 	EC_POINT *ecPoint = NULL;
 	size_t ecPoint_size;
-	uint16_t i=0;
 	const EC_GROUP *group;
 
 	if(NULL == pkey)
@@ -415,7 +419,7 @@ void genECpubKeyLow(EC_KEY *pkey, uint8_t *buf)
 */
 unsigned char *deriveSharedSecretLow(EC_KEY *pkey, uint8_t *peerPubKey, void *env)
 {
-	threadEnvSec_t *thisEnv = (threadEnvSec_t *) env;
+	//threadEnvSec_t *thisEnv = (threadEnvSec_t *) env;
 
 	size_t secret_len;
 	unsigned char *secret;

@@ -1,4 +1,5 @@
 uint8_t saveGlobalCount(void *, uint8_t *);
+void preparePacket(void *, uint8_t, uint8_t *, uint8_t *, uint8_t *, uint32_t *, uint8_t *);
 void incGlobalCount(void *);
 int checkFreshness(void *, uint8_t *);
 void time2Str(void *, unsigned char *);
@@ -13,7 +14,7 @@ void keyInit(void *);
 #define CLEANUPTIMEOUT_SEC 1
 #define SYNC_RETRIES 3
 
-#define BUFSIZE		256
+#define BUFSIZE		255
 #define PSKSIZE		32	// preshared key size
 #define GKSIZE		32	// global key size [byte]
 #define ECKSIZE		32
@@ -21,6 +22,7 @@ void keyInit(void *);
 #define MACSIZE		4
 #define DIGESTSIZE	256
 #define GLOBALCOUNTSIZE	4
+#define INDCOUNTSIZE	4
 
 #define SECLINES	2
 
@@ -48,6 +50,7 @@ void keyInit(void *);
 #define		syncRes		0x03
 #define		discReq		0x04
 #define		discRes		0x05
+#define		dataSrv		0x06
 
 #define		DATA_SRV	6
 #define		RES1		7

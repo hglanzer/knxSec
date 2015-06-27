@@ -28,6 +28,25 @@ extern struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 //	read from file to memory, securely delete file, delete buffer after initial phase...?
 uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x30\x31";
 
+void ctrInt2Str(uint32_t indCount, uint8_t *indCountStr)
+{
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
+	uint32_t buf;
+	uint8_t i=0;
+	
+	buf = indCount;
+	for(i=INDCOUNTSIZE; i>0;i=i-1)
+	{
+		indCountStr[i] = buf % 256;
+		buf = buf / 256;
+	}
+
+	printf("converted %d to string: ", indCount);
+	for(i=0;i<INDCOUNTSIZE;i++)
+		printf("%02X ", indCountStr[i]);
+
+	printf("\n");
+}
 /*
 	checks if received counter value > globalCtr
 		if yes:	inc counter
@@ -160,10 +179,11 @@ void time2Str(void *env, byte *buf)
 	}
 }
 
-void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint8_t *dhPubKey)
+void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint8_t *dhPubKey, uint32_t *indCount, uint8_t *payloadLen)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0, len = 0;
+	uint8_t indCountStr[4];
 	time2Str(env, secBufferTime[thisEnv->id]);
 
 	MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = '\0';
@@ -272,6 +292,52 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 
 		break;
 
+		case dataSrv:
+			// extended frame is required for payload(secHdr + 4byte ctr + 4byte MAC)
+			if(len > (16-(1+4+4)))
+			{
+				printf("SEC%d: assembling EXT for dataSrv\n", thisEnv->id);
+				secBufferMAC[thisEnv->id][0] = 0x00;				// set correct frame type(ext frame)
+				secBufferMAC[thisEnv->id][1] = 0x00;				// set correct frame type(std frame)
+				secBufferMAC[thisEnv->id][2] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
+				secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr
+				secBufferMAC[thisEnv->id][4] = dest[0];				// DEST = src of requester
+				secBufferMAC[thisEnv->id][5] = dest[1];				
+				secBufferMAC[thisEnv->id][6] = 1+4+len+4;			// type + ctr + KNXpayload + MAC
+				secBufferMAC[thisEnv->id][7] = 0x00;				
+				secBufferMAC[thisEnv->id][8] = dataSrv;				// set address type + len( byte payload), 
+			
+				// assemble the payload
+				ctrInt2Str(*indCount, &indCountStr[0]);
+				secBufferMAC[thisEnv->id][9] = indCountStr[0];
+				secBufferMAC[thisEnv->id][10] = indCountStr[1];
+				secBufferMAC[thisEnv->id][11] = indCountStr[2];
+				secBufferMAC[thisEnv->id][12] = indCountStr[3];
+
+				// we use destGA as pointer to the actual payload
+				if(!encAES(destGA, *payloadLen, *indCount, &dhPubKey[0]))
+				{
+					printf("SEC%d: encAES() failed\n", thisEnv->id);
+					return;
+				}
+			}
+			else
+			{
+
+				printf("SEC%d: possible??\n", thisEnv->id);
+				/*
+				secBufferMAC[thisEnv->id][0] = 0x80;				// set correct frame type(std frame)
+				secBufferMAC[thisEnv->id][1] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
+				secBufferMAC[thisEnv->id][2] = thisEnv->addrInt;		// SRC  = my addr
+				secBufferMAC[thisEnv->id][3] = dest[0];				// DEST = src of requester
+				secBufferMAC[thisEnv->id][4] = dest[1];				
+				secBufferMAC[thisEnv->id][5] = 0x0C;				// set address type + len( byte payload), 
+				secBufferMAC[thisEnv->id][6] = syncRes;				// SEC HEADER	=~	ACPI
+				*/
+			}
+
+		break;
+
 	/*
 			CTRLE: tTTL  xxxx
 			       | |     |______	RESERVED, set to ZERO
@@ -279,6 +345,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 			       |______________	0 = point-to-point extended, 1 = group addressed extended
 
 	*/
+		// handle discReq and discRes here, because most of the frame fields are similar. same would be possible for syncReq/syncRes
 		default:
 			if(type == discReq)
 			{
@@ -599,7 +666,8 @@ void secRD(void *env)
 */
 void keyInit(void *env)
 {
-	int selectRC = 0, rc = 0;
+	int selectRC = 0;
+	uint8_t rc = 0;
 	struct timeval syncTimeout;
 
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
@@ -642,7 +710,7 @@ void keyInit(void *env)
 					printf("SEC%d: sending %d. sync req\n", thisEnv->id, thisEnv->retryCount);
 				#endif
 				// prepare MAC for sync request message	
-				preparePacket(env, syncReq, NULL, NULL, NULL);
+				preparePacket(env, syncReq, NULL, NULL, NULL, NULL, NULL);
 				thisEnv->state = STATE_SYNC_WAIT_RESP;
 			break;
 			case STATE_SYNC_WAIT_RESP:
@@ -807,7 +875,7 @@ void keyInit(void *env)
 									if(rc)
 									{
 										printf("SEC%d: got fresh syncReq, reply to %d.%d.%d\n", thisEnv->id, (src[0]>>4), src[0]&0x0F, src[1]);
-										preparePacket(env, syncRes, &src[0], NULL, NULL);
+										preparePacket(env, syncRes, &src[0], NULL, NULL, NULL, NULL);
 									}
 									else
 									{
@@ -886,7 +954,7 @@ void keyInit(void *env)
 
 										dest[0] = buffer[37];
 										dest[1] = buffer[38];
-										preparePacket(thisEnv, discRes, &src[0], &dest[0], thisEnv->indCounters[i].myPubKey);
+										preparePacket(thisEnv, discRes, &src[0], &dest[0], thisEnv->indCounters[i].myPubKey, NULL, NULL);
 
 									}
 									else
@@ -916,15 +984,16 @@ void keyInit(void *env)
 											break;
 										}
 									}
-									printf("SEC%d: calc secret, parameter:", thisEnv->id);
+									printf("SEC%d: calc secret, parameter: ", thisEnv->id);
 									thisEnv->indCounters[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
 										
 									printf("SEC%d: derived common secret : ", thisEnv->id);
 									for(j=0;j<32;j++)
 										printf("%02X ", thisEnv->indCounters[i].derivedKey[j]);
 									printf("\n");
-									// finally, we got the SRC of one responsible gateway + a common secret
 
+									// finally, we got the SRC of one responsible gateway + a common secret
+									preparePacket(env, dataSrv, &src[0], NULL, thisEnv->indCounters[i].derivedKey, &thisEnv->indCounters[i].indCount, &rc);
 								}
 								else
 								{
@@ -982,7 +1051,7 @@ void keyInit(void *env)
 								genECpubKeyLow(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
 								dest[0] = 0x00;
 								dest[1] = 0x00;
-								preparePacket(thisEnv, discReq, &dest[0], &buffer[3], thisEnv->indCounters[i].myPubKey);
+								preparePacket(thisEnv, discReq, &dest[0], &buffer[3], thisEnv->indCounters[i].myPubKey, NULL, NULL);
 								pthread_mutex_unlock(&globalMutex);
 								break;
 
