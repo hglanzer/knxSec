@@ -340,34 +340,70 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
     return !!result;
 }
 
-uint8_t * encAES(uint8_t *msg, uint8_t msgLen, uint8_t *ctr, uint8_t *key)
+uint8_t encAES(uint8_t *msg, uint8_t msgLen, uint8_t *ctr, uint8_t *key, uint8_t *cipherBuf)
 {
 	EVP_CIPHER_CTX *aesCtx = NULL;
-	uint8_t cipherBuf[BUFSIZE];
-	int cipherLen, i=0;
+	int cipherLen, len=0, i=0;
+
+	//FIXME	ordering of bytes important?!
+	uint8_t ctrFull[32];
+	ctrFull[0] = ctr[0];
+	ctrFull[1] = ctr[1];
+	ctrFull[2] = ctr[2];
+	ctrFull[3] = ctr[3];
+	ctrFull[4] = 0x00;
+	ctrFull[5] = 0x00;
+	ctrFull[6] = 0x00;
+	ctrFull[7] = 0x00;
+	ctrFull[8] = 0x00;
+	ctrFull[9] = 0x00;
+	ctrFull[10] = 0x00;
+	ctrFull[11] = 0x00;
+	ctrFull[12] = 0x00;
+	ctrFull[13] = 0x00;
+	ctrFull[14] = 0x00;
+	ctrFull[15] = 0x00;
+
+	printf("msg = \t\t");
+	for(i=0;i<msgLen;i++)
+	{
+		printf("%02X ", msg[i]);
+	}
+	printf(" / len = %d\n", msgLen);
+	printf("key = \t\t");
+	for(i=0;i<32;i++)
+	{
+		printf("%02X ", key[i]);
+	}
 
 	if(!(aesCtx = EVP_CIPHER_CTX_new()))
 		handleErrors();
 
-	if(1 != EVP_EncryptInit_ex(aesCtx, EVP_aes_128_ctr(), NULL, key, ctr))	
+	printf("\n");
+
+	if(1 != EVP_EncryptInit_ex(aesCtx, EVP_aes_256_ctr(), NULL, key, ctrFull))	
 		handleErrors();
 
-	if(1 != EVP_EncryptUpdate(aesCtx, &cipherBuf[0], &cipherLen, msg, msgLen))
+	if(1 != EVP_EncryptUpdate(aesCtx, &cipherBuf[0], &len, msg, msgLen))
 		handleErrors();
 
-	if(1 != EVP_EncryptFinal_ex(aesCtx, cipherBuf + cipherLen, &cipherLen))
+	cipherLen = len;
+
+	if(1 != EVP_EncryptFinal_ex(aesCtx, cipherBuf + len, &cipherLen))
 		handleErrors();	
+
+	cipherLen += len;
 
 	EVP_CIPHER_CTX_free(aesCtx);
 
-	printf("ENCRYPTED, len = %d, ciphertext = ", cipherLen);
+	printf("ciphertxt =\t");
 	for(i=0;i<cipherLen;i++)
 	{
 		printf("%02X ", cipherBuf[i]);
 	}
-	printf("\n");
+	printf(" / len = %d\n", cipherLen);
 
-	return NULL;
+	return cipherLen;
 }
 
 /*

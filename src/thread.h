@@ -6,6 +6,7 @@ typedef struct
 	uint8_t *derivedKey;
 	uint8_t active;
 	uint8_t frame[BUFSIZE];
+	uint8_t len;
 	EC_KEY *pkey;				// this is MY key pair
 	uint8_t myPubKey[DHPUBKSIZE];		// this is MY low-level public key
 	//uint8_t peerPubKey[DHPUBKSIZE];		// this is the PEER low-level public key

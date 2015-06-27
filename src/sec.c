@@ -180,8 +180,9 @@ void time2Str(void *env, byte *buf)
 void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint8_t *dhPubKey, uint32_t *indCount, uint8_t *payloadLen)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	uint8_t i = 0, len = 0;
+	uint8_t i = 0, len = 0, rc=0;
 	uint8_t indCountStr[4];
+	uint8_t cipherBuf[BUFSIZE];
 	time2Str(env, secBufferTime[thisEnv->id]);
 
 	MSGBUF_SEC2WR[thisEnv->id].frame.buf[0] = '\0';
@@ -313,11 +314,21 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 				secBufferMAC[thisEnv->id][12] = indCountStr[3];
 
 				// we use destGA as pointer to the actual payload
-				if(!encAES(destGA, *payloadLen, &indCountStr[0], &dhPubKey[0]))
+				rc = encAES(destGA, *payloadLen, &indCountStr[0], &dhPubKey[0], &cipherBuf[0]);
+				for(i=0;i<rc;i++)
 				{
-					printf("SEC%d: encAES() failed\n", thisEnv->id);
-					return;
+					secBufferMAC[thisEnv->id][13+i] = cipherBuf[i];
 				}
+				len = 13 + rc;
+
+				i = generateHMAC(secBufferMAC[thisEnv->id], len, &sigHMAC[thisEnv->id], &thisEnv->slen, thisEnv->skey);
+				assert(i == 0);
+				if(i != 0)
+				{
+					printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
+					exit(-1);
+				}
+
 			}
 			else
 			{
@@ -991,7 +1002,7 @@ void keyInit(void *env)
 									printf("\n");
 
 									// finally, we got the SRC of one responsible gateway + a common secret
-									preparePacket(env, dataSrv, &src[0], NULL, thisEnv->indCounters[i].derivedKey, &thisEnv->indCounters[i].indCount, &rc);
+									preparePacket(env, dataSrv, &src[0], thisEnv->indCounters[i].frame, thisEnv->indCounters[i].derivedKey, &thisEnv->indCounters[i].indCount, &thisEnv->indCounters[i].len);
 								}
 								else
 								{
@@ -1039,6 +1050,7 @@ void keyInit(void *env)
 								}		
 								thisEnv->indCounters[i].dest = destEIB;
 								thisEnv->indCounters[i].active = TRUE;
+								thisEnv->indCounters[i].len = rc;
 		
 								// save the KNX package for later usage
 								for(j=0;j<rc;j++)
