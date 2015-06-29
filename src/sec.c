@@ -1108,7 +1108,7 @@ void keyInit(void *env)
 								}
 								if(found)
 								{
-									indCnt = str2CntInt(&buffer[0]);
+									indCnt = str2CtrInt(&buffer[0]);
 									if(indCnt > thisEnv->indCounters[i].indCount)
 									{
 										thisEnv->indCounters[i].indCount = indCnt;
