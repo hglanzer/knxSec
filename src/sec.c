@@ -700,13 +700,13 @@ void secRD(void *env)
 */
 void keyInit(void *env)
 {
-	int selectRC = 0;
+	int selectRC = 0, indCnt = 0;
 	uint8_t rc = 0, found=0;
 	uint8_t msgBuf[BUFSIZE];
+	uint8_t buffer[BUFSIZE], src[2], dest[2], i=0, j=0; 
 	struct timeval syncTimeout;
 
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	uint8_t buffer[BUFSIZE], src[2], dest[2], i=0, j=0; 
 	eibaddr_t srcEIB, destEIB;
 
 	thisEnv->state = STATE_INIT;
