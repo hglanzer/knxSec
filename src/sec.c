@@ -1095,7 +1095,7 @@ void keyInit(void *env)
 
 							case dataSrv:
 								pthread_mutex_lock(&globalMutex);
-								srcEIB =  ((buffer[2]<<8) | buffer[3]);
+								srcEIB =  ((buffer[0]<<8) | buffer[1]);
 								
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								
