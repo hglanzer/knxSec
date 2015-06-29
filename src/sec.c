@@ -36,10 +36,10 @@ int str2CtrInt(void *env, uint8_t *ctr)
 
 	for(i=INDCOUNTSIZE; i>0;i=i-1)
 	{
-		tmp = tmp + ctr[i] * exp;
+		tmp = tmp + ctr[i-1] * exp;
 		exp = exp*256;
 	}
-	printf("\tSEC%d: returning counterInt = %d", thisEnv->id, tmp);
+	printf("\tSEC%d: returning counterInt = %d\n", thisEnv->id, tmp);
 	return tmp;
 }
 
