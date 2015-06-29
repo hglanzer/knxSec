@@ -331,9 +331,9 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 			
 				for(i=0;i<MACSIZE;i++)
 				{	
-					secBufferMAC[thisEnv->id][13+rc+i] = sgHMAC[i];
+					secBufferMAC[thisEnv->id][13+rc+i] = sigHMAC[i];
 				}
-				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+4+rc+4), dataSrv, env, dest[0]);
+				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+4+rc+4), dataSrv, env, &dest[0]);
 			}
 			else
 			{
@@ -494,7 +494,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
        				exit(-1);
 			}
 		break;
-		case dataServ:
+		case dataSrv:
 			destEib = dest[0]<<8 | dest[1];
 			if ((EIBOpenT_Individual(thisEnv->secFDWR, destEib, 0)) == -1)
 			{
