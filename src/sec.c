@@ -1101,12 +1101,12 @@ void keyInit(void *env)
 								// extended frame
 								if((msgBuf[0] & 0x80) == 0)
 								{
-									srcEIB =  ((msgBuf[2]<<8) | buffer[3]);
+									srcEIB =  ((msgBuf[2]<<8) | msgBuf[3]);
 								}
 								// STD frame
 								else
 								{
-									srcEIB =  ((buffer[1]<<8) | buffer[2]);
+									srcEIB =  ((msgBuf[1]<<8) | msgBuf[2]);
 								}
 							
 								found = FALSE;
