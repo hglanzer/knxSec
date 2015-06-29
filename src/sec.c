@@ -703,7 +703,7 @@ void secRD(void *env)
 */
 void keyInit(void *env)
 {
-	int selectRC = 0, indCnt = 0;
+	int selectRC = 0, indCntTmp = 0;
 	uint8_t rc = 0, found=0;
 	uint8_t msgBuf[BUFSIZE];
 	uint8_t buffer[BUFSIZE], src[2], dest[2], i=0, j=0; 
@@ -1111,34 +1111,24 @@ void keyInit(void *env)
 									printf("SEC%d: STD frame for SRC = %d\n", thisEnv->id, srcEIB);
 								}
 							
-								found = FALSE;
 								for(i=0;i<10;i++)	
 								{
 									if(thisEnv->indCounters[i].src == srcEIB)
 									{
 										printf("SEC%d: found src %d for incoming dataSrv [%02d], ctr = %02d\n", thisEnv->id, srcEIB, i, thisEnv->indCounters[i].indCount);
-										found = TRUE;
+										indCntTmp = str2CtrInt(env, &buffer[0]);
+										if(indCntTmp > thisEnv->indCounters[i].indCount)
+										{
+											thisEnv->indCounters[i].indCount = indCntTmp;
+											printf("SEC%d: forwarding payload, ctr = %d now\n", thisEnv->id, thisEnv->indCounters[i].indCount);
+										}
+										else
+										{
+											printf("SEC%d: discarding duplicate\n", thisEnv->id);
+										}
 										break;
 									}
 								}
-								if(found)
-								{
-									indCnt = str2CtrInt(env, &buffer[0]);
-									if(indCnt > thisEnv->indCounters[i].indCount)
-									{
-										thisEnv->indCounters[i].indCount = indCnt;
-										printf("SEC%d: forwarding payload\n", thisEnv->id);
-									}
-									else
-									{
-										printf("SEC%d: discarding duplicate\n", thisEnv->id);
-									}
-									
-								}
-								else
-								{
-									printf("SEC%d: not my dataSrv frame\n", thisEnv->id);
-								}	
 								pthread_mutex_unlock(&globalMutex);
 								break;
 
