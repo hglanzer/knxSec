@@ -302,7 +302,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 				secBufferMAC[thisEnv->id][3] = thisEnv->addrInt;		// SRC  = my addr
 				secBufferMAC[thisEnv->id][4] = dest[0];				// DEST = src of requester
 				secBufferMAC[thisEnv->id][5] = dest[1];				
-				secBufferMAC[thisEnv->id][6] = 1+4+len+4;			// type + ctr + KNXpayload + MAC
+				secBufferMAC[thisEnv->id][6] = 1+4+payloadLen+4;		// type + ctr + KNXpayload + MAC
 				secBufferMAC[thisEnv->id][7] = 0x00;				
 				secBufferMAC[thisEnv->id][8] = dataSrv;				// set address type + len( byte payload), 
 			
