@@ -1095,7 +1095,8 @@ void keyInit(void *env)
 
 							case dataSrv:
 								pthread_mutex_lock(&globalMutex);
-								srcEIB =  ((msgBuf[2]<<8) | msgBuf[3]);
+								srcEIB =  ((buffer[2]<<8) | buffer[3]);
+								
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								
 								decAES(&buffer[4], rc-4, &buffer[0], thisEnv->indCounters[i].derivedKey, msgBuf);
