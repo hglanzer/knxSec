@@ -1097,12 +1097,24 @@ void keyInit(void *env)
 								pthread_mutex_lock(&globalMutex);
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								
+								decAES(&buffer[4], rc-4, &buffer[0], thisEnv->indCounters[i].derivedKey, msgBuf);
+								// extended frame
+								if((msgBuf[0] & 0x80) == 0)
+								{
+									srcEIB =  ((msgBuf[2]<<8) | buffer[3]);
+								}
+								// STD frame
+								else
+								{
+									srcEIB =  ((buffer[1]<<8) | buffer[2]);
+								}
+							
 								found = FALSE;
 								for(i=0;i<10;i++)	
 								{
 									if(thisEnv->indCounters[i].src == srcEIB)
 									{
-										printf("SEC%d: found src for incoming dataSrv [%02d], ctr = %02d\n", thisEnv->id, i, thisEnv->indCounters[i].indCount);
+										printf("SEC%d: found src %d for incoming dataSrv [%02d], ctr = %02d\n", thisEnv->id, srcEIB, i, thisEnv->indCounters[i].indCount);
 										found = TRUE;
 										break;
 									}
@@ -1113,7 +1125,7 @@ void keyInit(void *env)
 									if(indCnt > thisEnv->indCounters[i].indCount)
 									{
 										thisEnv->indCounters[i].indCount = indCnt;
-										decAES(&buffer[4], rc-4, &buffer[0], thisEnv->indCounters[i].derivedKey, msgBuf);
+										printf("SEC%d: forwarding payload\n", thisEnv->id);
 									}
 									else
 									{
