@@ -398,8 +398,9 @@ void decAES(uint8_t *cipher, uint8_t cipherLen, uint8_t *ctr, uint8_t *key, uint
 	printf("msg = \t\t");
 	for(i=0;i<cipherLen;i++)
 	{
-		printf("%02X ", cipher[i]);
+		printf("%02X ", msgBuf[i]);
 	}
+	printf("\n");
 
 }
 uint8_t encAES(uint8_t *msg, uint8_t msgLen, uint8_t *ctr, uint8_t *key, uint8_t *cipherBuf)
