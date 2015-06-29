@@ -1119,7 +1119,8 @@ void keyInit(void *env)
 										indCntTmp = str2CtrInt(env, &buffer[0]);
 										if(indCntTmp > thisEnv->indCounters[i].indCount)
 										{
-											thisEnv->indCounters[i].indCount = indCntTmp;
+											thisEnv->indCounters[0].indCount = indCntTmp;
+											thisEnv->indCounters[1].indCount = indCntTmp;
 											printf("SEC%d: forwarding payload, ctr = %d now\n", thisEnv->id, thisEnv->indCounters[i].indCount);
 										}
 										else
