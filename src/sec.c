@@ -1073,7 +1073,7 @@ void keyInit(void *env)
 								
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								
-								decAES(&buffer[4], rc-4, &buffer[0], thisEnv->indCounters[i].derivedKey, msgBuf);
+								decAES(&buffer[4], rc-4, &buffer[0], thisEnv->indCounters[i].derivedKey, &msgBuf[4]);
 								// extended frame
 								if((msgBuf[0] & 0x80) == 0)
 								{
@@ -1086,6 +1086,12 @@ void keyInit(void *env)
 								}
 							
 								printf("SEC%d: FWD to clrWR\n", thisEnv->id);
+
+								// prepend the indCounter value
+								msgBuf[0] = buffer[0];
+								msgBuf[1] = buffer[1];
+								msgBuf[2] = buffer[2];
+								msgBuf[3] = buffer[3];
 								write(*thisEnv->SECs2ClrPipePtr[WRITEEND], &buffer[0], rc);	// FIXME - non-blocking
 						//		pthread_mutex_unlock(&globalMutex);
 							break;
