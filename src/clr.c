@@ -11,12 +11,37 @@
 
 extern pthread_mutex_t globalMutex;
 
+int str2CtrInt(uint8_t *ctr)
+{
+	uint8_t i = 0;
+	uint32_t tmp = 0, exp=1;
+
+	for(i=INDCOUNTSIZE; i>0;i=i-1)
+	{
+		tmp = tmp + ctr[i-1] * exp;
+		exp = exp*256;
+		printf("%02X  ", ctr[i-1]);
+	}
+	return tmp;
+}
+
 void clrWR(void *threadEnv)
 {
+	threadEnvClr_t *thisEnv = (threadEnvClr_t *)threadEnv;
+	uint8_t rc = 0, i=0;
+	uint8_t buffer[BUFSIZE];
+	int indCntTmp;
 	while(1)
 	{
-	//	debug("CLS: blocking(MUTEX)", pthread_self());
-		sleep(10);
+		rc = read(thisEnv->SECs2ClrPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
+		indCntTmp = str2CtrInt(&buffer[0]);
+
+		printf("CLR-WR: got input ");
+
+		for(i=0;i<rc;i++)
+			printf("%02X ", buffer[i]);
+
+		printf(", indCtr = %04d\n", indCntTmp);
 	}
 }
 

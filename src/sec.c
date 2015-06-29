@@ -28,23 +28,6 @@ extern struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 //	read from file to memory, securely delete file, delete buffer after initial phase...?
 uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x30\x31";
 
-int str2CtrInt(void *env, uint8_t *ctr)
-{
-	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
-	uint8_t i = 0;
-	uint32_t tmp = 0, exp=1;
-
-	printf("\tSEC%d: got ctrStr = ", thisEnv->id);
-	for(i=INDCOUNTSIZE; i>0;i=i-1)
-	{
-		tmp = tmp + ctr[i-1] * exp;
-		exp = exp*256;
-		printf("%02X  ", ctr[i-1]);
-	}
-	printf(" / returning counterInt = %d\n", tmp);
-	return tmp;
-}
-
 void ctrInt2Str(uint32_t indCount, uint8_t *indCountStr)
 {
 	uint32_t buf;
@@ -703,8 +686,8 @@ void secRD(void *env)
 */
 void keyInit(void *env)
 {
-	int selectRC = 0, indCntTmp = 0;
-	uint8_t rc = 0, found=0;
+	int selectRC = 0;
+	uint8_t rc = 0;
 	uint8_t msgBuf[BUFSIZE];
 	uint8_t buffer[BUFSIZE], src[2], dest[2], i=0, j=0; 
 	struct timeval syncTimeout;
@@ -727,14 +710,6 @@ void keyInit(void *env)
 					printf("SEC%d: INIT\n", thisEnv->id);
 				#endif
 
-/*	
-				thisEnv->MSGIDsecMASTER = msgget(MSGKEY_SEC2WR, MSG_PERM);
-				if(thisEnv->MSGIDsecMASTER == -1)
-				{
-					printf("SEC%d-MA: message queue msgget() failed: %s\n", thisEnv->id, strerror(errno));
-					exit(-1);
-				}
-*/
 				thisEnv->retryCount = 0;
 				
 				FD_ZERO(&thisEnv->set);
@@ -1095,7 +1070,6 @@ void keyInit(void *env)
 
 							case dataSrv:
 								pthread_mutex_lock(&globalMutex);
-								srcEIB =  ((buffer[0]<<8) | buffer[1]);
 								
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								
@@ -1111,27 +1085,10 @@ void keyInit(void *env)
 									printf("SEC%d: STD frame for SRC = %d\n", thisEnv->id, srcEIB);
 								}
 							
-								for(i=0;i<10;i++)	
-								{
-									if(thisEnv->indCounters[i].src == srcEIB)
-									{
-										printf("SEC%d: found src %d for incoming dataSrv [%02d], ctr = %02d\n", thisEnv->id, srcEIB, i, thisEnv->indCounters[i].indCount);
-										indCntTmp = str2CtrInt(env, &buffer[0]);
-										if(indCntTmp > thisEnv->indCounters[i].indCount)
-										{
-											thisEnv->indCounters[0].indCount = indCntTmp;
-											thisEnv->indCounters[1].indCount = indCntTmp;
-											printf("SEC%d: forwarding payload, ctr = %d now\n", thisEnv->id, thisEnv->indCounters[i].indCount);
-										}
-										else
-										{
-											printf("SEC%d: discarding duplicate\n", thisEnv->id);
-										}
-										break;
-									}
-								}
+								printf("SEC%d: FWD to clrWR\n", thisEnv->id);
+								write(*thisEnv->SECs2ClrPipePtr[WRITEEND], &buffer[0], rc);	// FIXME - non-blocking
 								pthread_mutex_unlock(&globalMutex);
-								break;
+							break;
 
 							default: 	
 								printf("SEC%d: got unknown type = %d\n", thisEnv->id, buffer[2]);

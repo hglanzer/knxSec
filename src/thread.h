@@ -9,7 +9,6 @@ typedef struct
 	uint8_t len;
 	EC_KEY *pkey;				// this is MY key pair
 	uint8_t myPubKey[DHPUBKSIZE];		// this is MY low-level public key
-	//uint8_t peerPubKey[DHPUBKSIZE];		// this is the PEER low-level public key
 }indCounters_t;
 
 /*
@@ -21,8 +20,10 @@ typedef struct
 	char *addrStr;		// allowed device addesses: 1-15
 	uint8_t addrInt;
 	EIBConnection *clrFD;
+	//	FDs for pipe()
 	int *CLR2Master1PipePtr[2];
 	int *CLR2Master2PipePtr[2];
+	int SECs2ClrPipe[2];
 }threadEnvClr_t;
 
 /*
@@ -45,10 +46,9 @@ typedef struct
 	uint32_t secGlobalCountInt;
 	uint8_t addrInt;
 	fd_set set;			// used for pipe-timeout
-	int RD2MasterPipe[2];
 	uint8_t state;
 	uint8_t retryCount;
-	uint8_t tmpsecWR;
-	int MSGIDsecWR;
-	int MSGIDsecMASTER;
+	//	FDs for pipe()
+	int RD2MasterPipe[2];		// connection 
+	int *SECs2ClrPipePtr[2];
 }threadEnvSec_t;

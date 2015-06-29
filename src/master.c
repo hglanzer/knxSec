@@ -165,12 +165,24 @@ int main(int argc, char **argv)
 		printf("pipe() for SEC1 failed, exit\n");
 		exit(-1);
 	}
-	
+	if(pipe(threadEnvClr.SECs2ClrPipe) == -1)
+	{
+		printf("pipe() for SECsToClrPipe failed, exit\n");
+		exit(-1);
+	}
+
+	//	this connects booth SEC-threads to clrWR
+	threadEnvSec[0].SECs2ClrPipePtr[READEND] =  &threadEnvClr.SECs2ClrPipe[READEND]; 
+	threadEnvSec[1].SECs2ClrPipePtr[WRITEEND] = &threadEnvClr.SECs2ClrPipe[WRITEEND]; 
+
+	//	this connects clrRD to SEC0	
 	threadEnvClr.CLR2Master1PipePtr[READEND] = &threadEnvSec[0].RD2MasterPipe[READEND];
 	threadEnvClr.CLR2Master1PipePtr[WRITEEND] = &threadEnvSec[0].RD2MasterPipe[WRITEEND];
 
+	//	this connects clrRD to SEC1
 	threadEnvClr.CLR2Master2PipePtr[READEND] = &threadEnvSec[1].RD2MasterPipe[READEND];
 	threadEnvClr.CLR2Master2PipePtr[WRITEEND] = &threadEnvSec[1].RD2MasterPipe[WRITEEND];
+
 	/*
 		----------------	create SEC threads
 					secure-knx master thread 1	
@@ -227,7 +239,6 @@ int main(int argc, char **argv)
 		printf("sec2Mst  Thread: %u\n", (unsigned)sec2MasterThread);
 		printf("clearMst Thread: %u\n\n\n", (unsigned)clrMasterThread);
 	#endif
-//	pthread_join(clrMasterThread, &clrThreadRetval);
 	pthread_join(clrMasterThread, &clrThreadRetval);
 	pthread_join(clrRDThread, &clrThreadRetval);
 	pthread_join(sec1MasterThread, &sec1ThreadRetval);
