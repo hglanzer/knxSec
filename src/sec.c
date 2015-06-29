@@ -41,7 +41,7 @@ int str2CtrInt(void *env, uint8_t *ctr)
 		exp = exp*256;
 		printf("%02X  ", ctr[i-1]);
 	}
-	printf(" / returning counterInt = %d\n", thisEnv->id, tmp);
+	printf(" / returning counterInt = %d\n", tmp);
 	return tmp;
 }
 
