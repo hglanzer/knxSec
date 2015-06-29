@@ -329,11 +329,13 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 					exit(-1);
 				}
 			
+				printf("SEC%d: MAC = ", thisEnv->id);
 				for(i=0;i<MACSIZE;i++)
 				{	
 					secBufferMAC[thisEnv->id][13+rc+i] = sigHMAC[thisEnv->id][i];
+					printf("%02X ", sigHMAC[thisEnv->id][i]);
 				}
-				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+4+rc+4), dataSrv, env, &dest[0]);
+				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+1+4+rc+4), dataSrv, env, &dest[0]);
 			}
 			else
 			{
@@ -444,7 +446,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 	thisEnv->secFDWR = EIBSocketURL(thisEnv->socketPath);
 	if (!thisEnv->secFDWR)
 	{
-		printf("  SEC%d-WR: EIBSocketURL() failed: %s\n\n", thisEnv->id, thisEnv->socketPath);
+		printf("\tSEC%d-WR: EIBSocketURL() failed: %s\n\n", thisEnv->id, thisEnv->socketPath);
 		exit(-1);
 	}
 
