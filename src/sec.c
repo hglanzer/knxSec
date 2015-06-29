@@ -331,7 +331,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 			
 				for(i=0;i<MACSIZE;i++)
 				{	
-					secBufferMAC[thisEnv->id][13+rc+i] = sigHMAC[i];
+					secBufferMAC[thisEnv->id][13+rc+i] = sigHMAC[thisEnv->id][i];
 				}
 				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+4+rc+4), dataSrv, env, &dest[0]);
 			}
