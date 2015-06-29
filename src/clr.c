@@ -34,6 +34,7 @@ void clrWR(void *threadEnv)
 	while(1)
 	{
 		rc = read(thisEnv->SECs2ClrPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
+
 		pthread_mutex_lock(&globalMutex);
 		printf("CLR-WR: got input ");
 		
