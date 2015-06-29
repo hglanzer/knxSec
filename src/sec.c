@@ -30,6 +30,7 @@ uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13
 
 int str2CtrInt(void *env, uint8_t *ctr)
 {
+	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0;
 	uint32_t tmp, exp=256;
 
@@ -38,7 +39,7 @@ int str2CtrInt(void *env, uint8_t *ctr)
 		tmp = tmp + ctr[i] * exp;
 		exp = exp*256;
 	}
-	printf("\tSEC%d: returning counterInt = %d", tmp);
+	printf("\tSEC%d: returning counterInt = %d", thisEnv->id, tmp);
 	return tmp;
 }
 
