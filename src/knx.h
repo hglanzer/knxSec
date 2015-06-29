@@ -61,7 +61,7 @@ int decodeFrame(uint8_t *, knxPacket *);
 #define isIndivAddrExt(frame)		((frame[1] >> 7) ^ 0x01)
 
 #define srcAreaAddressExt(frame)		(frame[2] >> 4)
-#define srcLineAddressExt(frame)		((frame[3] & 0x0F))
+#define srcLineAddressExt(frame)		((frame[2] & 0x0F))
 #define srcDeviceAddressExt(frame)		(frame[3])
 
 #define destAreaAddressExt(frame)		((frame[4] >> 4 ))
