@@ -28,6 +28,20 @@ extern struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 //	read from file to memory, securely delete file, delete buffer after initial phase...?
 uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x30\x31";
 
+int str2CtrInt(void *env, uint8_t *ctr)
+{
+	uint8_t i = 0;
+	uint32_t tmp, exp=256;
+
+	for(i=INDCOUNTSIZE; i>0;i=i-1)
+	{
+		tmp = tmp + ctr[i] * exp;
+		exp = exp*256;
+	}
+	printf("\tSEC%d: returning counterInt = %d", tmp);
+	return tmp;
+}
+
 void ctrInt2Str(uint32_t indCount, uint8_t *indCountStr)
 {
 	uint32_t buf;
@@ -1093,7 +1107,17 @@ void keyInit(void *env)
 								}
 								if(found)
 								{
-									decAES(&buffer[4], rc-4, &buffer[0], thisEnv->indCounters[i].derivedKey, msgBuf);
+									indCnt = str2cntInt(&buffer[0]);
+									if(indCnt > thisEnv->indCounters[i].indCount)
+									{
+										thisEnv->indCounters[i].indCount = indCnt;
+										decAES(&buffer[4], rc-4, &buffer[0], thisEnv->indCounters[i].derivedKey, msgBuf);
+									}
+									else
+									{
+										printf("SEC%d: discarding duplicate\n", thisEnv->id);
+									}
+									
 								}
 								else
 								{
