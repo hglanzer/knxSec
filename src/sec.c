@@ -617,12 +617,12 @@ void secRD(void *env)
 
 						if(i != 0)
 						{
-							printf("\tSEC%d-RD: verifyHMAC() failed/attack?\n", thisEnv->id);
+							printf("\tSEC%d-RD     : ", thisEnv->id);
 							for(i=0; i<rc;i++)
 							{
 								printf("%02x ", thisEnv->secRDbuf[i]);
 							}
-							printf(" / %d bytes total\n", rc);
+							printf(" / %d bytes total, BAD MAC\n", rc);
 						}
 						else
 						{
