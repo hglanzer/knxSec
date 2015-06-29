@@ -1095,19 +1095,18 @@ void keyInit(void *env)
 
 							case dataSrv:
 								pthread_mutex_lock(&globalMutex);
+								srcEIB =  ((msgBuf[2]<<8) | msgBuf[3]);
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								
 								decAES(&buffer[4], rc-4, &buffer[0], thisEnv->indCounters[i].derivedKey, msgBuf);
 								// extended frame
 								if((msgBuf[0] & 0x80) == 0)
 								{
-									srcEIB =  ((msgBuf[2]<<8) | msgBuf[3]);
 									printf("SEC%d: EXT frame for SRC = %d\n", thisEnv->id, srcEIB);
 								}
 								// STD frame
 								else
 								{
-									srcEIB =  ((msgBuf[1]<<8) | msgBuf[2]);
 									printf("SEC%d: STD frame for SRC = %d\n", thisEnv->id, srcEIB);
 								}
 							
