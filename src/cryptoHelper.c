@@ -338,6 +338,71 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
     return !!result;
 }
 
+void decAES(uint8_t *cipher, uint8_t cipherLen, uint8_t *ctr, uint8_t *key, uint8_t *msgBuf)
+{
+	EVP_CIPHER_CTX *aesCtx = NULL;
+	int plaintextLen, len=0, i=0;
+
+	//FIXME	ordering of bytes important?!
+	uint8_t ctrFull[32];
+	ctrFull[0] = ctr[0];
+	ctrFull[1] = ctr[1];
+	ctrFull[2] = ctr[2];
+	ctrFull[3] = ctr[3];
+	ctrFull[4] = 0x00;
+	ctrFull[5] = 0x00;
+	ctrFull[6] = 0x00;
+	ctrFull[7] = 0x00;
+	ctrFull[8] = 0x00;
+	ctrFull[9] = 0x00;
+	ctrFull[10] = 0x00;
+	ctrFull[11] = 0x00;
+	ctrFull[12] = 0x00;
+	ctrFull[13] = 0x00;
+	ctrFull[14] = 0x00;
+	ctrFull[15] = 0x00;
+
+	printf("ciphertxt =\t");
+	for(i=0;i<cipherLen;i++)
+	{
+		printf("%02X ", cipherBuf[i]);
+	}
+	printf(" / len = %d\n", cipherLen);
+
+	printf("key = \t\t");
+	for(i=0;i<32;i++)
+	{
+		printf("%02X ", key[i]);
+	}
+	printf("\n");
+
+	if(!(aesCtx = EVP_CIPHER_CTX_new()))
+		handleErrors();
+
+
+	if(1 != EVP_DecryptInit_ex(aesCtx, EVP_aes_256_ctr(), NULL, key, ctrFull))	
+		handleErrors();
+
+	if(1 != EVP_DecryptUpdate(aesCtx, &msgBuf[0], &len, cipher, cipherLen))
+		handleErrors();
+
+	plaintextLen = len;
+
+	if(1 != EVP_DecryptFinal_ex(aesCtx, msgBuf + len, &len))
+		handleErrors();	
+
+	plaintextLen += len;
+
+	EVP_CIPHER_CTX_free(aesCtx);
+	
+	printf("msg = \t\t");
+	for(i=0;i<cipherLen;i++)
+	{
+		printf("%02X ", cipher[i]);
+	}
+	printf(" / len = %d\n", msgLen);
+
+}
 uint8_t encAES(uint8_t *msg, uint8_t msgLen, uint8_t *ctr, uint8_t *key, uint8_t *cipherBuf)
 {
 	EVP_CIPHER_CTX *aesCtx = NULL;

@@ -687,7 +687,8 @@ void secRD(void *env)
 void keyInit(void *env)
 {
 	int selectRC = 0;
-	uint8_t rc = 0;
+	uint8_t rc = 0, found=0;
+	uint8_t msgBuf[BUFSIZE];
 	struct timeval syncTimeout;
 
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
@@ -1073,6 +1074,31 @@ void keyInit(void *env)
 								dest[0] = 0x00;
 								dest[1] = 0x00;
 								preparePacket(thisEnv, discReq, &dest[0], &buffer[3], thisEnv->indCounters[i].myPubKey, NULL, NULL);
+								pthread_mutex_unlock(&globalMutex);
+								break;
+
+							case dataSrv:
+								pthread_mutex_lock(&globalMutex);
+								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
+								
+								found = FALSE;
+								for(i=0;i<10;i++)	
+								{
+									if(thisEnv->indCounters[i].src == srcEIB)
+									{
+										printf("SEC%d: found src for incoming dataSrv [%02d], ctr = %02d\n", thisEnv->id, i, thisEnv->indCounters[i].indCount);
+										found = TRUE;
+										break;
+									}
+								}
+								if(found)
+								{
+									decAES(&buffer[13], rc-4, &buffer[9], thisEnv->indCounters[i].derivedKey, msgBuf);
+								}
+								else
+								{
+									printf("SEC%d: not my dataSrv frame\n", thisEnv->id);
+								}	
 								pthread_mutex_unlock(&globalMutex);
 								break;
 
