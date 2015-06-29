@@ -32,7 +32,7 @@ int str2CtrInt(void *env, uint8_t *ctr)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0;
-	uint32_t tmp = 0, exp=256;
+	uint32_t tmp = 0, exp=1;
 
 	printf("\tSEC%d: got ctrStr = ", thisEnv->id);
 	for(i=INDCOUNTSIZE; i>0;i=i-1)
