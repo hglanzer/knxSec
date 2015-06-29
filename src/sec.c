@@ -1087,7 +1087,7 @@ void keyInit(void *env)
 							
 								printf("SEC%d: FWD to clrWR\n", thisEnv->id);
 								write(*thisEnv->SECs2ClrPipePtr[WRITEEND], &buffer[0], rc);	// FIXME - non-blocking
-								pthread_mutex_unlock(&globalMutex);
+						//		pthread_mutex_unlock(&globalMutex);
 							break;
 
 							default: 	
