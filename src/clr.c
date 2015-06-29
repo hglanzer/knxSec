@@ -33,9 +33,10 @@ void clrWR(void *threadEnv)
 	int indCntTmp;
 	while(1)
 	{
-		pthread_mutex_lock(&globalMutex);
 		printf("CLR-WR: got input ");
 		rc = read(thisEnv->SECs2ClrPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
+		
+		pthread_mutex_lock(&globalMutex);
 		indCntTmp = str2CtrInt(&buffer[0]);
 
 
