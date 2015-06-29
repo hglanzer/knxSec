@@ -1092,7 +1092,7 @@ void keyInit(void *env)
 								msgBuf[1] = buffer[1];
 								msgBuf[2] = buffer[2];
 								msgBuf[3] = buffer[3];
-								write(*thisEnv->SECs2ClrPipePtr[WRITEEND], &buffer[0], rc);	// FIXME - non-blocking
+								write(*thisEnv->SECs2ClrPipePtr[WRITEEND], &msgBuf[0], rc);	// FIXME - non-blocking
 						//		pthread_mutex_unlock(&globalMutex);
 							break;
 
