@@ -313,7 +313,7 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 				secBufferMAC[thisEnv->id][11] = indCountStr[2];
 				secBufferMAC[thisEnv->id][12] = indCountStr[3];
 
-				// we use destGA as pointer to the actual payload
+				// use destGA as pointer to the actual payload	DIRTY
 				rc = encAES(destGA, *payloadLen, &indCountStr[0], &dhPubKey[0], &cipherBuf[0]);
 				for(i=0;i<rc;i++)
 				{
@@ -328,21 +328,18 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 					printf("SEC%d: FATAL, generateMAC() failed, exit\n", thisEnv->id);
 					exit(-1);
 				}
-
+			
+				for(i=0;i<MACSIZE;i++)
+				{	
+					secBufferMAC[thisEnv->id][13+rc+i] = sgHMAC[i];
+				}
+				secWRnew((char *)&secBufferMAC[thisEnv->id][7], (1+4+rc+4), dataSrv, env, dest[0]);
 			}
 			else
 			{
-
-				printf("SEC%d: possible??\n", thisEnv->id);
-				/*
-				secBufferMAC[thisEnv->id][0] = 0x80;				// set correct frame type(std frame)
-				secBufferMAC[thisEnv->id][1] = (1<<4) | (thisEnv->id);		// SRC  = my addr 
-				secBufferMAC[thisEnv->id][2] = thisEnv->addrInt;		// SRC  = my addr
-				secBufferMAC[thisEnv->id][3] = dest[0];				// DEST = src of requester
-				secBufferMAC[thisEnv->id][4] = dest[1];				
-				secBufferMAC[thisEnv->id][5] = 0x0C;				// set address type + len( byte payload), 
-				secBufferMAC[thisEnv->id][6] = syncRes;				// SEC HEADER	=~	ACPI
-				*/
+				// this should never happen
+				printf("SEC%d: possible??\n\n\n", thisEnv->id);
+				exit(-1);
 			}
 
 		break;
@@ -497,7 +494,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
        				exit(-1);
 			}
 		break;
-		case discRes:
+		case dataServ:
 			destEib = dest[0]<<8 | dest[1];
 			if ((EIBOpenT_Individual(thisEnv->secFDWR, destEib, 0)) == -1)
 			{
@@ -510,6 +507,7 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
        				exit(-1);
 			}
 		break;
+	
 		default:
 			printf("default: ARGL\n");
 		
