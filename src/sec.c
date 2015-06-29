@@ -1093,7 +1093,7 @@ void keyInit(void *env)
 								}
 								if(found)
 								{
-									decAES(&buffer[13], rc-4, &buffer[9], thisEnv->indCounters[i].derivedKey, msgBuf);
+									decAES(&buffer[4], rc-4, &buffer[0], thisEnv->indCounters[i].derivedKey, msgBuf);
 								}
 								else
 								{
