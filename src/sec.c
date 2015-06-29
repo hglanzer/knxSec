@@ -970,8 +970,7 @@ void keyInit(void *env)
 											{
 												printf("NOT found, adding src %d [%d] \n", srcEIB, i);
 												thisEnv->indCounters[i].src = srcEIB;
-												thisEnv->indCounters[i].indCount = 0x01;
-												//thisEnv->indCounters[i].pkey = EC_KEY_new();
+												thisEnv->indCounters[i].indCount = 0x00;
 												thisEnv->indCounters[i].pkey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
 												if(thisEnv->indCounters[i].pkey == NULL)
 												{
