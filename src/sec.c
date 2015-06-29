@@ -416,8 +416,6 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 			{
 				secBufferMAC[thisEnv->id][i+2+7+4+33+2] = sigHMAC[thisEnv->id][i];
 			}
-			// call write thread directly from here
-			printf("SEC%d: writing discovery Request\n", thisEnv->id);
 
 								// secHdr + TPCI + CTR + DH + G.A. + MAC
 			if(type == discReq)
@@ -484,6 +482,19 @@ int secWRnew(char *buf, uint8_t len, uint8_t type, void *env, uint8_t *dest)
 		break;
 		case discReq:
 			if ((EIBOpenT_Broadcast(thisEnv->secFDWR, 0)) == -1)
+			{
+				printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
+				exit(-1);
+			}
+			if (EIBSendAPDU(thisEnv->secFDWR, len, (const uint8_t *)buf) == -1)
+			{
+				printf("EIBOpenSendTPDU() failed\n\n");
+       				exit(-1);
+			}
+		break;
+		case discRes:
+			destEib = dest[0]<<8 | dest[1];
+			if ((EIBOpenT_Individual(thisEnv->secFDWR, destEib, 0)) == -1)
 			{
 				printf("SEC%d-WR: EIBOpenT_Broadcast() failed\n\n", thisEnv->id);
 				exit(-1);
