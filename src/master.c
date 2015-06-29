@@ -172,7 +172,9 @@ int main(int argc, char **argv)
 	}
 
 	//	this connects booth SEC-threads to clrWR
-	threadEnvSec[0].SECs2ClrPipePtr[READEND] =  &threadEnvClr.SECs2ClrPipe[READEND]; 
+	threadEnvSec[0].SECs2ClrPipePtr[READEND] =  &threadEnvClr.SECs2ClrPipe[READEND]; 	// not needed, unidirectional comm SECx -> CLR
+	threadEnvSec[1].SECs2ClrPipePtr[READEND] =  &threadEnvClr.SECs2ClrPipe[READEND]; 	// ------------- " ------------
+	threadEnvSec[0].SECs2ClrPipePtr[WRITEEND] =  &threadEnvClr.SECs2ClrPipe[WRITEEND]; 
 	threadEnvSec[1].SECs2ClrPipePtr[WRITEEND] = &threadEnvClr.SECs2ClrPipe[WRITEEND]; 
 
 	//	this connects clrRD to SEC0	
