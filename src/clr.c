@@ -20,7 +20,6 @@ int str2CtrInt(uint8_t *ctr)
 	{
 		tmp = tmp + ctr[i-1] * exp;
 		exp = exp*256;
-		printf("%02X  ", ctr[i-1]);
 	}
 	return tmp;
 }
