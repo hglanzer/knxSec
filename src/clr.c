@@ -100,12 +100,12 @@ void clrWR(void *threadEnv)
 
 		if((buffer[4] >> 8) && 0x01)
 		{
-			printf("STD");
+			printf("STD\n");
 			rc = searchSRC(threadEnv, &buffer[5], indCntTmp);
 		}
 		else
 		{
-			printf("EXT");
+			printf("EXT\n");
 			rc = searchSRC(threadEnv, &buffer[6], indCntTmp);
 		}
 

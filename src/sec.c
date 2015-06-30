@@ -710,9 +710,7 @@ void keyInit(void *env)
 		switch(thisEnv->state)
 		{
 			case STATE_INIT:
-				#ifdef DEBUG
 					printf("SEC%d: INIT\n", thisEnv->id);
-				#endif
 
 				thisEnv->retryCount = 0;
 				
@@ -731,9 +729,7 @@ void keyInit(void *env)
 				thisEnv->state = STATE_SYNC_WAIT_RESP;
 			break;
 			case STATE_SYNC_WAIT_RESP:
-				#ifdef DEBUG
 					printf("SEC%d: SYNC_WAIT_RESP\n", thisEnv->id);
-				#endif
 				syncTimeout.tv_sec = SYNCTIMEOUT_SEC;
 				syncTimeout.tv_usec = 0;	
 
@@ -759,9 +755,7 @@ void keyInit(void *env)
 				{
 					// error
 					printf("%s - ", strerror(errno));
-					#ifdef DEBUG
-						printf("SEC%d: select() error\n", thisEnv->id);
-					#endif
+					printf("SEC%d: select() error\n", thisEnv->id);
 				}
 				// data received
 				else
@@ -818,9 +812,7 @@ void keyInit(void *env)
 			// looks like this node is alone - reset global counter
 			// FIXME:	maybe choose random counter?
 			case STATE_RESET_CTR:
-				#ifdef DEBUG
 					printf("SEC%d: RESET_CTR\n", thisEnv->id);
-				#endif
 
 				buffer[0] = 0x00;	// highest digit
 				buffer[1] = 0x00;
@@ -833,9 +825,7 @@ void keyInit(void *env)
 
 			// node is ready to process datagrams
 			case STATE_READY:
-				#ifdef DEBUG
-					printf("SEC%d: key master ready\n", thisEnv->id);
-				#endif
+					printf("SEC%d: key master ready, global key = %d\n", thisEnv->id, thisEnv->secGlobalCountInt);
 				while(1)
 				{
 					/*
