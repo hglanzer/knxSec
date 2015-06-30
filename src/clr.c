@@ -98,14 +98,14 @@ void clrWR(void *threadEnv)
 		for(i=0;i<rc;i++)
 			printf("%02X ", buffer[i]);
 
-		if((buffer[4] >> 8) & 0x01)
+		if((buffer[4] >> 7) & 0x01)
 		{
-			printf("STD\n");
+			printf(" STD\n");
 			rc = searchSRC(threadEnv, &buffer[5], indCntTmp);
 		}
 		else
 		{
-			printf("EXT\n");
+			printf(" EXT\n");
 			rc = searchSRC(threadEnv, &buffer[6], indCntTmp);
 		}
 
