@@ -14,17 +14,11 @@ extern pthread_mutex_t globalMutex;
 void ctrInt2Str(uint32_t ctrInt, uint8_t *ctr)
 {
 	uint8_t i=0;
-	printf("\tconverted %d to ", ctrInt);
 	for(i=INDCOUNTSIZE;i>0;i=i-1)
 	{
 		ctr[i-1] = ctrInt % 256;
 		ctrInt = ctrInt / 256;
 	}
-	for(i=0; i<INDCOUNTSIZE; i++)
-	{
-		printf("%02X ", ctr[i]);
-	}
-	printf("\n");
 }
 
 int str2CtrInt(uint8_t *ctr)

@@ -987,7 +987,7 @@ void keyInit(void *env)
 									{
 										if( (thisEnv->activeDiscReq[i].active == TRUE) && (thisEnv->activeDiscReq[i].dest == destEIB) )
 										{
-											printf("SEC%d: Found active entry for G.A.%d @[%02d], ctr = %02X %02X %02X %02X\n", thisEnv->id, destEIB, i, thisEnv->activeDiscReq[i].indCount[1], thisEnv->activeDiscReq[i].indCount[1], thisEnv->activeDiscReq[i].indCount[2], thisEnv->activeDiscReq[i].indCount[3]);
+											printf("SEC%d: Found active entry for G.A.%d @[%02d], ctr = %02X %02X %02X %02X\n", thisEnv->id, destEIB, i, thisEnv->activeDiscReq[i].indCount[0], thisEnv->activeDiscReq[i].indCount[1], thisEnv->activeDiscReq[i].indCount[2], thisEnv->activeDiscReq[i].indCount[3]);
 											// do NOT update counter now - only AFTER the actual knx packet gets delivered
 											printf("SEC%d: calc secret, parameter: ", thisEnv->id);
 											thisEnv->activeDiscReq[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->activeDiscReq[i].pkey, &buffer[4], env);
@@ -1017,16 +1017,14 @@ void keyInit(void *env)
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								srcEIB = (buffer[1]<<8) | buffer[2];
 								destEIB = (buffer[3]<<8) | buffer[4];		// this is the wanted group address we want to resolve
-	/*
 								#ifdef DEBUG
-									printf("DIS-%d: got %03d byte %04d->%04d: ", thisEnv->id, rc, srcEIB, destEIB);
+									printf("SEC%d: clrDataSTD got %03d byte %04d->%04d: ", thisEnv->id, rc, srcEIB, destEIB);
 									for(i=0; i < rc; i++)
 									{
 										printf("%02X ", buffer[i]);
 									}
-									//printf("\n");
+									printf("\n");
 								#endif
-	*/
 	
 								// FIXME: this is dirty - only memory for 10 knx sending devices!!
 								// FIXME: this way, only ONE discRequest / srcDevice can be active
@@ -1034,13 +1032,16 @@ void keyInit(void *env)
 								{
 									if( (thisEnv->activeDiscReq[i].active == FALSE))
 									{
-										printf("SEC%d: adding discReq entry @ [%02d]\n", thisEnv->id, i);
+										printf("SEC%d: adding active entry @[%02d], indCtr = %02X %02X %02X %02X\n", thisEnv->id, i, buffer[rc-4], buffer[rc-3], buffer[rc-2], buffer[rc-1]);
 										thisEnv->activeDiscReq[i].src = srcEIB;
 										thisEnv->activeDiscReq[i].dest = destEIB;
 										thisEnv->activeDiscReq[i].active = TRUE;
 										thisEnv->activeDiscReq[i].len = rc-4;		// dont count the indCounter
 										thisEnv->activeDiscReq[i].pkey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
-										thisEnv->activeDiscReq[i].indCount = &buffer[rc-3];
+										thisEnv->activeDiscReq[i].indCount[0] = buffer[rc-4];
+										thisEnv->activeDiscReq[i].indCount[1] = buffer[rc-3];
+										thisEnv->activeDiscReq[i].indCount[2] = buffer[rc-2];
+										thisEnv->activeDiscReq[i].indCount[3] = buffer[rc-1];
 										break;
 									}
 								}		

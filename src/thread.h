@@ -1,6 +1,6 @@
 typedef struct
 {
-	uint8_t *indCount;
+	uint8_t indCount[INDCOUNTERSIZE];
 	eibaddr_t src;				// this is the SRC of the origin KNX cleartext package
 	eibaddr_t dest;				// this is the DEST of the origin KNX cleartext package
 	uint8_t *derivedKey;
