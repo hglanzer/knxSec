@@ -42,18 +42,20 @@ int searchSRC(void *env, uint8_t *src)
 
 	srcEIBtmp = ((src[0]<<8) | (src[1]));
 
-	printf("CLR: searching cuonter for srcEIB %d / ", srcEIBtmp);
+	printf("CLR: searching counter for srcEIB %d / ", srcEIBtmp);
 	for(i=0;i<10;i++)
 	{
 		if(thisEnv->indCtr[i].srcEIB == srcEIBtmp)
 		{
 			printf("found, CTR = %d\n", thisEnv->indCtr[i].indCount);
+			thisEnv->indCtr[i].indCount+1;
 			return thisEnv->indCtr[i].indCount;
 		}
 		if(thisEnv->indCtr[i].srcEIB == 0x00)
 		{
 			printf("not found, set CTR = 1\n");
 			thisEnv->indCtr[i].indCount = 0x01;
+			thisEnv->indCtr[i].srcEIB = srcEIBtmp;
 			return 0x01;
 		}
 	}

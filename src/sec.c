@@ -567,10 +567,13 @@ void secRD(void *env)
 		{
 			if(rc == 1)
 			{
+				;;
+				/*
 				if(thisEnv->secRDbuf[0] == 0xCC)
 					printf("\tSEC%d-RD: ACK\n", thisEnv->id);
 				else
 					printf("\tSEC%d-RD: unknown 1 byte", thisEnv->id);
+				*/
 			}
 			// this should NOT happen
 			else if(rc < (10 + MACSIZE))
@@ -587,9 +590,10 @@ void secRD(void *env)
 				decodeFrame(thisEnv->secRDbuf, &tmp);
 				if(tmp.srcDev == thisEnv->addrInt)
 				{
-					#ifdef DEBUG
+					/*
 						printf("\tSEC%d-RD: ignore own broadcast message from devAddr %d\n ", thisEnv->id, thisEnv->addrInt);
-					#endif
+					*/
+					;;
 				}
 				else
 				{
