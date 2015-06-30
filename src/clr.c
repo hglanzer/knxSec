@@ -98,20 +98,20 @@ void clrWR(void *threadEnv)
 		for(i=0;i<rc;i++)
 			printf("%02X ", buffer[i]);
 
-		if(isStdFrame(&buffer[4]))
+		if((buffer[4] >> 8) && 0x01)
 		{
 			printf("STD");
-			srcEIBtmp = ((buffer[5] << 8) | (buffer[6]));
+			rc = searchSRC(threadEnv, &buffer[5], indCntTmp);
 		}
 		else
 		{
 			printf("EXT");
-			srcEIBtmp = ((buffer[6] << 8) | (buffer[7]));
+			rc = searchSRC(threadEnv, &buffer[6], indCntTmp);
 		}
 
 		printf(", indCtr = %04d: ", indCntTmp);
 				
-		if(searchSRC(threadEnv, &buffer[4], indCntTmp))
+		if(rc)
 		{
 			printf("FORWARDING TO CLR\n\n");
 		}					
