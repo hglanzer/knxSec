@@ -1002,7 +1002,7 @@ void keyInit(void *env)
 											break;
 										}
 									}
-									printf("SEC%d: could not find active entry for received discResp for G.A. = %d", thisEnv->id, destEIB);
+									printf("SEC%d: could not find active entry for received discResp for G.A. = %d\n", thisEnv->id, destEIB);
 								}
 								else
 								{
@@ -1034,7 +1034,7 @@ void keyInit(void *env)
 								{
 									if( (thisEnv->activeDiscReq[i].active == FALSE))
 									{
-										printf("SEC%d: adding discReq entry @ [%02d]", thisEnv->id, i);
+										printf("SEC%d: adding discReq entry @ [%02d]\n", thisEnv->id, i);
 										thisEnv->activeDiscReq[i].src = srcEIB;
 										thisEnv->activeDiscReq[i].dest = destEIB;
 										thisEnv->activeDiscReq[i].active = TRUE;

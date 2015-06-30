@@ -24,6 +24,7 @@ void ctrInt2Str(uint32_t ctrInt, uint8_t *ctr)
 	{
 		printf("%02X ", ctr[i]);
 	}
+	priontf("\n");
 }
 
 int str2CtrInt(uint8_t *ctr)
