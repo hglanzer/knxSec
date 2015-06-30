@@ -67,7 +67,7 @@ int searchSRC(void *env, uint8_t *src, uint32_t updateVal)
 		}
 		if(thisEnv->indCtr[i].srcEIB == 0x00)
 		{
-			printf("not found, set CTR = 1\n");
+			printf("not found, set CTR = 1");
 			thisEnv->indCtr[i].indCount = 0x01;
 			thisEnv->indCtr[i].srcEIB = srcEIBtmp;
 			return 0x01;
@@ -91,14 +91,14 @@ void clrWR(void *threadEnv)
 		rc = read(thisEnv->SECs2ClrPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 
 		pthread_mutex_lock(&globalMutex);
-		printf("CLR-WR: got input ");
 		
 		indCntTmp = str2CtrInt(&buffer[0]);
+		printf("CLR-WR: got input, indCtr = %d. ", indCntTmp);
 
 		for(i=0;i<rc;i++)
 			printf("%02X ", buffer[i]);
 
-		if((buffer[4] >> 8) && 0x01)
+		if((buffer[4] >> 8) & 0x01)
 		{
 			printf("STD\n");
 			rc = searchSRC(threadEnv, &buffer[5], indCntTmp);
@@ -109,7 +109,6 @@ void clrWR(void *threadEnv)
 			rc = searchSRC(threadEnv, &buffer[6], indCntTmp);
 		}
 
-		printf(", indCtr = %04d: ", indCntTmp);
 				
 		if(rc)
 		{

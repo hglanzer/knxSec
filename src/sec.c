@@ -770,13 +770,11 @@ void keyInit(void *env)
 							rc = checkFreshness(thisEnv, &buffer[4]);
 							if(rc)
 							{
-								#ifdef DEBUG
 									printf("SEC%d: FRESH sync response - counter = ", thisEnv->id);
 									printf("%02x ", buffer[0]);
 									printf("%02x ", buffer[1]);
 									printf("%02x ", buffer[2]);
 									printf("%02x\n", buffer[3]);
-								#endif
 								saveGlobalCount(thisEnv, &buffer[0]);
 								thisEnv->state = STATE_READY;
 							}
@@ -784,9 +782,7 @@ void keyInit(void *env)
 							{
 								thisEnv->retryCount++;
 								thisEnv->state = STATE_SYNC_REQ;
-								#ifdef DEBUG
 									printf("SEC%d: OUTDATED sync response\n", thisEnv->id);
-								#endif
 							}
 						}
 						else
