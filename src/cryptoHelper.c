@@ -140,12 +140,14 @@ int hmacInit(EVP_PKEY** skey, EVP_PKEY** vkey, size_t* slen, size_t* vlen)
 */
 int generateHMAC(const byte* msg, size_t mlen, byte** sig, size_t* slen, EVP_PKEY* pkey)
 {
+/*
 		int i = 0;
 		printf("\t\t this is generateHMAC, msg = ");
 		for(i=0; i< mlen; i++)
 			printf("%02x ", msg[i]);
 	
 		printf("\n");
+*/
     int result = -1;
     if(!msg || !mlen || !sig || !pkey) {
         assert(0);

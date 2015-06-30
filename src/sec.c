@@ -72,7 +72,7 @@ uint8_t saveGlobalCount(void *env, uint8_t *buffer)
 	uint32_t exp = 1, tmp=0;
 
 	#ifdef DEBUG
-	printf("buffer = ");
+	printf("\nSEC%d: global count buffer = ", thisEnv->id);
 	for(i = 0; i<GLOBALCOUNTSIZE;i++)
 		printf("%02x ", buffer[i]);
 	#endif
@@ -85,7 +85,7 @@ uint8_t saveGlobalCount(void *env, uint8_t *buffer)
 	if(tmp > thisEnv->secGlobalCountInt)
 	{
 		#ifdef DEBUG
-		printf("saving FRESH counterInt = %d\n", tmp);
+		printf(" / saving FRESH counterInt = %d\n", tmp);
 		#endif
 		thisEnv->secGlobalCountInt = tmp;
 		for(i = GLOBALCOUNTSIZE;i > 0; i=i-1)
@@ -97,7 +97,7 @@ uint8_t saveGlobalCount(void *env, uint8_t *buffer)
 	}
 	else
 	{
-		printf("discarding OUTDATED counterInt = %d\n", tmp);
+		printf(" / discarding OUTDATED counterInt = %d\n", tmp);
 		return FALSE;
 	}
 }
@@ -987,7 +987,7 @@ void keyInit(void *env)
 									{
 										if( (thisEnv->activeDiscReq[i].active == TRUE) && (thisEnv->activeDiscReq[i].dest == destEIB) )
 										{
-											printf("SEC%d: Found active entry for G.A.%d @[%02d]\n", thisEnv->id, destEIB, i);
+											printf("SEC%d: Found active entry for G.A.%d @[%02d], ctr = %02X %02X %02X %02X\n", thisEnv->id, destEIB, i, thisEnv->activeDiscReq[i].indCount[1], thisEnv->activeDiscReq[i].indCount[1], thisEnv->activeDiscReq[i].indCount[2], thisEnv->activeDiscReq[i].indCount[3]);
 											// do NOT update counter now - only AFTER the actual knx packet gets delivered
 											printf("SEC%d: calc secret, parameter: ", thisEnv->id);
 											thisEnv->activeDiscReq[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->activeDiscReq[i].pkey, &buffer[4], env);
@@ -998,7 +998,7 @@ void keyInit(void *env)
 											printf("\n");
 
 											// finally, we got the SRC of one responsible gateway + a common secret
-											preparePacket(env, dataSrv, &src[0], thisEnv->activeDiscReq[i].frame, thisEnv->activeDiscReq[i].derivedKey, &thisEnv->activeDiscReq[i].indCount[0], &thisEnv->activeDiscReq[i].len);
+											preparePacket(env, dataSrv, &src[0], thisEnv->activeDiscReq[i].frame, thisEnv->activeDiscReq[i].derivedKey, thisEnv->activeDiscReq[i].indCount, &thisEnv->activeDiscReq[i].len);
 											break;
 										}
 									}
@@ -1075,8 +1075,6 @@ void keyInit(void *env)
 									printf("SEC%d: STD frame for SRC = %d\n", thisEnv->id, srcEIB);
 								}
 							
-								printf("SEC%d: FWD to clrWR\n", thisEnv->id);
-
 								// prepend the indCounter value
 								msgBuf[0] = buffer[0];
 								msgBuf[1] = buffer[1];
