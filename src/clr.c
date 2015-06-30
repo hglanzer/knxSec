@@ -98,7 +98,7 @@ void clrWR(void *threadEnv)
 		for(i=0;i<rc;i++)
 			printf("%02X ", buffer[i]);
 
-		if(isStdFrame(buffer[4]))
+		if(&isStdFrame(buffer[4]))
 		{
 			printf("STD");
 			srcEIBtmp = ((buffer[5] << 8) | (buffer[6]));
