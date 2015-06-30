@@ -47,7 +47,7 @@ int searchSRC(void *env, uint8_t *src, uint32_t updateVal)
 	{
 		if(thisEnv->indCtr[i].srcEIB == srcEIBtmp)
 		{
-			printf("found, CTR = %d\n", thisEnv->indCtr[i].indCount);
+			printf("found, CTR = %d", thisEnv->indCtr[i].indCount);
 			if(updateVal == 0)
 				thisEnv->indCtr[i].indCount++;
 			else
