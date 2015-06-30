@@ -34,7 +34,7 @@ int str2CtrInt(uint8_t *ctr)
 	return tmp;
 }
 
-int searchSRC(void *env, uint8_t *src)
+int searchSRC(void *env, uint8_t *src, uint32_t updateVal)
 {
 	threadEnvClr_t *thisEnv = (threadEnvClr_t *)env;
 	uint8_t i=0;
@@ -48,7 +48,21 @@ int searchSRC(void *env, uint8_t *src)
 		if(thisEnv->indCtr[i].srcEIB == srcEIBtmp)
 		{
 			printf("found, CTR = %d\n", thisEnv->indCtr[i].indCount);
-			thisEnv->indCtr[i].indCount++;
+			if(updateVal == 0)
+				thisEnv->indCtr[i].indCount++;
+			else
+			{
+				if(updateVal > thisEnv->indCtr[i].indCount)
+				{
+					thisEnv->indCtr[i].indCount = updateVal;
+					return TRUE;
+				}
+				else
+				{
+					return FALSE;
+				}
+
+			}
 			return thisEnv->indCtr[i].indCount;
 		}
 		if(thisEnv->indCtr[i].srcEIB == 0x00)
@@ -71,6 +85,7 @@ void clrWR(void *threadEnv)
 	uint8_t rc = 0, i=0;
 	uint8_t buffer[BUFSIZE];
 	int indCntTmp;
+	eibaddr_t srcEIBtmp;
 	while(1)
 	{
 		rc = read(thisEnv->SECs2ClrPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
@@ -83,8 +98,28 @@ void clrWR(void *threadEnv)
 		for(i=0;i<rc;i++)
 			printf("%02X ", buffer[i]);
 
-		printf(", indCtr = %04d\n", indCntTmp);
-							
+		if(isStdFrame(buffer[4]))
+		{
+			printf("STD");
+			srcEIBtmp = ((buffer[5] << 8) | (buffer[6]));
+		}
+		else
+		{
+			printf("EXT");
+			srcEIBtmp = ((buffer[6] << 8) | (buffer[7]));
+		}
+
+		printf(", indCtr = %04d: ", indCntTmp);
+				
+		if(searchSRC(threadEnv, &buffer[4], indCntTmp))
+		{
+			printf("FORWARDING TO CLR\n\n");
+		}					
+		else
+		{
+			printf("DISCARDING DUPLICATE\n\n");
+		}
+		
 
 		pthread_mutex_unlock(&globalMutex);
 	}
@@ -164,7 +199,7 @@ void clrRD(void *threadEnv)
 				buffer[1] = buffer[7];
 				buffer[2] = clrDataSTD;
 
-				ctrInt = searchSRC(threadEnv, &buffer[4]);
+				ctrInt = searchSRC(threadEnv, &buffer[4], 0);
 				ctrInt2Str(ctrInt, &ctrBuf[0]);
 
 				// append the ind counter 
