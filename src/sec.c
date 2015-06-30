@@ -860,7 +860,7 @@ void keyInit(void *env)
 					{
 						for(i=0; i<10;i++)
 						{
-							thisEnv->activeDiscRequest[i].active = FALSE;
+							thisEnv->activeDiscReq[i].active = FALSE;
 						}
 					}
 					// error occured
