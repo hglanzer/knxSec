@@ -1,5 +1,5 @@
 uint8_t saveGlobalCount(void *, uint8_t *);
-void preparePacket(void *, uint8_t, uint8_t *, uint8_t *, uint8_t *, uint32_t *, uint8_t *);
+void preparePacket(void *, uint8_t, uint8_t *, uint8_t *, uint8_t *, uint8_t *, uint8_t *);
 void incGlobalCount(void *);
 int checkFreshness(void *, uint8_t *);
 void time2Str(void *, unsigned char *);
@@ -45,12 +45,13 @@ void keyInit(void *);
 /*
 		TYPES OF PACKAGES
 */
-#define		clrData		0x01
 #define		syncReq		0x02
 #define		syncRes		0x03
 #define		discReq		0x04
 #define		discRes		0x05
 #define		dataSrv		0x06
+#define		clrDataSTD	0x07
+#define		clrDataEXT	0x08
 
 #define		DATA_SRV	6
 #define		RES1		7

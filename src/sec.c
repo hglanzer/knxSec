@@ -28,6 +28,7 @@ extern struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
 //	read from file to memory, securely delete file, delete buffer after initial phase...?
 uint8_t PSK[PSKSIZE] =	"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x30\x31";
 
+/*
 void ctrInt2Str(uint32_t indCount, uint8_t *indCountStr)
 {
 	uint32_t buf;
@@ -47,6 +48,7 @@ void ctrInt2Str(uint32_t indCount, uint8_t *indCountStr)
 
 	printf("\n");
 }
+*/
 /*
 	checks if received counter value > globalCtr
 		if yes:	inc counter
@@ -177,11 +179,10 @@ void time2Str(void *env, byte *buf)
 	}
 }
 
-void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint8_t *dhPubKey, uint32_t *indCount, uint8_t *payloadLen)
+void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint8_t *dhPubKey, uint8_t *indCountStr, uint8_t *payloadLen)
 {
 	threadEnvSec_t *thisEnv = (threadEnvSec_t *)env;
 	uint8_t i = 0, len = 0, rc=0;
-	uint8_t indCountStr[4];
 	uint8_t cipherBuf[BUFSIZE];
 	time2Str(env, secBufferTime[thisEnv->id]);
 
@@ -307,7 +308,6 @@ void preparePacket(void *env, uint8_t type, uint8_t *dest, uint8_t *destGA, uint
 				secBufferMAC[thisEnv->id][8] = dataSrv;				// set address type + len( byte payload), 
 			
 				// assemble the payload
-				ctrInt2Str(*indCount, &indCountStr[0]);
 				secBufferMAC[thisEnv->id][9] = indCountStr[0];
 				secBufferMAC[thisEnv->id][10] = indCountStr[1];
 				secBufferMAC[thisEnv->id][11] = indCountStr[2];
@@ -927,27 +927,20 @@ void keyInit(void *env)
 								if(saveGlobalCount(env, &buffer[0]))
 								{
 		//FIXME: decrypt G.A.
-
 									// is this GW responsible for the received G.A.?
 									if(checkGA(env, &buffer[4+33]))
 									{
 										printf("SEC%d: responsible for G.A., ", thisEnv->id);
 										for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
 										{
-											if(thisEnv->indCounters[i].src == srcEIB)
+											if(thisEnv->activeDiscReq[i].active == FALSE)
 											{
-												printf("Found src %d, index %02d, ctr %02d\n", srcEIB, i, thisEnv->indCounters[i].indCount);
-												// do NOT update counter now - only AFTER the actual knx packet gets delivered
-												//thisEnv->indCounters[i].indCount;
-												break;
-											}
-											if(thisEnv->indCounters[i].src == 0x00)
-											{
-												printf("NOT found, adding src %d [%d] \n", srcEIB, i);
-												thisEnv->indCounters[i].src = srcEIB;
-												thisEnv->indCounters[i].indCount = 0x00;
-												thisEnv->indCounters[i].pkey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
-												if(thisEnv->indCounters[i].pkey == NULL)
+												printf("SEC%d: adding received discReq @ [%02d]\n", thisEnv->id, i);
+												thisEnv->activeDiscReq[i].src = srcEIB;
+												thisEnv->activeDiscReq[i].dest = ((buffer[37]<<8) | (buffer[38]));
+												thisEnv->activeDiscReq[i].active = TRUE;
+												thisEnv->activeDiscReq[i].pkey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
+												if(thisEnv->activeDiscReq[i].pkey == NULL)
 												{
 													printf("SEC%d: EC_KEY_new_by_curve_name() failed\n",thisEnv->id);
 													exit(-1);
@@ -955,18 +948,19 @@ void keyInit(void *env)
 												break;
 											}
 										}		
-										genECpubKeyLow(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
+										genECpubKeyLow(thisEnv->activeDiscReq[i].pkey, thisEnv->activeDiscReq[i].myPubKey);
 										printf("SEC%d: calc secret, parameter: ", thisEnv->id);
-										thisEnv->indCounters[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
+										thisEnv->activeDiscReq[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->activeDiscReq[i].pkey, &buffer[4], env);
 
 										printf("SEC%d: derived common secret : ", thisEnv->id);
 										for(j=0;j<32;j++)
-											printf("%02X ", thisEnv->indCounters[i].derivedKey[j]);
+											printf("%02X ", thisEnv->activeDiscReq[i].derivedKey[j]);
 										printf("\n");
-
+					
+										// this is the wanted G.A., FIXME: encrypt me!
 										dest[0] = buffer[37];
 										dest[1] = buffer[38];
-										preparePacket(thisEnv, discRes, &src[0], &dest[0], thisEnv->indCounters[i].myPubKey, NULL, NULL);
+										preparePacket(thisEnv, discRes, &src[0], &dest[0], thisEnv->activeDiscReq[i].myPubKey, NULL, NULL);
 
 									}
 									else
@@ -984,28 +978,31 @@ void keyInit(void *env)
 								src[1] = buffer[1];
 
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], 4+33+2);	// FIXME - non-blocking
+
+								// FIXME: decrypt
+								destEIB = ((buffer[37]<<8) | (buffer[38]));
 								if(saveGlobalCount(env, &buffer[0]))
 								{
 									for(i=0;i<10;i++)			// FIXME: this is dirty - only memory for 10 knx sending devices!!
 									{
-										if(thisEnv->indCounters[i].src == srcEIB)
+										if( (thisEnv->activeDiscReq[i].active == TRUE) && (thisEnv->activeDiscReq[i].dest == destEIB) )
 										{
-											printf("SEC%d: Found %d [%02d], ctr %02d\n", thisEnv->id, srcEIB, i, thisEnv->indCounters[i].indCount);
+											printf("SEC%d: Found active entry for G.A.%d @[%02d]\n", thisEnv->id, destEIB, i);
 											// do NOT update counter now - only AFTER the actual knx packet gets delivered
-											//thisEnv->indCounters[i].indCount;
+											printf("SEC%d: calc secret, parameter: ", thisEnv->id);
+											thisEnv->activeDiscReq[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->activeDiscReq[i].pkey, &buffer[4], env);
+										
+											printf("SEC%d: derived common secret : ", thisEnv->id);
+											for(j=0;j<32;j++)
+												printf("%02X ", thisEnv->activeDiscReq[i].derivedKey[j]);
+											printf("\n");
+
+											// finally, we got the SRC of one responsible gateway + a common secret
+											preparePacket(env, dataSrv, &src[0], thisEnv->activeDiscReq[i].frame, thisEnv->activeDiscReq[i].derivedKey, &thisEnv->activeDiscReq[i].indCount[0], &thisEnv->activeDiscReq[i].len);
 											break;
 										}
 									}
-									printf("SEC%d: calc secret, parameter: ", thisEnv->id);
-									thisEnv->indCounters[i].derivedKey = (uint8_t *)deriveSharedSecretLow(thisEnv->indCounters[i].pkey, &buffer[4], env);
-										
-									printf("SEC%d: derived common secret : ", thisEnv->id);
-									for(j=0;j<32;j++)
-										printf("%02X ", thisEnv->indCounters[i].derivedKey[j]);
-									printf("\n");
-
-									// finally, we got the SRC of one responsible gateway + a common secret
-									preparePacket(env, dataSrv, &src[0], thisEnv->indCounters[i].frame, thisEnv->indCounters[i].derivedKey, &thisEnv->indCounters[i].indCount, &thisEnv->indCounters[i].len);
+									printf("SEC%d: could not find active entry for received discResp for G.A. = %d", thisEnv->id, destEIB);
 								}
 								else
 								{
@@ -1014,7 +1011,7 @@ void keyInit(void *env)
 								pthread_mutex_unlock(&globalMutex);
 							break;
 	
-							case clrData:
+							case clrDataSTD:
 								pthread_mutex_lock(&globalMutex);
 								// suck in the whole cleartext knx frame
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
@@ -1035,36 +1032,29 @@ void keyInit(void *env)
 								// FIXME: this way, only ONE discRequest / srcDevice can be active
 								for(i=0;i<10;i++)	
 								{
-									if(thisEnv->indCounters[i].src == srcEIB)
+									if( (thisEnv->activeDiscReq[i].active == FALSE))
 									{
-										printf(" / found src at index %02d, counter = %02d\n", i, thisEnv->indCounters[i].indCount);
-										thisEnv->indCounters[i].indCount++;							// FIXME: handle overflow
-										break;
-									}
-									if(thisEnv->indCounters[i].src == 0x00)
-									{
-										printf(" / NOT found, adding src at index %d\n", i);
-										thisEnv->indCounters[i].src = srcEIB;
-										thisEnv->indCounters[i].indCount = 0x01;
-										//thisEnv->indCounters[i].pkey = EC_KEY_new();
-										thisEnv->indCounters[i].pkey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
+										printf("SEC%d: adding discReq entry @ [%02d]", thisEnv->id, i);
+										thisEnv->activeDiscReq[i].src = srcEIB;
+										thisEnv->activeDiscReq[i].dest = destEIB;
+										thisEnv->activeDiscReq[i].active = TRUE;
+										thisEnv->activeDiscReq[i].len = rc-4;		// dont count the indCounter
+										thisEnv->activeDiscReq[i].pkey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
+										thisEnv->activeDiscReq[i].indCount = &buffer[rc-3];
 										break;
 									}
 								}		
-								thisEnv->indCounters[i].dest = destEIB;
-								thisEnv->indCounters[i].active = TRUE;
-								thisEnv->indCounters[i].len = rc;
 		
 								// save the KNX package for later usage
-								for(j=0;j<rc;j++)
+								for(j=0;j<rc-4;j++)
 								{
-									thisEnv->indCounters[i].frame[j] = buffer[j];
+									thisEnv->activeDiscReq[i].frame[j] = buffer[j];
 								}
 	
-								genECpubKeyLow(thisEnv->indCounters[i].pkey, thisEnv->indCounters[i].myPubKey);
+								genECpubKeyLow(thisEnv->activeDiscReq[i].pkey, thisEnv->activeDiscReq[i].myPubKey);
 								dest[0] = 0x00;
 								dest[1] = 0x00;
-								preparePacket(thisEnv, discReq, &dest[0], &buffer[3], thisEnv->indCounters[i].myPubKey, NULL, NULL);
+								preparePacket(thisEnv, discReq, &dest[0], &buffer[3], thisEnv->activeDiscReq[i].myPubKey, NULL, NULL);
 								pthread_mutex_unlock(&globalMutex);
 								break;
 
@@ -1073,7 +1063,7 @@ void keyInit(void *env)
 								
 								rc = read(thisEnv->RD2MasterPipe[READEND], &buffer[0], BUFSIZE);	// FIXME - non-blocking
 								
-								decAES(&buffer[4], rc-4, &buffer[0], thisEnv->indCounters[i].derivedKey, &msgBuf[4]);
+								decAES(&buffer[4], rc-4, &buffer[0], thisEnv->activeDiscReq[i].derivedKey, &msgBuf[4]);
 								// extended frame
 								if((msgBuf[0] & 0x80) == 0)
 								{

@@ -11,6 +11,21 @@
 
 extern pthread_mutex_t globalMutex;
 
+void ctrInt2Str(uint32_t ctrInt, uint8_t *ctr)
+{
+	uint8_t i=0;
+	printf("\tconverted %d to ", ctrInt);
+	for(i=INDCOUNTSIZE;i>0;i=i-1)
+	{
+		ctr[i-1] = ctrInt % 256;
+		ctrInt = ctrInt / 256;
+	}
+	for(i=0; i<INDCOUNTSIZE; i++)
+	{
+		printf("%02X ", ctr[i]);
+	}
+}
+
 int str2CtrInt(uint8_t *ctr)
 {
 	uint8_t i = 0;
@@ -24,6 +39,35 @@ int str2CtrInt(uint8_t *ctr)
 	return tmp;
 }
 
+int searchSRC(void *env, uint8_t *src)
+{
+	threadEnvClr_t *thisEnv = (threadEnvClr_t *)env;
+	uint8_t i=0;
+	eibaddr_t srcEIBtmp;
+
+	srcEIBtmp = ((src[0]<<8) | (src[1]));
+
+	printf("CLR: searching cuonter for srcEIB %d / ", srcEIBtmp);
+	for(i=0;i<10;i++)
+	{
+		if(thisEnv->indCtr[i].srcEIB == srcEIBtmp)
+		{
+			printf("found, CTR = %d\n", thisEnv->indCtr[i].indCount);
+			return thisEnv->indCtr[i].indCount;
+		}
+		if(thisEnv->indCtr[i].srcEIB == 0x00)
+		{
+			printf("not found, set CTR = 1\n");
+			thisEnv->indCtr[i].indCount = 0x01;
+			return 0x01;
+		}
+	}
+
+	// the loop finished without finding an existing entry for srcEIB and could not find an unused entry too -> array too smalL
+	// FIXME: dynamic memory handling, linked list...?
+	printf("CLR: add ind counter out of memory, fixme\n\n");
+	exit(-1);
+}
 void clrWR(void *threadEnv)
 {
 	threadEnvClr_t *thisEnv = (threadEnvClr_t *)threadEnv;
@@ -54,7 +98,9 @@ void clrRD(void *threadEnv)
 	threadEnvClr_t *thisEnv = (threadEnvClr_t *)threadEnv;
 	int len = 0;
 	uint8_t buffer[BUFSIZE], i=0;
+	uint8_t ctrBuf[INDCOUNTSIZE];
 	knxPacket tmpPkt;
+	uint8_t ctrInt = 0;
 
 	thisEnv->clrFD = EIBSocketURL(thisEnv->socketPath);
 
@@ -87,12 +133,10 @@ void clrRD(void *threadEnv)
 	while(1)
 	{
 		
-//		pthread_mutex_lock(&clr2SecMutexWr[0]);
-//		pthread_mutex_lock(&clr2SecMutexWr[1]);
-
 		/*
  			blocking call to get next package
 			leave space for 3 bytes at the begining because of pipe-format(src[0],src[1],secHeader,kxn-frame)
+			append the actual ind. counter for this SRC after the packet
 		*/
 		
 		len = EIBGetBusmonitorPacket (thisEnv->clrFD, BUFSIZE, &buffer[3]);
@@ -118,11 +162,23 @@ void clrRD(void *threadEnv)
 
 			if(tmpPkt.type == stdFrame)
 			{
+				// copy the DEST bytes + type to beginning of pipe-buf
 				buffer[0] = buffer[6];
 				buffer[1] = buffer[7];
-				buffer[2] = clrData;
-				write(*thisEnv->CLR2Master1PipePtr[WRITEEND], &buffer[0], len+3);
-				write(*thisEnv->CLR2Master2PipePtr[WRITEEND], &buffer[0], len+3);
+				buffer[2] = clrDataSTD;
+
+				ctrInt = searchSRC(threadEnv, &buffer[4]);
+				ctrInt2Str(ctrInt, &ctrBuf[0]);
+
+				// append the ind counter 
+				buffer[len+3+0] = ctrBuf[0];
+				buffer[len+3+1] = ctrBuf[1];
+				buffer[len+3+2] = ctrBuf[2];
+				buffer[len+3+3] = ctrBuf[3];
+
+				// FIXME: mutex...?
+				write(*thisEnv->CLR2Master1PipePtr[WRITEEND], &buffer[0], len+3+4);
+				write(*thisEnv->CLR2Master2PipePtr[WRITEEND], &buffer[0], len+3+4);
 			}
 			else
 			{

@@ -1,6 +1,6 @@
 typedef struct
 {
-	uint32_t indCount;
+	uint8_t *indCount;
 	eibaddr_t src;				// this is the SRC of the origin KNX cleartext package
 	eibaddr_t dest;				// this is the DEST of the origin KNX cleartext package
 	uint8_t *derivedKey;
@@ -9,7 +9,18 @@ typedef struct
 	uint8_t len;
 	EC_KEY *pkey;				// this is MY key pair
 	uint8_t myPubKey[DHPUBKSIZE];		// this is MY low-level public key
-}indCounters_t;
+}activeDiscReq_t;
+
+
+/*
+	this struct is used to keep track of the individual counters for standard KNX devices with unique SRC
+	to discard the duplicates produced by SEC0 + SEC1
+*/
+typedef struct
+{
+	uint32_t indCount;
+	eibaddr_t srcEIB;				// this is the SRC of the origin KNX cleartext package
+}indCtr_t;
 
 /*
 	CLR thread ENV
@@ -19,6 +30,9 @@ typedef struct
 	char *socketPath;
 	char *addrStr;		// allowed device addesses: 1-15
 	uint8_t addrInt;
+
+	indCtr_t indCtr[10];
+
 	EIBConnection *clrFD;
 	//	FDs for pipe()
 	int *CLR2Master1PipePtr[2];
@@ -40,7 +54,7 @@ typedef struct
 	size_t slen;
 	size_t vlen;
 	time_t now;
-	indCounters_t indCounters[10];		// FIXME: this is static
+	activeDiscReq_t activeDiscReq[10];		// FIXME: this is static
 	uint8_t secRDbuf[BUFSIZE];
 	uint8_t secGlobalCount[GLOBALCOUNTSIZE];
 	uint32_t secGlobalCountInt;
