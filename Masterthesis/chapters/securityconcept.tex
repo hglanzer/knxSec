@@ -420,7 +420,7 @@ sent, allowing the requester to identify the response message.
 \end{figure}
 \\
 Integrity of the discovery messages is achieved by generating a \gls{mac2} over all frame fields except the frame check field and parts of the \textit{header}
-field.
+field. 
 \\
 The main logic from the discovery request receiver's point of view is shown in the state machine in \ref{fig:discRecv}
 
@@ -581,3 +581,4 @@ afterwards will bear the counter value $Ctr_{ind} = Ctr_{in}[\gls{ia}]$ and will
 \caption{State machine of the duplicate detection logic}
 \label{fig:dupSM}
 \end{figure}
+

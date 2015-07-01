@@ -1,3 +1,4 @@
+\label{chap4}
 \section{Basic Assumptions}
 
 The aim of this work is to propose a \gls{knx} prototype, applicable for environments with increased availability demands.
@@ -73,7 +74,6 @@ To encounter these problems, different keys must be used, thus achieving pairwis
 Figure \ref{fig:firewall} shows the logical connections within a \gls{knx} network using end-to-end encryption. An 
 attack of node $A$ can only compromise keys known to the device, thus effectively separating communication between the nodes $B$, $C$, and $D$ from
 the attacker.
-
 % \begin{figure}
 % \centering
 % \begin{tikzpicture}[scale=0.2]
@@ -101,7 +101,8 @@ the attacker.
 % \path[pil,<->] (d)  edge[]   node[text width=3.5cm,align=right] {$KEY_{CD}$} (c); 
 % \end{tikzpicture}
 % \end{figure}
-
+\\
+\\
 \begin{figure}
   \centering
     \includegraphics[width=1\textwidth]{figures/firewall.eps}
@@ -289,14 +290,22 @@ The introduction of encapsulating security gateways implicates that some timing 
  \\
  \\
  The only way to avoid a retransmission by a client is to immediately acknowledge a client frame by the security
- gateway that it is connected to, regardless of whether the destination device is reachable or not.
- On the receiving side, the client will generate an acknowledge
- frame, which must be discarded by its security gateway.
+ gateway that it is connected to, regardless of whether the destination device is reachable or not. The receiving security gateway will use a reliable transport
+ mechanism to transfer the encrypted frame to all recipient gateways, which must acknowledge reception.
+ Finally, the gateway on the receiving side will forward the contained frame to the client, who may generate an acknowledge frame, depending on the transport
+ mode chosen by the sending device. This process is shown in Figure \ref{fig:dataAck}.
  \item Similar arguments avoid the processing of Poll-Data Frames. Here, event more stringent timing constraints are to be met, see chapter \ref{ch:knx}. 
 \end{itemize}
 Apart from the data service, handling the actual data transfer of the \gls{knx} payloads, 2 additional services are necessary, following the assumptions above.
 These two services, handling synchronization and discovery, are defined as following and are summarized as management services. To distinguish the different
 frame formats, a 8 bit \textit{secure header} field uniquely identifies every frame - see section \ref{secHdr} for details.
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.8\textwidth]{figures/dataAck.eps}
+ \caption{Acknowledgement of KNX data}
+ \label{fig:dataAck}
+\end{figure}
 
 \section{Services}
 
@@ -359,9 +368,9 @@ frame formats, a 8 bit \textit{secure header} field uniquely identifies every fr
 \subsection{Synchronization service}
 
 As stated, a new gateway, joining the network, must get knowledge of the actual value of $Ctr_{global}$. This is achieved by sending a broadcast message on
-ever secure line, 
+every secure line, 
 serving as synchronization request. The frame  contains the device's local time in seconds. The header flags in the secure header are set accordingly, identifying
-the frame as synchronization request \ref{fig:syncReqFormat}.
+the frame as synchronization request, see Figure \ref{fig:syncReqFormat}.
 \begin{figure}
   \centering
     \includegraphics[width=1\textwidth]{figures/formatSyncReq.eps}
@@ -390,8 +399,7 @@ The \gls{mac2} is calculated over all frame fields except the trailing frame che
 
 \subsection{Discovery service}
 Whenever a gateway receives a message on its cleartext line, 2 distinct discovery broadcast messages are sent, one for each secured line. 
-The frame format is shown in 
-figure \ref{fig:discReqFormat}. \textit{DH-A} is the newly chosen \gls{ecdh} - parameter of the requesting device.
+The frame format is shown in Figure \ref{fig:discReqFormat}. \textit{DH-A} is the newly chosen \gls{ecdh} - parameter of the requesting device.
 The \gls{psk} encrypted field contains the group address, CTR contains the incremented global counter $Ctr_{global}$.
 \begin{figure}
   \centering
@@ -500,9 +508,10 @@ the exact type of authentication or authenticated encryption mode used.
 Values 0x09 - 0xFF are not used - frames containing such values should be discarded.
 
 \subsubsection{Global counter}\label{ctrInd}
-The global counter $Ctr_{global}$ is a 4 byte integer, allowing $2^{32} \approx 4,3$ billion discovery request or response messages to be sent before overflowing,
-an amount assumed sufficiently high, argued as follows:
-each discovery messages consists of a frame containing 53 bytes, sent with 9600 \gls{bps}, resulting in about 44 milliseconds transfer duration. Therefor,
+The global counter $Ctr_{global}$, obtained by the synchronization service and used in the discovery messages,
+is a 4 byte integer, allowing $2^{32} \approx 4,3$ billion discovery request or response messages to be sent before overflowing.
+This amount is assumed sufficiently high, argued as follows:
+each discovery messages consists of a frame containing 53 bytes, sent with 9600 \gls{bps}, resulting in about 44 milliseconds transfer duration. Therefore,
 the absolute lower bound of the duration after that $Ctr_{global}$ overflows, assumed the \gls{knx} network is occupied by discovery messages only,
 is about 2 years, a very conservative estimate.
 
@@ -515,9 +524,9 @@ Figure \ref{fig:dupSM} shows the state machine describing every security gateway
 Whenever a new \gls{knx} frame is received on the cleartext line and the gateway knows which gateway(s) are responsible for the
 contained \gls{ga}, the sending gateway determines the outgoing counter value $Ctr_{out}[\gls{ia}]$. If an outgoing counter value for
 this \gls{ia} exists 
-this means that the device already sent at least one data frame to a \gls{ga}, otherwise this is the first frame. In both cases,
-the counter value $Ctr_{out}[\gls{ia}]$ is incremented, saved and used as value for $Ctr_{ind}$. After that, the cleartext frame is
-encrypted and inserted into a new unicast data frame, one for each secure line.
+this means that the device already sent at least one data frame to a \gls{ga}, otherwise this is the first frame. For the first case,
+the counter value $Ctr_{out}[\gls{ia}]$ is incremented and saved, otherwise it is set to 1. Afterwards, it is used as value for $Ctr_{ind}$.
+After that, the cleartext frame is encrypted and inserted into a new unicast data frame, one for each secure line.
 \\
 \\
 Upon reception (the green transition in \ref{fig:dupSM}), at first the validity of the \gls{mac2} is checked - if valid, the receiver checks its incoming

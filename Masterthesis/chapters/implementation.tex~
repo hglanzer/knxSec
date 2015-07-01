@@ -10,12 +10,32 @@ For the secured network, the address ranges starting at address 1.1.1 to address
 On the unsecured lines, every gateway uses an address from the range 1.0.1 - 1.0.15. Addresses are assigned in a linearly ascending way, so gateway number 1
 uses addresses 1.1.1 and 1.2.1 for secure lines 1 and 2, and 1.0.1 for its unsecured line.
 
+\subsection{\gls{mac2} generation}
+
+The \gls{ttl} field cannot be included in the \gls{mac2} calculation because this field gets changed by a router and would therefor invalidate an authentic message.
+
 \subsection{EIBD \gls{api}}
 
-Use 
+Use VBusMonitor to receive packets, this way EIBD can L2 acknowledge individual-, group- and broadcast frames
+\\
+\\
+For sending individual packages, use EIBOpenT\_Individual(con, myAddr, FALSE)
+\\
+\\
+For sending group packages, use EIBOpen\_GroupSocket(con, TRUE) and EIBSendGroup(con, dest, size, buf)
+\\
+\\
+For sending broadcast packages, use EIBOpenT\_Broadcast(con, TRUE) and EIBSendAPDU(con, size, buf)
+
+\subsection{Restrictions}
+
+EIBD can send extended frames, but can not receive frames with payload >= 56 byte. Therefor the DH parameter size must be restricted0
 
 
 \section{Evaluation}
+
+\subsection{\gls{usb}}
+Unstable \gls{usb} connection, enumeration errors, to fix reboot hub
 
 \subsection{Synchronization phase}
 Packages in the synchronization phase are not encrypted, allowing a passive adversary to learn the value of the global counter value $Ctr_{global}$. Nevertheless,

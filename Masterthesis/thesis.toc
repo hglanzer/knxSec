@@ -206,17 +206,25 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{KNX addressing scheme}{79}{section*.76}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Evaluation}{79}{section.5.2}
+\contentsline {subsection}{\gls {mac2} generation}{79}{section*.77}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Synchronization phase}{79}{section*.77}
+\contentsline {subsection}{EIBD \gls {api}}{79}{section*.78}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Discovery phase}{80}{section*.78}
+\contentsline {subsection}{Restrictions}{80}{section*.79}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Data transmission phase}{80}{section*.79}
+\contentsline {section}{\numberline {5.2}Evaluation}{80}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{High Level Cryptography Library}{80}{section*.80}
+\contentsline {subsection}{\gls {usb}}{80}{section*.80}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{OpenSSL}{80}{section*.81}
+\contentsline {subsection}{Synchronization phase}{80}{section*.81}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Discovery phase}{80}{section*.82}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Data transmission phase}{80}{section*.83}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{High Level Cryptography Library}{80}{section*.84}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{OpenSSL}{80}{section*.85}
 \defcounter {refsection}{0}\relax 
 \contentsline {appendix}{\chapternumberline {A}Setup of the base system}{81}{appendix.A}
 \defcounter {refsection}{0}\relax 
@@ -234,4 +242,4 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{86}{appendix.B}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliography}{93}{section*.85}
+\contentsline {chapter}{Bibliography}{93}{section*.89}

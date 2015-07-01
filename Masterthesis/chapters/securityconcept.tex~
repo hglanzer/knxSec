@@ -399,8 +399,7 @@ The \gls{mac2} is calculated over all frame fields except the trailing frame che
 
 \subsection{Discovery service}
 Whenever a gateway receives a message on its cleartext line, 2 distinct discovery broadcast messages are sent, one for each secured line. 
-The frame format is shown in 
-figure \ref{fig:discReqFormat}. \textit{DH-A} is the newly chosen \gls{ecdh} - parameter of the requesting device.
+The frame format is shown in Figure \ref{fig:discReqFormat}. \textit{DH-A} is the newly chosen \gls{ecdh} - parameter of the requesting device.
 The \gls{psk} encrypted field contains the group address, CTR contains the incremented global counter $Ctr_{global}$.
 \begin{figure}
   \centering
