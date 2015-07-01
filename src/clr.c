@@ -44,7 +44,7 @@ int searchSRC(void *env, uint8_t *src, uint32_t updateVal)
 
 	#ifdef DEBUG
 		printf("CLR: searching counter for srcEIB %d / ", srcEIBtmp);
-	#ifdef
+	#endif
 	for(i=0;i<10;i++)
 	{
 		if(thisEnv->indCtr[i].srcEIB == srcEIBtmp)
