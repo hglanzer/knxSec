@@ -5,16 +5,25 @@
 	harald.glanzer@gmail.com
 
 	needs 3 running eib daemones:
-		eibd --listen-local=/tmp/eib.clr  -t31 -e 1.0.<addr>  tpuarts:/dev/tty<DEV-cleartext>
-		eibd --listen-local=/tmp/eib.sec1 -t31 -e 1.1.<addr> tpuarts:/dev/tty<DEV-secured-1>
-		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.2.<addr>  tpuarts:/dev/tty<DEv-secured-2>
+		eibd --listen-local=/tmp/eib.sec1 -t31 -e 1.0.<addr> tpuarts:/dev/tty<DEV-secured-1>
+		eibd --listen-local=/tmp/eib.sec2 -t31 -e 1.1.<addr> tpuarts:/dev/tty<DEv-secured-2>
+		eibd --listen-local=/tmp/eib.clr  -t31 -e 1.2.<addr> tpuarts:/dev/tty<DEV-cleartext>
 */
 
-uint8_t	clr2SecBUF[CLSBUFSIZE];
-uint8_t	sec2ClrBUF[SECBUFSIZE];
+//pthread_mutex_t SecMutexWr[SECLINES];
+//pthread_cond_t  SecCondWr[SECLINES];
 
-pthread_mutex_t SecMutexWr[SECLINES];
-pthread_cond_t  SecCondWr[SECLINES];
+pthread_mutex_t globalMutex;
+
+byte secBufferMAC[SECLINES][BUFSIZE];
+byte secBufferTime[SECLINES][BUFSIZE];
+
+byte *sigHMAC[SECLINES];
+struct msgbuf_t MSGBUF_SEC2WR[SECLINES];
+
+threadEnvSec_t threadEnvSec[SECLINES]; 
+threadEnvClr_t threadEnvClr; 
+
 
 static struct option long_options[] =
 {
@@ -41,15 +50,12 @@ void Usage(char **argv)
 	exit(EXIT_FAILURE);
 }
 
-void debug(char *str, pthread_t id)
-{
-	printf(" %u: %s\n", (unsigned)id, str);
-}
-
 /*
-	master prozess: creates 3 threads:
-		- 2 secLine threads
-		- 1 clrThreadLine threads
+	master prozess: creates 6 threads:
+		- 2 secLine-Main threads
+		- 2 secLine-read threads
+		- 1 clrLine-Main threads
+		- 1 clrLine-read threads
 
 */
 int main(int argc, char **argv)
@@ -59,23 +65,30 @@ int main(int argc, char **argv)
 	/*
 		thread - variables
 	*/
-	struct threadEnvClr_t threadEnvClr; 
-	struct threadEnvSec_t threadEnvSec1; 
-	struct threadEnvSec_t threadEnvSec2; 
+	void (*clrSendThreadfPtr)(void *);
+	clrSendThreadfPtr = &initClr;
+	void (*clrRecvThreadfPtr)(void *);
+	clrRecvThreadfPtr = &clrRD;
 	
-	int (*clrMasterStart)(void);
-	clrMasterStart = &initClr;
-
-	int (*secMasterStart)(void *);
+	void (*secMasterStart)(void *);
 	secMasterStart = &initSec;
+	void (*secRDThreadfPtr)(void *);
+	secRDThreadfPtr = &secRD;
 
 	void *clrThreadRetval, *sec1ThreadRetval, *sec2ThreadRetval;
-	pthread_t sec1MasterThread, sec2MasterThread, clrMasterThread;
 
-	pthread_mutexattr_t mutexAttr;
-	pthread_mutexattr_init(&mutexAttr);
-	if((pthread_mutexattr_settype(&mutexAttr, PTHREAD_MUTEX_RECURSIVE_NP)) != 0)
-		printf("mutex set attr failed\n");
+ 	pthread_t clrMasterThread, clrRDThread;
+	pthread_t sec1RDThread, sec2RDThread;
+	pthread_t sec1MasterThread, sec2MasterThread;
+
+	// use one global mutex for debug messages
+	// we want the default attributes (locking a locked mutext -> suspend)
+	if(pthread_mutex_init(&globalMutex, NULL) != 0)
+	{
+		printf("global mutex init failed, exit");
+		return -1;
+	}
+
 	
 	while((c = getopt_long(argc, argv, "hc:1:2:3:4:", long_options, &option_index)) != EOF)
 	//while((c = getopt(argc, argv, "hs:")) != EOF)
@@ -94,13 +107,13 @@ int main(int argc, char **argv)
 			// arguments 	START
 			case '1':
 				printf("\tARG: %20s for SEC1 SOCKET\n", &optarg[0]);
-				threadEnvSec1.socketPath = &optarg[0];	
-				threadEnvSec1.id = SEC1;
+				threadEnvSec[0].socketPath = &optarg[0];	
+				threadEnvSec[0].id = SEC1;
 			break;
 			case '2':
 				printf("\tARG: %20s for SEC2 SOCKET\n", &optarg[0]);
-				threadEnvSec2.socketPath = &optarg[0];	
-				threadEnvSec2.id = SEC2;
+				threadEnvSec[1].socketPath = &optarg[0];	
+				threadEnvSec[1].id = SEC2;
 			break;
 			case '3':
 				printf("\tARG: %d for CLR/SEC1/SEC2 Device Addr\n", optarg[0]);
@@ -113,12 +126,9 @@ int main(int argc, char **argv)
 			
 				if((tmp < 16 ) && (tmp > 0))	
 				{
-					threadEnvClr.addrInt  = optarg[0];			//1.0.<addr> 
-					threadEnvSec1.addrInt = optarg[0];			//1.1.<addr>
-					threadEnvSec2.addrInt = optarg[0];			//1.2.<addr>
-					threadEnvClr.addrStr  = &optarg[0];			//1.0.<addr> 
-					threadEnvSec1.addrStr = &optarg[0];			//1.1.<addr>
-					threadEnvSec2.addrStr = &optarg[0];			//1.2.<addr>
+					threadEnvClr.addrInt  = tmp;			//1.0.<addr> 
+					threadEnvSec[0].addrInt = tmp;			//1.1.<addr>
+					threadEnvSec[1].addrInt = tmp;			//1.2.<addr>
 				}
 				else
 				{
@@ -134,47 +144,96 @@ int main(int argc, char **argv)
 		}
 	}
 
-	for(i=0; i < 2; i++)
-	{
-		// create condition variables for syncronization clr(recv) -> sec(send)
-		if(pthread_cond_init(&SecCondWr[i], NULL) != 0)
-		{
-			printf("condition variable %d init failed, exit", i);
-			return -1;
-		}
+	/*
+		pipe is used for communication: secRead -> secKeymaster
+		with pipes select() with timeouts can be used!
 
-		// every condition variable needs a mutex
-		if(pthread_mutex_init(&SecMutexWr[i], NULL) != 0)
-		{
-			printf("clr mutex init failed, exit");
-			return -1;
-		}
+		in a fork'ed environment, booth processes inherit booth file descriptors  
+			writer closes READend
+			reader closes WRITEend
+
+		... but this is not necessary for a threaded environment
+	*/
+	
+	if(pipe(threadEnvSec[0].RD2MasterPipe) == -1)
+	{
+		printf("pipe() for SEC0 failed, exit\n");
+		exit(-1);
+	}
+	if(pipe(threadEnvSec[1].RD2MasterPipe) == -1)
+	{
+		printf("pipe() for SEC1 failed, exit\n");
+		exit(-1);
+	}
+	if(pipe(threadEnvClr.SECs2ClrPipe) == -1)
+	{
+		printf("pipe() for SECsToClrPipe failed, exit\n");
+		exit(-1);
 	}
 
+	//	this connects booth SEC-threads to clrWR
+	threadEnvSec[0].SECs2ClrPipePtr[READEND] =  &threadEnvClr.SECs2ClrPipe[READEND]; 	// not needed, unidirectional comm SECx -> CLR
+	threadEnvSec[1].SECs2ClrPipePtr[READEND] =  &threadEnvClr.SECs2ClrPipe[READEND]; 	// ------------- " ------------
+	threadEnvSec[0].SECs2ClrPipePtr[WRITEEND] =  &threadEnvClr.SECs2ClrPipe[WRITEEND]; 
+	threadEnvSec[1].SECs2ClrPipePtr[WRITEEND] = &threadEnvClr.SECs2ClrPipe[WRITEEND]; 
 
-	// create cleartext-knx master thread
-	if((pthread_create(&clrMasterThread, NULL, (void *)clrMasterStart, &threadEnvClr)) != 0)
-	{
-		printf("clrThread thread init failed, exit\n");
-		return -1;
-	}
+	//	this connects clrRD to SEC0	
+	threadEnvClr.CLR2Master1PipePtr[READEND] = &threadEnvSec[0].RD2MasterPipe[READEND];
+	threadEnvClr.CLR2Master1PipePtr[WRITEEND] = &threadEnvSec[0].RD2MasterPipe[WRITEEND];
 
-	// FIXME: just to separate debug messages
-	sleep(2);
+	//	this connects clrRD to SEC1
+	threadEnvClr.CLR2Master2PipePtr[READEND] = &threadEnvSec[1].RD2MasterPipe[READEND];
+	threadEnvClr.CLR2Master2PipePtr[WRITEEND] = &threadEnvSec[1].RD2MasterPipe[WRITEEND];
 
-	// create secure-knx master thread 1	
-	if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec1)) != 0)
+	/*
+		----------------	create SEC threads
+					secure-knx master thread 1	
+	*/
+	if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[0])) != 0)
 	{
 		printf("sec1Thread thread init failed, exit\n");
 		return -1;
 	}
 
-	// create secure-knx master thread 2
-	if((pthread_create(&sec2MasterThread, NULL, (void *)secMasterStart, &threadEnvSec2)) != 0)
+	//				secure-knx master thread 2
+	if((pthread_create(&sec2MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[1])) != 0)
 	{
 		printf("sec2Thread thread init failed, exit\n");
 		return -1;
 	}
+
+	//				create READ thread 1
+	if((pthread_create(&sec1RDThread, NULL, (void *)secRDThreadfPtr, &threadEnvSec[0])) != 0)
+	{
+		printf("sec RECEIVE Thread init failed, exit\n");
+		exit(-1);
+	}
+
+	//				create READ thread 2
+	if((pthread_create(&sec2RDThread, NULL, (void *)secRDThreadfPtr, &threadEnvSec[1])) != 0)
+	{
+		printf("sec RECEIVE Thread init failed, exit\n");
+		exit(-1);
+	}
+
+	/*
+		----------------	create CLR threads
+	//				create MASTER thread 
+	*/
+	if((pthread_create(&clrMasterThread, NULL, (void *)clrSendThreadfPtr, &threadEnvClr)) != 0)
+	{
+		printf("CLR : SEND MasterThread init failed, exit\n");
+		return -1;
+	}
+	//				create READ thread
+	if((pthread_create(&clrRDThread, NULL, (void *)clrRecvThreadfPtr, &threadEnvClr)) != 0)
+	{
+		printf("CLR : RECEIVE Thread init failed, exit\n");
+		return -1;
+	}
+	#ifdef DEBUG
+		printf("CLR : send/recv threads startet, waiting for kids\n");
+	#endif
 
 	#ifdef DEBUG
 		printf("\n\nMaster   Thread %u, waiting for kids\n", (unsigned)pthread_self());
@@ -183,8 +242,11 @@ int main(int argc, char **argv)
 		printf("clearMst Thread: %u\n\n\n", (unsigned)clrMasterThread);
 	#endif
 	pthread_join(clrMasterThread, &clrThreadRetval);
+	pthread_join(clrRDThread, &clrThreadRetval);
 	pthread_join(sec1MasterThread, &sec1ThreadRetval);
 	pthread_join(sec2MasterThread, &sec2ThreadRetval);
+	pthread_join(sec1RDThread, &sec1ThreadRetval);
+	pthread_join(sec2RDThread, &sec2ThreadRetval);
 
 	#ifdef DEBUG
 		printf("all threads gone, exit\n");

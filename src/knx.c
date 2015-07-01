@@ -1,70 +1,65 @@
-#include "common.h"
+#include "globals.h"
 
-#define TRUE	1
-#define FALSE	0
-
-// bit definitions
-#define frameType	7
-#define repeatedFrame	5
-
-// field definitions
-#define ctrlField	0
-#define srcField1	1
-#define srcField2	2
-#define destField1	3
-#define destField2	4
-//	MACROS
-#define srcAreaAddress(frame)		(frame[srcField1] >> 4)
-#define srcLineAddress(frame)		((frame[srcField1] & 0x0F))
-#define srcDeviceAddress(frame)		(frame[srcField2])
-
-#define destAreaAddress(frame)		((frame[destField1] >> 4 ))
-#define destLineAddress(frame)		((frame[destField1] & 0x0F))
-#define destDeviceAddress(frame)	(frame[destField2])
-
-#define isRepeated(frame) ((frame[ctrlField] >> repeatedFrame) ^ 0x01)
-
-#define isStdFrame(frame) ((frame[ctrlField] >> frameType) & 0x01)
-#define isExtFrame(frame) ((frame[ctrlField] >> frameType) ^ 0x01)
-
-// Standard Frame specific macros
-// addr type on different locations for std / ext frames
-#define isGroupAddrStd(frame)		((frame[5] >> 7) & 0x01)
-#define isIndivAddrStd(frame)		((frame[5] >> 7) ^ 0x01)
-#define lengthStd(frame)		(frame[5] & 0x0F)
-#define hopcountStd(frame)		((frame[5] >> 4)& 0x07)		// = NCPI
-#define tpciStd(frame)			(frame[6] >> 2)			// see 03_03_4_ Transport Layer...pdf
-
-int decodeFrame(unsigned char *frame)
+int decodeFrame(unsigned char *frame, knxPacket *packet)
 {
 	if(isStdFrame(frame))
 	{
-		printf("STANDARD FRAME: payload=%d / hopcount=%d / TCPI=%d / ", lengthStd(frame), hopcountStd(frame), tpciStd(frame));
 		printf("%d.%d.%d -> ", srcAreaAddress(frame), srcLineAddress(frame),srcDeviceAddress(frame));	
+		packet->type = stdFrame;
+		packet->srcDev = srcDeviceAddress(frame);
+		packet->srcLine = srcLineAddress(frame);
+		packet->srcArea = srcAreaAddress(frame);
 		if(isIndivAddrStd(frame))	// std frame for indiv. address
 		{
-			printf("%d.%d.%d -> ", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
+			packet->indivAdr = 1;
+			printf("%d.%d.%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
 		}
 		else			// std frame for group address
 		{
+			packet->indivAdr = 0;
 			printf("%d/%d/%d", destAreaAddress(frame), destLineAddress(frame), destDeviceAddress(frame));	
 		}
-
+		printf(" STD: dataLen=%d / TTL=%d / TCPI=%d / ", lengthStd(frame), hopcountStd(frame), tpciStd(frame));
+/*
+		int i=0;
+		for(i=0; i<lengthStd(frame); i++)
+		{
+			printf("%02x ", frame[STDpayloadField + i]);
+		}
+*/
+		printf("\n");
 	}
-	else	// extended frame received
+	else if(isExtFrame(frame))	// extended frame received
 	{
-		printf("EXT frame ");
-	/*
-		if(isIndivAddrStd)	// extended frame for indiv. address
+		packet->type = extFrame;
+		packet->srcDev = frame[3];
+		
+		printf("%d.%d.%d -> ", srcAreaAddressExt(frame), srcLineAddressExt(frame),srcDeviceAddressExt(frame));	
+		if(isIndivAddrExt(frame))	// STD frame for indiv. address
 		{
-
+			packet->indivAdr = 1;
+			printf("%d.%d.%d", destAreaAddressExt(frame), destLineAddressExt(frame), destDeviceAddressExt(frame));	
 		}
-		else			// extended frame for group address
+		else			// Ext group / broadcast
 		{
-
+			packet->indivAdr = 0;
+			printf("%d/%d/%d", destAreaAddressExt(frame), destLineAddressExt(frame), destDeviceAddressExt(frame));	
 		}
-	*/
+		printf(" EXT: dataLen=%d / TTL=%d / ", lengthExt(frame), hopcountExt(frame));
+/*
+		int i=0;
+		#ifdef DEBUG
+		for(i=0; i<lengthExt(frame); i++)
+		{
+			printf("%02x ", frame[EXTpayloadField + i]);
+		}
+		#endif
+*/
+		printf("\n");
 	}
-	printf("\n");
+	else
+	{
+		printf("got unknown type\n");
+	}
 	return 0;	
 }

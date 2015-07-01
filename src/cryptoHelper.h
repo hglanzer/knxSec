@@ -13,3 +13,10 @@ int verifyHMAC(const byte* msg, size_t mlen, const byte* sig, size_t slen, EVP_P
 void print_it(const char* label, const byte* buff, size_t len);
 
 int hmacInit(EVP_PKEY**, EVP_PKEY**, size_t *, size_t *);
+
+
+uint8_t encAES(uint8_t *, uint8_t, uint8_t *, uint8_t *, uint8_t *);
+
+unsigned char *deriveSharedSecretLow(EC_KEY *, uint8_t *, void *);
+
+void genECpubKeyLow(EC_KEY *, uint8_t *);

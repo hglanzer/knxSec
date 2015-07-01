@@ -5,6 +5,7 @@
 
 #define AreaAddress(adr) ((uint8_t)(adr >> 4 ))
 #define LineAddress(adr) ((uint8_t)(adr & 0x0F))
+#define EIBADDR(area,line,device) (((area << 4 | line) << 8) | device)
 
 main (int ac, char *ag[])
 {
@@ -18,13 +19,13 @@ main (int ac, char *ag[])
 		IF EIBSendAPDU is used it seems like the very first byte of the APDU is the APCI
 	*/
 
-	size = 5;
+	size = 20;
 	buf[0] = 0x40;		// set APCI, first 2 bit
 	buf[1] = 0x40;		// set APCI, first 2 bit
 	for(i=2; i<size;i++)
 	{
-	//	buf[i] = i;
-		buf[i] = 0x04;
+		buf[i] = i;
+	//	buf[i] = 0x04;
 	}
 	//buf[i] = '\0';
 
@@ -62,12 +63,27 @@ main (int ac, char *ag[])
 			printf("EIBOpenSendTPDU() failed\n\n");
         		return -1;
 		}
+
+	EIBClose (con);
+	con = EIBSocketURL (ag[1]);
+	if (!con)
+	{
+		printf("EIBSocketURL() failed\n\n");
+        	return -1;
+	}
+	printf("re-opening connection\n");
+		if (EIBOpenT_Broadcast(con, 1) == -1)
+		{
+			printf("EIBOpenT_Broadcast() failed\n\n");
+	        	return -1;
+		}
 	}
 	if(ag[2][0] == 'i')
 	{
-
-		if (EIBOpenT_Individual(con, myAddr, FALSE) == -1)
-		//if (EIBOpenT_TPDU(con, myAddr) == -1)
+			
+		dest = EIBADDR(2,4,120);
+		if (EIBOpenT_Individual(con, dest, FALSE) == -1)
+		//if (EIBOpenT_TPDU(con, dest) == -1)
 		{
 			printf("EIBpenT_TPDU() failed\n\n");
 	        	return -1;
@@ -84,7 +100,7 @@ main (int ac, char *ag[])
 	}
 	if(ag[2][0] == 'g')
 	{
-		dest = 0x101;
+		dest = 0x1201;
 		//if (EIBOpenT_Group(con, dest, FALSE) == -1)
 		//if (EIBOpenT_Group(con, dest, TRUE) == -1)
 		if (EIBOpen_GroupSocket(con, TRUE) == -1)

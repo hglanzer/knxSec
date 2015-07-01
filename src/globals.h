@@ -17,9 +17,13 @@
 #include<sys/select.h>
 #include<string.h>
 #include<errno.h>
+
 #include<openssl/rand.h>
 #include<openssl/ssl.h>
 #include<openssl/err.h>
+#include<openssl/evp.h>
+#include<openssl/ec.h>
+
 #include<sys/types.h>
 #include<sys/ipc.h>
 #include<sys/msg.h>
@@ -59,7 +63,15 @@
 #define MSG_PERM	0666
 #define MSG_TYPE	1
 
+struct packet_t
+{
+	char buf[256];
+	uint8_t type;
+	uint8_t len;
+};
 struct msgbuf_t {
 	long mtype;       /* message type, must be > 0 */
-	char buf[256];    /* message data */
+//	char buf[256];    /* message data */
+	struct packet_t frame;
 };
+
