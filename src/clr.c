@@ -42,12 +42,16 @@ int searchSRC(void *env, uint8_t *src, uint32_t updateVal)
 
 	srcEIBtmp = ((src[0]<<8) | (src[1]));
 
-	printf("CLR: searching counter for srcEIB %d / ", srcEIBtmp);
+	#ifdef DEBUG
+		printf("CLR: searching counter for srcEIB %d / ", srcEIBtmp);
+	#ifdef
 	for(i=0;i<10;i++)
 	{
 		if(thisEnv->indCtr[i].srcEIB == srcEIBtmp)
 		{
-			printf("found, CTR = %d", thisEnv->indCtr[i].indCount);
+			#ifdef DEBUG
+				printf("found, CTR = %d", thisEnv->indCtr[i].indCount);
+			#endif
 			if(updateVal == 0)
 				thisEnv->indCtr[i].indCount++;
 			else
@@ -67,7 +71,9 @@ int searchSRC(void *env, uint8_t *src, uint32_t updateVal)
 		}
 		if(thisEnv->indCtr[i].srcEIB == 0x00)
 		{
-			printf("not found, set CTR = 1");
+			#ifdef DEBUG
+				printf("not found, set CTR = 1");
+			#endif
 			thisEnv->indCtr[i].indCount = 0x01;
 			thisEnv->indCtr[i].srcEIB = srcEIBtmp;
 			return 0x01;
@@ -112,11 +118,11 @@ void clrWR(void *threadEnv)
 				
 		if(rc)
 		{
-			printf("FORWARDING TO CLR\n\n");
+			printf("\t\tFORWARDING TO CLR\n\n");
 		}					
 		else
 		{
-			printf("DISCARDING DUPLICATE\n\n");
+			printf("\t\tDISCARDING DUPLICATE\n\n");
 		}
 		
 
