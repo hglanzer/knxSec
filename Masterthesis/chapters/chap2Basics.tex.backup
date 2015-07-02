@@ -1,9 +1,44 @@
-\section{Basic definitions and prerequisites}
+\label{chap2}
+\section{Information Security}
+
+Information security is the effort to protect information - be it in electronic or physical form - from adversary modification or disclosure. The standard
+ model for entity $A$ sending information to entity $B$ is shown in Figure \ref{fig:stdComm}. 
+
+\begin{figure}
+ \centering
+\begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+
+\node[state,text width=0.8cm,align=center]					at (-40,0)		(a)		{A}; 
+\node[state,text width=0.8cm,align=center]					at (0,0)		(b)		{B}; 
+\path[pil,->] (a)  edge[auto]   node[text width=1cm] {} (b);
+\end{tikzpicture}
+\caption{Communication between two users}
+\label{fig:stdComm}
+\end{figure}
 
 The basic building stones of information security are confidentiality, integrity and availability, also called the \textit{"CIA - triad"} \cite{stallings}.
+\\
 \textbf{Confidentiality} is used to protect sensitive information from eavesdroppers who are not allowed to get knowledge of that information. 
+\\
 \textbf{Integrity} ensures that some kind of information can not be altered by third-parties, or that such a modification can be detected by the
 receiver of the information, and also includes information non-repudiation.
+Akin to integrity is \textbf{authenticity}. Authenticity assures that the receiver of
+a message can verify that the message really was sent from the sender and not by an illegitimate third entity. Obviously, integrity and authenticity are semantically
+related: checking the integrity implicitly checks authenticity, provided that the key used to generate the tag is only known to authentic entities.
+\\
+Vice versa, authenticating the sender of a message is only useful if the message itself cannot be modified by an adversary, i.e. integrity is guaranteed.
+%To avoid confusion, the term integrity is used if the meaning is clear from the context.
 \textbf{Availability} ensures that information, which is needed by an entity to provide some service, is accessible.
 \\
 All three properties go hand-in-hand with each other because a successful attack on one property may allow attacking another one. For example, if a
@@ -14,11 +49,39 @@ booking orders, thus mounting an attack against the integrity of the system. Thu
 only parts of them will most likely lead to an insecure system.
 \\
 \\
-A basic classification of attacks is given in figure \ref{fig:attacks} - a refinement will be given in this work as additional attacks are introduced.
-The most abstract level distinguishes \textit{passive} and \textit{active} attacks. A passive
-attack is undetectable and aimed against confidentiality, either to release the data itself or to get knowledge of some kind of meta data, like origin,
-destination and frequency of a data flow - to counter them, encryption is sufficient. Passive attacks are often used as starting point for obtaining knowledge which can later to be used to mount 
+\begin{figure}[h]
+\centering
+ \begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+\node[state,text width=0.8cm,align=center]					at (-40,0)		(a)		{A}; 
+\node[state,text width=0.8cm,align=center]					at (0,0)		(b)		{B}; 
+\node[state,text width=0.8cm,align=center]					at (-20,-10)		(e)		{E}; 
+\node[state,text width=0.1cm,align=center,minimum size=0.1,fill]		at (-20,0)		(+)		{}; 
+\path[pil,->] (a)  edge[auto]   node[text width=1cm] {} (b);
+\path[pil,->] (+)  edge[auto]   node[text width=1cm] {} (e);
+\end{tikzpicture}
+\label{fig:passiveAttack}
+\caption{Passive attack}
+\end{figure}
+A basic classification of attacks is given in Figure \ref{fig:attacks}. 
+The most abstract level distinguishes \textit{passive} and \textit{active} attacks. A passive attack, as shown in Figure \ref{fig:passiveAttack},
+ is undetectable and aimed against confidentiality. Here, the attacker $E$ \textbf{intercepts} the data transmitted to either. The attacker can also \textbf{release} the data itself to 
+ an outside entity.
+
+ or to get knowledge of some kind of meta data,
+ like origin, destination and frequency of a data flow - to counter them, encryption is sufficient. Passive attacks are often used as starting point for obtaining knowledge which can later to be used to mount 
 additional attacks.
+\\
 \\
 Unfortunately, a restriction to passive attacks only is not realistic for many systems. Whenever the adversary has access to the communication medium, active attacks
 cannot be ruled out. A replay attack happens when the attacker monitors traffic first (i.e. a passive attack) and afterwards injects a recorded package, 
@@ -32,16 +95,12 @@ usable by legitimate users. Finally, masquerade attacks turn on the integrity of
     \caption{Classification of attacks}
     \label{fig:attacks}
 \end{figure}
-\\
-\\
-The basic tool to achieve confidentiality and integrity is cryptography, which is introduced in the following sections after 
-presenting it's prerequisites. Improved availability, with established 
-information security measurements as necessary, but not sufficient prerequisites, is gained through replication, presented afterwards.
-Finally, the special requirements that must be met for \gls{hbas} will be researched in this chapter.
+The basic tool to achieve confidentiality and integrity is cryptography, which is introduced in Section \ref{sec:crypto}.
 
-\subsection{Cryptography}
+
+\subsection{Cryptography}\label{sec:crypto}
 Cryptography\footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
-is the science of encrypting information - it's evolution was no linear process. Ciphers were used independently in different
+is the science of encrypting information - its evolution was no linear process. Ciphers were used independently in different
 places, were forgotten and disappeared when the corresponding civilization died.
 A short time table for prominent events is presented below; for a comprehensive outline of cryptographic history, "The Codebreakers", written by David Kahn,
 is suggested \cite{codebreakers}.
@@ -115,7 +174,7 @@ Combining this properties yields a cipher or \textit{encryption scheme} defined 
 \subsection{Security of a cipher}
 
 A formal definition of a secure cipher was introduced by Shannon in 1949 \cite{6769090}, viewed from a communication-theory point of view, as follows:
-given a finite message space, every possible cleartext message has it's own \textit{a priori} probability (for example, the distribution of letters in a 
+given a finite message space, every possible cleartext message has its own \textit{a priori} probability (for example, the distribution of letters in a 
 specific language). Additionally, every key can be chosen with specific probability. It is assumed that these
 two probabilities constitute the a priori knowledge of an attacker.
 \\
@@ -139,7 +198,7 @@ frame \cite{handbook1}, where this time frame is a function of the useful timesp
 cipher that an adversary must be forced to spend super-polynomial time to be able to break it. It follows that \textit{all} semantically secure ciphers
 can be broken in principle by mounting the "brute-focrce" attack, searching the correct $n$-bit key in the exponential big key space $2^n$. Thus, such an
 exhaustive search must be rendered impracticable by using a suitable large key space to obtain a secure cipher.
-Semantic security is therefor a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
+Semantic security is therefore a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
 processing powers \cite{GoldwasserMicali}.
 \\
 \\
@@ -166,7 +225,7 @@ A basic requirement of all cryptographic schemes is the availability of randomne
 The higher the predictability, or in other words, the more likely an event, the lower its entropy. Flipping a "fair" coin is a canonical 
 example of a process with maximum entropy, because every coin flip has a probability of $\frac{1}{2}$, and all flips are independent from each other \cite{1621063}.
 If obtaining heads of the coin is viewed as a logical "0" and tails as a logical "1", a binary string of length $n$ can be built, where the probability of all possible
-strings of same length is equal, as shown in figure \ref{fig:uniform}, yielding an \textit{uniform distribution}, with
+strings of same length is equal, as shown in Figure \ref{fig:uniform}, yielding an \textit{uniform distribution}, with
 $H = 2^n*\frac{1}{2^n}*ln(2^n) = n$ bit. 
 \\
 \\
@@ -193,7 +252,7 @@ Random values can be obtained after setting an initial value for $I_0$, called \
  $I_{j+1} = 65539 * I_j \pmod{2^{31}}$
 \end{center}
 One problem 
-is that consecutive values generated by RANDU are not independent, a fact that	 can be seen in figure \ref{fig:randu}. To obtain the plot, 10000 uniformly distributed 
+is that consecutive values generated by RANDU are not independent, a fact that	 can be seen in Figure \ref{fig:randu}. To obtain the plot, 10000 uniformly distributed 
 random numbers were chosen as initial seeds for $I_i$ and plotted as x-values. $I_{i+1}$ served as y- and $I_{i+2}$ as z-values. While one would suspect that all points
 would be equally distributed in space, a clear pattern is visible, indicating that the values are correlated.
 \\
@@ -203,7 +262,7 @@ To encounter the shortcomings of a \gls{prng}, a \gls{trng} uses a natural proce
 thermal noise of a semi conductor, cosmic noise from space or digital oscillators.
 \\
 The used hardware platform, the RapsberryPi, offers a hardware number generator - the quality of its provided random numbers will be subject
-to various statistical tests, see chapter \ref{FIXME} for the results.
+to various statistical tests, see Chapter \ref{chap5} for the results.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{figures/uniform}
@@ -218,7 +277,7 @@ to various statistical tests, see chapter \ref{FIXME} for the results.
 \end{figure}
 
 \subsection{The discrete logarithm problem}\label{refDLP}
-The \gls{dlp}, a mathematical problem, is the basis of two important key exchange algorithms, booth introduced in section \ref{pkc}: the first one, \gls{dh} utilizes finite fields, whose
+The \gls{dlp}, a mathematical problem, is the basis of two important key exchange algorithms, both introduced in section \ref{pkc}: the first one, \gls{dh} utilizes finite fields, whose
 theoretical background is introduced below. \glspl{ec}, basis for the second algorithm, are also explained.
 
 \subsubsection{Finite Fields \gls{dlp}}
@@ -265,7 +324,7 @@ To find
 the discrete logarithm, several algorithms exist. The most naive method conducts an exhaustive search, so for a prime of $n$ bits length, $2^n$ search operations
 are necessary. More efficient algorithms exist, with the best methods finishing after about $2^{\frac{n}{2}}$ steps \cite{5199978}. 
 Therefore, by choosing a sufficient large prime, finding the discrete logarithm is considered a hard problem, a fact
-that is exploited by the \gls{dh} key exchange algorithm and it's variants.
+that is exploited by the \gls{dh} key exchange algorithm and its variants.
 
 \subsubsection{Elliptic curve \gls{dlp}}
 An \gls{ec} is basically the set of all points
@@ -275,42 +334,51 @@ satisfying an equation with the form as shown in \ref{basicEC}, called "Weierstr
  y^2 = x^3 + ax +b
 \end{align}
 The additional condition $4a^3 + 27b^3 \neq 0$ assures that the \gls{ec} does not possess any singularities.
-
-\begin{minipage}{\linewidth}
- %     \centering
-      \begin{minipage}{0.5\linewidth}
-          \begin{figure}[H]
-              \includegraphics[width=\linewidth]{figures/ecAdd.eps}
-              \caption{Adding two points}
-              \label{fig:ecAdd}
-          \end{figure}
-      \end{minipage}
-     % \hspace{0.05\linewidth}
-      \begin{minipage}{0.5\linewidth}
-          \begin{figure}[H]
-              \includegraphics[width=\linewidth]{figures/doubleEC.eps}
-              \caption{Doubling a point}
-              \label{fig:ecDouble}
-          \end{figure}
-      \end{minipage}
-  \end{minipage}
+\\
+An imaginary point "in infinity", denoted $\infty$, serves as additive neutral element, and also belongs to the \gls{ec} by definition:
+\begin{center}
+ $P + \infty = \infty + P = P, P + (-P) = \infty$
+\end{center}
+Negatives can be calculated easily due to the symmetric nature of the curves by swapping the sign of the y-coordinate of the point. For point $P$ with coordinates $(x, y)$, $-P$ is defined as
+$(x,-y)$, thus satisfying $P + (-P) = \infty$.
+\\
 By defining an \gls{ec} over $\mathbb{Z}_p$, with $a, b \in \mathbb{Z}_p$, a cyclic group can be generated. The addition operation that "adds" two points on
 this curve is defined by a "chord-and-tangent" rule. Figure \ref{fig:ecAdd}
 shows addition of two points, while \ref{fig:ecDouble} shows adding a point to itself. It is important to note that this representation is shown in the domain
 $\mathbb{R}$ for visualization - in real \gls{ec} cryptography, only elements $\pmod p$ (i.e. from the set $\mathbb{Z}_p$)
-are allowed. 
-%FIXME: praktische gruende warum nur finite fields statt real domain: rounding errors, only finite number of points
+are allowed to avoid rounding errors. 
+\\
 \\
 Addition is defined as connecting points $A$ and 
-$Q$, finding the intersection of the line with the \gls{ec} ($R'$) and reflecting that point across the x-axis to obtain the result $R$.
-Point-doubling of $P$ is achieved in a similar way by determining the tangent of $P$, finding the intersection and reflection. 
-\\
+$Q$, finding the intersection of the line with the \gls{ec} ($R'$) and reflecting that point across the x-axis to obtain the result $R$. 
+%\begin{minipage}{\linewidth}
+%      \centering
+%      \begin{minipage}{0.8\linewidth}
+          \begin{figure}[H]
+          \centering
+              \includegraphics[width=0.6\linewidth]{figures/ecAdd.eps}
+              \caption{Adding two points}
+              \label{fig:ecAdd}
+          \end{figure}
+Mathematically, the new coordinates can be calculated as shown in equation \ref{adding}:
+\begin{align}\label{adding}
+x_3 = (\frac{y_2-y_1}{x_2-x_1})^2-x_1-x_2, y_3=\frac{y_2-y_1}{x_2-x_1}(x_1-x_3)-y_1
+\end{align}   
+Point-doubling of $P$ is achieved in a similar way by determining the tangent of $P$, finding the intersection and reflection.
+%      \end{minipage}
+     % \hspace{0.05\linewidth}
+%      \begin{minipage}{0.8\linewidth}
+          \begin{figure}[H]
+	    \centering
+              \includegraphics[width=0.6\linewidth]{figures/doubleEC.eps}
+              \caption{Doubling a point}
+              \label{fig:ecDouble}
+          \end{figure}
+%      \end{minipage}
+%  \end{minipage}
 % Formulae to calculate x- and y-coordinates for the resulting points
 % for point addition $R=P+Q$ and point doubling $R=P+P$ are shown in equations \ref{adding} and \ref{doubling} respectively:
 % 
-% \begin{align}\label{adding}
-%  x_3 = (\frac{y_2-y_1}{x_2-x_1})^2-x_1-x_2, y_3=\frac{y_2-y_1}{x_2-x_1}(x_1-x_3)-y_1
-% \end{align}
 % 
 % \begin{align}\label{doubling}
 %  x_3 = (\frac{3x_1^2 +a}{2y_1})^2 - 2x_1, y_3=\frac{3x_1^2+a}{2y_1}(x_1-x_3)-y_1
@@ -319,12 +387,7 @@ Multiplication is defined as successive addition of a point to it self in the wa
 \begin{center}
  $kP = \underbrace{P+P+...+P}_{k-times}$
 \end{center}
-An imaginary point "in infinity", denoted $\infty$, serves as additive neutral element, and also belongs to the \gls{ec} by definition:
-\begin{center}
- $P + \infty = \infty + P = P, P + (-P) = \infty$
-\end{center}
-Negatives can be calculated easily due to the symmetric nature of the curves by swapping the sign of the y-coordinate of the point. For point $P$ with coordinates $(x, y)$, $-P$ is defined as
-$(x,-y)$, thus satisfying $P + (-P) = \infty$.
+
 
 \subsubsection{\gls{ecdlp}}\label{ecdp}
 

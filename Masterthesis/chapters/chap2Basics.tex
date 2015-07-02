@@ -1,8 +1,40 @@
 \label{chap2}
-\section{Basic definitions and prerequisites}
+\section{Information Security}
 
+Information security is the effort to protect information - be it in electronic or physical form - from adversary threats. 
+The domain in which the data is to protected can be \textit{time}, i.e. protecting saved information for later usage, or \textit{space}, i.e. protect information
+transmitted physically from one user to another.
+A classification of threats against information security is given in Figure \ref{fig:attacks}.  
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/attacks.eps}
+    \caption{Classification of attacks}
+    \label{fig:attacks}
+\end{figure}
+The standard model for entity $A$ sending information to entity $B$ is shown in Figure \ref{fig:stdComm}. 
+\begin{figure}[h]
+ \centering
+\begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+
+\node[state,text width=0.8cm,align=center]					at (-40,0)		(a)		{A}; 
+\node[state,text width=0.8cm,align=center]					at (0,0)		(b)		{B}; 
+\path[pil,->] (a)  edge[auto]   node[text width=1cm] {} (b);
+\end{tikzpicture}
+\caption{Communication between two users}
+\label{fig:stdComm}
+\end{figure}
 The basic building stones of information security are confidentiality, integrity and availability, also called the \textit{"CIA - triad"} \cite{stallings}.
-\\
 \textbf{Confidentiality} is used to protect sensitive information from eavesdroppers who are not allowed to get knowledge of that information. 
 \\
 \textbf{Integrity} ensures that some kind of information can not be altered by third-parties, or that such a modification can be detected by the
@@ -23,32 +55,47 @@ booking orders, thus mounting an attack against the integrity of the system. Thu
 only parts of them will most likely lead to an insecure system.
 \\
 \\
-A basic classification of attacks is given in Figure \ref{fig:attacks} - a refinement will be given in this work as additional attacks are introduced.
-The most abstract level distinguishes \textit{passive} and \textit{active} attacks. A passive
-attack is undetectable and aimed against confidentiality, either to release the data itself or to get knowledge of some kind of meta data, like origin,
-destination and frequency of a data flow - to counter them, encryption is sufficient. Passive attacks are often used as starting point for obtaining knowledge which can later to be used to mount 
-additional attacks.
-\\
+
+A passive attack, as shown in Figure \ref{fig:passiveAttack},
+ is undetectable and aimed against confidentiality. Here, the attacker $E$ \textbf{intercepts} the data transmitted between the two entities.
+ After that, the attacker could \textbf{release} the data itself to an outside entity, or \textbf{analyze} the data, allowing him to get knowledge of some kind of meta data
+ like origin, destination and frequency of a data flow.
+Passive attacks are often used as starting point for obtaining knowledge which can later to be used to mount 
+additional attacks - to exclude passive attacks, encryption is sufficient. 
+\begin{figure}[h]
+\centering
+ \begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+\node[state,text width=0.8cm,align=center]					at (-40,0)		(a)		{A}; 
+\node[state,text width=0.8cm,align=center]					at (0,0)		(b)		{B}; 
+\node[state,text width=0.8cm,align=center]					at (-20,-10)		(e)		{E}; 
+\node[state,text width=0.1cm,align=center,minimum size=0.1,fill]		at (-20,0)		(+)		{}; 
+\path[pil,->] (a)  edge[auto]   node[text width=1cm] {} (b);
+\path[pil,->] (+)  edge[auto]   node[text width=1cm] {} (e);
+\end{tikzpicture}
+\label{fig:passiveAttack}
+\caption{Passive attack}
+\end{figure}
 Unfortunately, a restriction to passive attacks only is not realistic for many systems. Whenever the adversary has access to the communication medium, active attacks
 cannot be ruled out. A replay attack happens when the attacker monitors traffic first (i.e. a passive attack) and afterwards injects a recorded package, 
 attacking data freshness. Of course,
 the package can also be modified and injected afterwards.
 A \gls{dos} attack tries to overload system resources, attacking availability s.t. the system is not
 usable by legitimate users. Finally, masquerade attacks turn on the integrity of the system.
-\begin{figure}
-    \centering
-    \includegraphics[width=1\textwidth]{figures/attacks.eps}
-    \caption{Classification of attacks}
-    \label{fig:attacks}
-\end{figure}
-\\
-\\
-The basic tool to achieve confidentiality and integrity is cryptography, which is introduced in the following sections after 
-presenting its prerequisites. Improved availability, with established 
-information security measurements as necessary, but not sufficient prerequisites, is gained through replication, presented afterwards.
-Finally, the special requirements that must be met for \gls{hbas} will be researched in this chapter.
+The basic tool to achieve confidentiality and integrity is cryptography, which is introduced in Section \ref{sec:crypto}.
 
-\subsection{Cryptography}
+
+\subsection{Cryptography}\label{sec:crypto}
 Cryptography\footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
 is the science of encrypting information - its evolution was no linear process. Ciphers were used independently in different
 places, were forgotten and disappeared when the corresponding civilization died.

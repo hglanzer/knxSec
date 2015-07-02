@@ -92,7 +92,7 @@ should never be used as keystream generator directly, instead the outputs of dif
 nonlinear generator.
 \begin{figure}
     \centering
-    \includegraphics[width=1\textwidth]{figures/LSFR}
+    \includegraphics[width=0.8\textwidth]{figures/LSFR.eps}
     \caption{4 Stage LFSR}
     \label{fig:lsfr}
 \end{figure}

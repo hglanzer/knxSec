@@ -13,12 +13,13 @@ Modern building management includes much more different and more sophisticated t
 To reduce costs it would be natural to bring together these services under the control of one management system, a claim also supported through improved 
 standardization efforts.
 \\
-Given these potential applications, a wide range of attacks would be possible. For example, \gls{dos} attacks to disable all directly connected
-\gls{knx} devices can be conducted by simply physically shortcutting a line
-connection, rendering the corresponding network segment unavailable.
-Replay attacks by intercepting and replaying datagrams are also possible, allowing an adversary to introduce arbitrary \gls{knx} traffic, switching doors
+Given these potential applications, a wide range of attacks would be possible. 
+Replay attacks by intercepting and replaying datagrams would allow an adversary to introduce arbitrary \gls{knx} traffic, switching doors
 or disabling burglar alarms. Passive attackers can monitor the bus traffic to analyze the types of \gls{knx} devices within the network, gathering knowledge that can be used
 to develop further attack strategies.
+\gls{dos} attacks, disabling all directly connected \gls{knx} devices, can be conducted by simply physically shortcutting or interrupting a line
+connection, rendering the corresponding network segment unavailable. Clearly, such attacks must be precluded for sensitive services like fire or burglar alarms,
+relying on the availability of the communication network.
 \\
 High availability, in general, can only be achieved by redundancy, i.e. by using replicated resources. Therefore, all
 resources needed for transmitting data between two points must exist redundantly and independently from each other.
@@ -38,7 +39,7 @@ hardware failure can disable a system too, unacceptable for systems handling fir
 
 \section{Aim of the work}
 
-The overall goal of this work is to develop a concept for a secure and high-available \gls{knx} network that also considers interoperability and compatibility, 
+The overall goal of this work is to develop a concept for a secure and highly available \gls{knx} network that also considers interoperability and compatibility, 
 allowing the usage in environments even with increased safety-critical requirements. The proposed solution shall be resistant against malicious adversary as well as against
 transient hardware failures.
 \\
@@ -64,14 +65,14 @@ i.e. that it can recover from erroneous states. This will be done by exposing th
 
 \section{Structure of the work}
 
-Chapter \ref{chap2} introduces the basic concepts for providing integrity and confidentiality, handling symmetric and asymmetric ciphers, followed by ways how to improved availability.
-The chapter is concluded by state-of-the art technologies implementing highly-available communication networks.
+Chapter \ref{ch:prerequisites} introduces the required prerequisites for providing integrity and confidentiality, handling symmetric and asymmetric ciphers. 
+Chapter \ref{ch:availability} explains the term availability is concluded by state-of-the art technologies implementing highly-available communication networks.
 \\
-Chapter \ref{chap3} explains the structure of the \gls{knx} standard, and introduces the most important cryptographic extensions.
+Chapter \ref{ch:knx} explains the structure of the \gls{knx} standard, and introduces the most important cryptographic extensions.
 \\
-Chapter \ref{chap4} suggests a \gls{knx} prototype, applicable in environments with increased availability needs.
+Chapter \ref{ch:concept} suggests a \gls{knx} prototype, applicable in environments with increased availability needs.
 \\
-Finally, chapter \ref{chap5} explains the implementation of the prototype.
+Finally, chapter \ref{ch:implementation} explains the implementation of the prototype, evaluates it and discusses the results.
 
 
 

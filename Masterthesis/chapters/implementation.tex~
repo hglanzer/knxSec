@@ -1,7 +1,59 @@
-\label{chap5}
-\section{Master daemon}
+\label{chap6}
+To be able to evaluate the proposed solution in a real-life scenario, a prototype based on the concept presented was built. This chapter introduces the implementation from a high level
+view, followed by the evaluation of the result. Afterwards, the results are discussed and improvements are suggested.
+\subsection{Implementation}
+The necessary software, running on each platform, is written in the programming language "C". To interface with \gls{knx}, an \gls{api} named "EIBD" is used, providing functions to
+send \gls{knx} frames to and receive frames from the bus. "EIBD" offers synchronous as well as asynchronous calls for sending and receiving frames. While the first kind of
+call will block until the operation finished, the second kind of call will return immediately, the status of such calls can be checked by another special "EIBD" call.
+Because it is not possible to use callbacks with asynchronous calls, the implementation uses the synchronous functions. Because every platform possess 3 distinct interfaces to the bus (2 interfaces form the redundant "secure" part of the network, one is connected
+to a standard \gls{knx} network), care must be taken that no frames are missed while the main logic is blocked. This can be achieved by splitting the main program into different 
+processes or alternatively, threads, where for each critical task, a distinct part is responsible. While threads share the same address space and thus facilitating communication with
+each other, processes rely on special functions to be able
+to communicate with each other. Additionally, thread-creation and switching between threads consumes less computing resources. Therefore, it was decided to choose the multi-threaded
+approach. Consequently, at least 3 different threads - one for each communication interface - are needed. Nevertheless, because every thread must be able to write to \textit{or} receive
+frames from the bus at unpredictable moments, 7 different threads are used: the main thread only handles argument processing and creates the other threads. For the remaining threads,
+two pairs are responsible for the interfaces to the secured network, while the remaining thread pair handles writing to and reading from the bus. This setup is shown in Figure 
 
-\subsection{KNX addressing scheme}
+\begin{figure}
+\centering
+ \begin{tikzpicture}[scale=0.2]
+\begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+\node[state,text width=1.5cm,align=center]					at (-10,5)		(m)			{MAIN}; 
+\node[state,text width=1.5cm,align=center]					at (-40,-10)	(sec0m)	{SEC0 MAIN}; 
+\node[state,text width=1.5cm,align=center]					at (-28,-10)	(sec0r)		{SEC0 READ}; 
+\node[state,text width=1.5cm,align=center]					at (-16,-10)	(sec1m)	{SEC1 MAIN}; 
+\node[state,text width=1.5cm,align=center]					at (-4,-10)		(sec1r)		{SEC1 READ}; 
+\node[state,text width=1.5cm,align=center]					at (8,-10)	(clrm)		{CLR MAIN}; 
+\node[state,text width=1.5cm,align=center]					at (20,-10)	(clrr)			{CLR READ};
+\path[pil,-] (m)  edge[auto]   node[] {} (sec0m); 
+\path[pil,-] (m)  edge[auto]   node[] {} (sec0r); 
+\path[pil,-] (m)  edge[auto]   node[] {} (sec1m); 
+\path[pil,-] (m)  edge[auto]   node[] {} (sec1r); 
+\path[pil,-] (m)  edge[auto]   node[] {} (clrm); 
+\path[pil,-] (m)  edge[auto]   node[] {} (clrr); 
+
+%\path[pil,->] (sec0r)  edge[auto, out=240, in=300]   node[] {} (sec0m); 
+%\path[pil,->] (sec1r)  edge[auto, out=240, in=300]   node[] {} (sec1m); 
+%\path[pil,->] (clrr)  edge[auto, out=210, in=290]   node[] {} (sec1m); 
+%\path[pil,->] (clrr)  edge[auto, out=230, in= 180]   node[] {} (sec0m); 
+\end{tikzpicture}
+\label{fig:threads}
+\caption{Threads used in the implementation}
+\end{figure}
+
+
+\subsubsection{KNX addressing scheme}
 
 Care must be taken that no duplicate \gls{knx} addresses are used within the network. Therefore, the following addressing convention is proposed:
 While it would be possible to use the same addresses on both lines per gateway, a different scheme is used.
@@ -27,9 +79,17 @@ For sending group packages, use EIBOpen\_GroupSocket(con, TRUE) and EIBSendGroup
 \\
 For sending broadcast packages, use EIBOpenT\_Broadcast(con, TRUE) and EIBSendAPDU(con, size, buf)
 
-\subsection{Restrictions}
+\subsection{Restrictions }
 
-EIBD can send extended frames, but can not receive frames with payload >= 56 byte. Therefor the DH parameter size must be restricted0
+EIBD can send extended frames, but can not receive frames with payload >= 56 byte. 
+
+\subsection{FIXMEs}
+
+\begin{enumerate}
+ \item DH: apply hashingfunction on derived secret to get 2 different keys(MAC, encrypt)
+ \item 
+\end{enumerate}
+
 
 
 \section{Evaluation}
