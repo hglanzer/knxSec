@@ -204,46 +204,54 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\chapternumberline {6}Evaluation}{81}{chapter.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Implementation}{81}{section*.76}
+\contentsline {section}{\numberline {6.1}Implementation}{81}{section.6.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{KNX addressing scheme}{82}{section*.77}
+\contentsline {subsection}{Bus interface}{81}{section*.76}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\gls {mac2} generation}{82}{section*.78}
+\contentsline {subsection}{Concurrency}{81}{section*.77}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{EIBD \gls {api}}{82}{section*.79}
+\contentsline {subsection}{Thread-to-thread communication}{83}{section*.78}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Restrictions }{83}{section*.80}
+\contentsline {subsection}{Race conditions}{85}{section*.79}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{FIXMEs}{83}{section*.81}
+\contentsline {subsubsection}{KNX addressing scheme}{86}{section*.80}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.1}Evaluation}{83}{section.6.1}
+\contentsline {subsection}{\gls {mac2} generation}{86}{section*.81}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\gls {usb}}{83}{section*.82}
+\contentsline {subsection}{EIBD \gls {api}}{86}{section*.82}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Synchronization phase}{83}{section*.83}
+\contentsline {subsection}{Restrictions }{86}{section*.83}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Discovery phase}{84}{section*.84}
+\contentsline {subsection}{FIXMEs}{87}{section*.84}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{Data transmission phase}{84}{section*.85}
+\contentsline {section}{\numberline {6.2}Evaluation}{87}{section.6.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{High Level Cryptography Library}{84}{section*.86}
+\contentsline {subsection}{\gls {usb}}{87}{section*.85}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{OpenSSL}{84}{section*.87}
+\contentsline {subsection}{Synchronization phase}{87}{section*.86}
 \defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {A}Setup of the base system}{85}{appendix.A}
+\contentsline {subsection}{Discovery phase}{87}{section*.87}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}Raspbian}{85}{section.A.1}
+\contentsline {subsection}{Data transmission phase}{87}{section*.88}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.2}EIBD}{87}{section.A.2}
+\contentsline {subsection}{High Level Cryptography Library}{87}{section*.89}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.3}Revision control}{88}{section.A.3}
+\contentsline {subsubsection}{OpenSSL}{87}{section*.90}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.4}Busware \gls {usb} couplers}{88}{section.A.4}
+\contentsline {appendix}{\chapternumberline {A}Setup of the base system}{88}{appendix.A}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.5}UDEV}{89}{section.A.5}
+\contentsline {section}{\numberline {A.1}Raspbian}{88}{section.A.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.6}Test setup}{89}{section.A.6}
+\contentsline {section}{\numberline {A.2}EIBD}{90}{section.A.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{90}{appendix.B}
+\contentsline {section}{\numberline {A.3}Revision control}{91}{section.A.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Bibliography}{97}{section*.91}
+\contentsline {section}{\numberline {A.4}Busware \gls {usb} couplers}{91}{section.A.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.5}UDEV}{92}{section.A.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.6}Test setup}{92}{section.A.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {appendix}{\chapternumberline {B}Code snippets and configuration files}{93}{appendix.B}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliography}{100}{section*.94}

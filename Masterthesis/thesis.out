@@ -22,13 +22,14 @@
 \BOOKMARK [1][-]{section.5.1}{Basic Assumptions}{chapter.5}% 22
 \BOOKMARK [1][-]{section.5.2}{Services}{chapter.5}% 23
 \BOOKMARK [0][-]{chapter.6}{Evaluation}{}% 24
-\BOOKMARK [1][-]{section.6.1}{Evaluation}{chapter.6}% 25
-\BOOKMARK [0][-]{appendix.A}{Setup of the base system}{}% 26
-\BOOKMARK [1][-]{section.A.1}{Raspbian}{appendix.A}% 27
-\BOOKMARK [1][-]{section.A.2}{EIBD}{appendix.A}% 28
-\BOOKMARK [1][-]{section.A.3}{Revision control}{appendix.A}% 29
-\BOOKMARK [1][-]{section.A.4}{Busware usb couplers}{appendix.A}% 30
-\BOOKMARK [1][-]{section.A.5}{UDEV}{appendix.A}% 31
-\BOOKMARK [1][-]{section.A.6}{Test setup}{appendix.A}% 32
-\BOOKMARK [0][-]{appendix.B}{Code snippets and configuration files}{}% 33
-\BOOKMARK [0][-]{section*.91}{Bibliography}{}% 34
+\BOOKMARK [1][-]{section.6.1}{Implementation}{chapter.6}% 25
+\BOOKMARK [1][-]{section.6.2}{Evaluation}{chapter.6}% 26
+\BOOKMARK [0][-]{appendix.A}{Setup of the base system}{}% 27
+\BOOKMARK [1][-]{section.A.1}{Raspbian}{appendix.A}% 28
+\BOOKMARK [1][-]{section.A.2}{EIBD}{appendix.A}% 29
+\BOOKMARK [1][-]{section.A.3}{Revision control}{appendix.A}% 30
+\BOOKMARK [1][-]{section.A.4}{Busware usb couplers}{appendix.A}% 31
+\BOOKMARK [1][-]{section.A.5}{UDEV}{appendix.A}% 32
+\BOOKMARK [1][-]{section.A.6}{Test setup}{appendix.A}% 33
+\BOOKMARK [0][-]{appendix.B}{Code snippets and configuration files}{}% 34
+\BOOKMARK [0][-]{section*.94}{Bibliography}{}% 35
