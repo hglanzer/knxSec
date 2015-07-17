@@ -54,6 +54,28 @@
   \field{year}{2008}
 \endentry
 
+\entry{stallingsThreat}{inbook}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Stallings}{S.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Pearson Education International}%
+  }
+  \strng{namehash}{SW1}
+  \strng{fullhash}{SW1}
+  \field{chapter}{Overview}
+  \field{pages}{15}
+  \field{title}{Computer Security}
+  \list{location}{1}{%
+    {New Jersey}%
+  }
+  \field{year}{2008}
+\endentry
+
 \entry{codebreakers}{inbook}{}
   \name{author}{1}{}{%
     {{}%

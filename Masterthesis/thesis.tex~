@@ -69,12 +69,31 @@
   numbers=left,
   numberstyle=\tiny,
   numbersep=3pt,
-  frame=tb,
+  %frame=tb,
   columns=fullflexible,
   backgroundcolor=\color{yellow!20},
   linewidth=0.9\linewidth,
   xleftmargin=0.1\linewidth,
-  breaklines=true
+  breaklines=true,
+  showstringspaces=false,
+  captionpos=b
+}
+
+\lstdefinestyle{Cstyle}{
+  language=C,
+  basicstyle=\small\sffamily,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=3pt,
+  %frame=tp,			% top bottom frame
+  columns=fullflexible,
+  backgroundcolor=\color{yellow!20},
+  linewidth=0.95\linewidth,
+  xleftmargin=0.1\linewidth,
+  breaklines=true,
+  keepspaces=true,
+  captionpos=b,
+  showstringspaces=false
 }
 
 \begin{document}
@@ -183,7 +202,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Implementation}
+\chapter{Evaluation}
 \label{ch:implementation}
 \input{chapters/implementation}
 

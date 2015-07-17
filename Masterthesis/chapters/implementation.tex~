@@ -2,11 +2,39 @@
 To be able to evaluate the proposed solution in a real-life scenario, a prototype based on the concept presented was built. This chapter introduces the implementation from a high level
 view, followed by the evaluation of the result. Afterwards, the results are discussed and improvements are suggested.
 \section{Implementation}
+
 \subsection{Bus interface}
 The necessary software, running on each platform, is written in the programming language "C". To interface with \gls{knx}, an \gls{api} named \gls{eibd} is used, providing functions to
 send \gls{knx} frames to and receive frames from the bus. \gls{eibd} offers synchronous as well as asynchronous calls for sending and receiving frames. While the first kind of
 call will block until the operation finished, the second kind of call will return immediately, the status of such calls can be checked by another special \gls{eibd} call.
 Because it is not possible to use callbacks with asynchronous calls, the implementation uses the synchronous functions.
+
+\subsubsection{Reading frames from the bus}
+\gls{eibd} provides a function to monitor the bus, this way all frames are available to the application.
+
+\begin{lstlisting}[style=cStyle,caption={Reading \gls{knx} frames},label=lst:busMon]
+EIBConnection *fd;
+fd = EIBSocketURL(socketPath);
+EIBOpenVBusmonitor(fd);
+len = EIBGetBusmonitorPacket (fd, BUFSIZE, buffer);
+\end{lstlisting}
+
+\subsubsection{Writing frames to the bus}
+To write frames to the bus \gls{eibd} offers distinct functions for addressing individual devices or all devices in the segment. A connection must be first by calling the corresponding
+function, afterwards the data can be written to the bus:
+
+\begin{lstlisting}[style=cStyle,caption={Writing to \gls{knx} frames},label=lst:knxWrite]
+// open an individual connection
+EIBOpenT_Individual(fd, destination, 0);
+// or a broadcast connection
+EIBOpenT_Broadcast(fd, 0);
+// finally, send the data
+EIBSendAPDU(fd, len, (const uint8_t *)buf);
+\end{lstlisting}
+
+\subsection{Restrictions }
+
+EIBD can send extended frames, but can not receive frames with payload >= 56 byte. 
 
 \subsection{Concurrency}
 Every platform possess 3 distinct interfaces to the bus (2 interfaces form the redundant "secure" part of the network, one is connected
@@ -16,7 +44,7 @@ each other, processes rely on special system calls
 to share information. Additionally, thread-creation and switching between threads consumes less computing resources. Therefore, it was decided to choose the multi-threaded
 approach. Consequently, at least 3 different threads - one for each communication interface - are needed. Nevertheless, because every thread must be able to write to \textit{or} receive
 frames from the bus at unpredictable moments, 7 different threads are used: the main thread only handles argument processing and creates the other threads. For the remaining threads,
-two pairs are responsible for the interfaces to the secured network, while the remaining thread pair handles writing to and reading from the bus. This setup is shown in
+two pairs are responsible for the interfaces to the secured network, while the remaining thread pair interfaces to the unsecured part of the network. This setup is shown in
 Figure \ref{fig:threads}.
 \begin{figure}[h]
 \centering
@@ -73,19 +101,19 @@ contained in extended \gls{knx} frames, to the destination gateways, which will 
 to the \textit{CLR MAIN} thread. Here, the duplicate will be discarded and one frame will be sent to its final destination.
 \\
 \\
-A thread can be created in C with the function \textit{pthread\_create}. The function expects 4 parameters:
+A thread can be created in C with the function \textit{pthread\_create()}. The function expects 4 parameters:
 \begin{itemize}
  \item a variable of type \textit{pthread\_t}
  \item attributes for the new thread, or NULL for default values
  \item a function pointer, serving as entry-point for the new thread
  \item parameters for the function pointer, or NULL
 \end{itemize}
-\begin{lstlisting}[style=BashInputStyle,caption={Thread-creation},label=lst:pthread_create]
+\begin{lstlisting}[style=cStyle,caption={Thread-creation},label=lst:pthread_create]
 if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[0])) != 0)
-        {
-                printf("sec1Thread thread init failed, exit\n");
-                return -1;
-        }
+{
+  printf("sec1Thread thread init failed, exit\n");
+  return -1;
+}
 \end{lstlisting}
 
 \subsection{Thread-to-thread communication}
@@ -93,10 +121,9 @@ To pass data from one thread to another, different ways are possible. While the 
 \gls{posix}-pipes instead, mainly because with pipes, timeouts can be implemented easily. Such timeouts are used when waiting for synchronization replies, as well as for 
 cleanup tasks.
 \\
-A new pipe is created as shown in Listing \ref{lst:pipe}.
-\begin{lstlisting}[style=BashInputStyle,caption={Creating a pipe},label=lst:pipe]
+How to create a new pipe is shown in Listing \ref{lst:pipe}.
+\begin{lstlisting}[style=cStyle, caption={Creating a pipe},label=lst:pipe]
 int pipefd[2];
-...
 if(pipe(pipefd) == -1)
 {
   printf("pipe() failed, exit\n");
@@ -104,9 +131,9 @@ if(pipe(pipefd) == -1)
 }
 \end{lstlisting}
 Every pipe possess two file descriptors, providing a uni-directional data channel: data can be written to the pipe by performing a write() - operation to the \textit{write}-end of the
-pipe, while the data can be read from the pipe by calling read() with the \textit{read}-end of the pipe. Basically, the read() operation will block until new data can be read - in 
+pipe (index 1), while the data can be read from the pipe by calling read() with the \textit{read}-end of the pipe (index 0). Basically, the read() operation will block until new data can be read - in 
 combination with the select() system call, a maximum time for the blocking operation can be set, as shown in Listing \ref{lst:timeout}
-\begin{lstlisting}[style=BashInputStyle,caption={Creating a pipe},label=lst:timeout]
+\begin{lstlisting}[style=cStyle,caption={Blocking read with timeout},label=lst:timeout]
 fd_set set;
 struct timeval timeout;
 int selectRC;
@@ -126,8 +153,8 @@ else if(selectRC < 0)
 }
 else
 {
-  // data received - read it:
-  read(fileDescriptor, buffer, len);
+  // data arrived - read it:
+  read(pipefd[READEND], buffer, len);
 }
 \end{lstlisting}
 In this example, FD\_ZERO at first clears the set containing the file handles to be watched, FD\_SET() then adds the file handle we are interested in (allowing to watch multiple file
@@ -140,7 +167,7 @@ read() call.
 Software race conditions occur whenever an application, using shared resources, depends on the timing of its processes or threads.
 Because the exact time when a particular process or thread is scheduled by the processor is unknown in advance, such conditions must be avoided.
 An example of a program containing a race condition would be as following:
-\begin{lstlisting}[style=BashInputStyle,caption={Race condition},label=lst:raceCond]
+\begin{lstlisting}[style=cStyle,caption={Race condition},label=lst:raceCond]
 for ( int i = 0; i < 1000000; i++ )
 {
    x = x + 1; 
@@ -160,7 +187,7 @@ If thread 1 gets interrupted after the second step and thread 2 afterwards finis
 \\
 Such a critical region must be protected such that only one thread can enter it, a requirement also called \textit{mutex}, short for \textit{mut}ual \textit{ex}clusion.
 The implementation uses the \gls{posix} \textit{pthread mutex} to lock critical regions, as shown in listing \ref{lst:mutex}:  
-\begin{lstlisting}[style=BashInputStyle,caption={Locking a critical region},label=lst:mutex]
+\begin{lstlisting}[style=cStyle,caption={Locking a critical region},label=lst:mutex]
 if(pthread_mutex_init(&globalMutex, NULL) != 0)
 {
   printf("mutex init failed, exit");
@@ -172,12 +199,118 @@ pthread_mutex_lock(&globalMutex);
 */
 pthread_mutex_unlock(&globalMutex);
 \end{lstlisting}
-\textit{globalMutex} is a global variable of type \textit{pthread\_mutex\_t}. After calling pthread\_mutex\_lock(), there are two possibilities: if the mutex is unlocked, the call will
-lock it and continue the program flow. If it is already locked, the call to pthread\_mutex\_lock() will block. If the mutex is unlocked by the possessing thread, the blocked thread will
-be set active, lock for his part and continue execution.\footnote{Of course, pthread\_mutex\_lock() must be executed in an atomic way, otherwise introducing a race condition on another
-level}
+\textit{globalMutex} is a global variable of type \textit{pthread\_mutex\_t}, shared between all threads which are accessing the shared resource. After calling pthread\_mutex\_lock(),
+there are two possibilities: if the mutex is unlocked, the call will lock it and continue the program flow. If it is already locked, the call to pthread\_mutex\_lock() will block and
+the corresponding thread will be set to blocking.
+If the mutex is unlocked by the possessing thread, the blocked thread will be set active, lock for his part and continue execution.\footnote{Of course, pthread\_mutex\_lock() must
+be executed in an atomic way, otherwise introducing a race condition on another level}
 
-\subsubsection{KNX addressing scheme}
+\subsection{Cryptographic functions}
+To use the needed cryptographic functions, the open source library "OpenSSL" is utilized. The \gls{api} supports a wide range of symmetric and asymmetric encryption, 
+decryption, signing and key negotiation algorithms through two different kind of interfaces: a high level "EVP" interface, hiding much of the complexity, and 
+a low level interface. If possible, the high level interface should be used, but for the key derivation function it turned out that the low level interface was easier to use.
+\\
+\\
+Documentation and code snippets can be found on https://wiki.openssl.org, another important source of information are the man-pages (available under Debian after installing the
+package \textit{libssl-doc}) and the header files.
+\\
+\\
+It is noted that in the examples below no error checking of the return codes returned by the OpenSSL calls is executed. This checks are omitted here just for clarity, nevertheless it is
+imperative to always check them to identify error conditions.
+
+\subsubsection{Key derivation}
+To obtain a shared secret between two security gateways, \gls{ecdh} over the curve
+"NID X9 62 prime256v1" is used. This is a \gls{nist} elliptic curve defined over the 256 bit prime
+$p_{256} = 2^{256} - 2^{224} + 2^{192} + 2^{96} - 1$, thus the resulting points will have coordinates of size 256 bits each. The uncompressed form of such a point would consist of 65
+byte: 1 byte for a leading tag, 32 byte for the x and 32 byte for the y coordinate of the point. Because of the quadratic form of the curve (see Section \ref{sec:ecIntro} for a recap),
+it suffices to transmit only the x coordinate and one byte, determining the sign of the solution. The corresponding y coordinate can than be recovered.
+\\
+\\
+Whenever a security gateway receives a new frame on its cleartext line, it generates a new \gls{ecdh} parameter, i.e. it generates a new key pair, the public key is then sent to all
+other security gateways in the segment:
+\begin{lstlisting}[style=cStyle,caption={Generating a \gls{ecdh} parameter},label=lst:genEC]
+EC_KEY *pkey;
+pkey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1)
+EC_POINT *ecPoint = NULL;
+size_t ecPoint_size;
+const EC_GROUP *group;
+EC_KEY_generate_key(pkey));
+EC_KEY_set_conv_form(pkey, POINT_CONVERSION_COMPRESSED);
+ecPoint = (EC_POINT *) EC_KEY_get0_public_key(pkey);
+group = (EC_GROUP *)EC_KEY_get0_group(pkey);
+ecPoint_size = EC_POINT_point2oct(group, ecPoint, EC_KEY_get_conv_form(pkey), buf, BUFSIZE, NULL);
+if(!EC_POINT_is_on_curve(group, ecPoint, NULL))
+{
+  printf("ERROR: point not on curve\n");
+  exit(-1);
+}
+\end{lstlisting}
+The new key pair is generated in line 6, the public key is obtained and converted to a hexadecimal string in lines 8 and 10. Finally it is checked if the new point indeed is part of
+the curve.
+\\
+\\
+The receiving side performs the same operations to obtain its own key pair which is sent back to the requester, and immediately derives the shared secret as shown in Listing \ref{lst:derive}.
+
+\begin{lstlisting}[style=cStyle,caption={Deriving a shared secret},label=lst:derive]
+size_t secret_len;
+unsigned char *secret;
+EC_POINT *peerEcPoint = NULL;
+EC_KEY *peerEcKey = NULL;
+const EC_GROUP *group = NULL;
+peerEcKey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);       
+group = EC_KEY_get0_group(peerEcKey);
+peerEcPoint = EC_POINT_new(group);
+EC_POINT_oct2point(group, peerEcPoint, peerPubKey, (size_t)33, NULL))
+EC_KEY_set_public_key(peerEcKey, peerEcPoint))
+secret = OPENSSL_malloc(32);
+secret_len = ECDH_compute_key(secret, 32, EC_KEY_get0_public_key(peerEcKey), pkey, NULL);
+\end{lstlisting}
+Here, the public key received (the pointer \textit{peerPubKey}) must be first converted from a hexadecimal string into point representation, and finally into an EC\_KEY object
+(lines 9 and 10). The actual key derivation is shown in line 12.
+\\
+\\
+This derived secret must be fed into a secure hashing function, for example \gls{sha}-256 because the shared secret may not be uniformly distributed. By appending different strings
+it is also possible to derive an encryption and a \gls{mac2} key in one run.
+
+\subsubsection{MAC generation}
+For this task, a \gls{sha}-256 based \gls{hmac} is used, producing a 32 byte \gls{mac2}. To reduce the overhead, only 4 bytes are used and contained in the messages. The usage of
+the high-level \gls{api} is shown in Listing \ref{lst:hmac}:
+\begin{lstlisting}[style=cStyle,caption={Generating a \gls{hmac}},label=lst:hmac]
+size_t req = 0;
+EVP_MD_CTX* ctx = EVP_MD_CTX_create();
+const EVP_MD* md = EVP_get_digestbyname("SHA256");
+EVP_DigestInit_ex(ctx, md, NULL);
+EVP_DigestSignInit(ctx, NULL, md, NULL, pkey);
+EVP_DigestSignUpdate(ctx, msg, mlen);
+EVP_DigestSignFinal(ctx, NULL, &req);
+*sig = OPENSSL_malloc(req);
+*slen = req;
+EVP_DigestSignFinal(ctx, *sig, slen);
+EVP_MD_CTX_destroy(ctx);
+\end{lstlisting}
+Line 2 allocates and initializes a digest context, a digest structure for \gls{sha}-256 is obtained in line 3 and initialized in line 4. Line 5 sets up the signing context for the
+underlying digest function. The actual signing of the input message string pointed to by $msg$ is done in line 6. Afterwards, the length of the signature is obtained by the first call
+to EVP\_DigestSignFinal(), the signature is written to the newly allocated memory and the context memory is deallocated
+
+\subsubsection{Encryption and decryption}
+As cipher, \gls{aes}-256 in \gls{ctr} mode is utilized. This mode has the advantage that no fixed block size must be transmitted, but only the actual size of the cipher text.
+Encryption with the OpenSSL high level interface can be seen in Listing \ref{lst:encAES}. As with the \gls{hmac}, a context must be created and initialized.
+
+\begin{lstlisting}[style=cStyle,caption={\gls{aes} encryption},label=lst:encAES]
+EVP_CIPHER_CTX *aesCtx = NULL;
+int cipherLen, len=0, i=0;
+aesCtx = EVP_CIPHER_CTX_new();
+EVP_EncryptInit_ex(aesCtx, EVP_aes_256_ctr(), NULL, key, ctrFull);
+EVP_EncryptUpdate(aesCtx, &cipherBuf[0], &len, msg, msgLen);
+cipherLen = len;
+EVP_EncryptFinal_ex(aesCtx, cipherBuf + len, &cipherLen);
+cipherLen += len;
+EVP_CIPHER_CTX_free(aesCtx);
+\end{lstlisting}
+
+\section{Evaluation}
+ 
+\subsection{KNX addressing scheme}
 
 Care must be taken that no duplicate \gls{knx} addresses are used within the network. Therefore, the following addressing convention is proposed:
 While it would be possible to use the same addresses on both lines per gateway, a different scheme is used.
@@ -185,27 +318,10 @@ For the secured network, the address ranges starting at address 1.1.1 to address
 1 and 2 respectively, which allows a maximum of 15 gateways. Different addresses are used mainly because it facilitates debugging. 
 On the unsecured lines, every gateway uses an address from the range 1.0.1 - 1.0.15. Addresses are assigned in a linearly ascending way, so gateway number 1
 uses addresses 1.1.1 and 1.2.1 for secure lines 1 and 2, and 1.0.1 for its unsecured line.
-
+ 
 \subsection{\gls{mac2} generation}
 
 The \gls{ttl} field cannot be included in the \gls{mac2} calculation because this field gets changed by a router and would therefor invalidate an authentic message.
-
-\subsection{EIBD \gls{api}}
-
-Use VBusMonitor to receive packets, this way EIBD can L2 acknowledge individual-, group- and broadcast frames
-\\
-\\
-For sending individual packages, use EIBOpenT\_Individual(con, myAddr, FALSE)
-\\
-\\
-For sending group packages, use EIBOpen\_GroupSocket(con, TRUE) and EIBSendGroup(con, dest, size, buf)
-\\
-\\
-For sending broadcast packages, use EIBOpenT\_Broadcast(con, TRUE) and EIBSendAPDU(con, size, buf)
-
-\subsection{Restrictions }
-
-EIBD can send extended frames, but can not receive frames with payload >= 56 byte. 
 
 \subsection{FIXMEs}
 

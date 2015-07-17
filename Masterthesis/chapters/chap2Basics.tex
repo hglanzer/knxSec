@@ -3,17 +3,48 @@
 
 Information security is the effort to protect information - be it in electronic or physical form - from adversary threats. 
 The domain in which the data is to protected can be \textit{time}, i.e. protecting saved information for later usage, or \textit{space}, i.e. protect information
-transmitted physically from one user to another.
-A classification of threats against information security is given in Figure \ref{fig:attacks}.  
+transmitted physically from one user to another. To protect information, three key objectives must be met:
+\\
+\\
+\textbf{Confidentiality} is used to protect sensitive information from eavesdroppers who are not allowed to get knowledge of that information.
+\\
+\textbf{Integrity} ensures that some kind of information can not be altered by third-parties, or that such a modification can be detected by the
+receiver of the information, and also includes information non-repudiation. Integrity can be separated into data integrity and system integrity. While the first one assures
+that information is only modified in an authorized manner, the latter one demands that a system performs its intended function, free from manipulation.
+\\
+\textbf{Availability} guarantees that the system works promptly and information, which is needed by an entity to provide some service, is accessible.
+\\
+Because all three properties go hand-in-hand with each other they are also called the \textit{"CIA - triad"} \cite{stallings} - successfully attacking one property may allow attacking
+another one. 
+\\
+For example, if a
+confidentiality attack against a computer system responsible for money transfers can be conducted to steal a password used for controlling this system,
+an attacker
+can subsequently render the system unusable, therefore compromising availability. On the other hand, the attacker could also try to remain undetected and change
+booking orders, thus mounting an attack against the integrity of the system. Thus, these 3 basic concepts are interleaved, and building a system which honors
+only parts of them will most likely lead to an insecure system.
+\\
+In addition to the 3 objectives listed above, additional security objectives are used frequently: \textbf{authenticity} is the property of being genuine and being able to be 
+trusted, while \textbf{accountability} allows to trace the actions of an entity uniquely to that entity.
+%Integrity and authenticity are semantically related: checking the integrity implicitly checks authenticity, provided that the key used to generate the tag is only known to authentic entities.
+%Vice versa, authenticating the sender of a message is only useful if the message itself cannot be modified by an adversary, i.e. integrity is guaranteed.
+%To avoid confusion, the term integrity is used if the meaning is clear from the context.
+\subsection{Threats}
+Threats form a \textit{potential} violation of security - a violation must not need to occur for there to be a threat. Stallings \cite{stallingsThreat}
+divides threat consequences into four categories:
+\begin{itemize}
+ \item \textbf{Unauthorized disclosure} is a threat aimed against confidentiality. It occurs when an entity gains access to information for which it is not authorized.
+ \item \textbf{Deception} threatens system integrity, and may result in tricking an authorized entity into accepting (adverbially) modified data.
+ \item \textbf{Usurpation} opposes data integrity s.t. a system is controlled by an unauthorized entity.
+  \item \textbf{Disruption} compromises the availability s.t. the system services do not operate correctly.
+\end{itemize}
+
+\subsection{Attacks}
+Attacks are the manifestation of a security violation, exploited by an attacker. 
+A classification of attacks against communication networks is given in Figure \ref{fig:attacks}.  
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\textwidth]{figures/attacks.eps}
-    \caption{Classification of attacks}
-    \label{fig:attacks}
-\end{figure}
-The standard model for entity $A$ sending information to entity $B$ is shown in Figure \ref{fig:stdComm}. 
-\begin{figure}[h]
- \centering
 \begin{tikzpicture}[scale=0.2]
 \tikzstyle{every node}+=[inner sep=2pt]
 \tikzstyle{arrow}=[draw, -latex] 
@@ -24,47 +55,73 @@ The standard model for entity $A$ sending information to entity $B$ is shown in 
            shorten <=1pt,
            shorten >=1pt,}
 }
-\usetikzlibrary{automata,positioning}
-\usetikzlibrary{positioning}
+    \node[draw,rectangle] at (10,-5)		(attacks)			{Attacks}; 
+    \node[draw,rectangle] at (0,-10)		(passive)			{Passive}; 
+     \node[draw,rectangle] at (20,-10)		(active)			{Active}; 
+    \node[draw,rectangle] at (0,-15)		(rel)			{Release}; 
+    \node[draw,rectangle] at (-10,-15)		(ana)			{Analysis}; 
+     \node[draw,rectangle] at (10,-15)		(repl)			{Replay}; 
+     \node[draw,rectangle] at (18,-15)		(dos)			{DOS}; 
+     \node[draw,rectangle] at (28,-15)		(masq)			{Masquerade}; 
+     \node[draw,rectangle] at (42,-15)		(mod)			{Modification}; 
 
-\node[state,text width=0.8cm,align=center]					at (-40,0)		(a)		{A}; 
-\node[state,text width=0.8cm,align=center]					at (0,0)		(b)		{B}; 
-\path[pil,->] (a)  edge[auto]   node[text width=1cm] {} (b);
+\path[pil,->] (attacks)  (passive); 
+\path[pil,-] (attacks)  edge[auto]   node[] {} (passive); 
+\path[pil,-] (passive)  edge[auto]   node[] {} (ana); 
+\path[pil,-] (passive)  edge[auto]   node[] {} (rel); 
+\path[pil,-] (attacks)  edge[auto]   node[] {} (active); 
+\path[pil,-] (active)  edge[auto]   node[] {} (dos); 
+\path[pil,-] (active)  edge[auto]   node[] {} (repl); 
+\path[pil,-] (active)  edge[auto]   node[] {} (masq); 
+\path[pil,-] (active)  edge[auto]   node[] {} (mod); 
 \end{tikzpicture}
-\caption{Communication between two users}
-\label{fig:stdComm}
+\caption{Classification of attacks}
+    \label{fig:attacks}
 \end{figure}
-The basic building stones of information security are confidentiality, integrity and availability, also called the \textit{"CIA - triad"} \cite{stallings}.
-\textbf{Confidentiality} is used to protect sensitive information from eavesdroppers who are not allowed to get knowledge of that information. 
-\\
-\textbf{Integrity} ensures that some kind of information can not be altered by third-parties, or that such a modification can be detected by the
-receiver of the information, and also includes information non-repudiation.
-Akin to integrity is \textbf{authenticity}. Authenticity assures that the receiver of
-a message can verify that the message really was sent from the sender and not by an illegitimate third entity. Obviously, integrity and authenticity are semantically
-related: checking the integrity implicitly checks authenticity, provided that the key used to generate the tag is only known to authentic entities.
-\\
-Vice versa, authenticating the sender of a message is only useful if the message itself cannot be modified by an adversary, i.e. integrity is guaranteed.
-%To avoid confusion, the term integrity is used if the meaning is clear from the context.
-\textbf{Availability} ensures that information, which is needed by an entity to provide some service, is accessible.
-\\
-All three properties go hand-in-hand with each other because a successful attack on one property may allow attacking another one. For example, if a
-confidentiality attack against a computer system responsible for money transfers can be conducted to steal a password used for controlling this system,
-an attacker
-can subsequently render the system unusable, therefore compromising availability. On the other hand, the attacker could also try to remain undetected and change
-booking orders, thus mounting an attack against the integrity of the system. Thus, these 3 basic concepts are interleaved, and building a system which honors
-only parts of them will most likely lead to an insecure system.
-\\
-\\
 
-A passive attack, as shown in Figure \ref{fig:passiveAttack},
- is undetectable and aimed against confidentiality. Here, the attacker $E$ \textbf{intercepts} the data transmitted between the two entities.
- After that, the attacker could \textbf{release} the data itself to an outside entity, or \textbf{analyze} the data, allowing him to get knowledge of some kind of meta data
- like origin, destination and frequency of a data flow.
-Passive attacks are often used as starting point for obtaining knowledge which can later to be used to mount 
-additional attacks - to exclude passive attacks, encryption is sufficient. 
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=1\textwidth]{figures/attacks.eps}
+%     \caption{Classification of attacks}
+%     \label{fig:attacks}
+% \end{figure}
+% The standard model for entity $A$ sending information to entity $B$ is shown in Figure \ref{fig:stdComm}. 
+% \begin{figure}[h]
+%  \centering
+% \begin{tikzpicture}[scale=0.2]
+% \tikzstyle{every node}+=[inner sep=2pt]
+% \tikzstyle{arrow}=[draw, -latex] 
+% \tikzset{
+%     pil/.style={
+%            ->,
+%            thick,
+%            shorten <=1pt,
+%            shorten >=1pt,}
+% }
+% \usetikzlibrary{automata,positioning}
+% \usetikzlibrary{positioning}
+% 
+% \node[state,text width=0.8cm,align=center]					at (-40,0)		(a)		{A}; 
+% \node[state,text width=0.8cm,align=center]					at (0,0)		(b)		{B}; 
+% \path[pil,->] (a)  edge[auto]   node[text width=1cm] {} (b);
+% \end{tikzpicture}
+% \caption{Communication between two users}
+% \label{fig:stdComm}
+% \end{figure}
+\subsection{Passive attacks}
+Passive attacks are aimed against confidentiality. The attacker $E$ intercepts the data transmitted between the two or more entities by monitoring the communication
+medium, recording all the traffic. 
+\\
+After obtaining the data, the attacker can \textbf{release} the data itself to an outside entity. Another way to exploit the data is to \textbf{analyze} them,
+allowing the attacker to get knowledge of some kind of meta data like origin, destination, quantity and frequency of the data flows. 
+\\
+Because of its passive nature the data sent are not modified, thus such an attack is hard to detect. On the other hand, encrypting the traffic to gain confidentiality suffices to guard
+against the release of data. To guard against traffic analysis is harder because it may be impossible to encrypt some kind of meta data: for example, the destination address of a
+message may not be encrypted because routers handling the message must be able to determine the next routing decision based on this address.
+Another reason is that some meta information will always be present, like the size of the message or the simple fact that communication between two points has occurred.
 \begin{figure}[h]
 \centering
- \begin{tikzpicture}[scale=0.2]
+\begin{tikzpicture}[scale=0.2]
 \tikzstyle{every node}+=[inner sep=2pt]
 \tikzstyle{arrow}=[draw, -latex] 
 \tikzset{
@@ -83,19 +140,45 @@ additional attacks - to exclude passive attacks, encryption is sufficient.
 \path[pil,->] (a)  edge[auto]   node[text width=1cm] {} (b);
 \path[pil,->] (+)  edge[auto]   node[text width=1cm] {} (e);
 \end{tikzpicture}
-\label{fig:passiveAttack}
+\label{fig:passAttack}
 \caption{Passive attack}
 \end{figure}
-Unfortunately, a restriction to passive attacks only is not realistic for many systems. Whenever the adversary has access to the communication medium, active attacks
-cannot be ruled out. A replay attack happens when the attacker monitors traffic first (i.e. a passive attack) and afterwards injects a recorded package, 
-attacking data freshness. Of course,
-the package can also be modified and injected afterwards.
-A \gls{dos} attack tries to overload system resources, attacking availability s.t. the system is not
+\subsection{Active attacks}
+Unfortunately, a restriction to passive attacks only is no realistic assumption for many systems. Whenever the adversary has access to the communication medium, active attacks
+cannot be ruled out, allowing the attacker to modify the data stream, or to create false data streams:
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+\node[state,text width=0.8cm,align=center]					at (-40,0)		(a)		{A}; 
+\node[state,text width=0.8cm,align=center]					at (0,0)		(b)		{B}; 
+\node[state,text width=0.8cm,align=center]					at (-20,-10)		(e)		{E}; 
+\node[state,text width=0.1cm,align=center,minimum size=0.1,fill]		at (-20,0)		(+)		{}; 
+\path[pil,->] (a)  edge[auto]   node[text width=1cm] {} (b);
+\path[pil,->] (e)  edge[auto]   node[text width=1cm] {} (+);
+\end{tikzpicture}
+\label{fig:actAttack}
+\caption{Active attack}
+\end{figure}
+In a \textbf{replay} attack the attacker monitors traffic first (i.e. conducts a passive attack) and afterwards injects this recorded package, thus trying to produce an unauthorized
+effect.
+Of course the package can also be modified and injected afterwards, resulting in a \textbf{modification} attack.
+A \textbf{Denial of Service (DOS)} attack tries to overload system resources, attacking availability s.t. the system is not
 usable by legitimate users. Finally, masquerade attacks turn on the integrity of the system.
 The basic tool to achieve confidentiality and integrity is cryptography, which is introduced in Section \ref{sec:crypto}.
 
 
-\subsection{Cryptography}\label{sec:crypto}
+\section{Cryptography}\label{sec:crypto}
 Cryptography\footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
 is the science of encrypting information - its evolution was no linear process. Ciphers were used independently in different
 places, were forgotten and disappeared when the corresponding civilization died.
@@ -240,10 +323,10 @@ A fundamental problem in generating random numbers by utilizing computing device
 \\
 \\
 Such numbers are therefore called \textit{pseudo}random. Lots of cryptographic products suffered serious flaws because of relying on a broken \gls{prng}. A 
-historical example of such a broken random number generator, outputting biased (i.e., not uniformly distributed values) was "RANDU", invented by IBM in the
+historical example of such a broken random number generator, outputting biased (i.e., not uniformly distributed) values was "RANDU", invented by IBM in the
 1960s. 
 The generator belongs to the class of multiplicative congruential algorithms as proposed by Lehmer \cite{MR0044899}, which can in principle generate random
-numbers of sufficient quality, \textit{if} the correct parameters are chosen.
+numbers of sufficient quality, \textit{if} the parameters are chosen correctly.
 Random values can be obtained after setting an initial value for $I_0$, called \textit{seed}, and repeatedly executing the calculation
 \begin{center}
  $I_{j+1} = 65539 * I_j \pmod{2^{31}}$
@@ -323,7 +406,7 @@ are necessary. More efficient algorithms exist, with the best methods finishing 
 Therefore, by choosing a sufficient large prime, finding the discrete logarithm is considered a hard problem, a fact
 that is exploited by the \gls{dh} key exchange algorithm and its variants.
 
-\subsubsection{Elliptic curve \gls{dlp}}
+\subsubsection{Elliptic curve \gls{dlp}}\label{sec:ecIntro}
 An \gls{ec} is basically the set of all points
 satisfying an equation with the form as shown in \ref{basicEC}, called "Weierstraß" equation:
 
