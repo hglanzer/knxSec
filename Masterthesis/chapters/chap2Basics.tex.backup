@@ -39,7 +39,7 @@ divides threat consequences into four categories:
   \item \textbf{Disruption} compromises the availability s.t. the system services do not operate correctly.
 \end{itemize}
 
-\subsection{Attacks}
+\subsection{Attacks}\label{sec:attacks}
 Attacks are the manifestation of a security violation, exploited by an attacker. 
 A classification of attacks against communication networks is given in Figure \ref{fig:attacks}.  
 
@@ -145,7 +145,10 @@ Another reason is that some meta information will always be present, like the si
 \end{figure}
 \subsection{Active attacks}
 Unfortunately, a restriction to passive attacks only is no realistic assumption for many systems. Whenever the adversary has access to the communication medium, active attacks
-cannot be ruled out, allowing the attacker to modify the data stream, or to create false data streams:
+cannot be ruled out, allowing the attacker to modify the data stream, or to create false ones. In contrast to their passive counterparts, active attacks can be detected but
+not prevented, so the focus lies on detecting and recovering from active attacks.
+\\
+\\
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[scale=0.2]
@@ -170,14 +173,17 @@ cannot be ruled out, allowing the attacker to modify the data stream, or to crea
 \label{fig:actAttack}
 \caption{Active attack}
 \end{figure}
-
-A replay attack happens when the attacker monitors traffic first (i.e. a passive attack) and afterwards injects a recorded package, 
-attacking data freshness. Of course,
-the package can also be modified and injected afterwards.
-A \gls{dos} attack tries to overload system resources, attacking availability s.t. the system is not
-usable by legitimate users. Finally, masquerade attacks turn on the integrity of the system.
-The basic tool to achieve confidentiality and integrity is cryptography, which is introduced in Section \ref{sec:crypto}.
-
+A \textbf{replay} attack consists of two steps: first, the attacker monitors the traffic (i.e. conducts a passive attack) and injects this recorded package in the second step,
+thus trying to produce an unauthorized effect.
+Of course the package can also be modified and injected afterwards, resulting in a \textbf{modification} attack.
+A \textbf{Denial of Service (DOS)} attack tries to overload system resources, attacking availability s.t. the system is not
+usable by legitimate users. Finally, \textbf{masquerade} attacks occurs when one entity pretends to be another entity, often based on replay attacks by replying (modified)
+authentication messages of an authorized entity.
+\\
+\\
+To prevent active attacks, integrity mechanisms must be combined with confidentiality mechanisms - 
+the basic tool to achieve them is cryptography, introduced in the next section \ref{sec:crypto}. To provide availability, different techniques must be used,
+as shown in Chapter \ref{sec:availability}.
 
 \section{Cryptography}\label{sec:crypto}
 Cryptography\footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}

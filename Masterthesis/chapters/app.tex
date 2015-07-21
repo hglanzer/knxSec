@@ -127,7 +127,7 @@ Additionally, the development files for interfacing with the openSSL \gls{api} m
 
 \section{Revision control}
 
-The source of the master daemon is managed by GIT. GIT is a decentralized revision-control system and is available under Debian/Raspbian after installing
+The source of the master daemon is managed by GIT. GIT is a decentralized furevision-control system and is available under Debian/Raspbian after installing
 the package 'git'. The command \ref{lst:git} fetches the latest version and creates a directory called 'knxSec' which contains all the needed source files,
 a proper makefile \ref{lst:makefile} for the project, as well as all other needed files.
 
@@ -135,7 +135,7 @@ a proper makefile \ref{lst:makefile} for the project, as well as all other neede
     # git clone git@github.com:hglanzer/knxSec.git
 \end{lstlisting}
 
-\section{Busware \gls{usb} couplers}
+\section{Busware USB couplers}
 
 To make the KNX TP1 bus accessible, i.e. to write datagrams to and receive datagrams from the bus, \gls{usb} dongles as shown in Figure \ref{fig:busware}
 from the company \textit{Busware} are used. Depending on the revision, the bus couplers creates a new device which is used as \gls{url} by the \gls{eibd}.
@@ -177,7 +177,7 @@ in \ref{lst:flash} must be executed.
 To obtain a consistent naming scheme for the busware dongles, udev rules are provided. This way it is possible to always use the same
 device file for the distinct bus lines, no matter in which ordering the dongles are connected to the raspberry.
 
-\begin{lstlisting}[style=BashInputStyle,label=lst:flash]
+\begin{lstlisting}[style=BashInputStyle,label=lst:udev]
   udevadm info --name=/dev/ttyACM0 --attribute-walk
 \end{lstlisting}
 

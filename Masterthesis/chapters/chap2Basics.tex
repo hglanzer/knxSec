@@ -14,6 +14,7 @@ that information is only modified in an authorized manner, the latter one demand
 \\
 \textbf{Availability} guarantees that the system works promptly and information, which is needed by an entity to provide some service, is accessible.
 \\
+\\
 Because all three properties go hand-in-hand with each other they are also called the \textit{"CIA - triad"} \cite{stallings} - successfully attacking one property may allow attacking
 another one. 
 \\
@@ -39,7 +40,7 @@ divides threat consequences into four categories:
   \item \textbf{Disruption} compromises the availability s.t. the system services do not operate correctly.
 \end{itemize}
 
-\subsection{Attacks}
+\subsection{Attacks}\label{sec:attacks}
 Attacks are the manifestation of a security violation, exploited by an attacker. 
 A classification of attacks against communication networks is given in Figure \ref{fig:attacks}.  
 
@@ -145,7 +146,10 @@ Another reason is that some meta information will always be present, like the si
 \end{figure}
 \subsection{Active attacks}
 Unfortunately, a restriction to passive attacks only is no realistic assumption for many systems. Whenever the adversary has access to the communication medium, active attacks
-cannot be ruled out, allowing the attacker to modify the data stream, or to create false data streams:
+cannot be ruled out, allowing the attacker to modify the data stream, or to create false ones. In contrast to their passive counterparts, active attacks can be detected but
+not prevented, so the focus lies on detecting and recovering from active attacks.
+\\
+\\
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[scale=0.2]
@@ -170,13 +174,17 @@ cannot be ruled out, allowing the attacker to modify the data stream, or to crea
 \label{fig:actAttack}
 \caption{Active attack}
 \end{figure}
-In a \textbf{replay} attack the attacker monitors traffic first (i.e. conducts a passive attack) and afterwards injects this recorded package, thus trying to produce an unauthorized
-effect.
+A \textbf{replay} attack consists of two steps: first, the attacker monitors the traffic (i.e. conducts a passive attack) and injects this recorded package in the second step,
+thus trying to produce an unauthorized effect.
 Of course the package can also be modified and injected afterwards, resulting in a \textbf{modification} attack.
 A \textbf{Denial of Service (DOS)} attack tries to overload system resources, attacking availability s.t. the system is not
-usable by legitimate users. Finally, masquerade attacks turn on the integrity of the system.
-The basic tool to achieve confidentiality and integrity is cryptography, which is introduced in Section \ref{sec:crypto}.
-
+usable by legitimate users. Finally, \textbf{masquerade} attacks occurs when one entity pretends to be another entity, often based on replay attacks by replying (modified)
+authentication messages of an authorized entity.
+\\
+\\
+To prevent active attacks, integrity mechanisms must be combined with confidentiality mechanisms - 
+the basic tool to achieve them is cryptography, introduced in the next section \ref{sec:crypto}. To provide availability, different techniques must be used,
+as shown in Chapter \ref{sec:availability}.
 
 \section{Cryptography}\label{sec:crypto}
 Cryptography\footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
@@ -253,6 +261,8 @@ Combining this properties yields a cipher or \textit{encryption scheme} defined 
 
 \subsection{Security of a cipher}
 
+\subsubsection{Perfect secrecy}
+
 A formal definition of a secure cipher was introduced by Shannon in 1949 \cite{6769090}, viewed from a communication-theory point of view, as follows:
 given a finite message space, every possible cleartext message has its own \textit{a priori} probability (for example, the distribution of letters in a 
 specific language). Additionally, every key can be chosen with specific probability. It is assumed that these
@@ -270,8 +280,9 @@ even by an adversary with unlimited time and processing power.
 Shannon proofed that for a perfectly secure cipher, the key space must be at least as big as the message space.
 Otherwise there will exist cleartext messages which are mapped to the same cipher texts, and thus a priori and a posteriori probabilities will be different,
 allowing the attacker to get knowledge he should not have gotten. 
-\\
-\\
+
+\subsubsection{Semantic security}
+
 Another definition of the security of a cipher, based on complexity theory, is \textit{semantic security}.
 To be semantically secure, a cipher must not be breakable by an adversary in a reasonable time
 frame \cite{handbook1}, where this time frame is a function of the useful timespan of the protected data. This synonymously means for a semantically secure
@@ -280,8 +291,8 @@ can be broken in principle by mounting the "brute-focrce" attack, searching the 
 exhaustive search must be rendered impracticable by using a suitable large key space to obtain a secure cipher.
 Semantic security is therefore a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
 processing powers \cite{GoldwasserMicali}.
-\\
-\\
+
+\subsubsection{Kerckhoff's principle}
 When designing cryptographic systems, a fundamental question is what components of it must be protected from public knowledge, and what parts can be
 published without compromising the security of the system. 
 \\
@@ -342,7 +353,7 @@ To encounter the shortcomings of a \gls{prng}, a \gls{trng} uses a natural proce
 thermal noise of a semi conductor, cosmic noise from space or digital oscillators.
 \\
 The used hardware platform, the RapsberryPi, offers a hardware number generator - the quality of its provided random numbers will be subject
-to various statistical tests, see Chapter \ref{chap5} for the results.
+to various statistical tests, see Chapter FIXME for the results. FIXME - DO IT?
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{figures/uniform}
@@ -471,8 +482,11 @@ Multiplication is defined as successive addition of a point to it self in the wa
 
 \subsubsection{\gls{ecdlp}}\label{ecdp}
 
-Based on this group operations, the \gls{ecdlp} \cite{ecdlp} can be defined as following: given an \gls{ec} $E$ over the finite field $\mathcal{F}_p$ and 2 points $P,Q$ on this curve, %FIXME: "P of order n...???"
-find the integer $k$ s.t. $Q = kP$. $k$ is called the discrete logarithm of $Q$ to the base $P$.
-
+Based on this group operations, the \gls{ecdlp} \cite{ecdlp} can be defined as following: given an \gls{ec} $E$ over the finite field $\mathcal{F}_p$, $P$ of order $n$ of this curve 
+and a point $Q$, find the integer $k$ s.t. $Q = kP$. $k$ is called the discrete logarithm of $Q$ to the base $P$.
+\\
+\\
+To find $k$, the most naive algorithm trying all possible numbers will terminate after $\frac{n}{2}$ on average. In contrast, the running time of the best known attack is bounded by 
+$\sqrt{p}$, where $p$ is the largest prime divisor of $n$. Therefore, such an attack is infeasible for properly chosen \gls{ec} parameters.
 %Additionally to the CIA - triad, sometimes two more concepts are used in the security field: \textbf{Authenticity} is tied to integrity and ensures the property
 %of being genuine, while \textbf{Accountability} allows to link actions performed on a system uniquely to the entity responsible for them.

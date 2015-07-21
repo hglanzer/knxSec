@@ -1,0 +1,30 @@
+\begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+\node[state,text width=1.0cm,align=center]					at (-15,0)		(a)		{A}; 
+\node[state,text width=1.0cm,align=center]					at (5,0)			(b)		{B}; 
+\node[state,text width=1.0cm,align=center]					at (30,15)		(c)		{C}; 
+\node[state,text width=1.0cm,align=center]					at (30,-15)	(d)		{D}; 
+\path[pil,<->] (a)  edge[auto]   node[text width=1cm] {$KEY_{AB}$} (b);
+\path[pil,<->] (b)  edge[]   node[text width=3.2cm,align=left] {$KEY_{BD}$} (d); 
+\path[pil,<->] (b)  edge[auto]   node[align=left] {$KEY_{BC}$} (c); 
+\path[pil,<->] (d)  edge[auto]   node[] {$KEY_{CD}$} (c); 
+\draw [dashed] (6,-15) -- (6,15);
+\node[] at (6,17) {Firewall};
+\draw [very thick] (-25,15) -- (-22,8);
+\draw [very thick] (-22,8) -- (-18,12);
+\draw [very thick] (-18,12) -- (-15,2);
+\draw [very thick] (-14,5) -- (-15,2);
+\draw [very thick] (-17,4) -- (-15,2);
+\node[] at (-25,17) {Adversary};
+\end{tikzpicture}

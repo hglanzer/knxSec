@@ -32,6 +32,15 @@ EIBOpenT_Broadcast(fd, 0);
 EIBSendAPDU(fd, len, (const uint8_t *)buf);
 \end{lstlisting}
 
+\subsubsection{KNX addressing scheme}
+
+Care must be taken that no duplicate \gls{knx} addresses are used within the network. Therefore, the following addressing convention is proposed:
+While it would be possible to use the same addresses on both lines per gateway, a different scheme is proposed.
+For the secured network, the address ranges starting at address 1.1.1 to address 1.1.15 and 1.2.1 to 1.2.15 are reserved for secure line number
+1 and 2 respectively, which allows a maximum of 15 gateways. Different addresses are used mainly because it facilitates debugging. 
+On the unsecured lines, every gateway uses an address from the range 1.0.1 - 1.0.15. Addresses are assigned in a linearly ascending way, so gateway number 1
+uses addresses 1.1.1 and 1.2.1 for secure lines 1 and 2, and 1.0.1 for its unsecured line.
+
 \subsection{Restrictions }
 
 \gls{eibd} can send extended frames, but can not receive frames with payload >= 56 byte. Additionally, it is not possible to set the source address of a written frame.  
@@ -45,7 +54,7 @@ to share information. Additionally, thread-creation and switching between thread
 approach. Consequently, at least 3 different threads - one for each communication interface - are needed. Nevertheless, because every thread must be able to write to \textit{or} receive
 frames from the bus at unpredictable moments, 7 different threads are used: the main thread only handles argument processing and creates the other threads. For the remaining threads,
 two pairs are responsible for the interfaces to the secured network, while the remaining thread pair interfaces to the unsecured part of the network. This setup is shown in
-Figure \ref{fig:threads}.
+Figure \ref{fig:Concthreads}.
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[scale=0.2]
@@ -79,8 +88,8 @@ Figure \ref{fig:threads}.
 %\path[pil,->] (clrr)  edge[auto, out=210, in=290]   node[] {} (sec1m); 
 %\path[pil,->] (clrr)  edge[auto, out=230, in= 180]   node[] {} (sec0m); 
 \end{tikzpicture}
-\label{fig:threads}
 \caption{Threads used in the implementation}
+\label{fig:Concthreads}
 \end{figure}
 This design allows to assign one timing-critical task to every thread: every \textit{READ} thread immediately opens its corresponding bus interface in \textit{monitor} mode, allowing it
 to read all the bus traffic on the corresponding line. After that, it enters a loop, performing a blocking read call to \gls{eibd} on every iteration.
@@ -108,13 +117,16 @@ A thread can be created in C with the function \textit{pthread\_create()}. The f
  \item a function pointer, serving as entry-point for the new thread
  \item parameters for the function pointer, or NULL
 \end{itemize}
-\begin{lstlisting}[style=cStyle,caption={Thread-creation},label=lst:pthread_create]
+\begin{lstlisting}[style=cStyle,caption={Creating a new thread},label=lst:pthread_create]
 if((pthread_create(&sec1MasterThread, NULL, (void *)secMasterStart, &threadEnvSec[0])) != 0)
 {
   printf("sec1Thread thread init failed, exit\n");
   return -1;
 }
 \end{lstlisting}
+If the call to \textit{pthread\_create()} succeeds, the new thread will start executing the function provided via the function pointer, and the main thread which called 
+\textit{pthread\_create()} will continue. Which of the threads is running first and in which order the threads are assigned to the processor is unknown and determined by the operating
+system.
 
 \subsection{Thread-to-thread communication}
 To pass data from one thread to another, different ways are possible. While the easiest way would be to use global data structures, the implementation uses 
@@ -172,7 +184,7 @@ for ( int i = 0; i < 1000000; i++ )
 {
    x = x + 1; 
 }
-// x = 1000000 ?
+// x = ?
 \end{lstlisting}
 For a single-threaded program, this would produce the value $x=1000000$ after the loop, while for a 2-threaded program, the resulting value will depend on the exact scheduling of the
 threads and very likely differ from the expected value $x=2000000$. The reason is that the statement incrementing x is no atomic operation. Instead, the operation will consist of
@@ -309,55 +321,93 @@ EVP_CIPHER_CTX_free(aesCtx);
 \end{lstlisting}
 
 \section{Evaluation}
- 
-\subsection{KNX addressing scheme}
+The evaluation of the proposed solution was done by exposing it to the attacks defined in Section \ref{sec:attacks}. Additional attacks against the hardware are handled afterwards.
+\\
+It is assumed that the attacker has polynomially bounded processing
+powers and is able to passively read frames from and inject frames into both secure communication lines. In contrast, it is assumed that the cleartext \gls{knx} lines are out 
+of reach of an attacker.
+The overall aim is to show that the communication network is able to withstand maliciously introduced faults, as well as unintended faults happening randomly, resulting
+in a \gls{knx} network with improved availability. In the case of \gls{dos} attacks it is stated that the proposed solution can withstand such an attack against \textbf{one} of it's
+two secure communication lines because the duplicate and independent sending of the corresponding messages. An attacker interrupting both lines will obviously cripple the 
+data exchange in total. 
 
-Care must be taken that no duplicate \gls{knx} addresses are used within the network. Therefore, the following addressing convention is proposed:
-While it would be possible to use the same addresses on both lines per gateway, a different scheme is used.
-For the secured network, the address ranges starting at address 1.1.1 to address 1.1.15 and 1.2.1 to 1.2.15 are reserved for secure line number
-1 and 2 respectively, which allows a maximum of 15 gateways. Different addresses are used mainly because it facilitates debugging. 
-On the unsecured lines, every gateway uses an address from the range 1.0.1 - 1.0.15. Addresses are assigned in a linearly ascending way, so gateway number 1
-uses addresses 1.1.1 and 1.2.1 for secure lines 1 and 2, and 1.0.1 for its unsecured line.
- 
-\subsection{\gls{mac2} generation}
+\subsection{Synchronization phase}
+\subsubsection{Passive attacks}
+Packages in the synchronization phase are not encrypted, allowing a passive adversary to learn the value of the global counter value $Ctr_{global}$. Nevertheless,
+this counter is only used to avoid deterministic encryption (see \ref{deterministicEnc}) and is of no use for the attacker.
+Additionally, the attacker is able to learn all header fields, in particular the device addresses of all active security gateways, but this is considered inevitable and also of little
+use for the attacker.
 
-The \gls{ttl} field cannot be included in the \gls{mac2} calculation because this field gets changed by a router and would therefor invalidate an authentic message.
+\subsubsection{Active attacks}
+An active attacker can inject new synchronization request and response messages, but will fail to produce a correct \gls{mac2} for the actual time stamp with probability
+$1-\frac{1}{2^{32}}$ because
+the \gls{mac2} equals a random 32 bit number for the given header and payload. Such a \gls{mac2} forgery will be detected by all active security gateways,
+and the corresponding frame will be discarded. 
+\\
+Opening a window for tolerating clock deviations allows an active attacker to replay captured synchronization request and response packages within that time window.
+Nevertheless, this is considered uncritical: for synchronization request messages, the attacker can trigger a new synchronization response message by a legitimate security gateway, which
+will re-send the actual counter value to the source address of the replayed message. The corresponding device however has already finished synchronization phase and will just drop
+the message.
+\\
+When replaying a synchronization response message within the valid time window there are two possibilities: if a joining device is waiting for a response message the replayed message
+will be handled as legitimate response, and the newly joined device concludes the synchronization phase. On the other hand, if no device is waiting for a synchronization response,
+the message will simply get dropped.
 
-\subsection{FIXMEs}
+\subsection{Discovery phase}
+\subsubsection{Passive attacks}
+In this phase, a passive attacker is able to learn the global counter value $Ctr_{global}$, as well as the \gls{ecdh} parameters exchanged by requester and responder.
+Booth is considered unproblematic: for the first case, the same arguments as given for the synchronization phase hold. To derive the key used by two parties in the subsequent
+data transmission from the \gls{dh} parameters the attacker would need to solve the \gls{ecdlp}, as shown in Section \ref{ecdp}.
+\\
+\\
+Additionally, he can learn 
+the \textit{encrypted} value of the requested group address and also learns which gateway(s) are responsible for the encrypted gateway. It is argued that it is impossible for the
+attacker to learn the underlying cleartext group address because of the 256 bit \gls{aes} encryption, assuming that the attacker does not know the long term encryption key.
+Nevertheless, the attacker is able to derive communication profiles, i.e.
+which devices behind which security gateways are communicating with each other, and therefore enables the attacker to derive the basic topology of the network.
 
-\begin{enumerate}
- \item DH: apply hashingfunction on derived secret to get 2 different keys(MAC, encrypt)
- \item 
-\end{enumerate}
+\subsubsection{Active attacks}
+Injecting new or replaying old messages is useless from an attackers point of view, argued as following: for newly generated, injected discovery request messages, the attacker must at first
+generate the encryption for the wanted group address. Lacking the encryption key, the attacker can produce the correct encryption for the 2 byte group address with probability
+$1-2^{16}$. Afterwards, the attacker additionally must guess the correct lowest 4 bytes of the 256 bit \gls{mac2} for the header fields and payload (again provided that the attacker
+does not know the key used for \gls{mac2} generation). Failure to forge the correct \gls{mac2} will be detected by all receiving devices.
+\\
+Similar arguments hold for discovery response messages.
+\\
+\\
+Replaying discovery messages is considered pointless because of the freshness property provided by $Ctr_{global}$: such repeated frames will be detected by the security gateways
+because of the outdated value of $Ctr_{global}$, which will just drop the replayed frame. 
+\\
+Attacking alternating secure communication lines will also fail: for example, the attacker could at first
+shortcut one secure communication line s.t. the discovery message will not reach it's recipient(s). Receiving the discovery message on the other line and injecting the frame to the
+previously blocked line would result in a fresh counter value. Nevertheless, such frames will bear the wrong secure line number as part of the source address (for discovery request
+messages, with the destination field set to the broadcast address) or source- and destination address, and will thus be detected.
+Alternating the source- and/or destination-address will invalidate the \gls{mac2}, forcing the attacker again to forge the \gls{mac2}, an infeasible task as already stated.
 
+\subsection{Data transmission phase}
 
-
-\section{Evaluation}
+\subsubsection{Passive attacks}
+An eavesdropping attacker will be able to learn source- and destination addresses of the security gateways exchanging the frame, as well as the length of the inner frame and the
+individual counter $Ctr_{ind}$. Again, the meta data can be used to generate communication profiles, a fact considered inevitable. The individual counter is used as freshness property
+and to detect the duplicate frames on the receiving side. Therefore, an attacker does not benefit from knowing this counter value.
+\\
+Decrypting the contained inner frame is considered impossible base on the following facts: firstly, encryption is based on \gls{aes}-256, therefore trying all possible keys is infeasible.
+Secondly, the attacker is unable to get knowledge of the key because of the key agreement protocol used in the discovery phase.
+\subsubsection{Active attacks}
+An attacker, trying to inject a new data frame, again must succeed in forging the correct \gls{mac2}. Failure to do so will be detected by the receiving gateway.
+A replayed message will be be correctly verified and decrypted by the receiving device, but because of the outdated counter value $Ctr_{ind}$ the message will be discarded.
 
 \subsection{\gls{usb}}
 Unstable \gls{usb} connection, enumeration errors, to fix reboot hub
 
-\subsection{Synchronization phase}
-Packages in the synchronization phase are not encrypted, allowing a passive adversary to learn the value of the global counter value $Ctr_{global}$. Nevertheless,
-this counter is only used to avoid deterministic encryption (see \ref{deterministicEnc}) and is of no use for the attacker.
+\section{Outlook}
+obfuscate discovery messages by using a cache...
 \\
 \\
-Opening a window for tolerating timing deviations allows an active attacker to inject a captured synchronization response package within that time window.
-Nevertheless, because the header is protected by a \gls{mac2}, the only way to inject a synchronization package is to use exactly the same frame as captured,
-i.e. the same source address, which will be discarded because the the requesting device already finished the synchronization stage.
+data-msg:obfuscate size of the messages by appending random size pad
 \\
-Additionally, the counter value is of no use for the attacker, as described above.
-
-\subsection{Discovery phase}
-
-\subsection{Data transmission phase}
-
-
-\subsection{High Level Cryptography Library}
-
-\subsubsection{OpenSSL}
-
-\begin{itemize}
- \item install libssl, libssl-dev
-\end{itemize}
-
+\\
+erkennen eines angriffes - mac forgery
+\\
+\\
+n statt 2 communication lines
