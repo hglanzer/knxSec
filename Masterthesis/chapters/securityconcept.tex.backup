@@ -37,7 +37,7 @@ not know which device(s), if any, will be the gateway(s) responsible for deliver
 regardless if the destination address is a \gls{ia} or a \gls{ga}.
 \begin{figure}
     \centering
-    \includegraphics[width=1\textwidth]{figures/SecureArea.eps}
+    \includegraphics[width=0.8\textwidth]{figures/SecureArea.eps}
     \caption{Secure Area}
     \label{fig:secArea}
 \end{figure}
@@ -105,7 +105,41 @@ the attacker.
 \\
 \begin{figure}
   \centering
-    \includegraphics[width=1\textwidth]{figures/firewall.eps}
+   % \includegraphics[width=0.8\textwidth]{figures/firewall.eps}
+   \begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=2pt]
+\tikzstyle{arrow}=[draw, -latex] 
+\tikzset{
+    pil/.style={
+           ->,
+           thick,
+           shorten <=1pt,
+           shorten >=1pt,}
+}
+
+\usetikzlibrary{automata,positioning}
+\usetikzlibrary{positioning}
+
+\node[state,text width=1.0cm,align=center]					at (-15,0)		(a)		{A}; 
+\node[state,text width=1.0cm,align=center]					at (5,0)			(b)		{B}; 
+\node[state,text width=1.0cm,align=center]					at (30,15)		(c)		{C}; 
+\node[state,text width=1.0cm,align=center]					at (30,-15)	(d)		{D}; 
+
+\path[pil,<->] (a)  edge[auto]   node[text width=1cm] {$KEY_{AB}$} (b);
+\path[pil,<->] (b)  edge[]   node[text width=3.2cm,align=left] {$KEY_{BD}$} (d); 
+\path[pil,<->] (b)  edge[auto]   node[align=left] {$KEY_{BC}$} (c); 
+\path[pil,<->] (d)  edge[auto]   node[] {$KEY_{CD}$} (c); 
+
+\draw [dashed] (6,-15) -- (6,15);
+\node[] at (6,17) {Firewall};
+\draw [very thick] (-25,15) -- (-22,8);
+\draw [very thick] (-22,8) -- (-18,12);
+\draw [very thick] (-18,12) -- (-15,2);
+\draw [very thick] (-14,5) -- (-15,2);
+\draw [very thick] (-17,4) -- (-15,2);
+\node[] at (-25,17) {Adversary};
+
+\end{tikzpicture}
  \caption{Firewall}
  \label{fig:firewall}
 \end{figure}
@@ -302,7 +336,7 @@ frame formats, a 8 bit \textit{secure header} field uniquely identifies every fr
 
 \begin{figure}
   \centering
-    \includegraphics[width=0.8\textwidth]{figures/dataAck.eps}
+    \includegraphics[width=0.6\textwidth]{figures/dataAck.eps}
  \caption{Acknowledgement of KNX data}
  \label{fig:dataAck}
 \end{figure}
@@ -365,7 +399,7 @@ frame formats, a 8 bit \textit{secure header} field uniquely identifies every fr
 \caption{State machine of the program logic}
 \end{figure}
 
-\subsection{Synchronization service}
+\subsection{Synchronization service}\label{syncService}
 
 As stated, a new gateway, joining the network, must get knowledge of the actual value of $Ctr_{global}$. This is achieved by sending a broadcast message on
 every secure line, 
@@ -420,7 +454,7 @@ sent, allowing the requester to identify the response message.
 \end{figure}
 \\
 Integrity of the discovery messages is achieved by generating a \gls{mac2} over all frame fields except the frame check field and parts of the \textit{header}
-field.
+field. 
 \\
 The main logic from the discovery request receiver's point of view is shown in the state machine in \ref{fig:discRecv}
 
@@ -465,11 +499,11 @@ The main logic from the discovery request receiver's point of view is shown in t
 
 \subsection{Data service}
 After receiving one or more discovery responses on one or both secure line, the device which wants to send the \gls{knx} payload (called requester) now knows the
-\glspl{ia} which are responsible for delivering messages to the wanted \gls{ga}. The requester can also derive a shared secret based on \gls{ecdh},
-which is used to encrypt the origin \gls{knx} frame and inserted into the frame after the counter value. This counter $CTR-Ind$ is an individual counter, maintained
+\glspl{ia} which are responsible for delivering messages to the wanted \gls{ga}. The requester can also derive pairwise shared secrets with all responsible gateways, based on \gls{ecdh}.
+From this shared secret, a key is derived which is used to encrypt the origin \gls{knx} frame and inserted into the frame after the counter value. This counter $CTR-Ind$ is an individual counter, maintained
 by the gateway forwarding the \gls{knx} frame received over the cleartext line.
 \\
-Authenticity is guaranteed by calculating a \gls{mac2} over all frame fields except the frame check field.
+Authenticity is guaranteed by calculating a \gls{mac2} over all frame fields except the frame check field. The key used for the \gls{mac2} is also derived from the shared secret.
 \\
 \\
 Figure \ref{fig:dataFormat} shows the layout of such a data frame.
@@ -581,3 +615,4 @@ afterwards will bear the counter value $Ctr_{ind} = Ctr_{in}[\gls{ia}]$ and will
 \caption{State machine of the duplicate detection logic}
 \label{fig:dupSM}
 \end{figure}
+

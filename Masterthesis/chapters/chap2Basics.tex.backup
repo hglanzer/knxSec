@@ -2,7 +2,7 @@
 \section{Information Security}
 
 Information security is the effort to protect information - be it in electronic or physical form - from adversary threats. 
-The domain in which the data is to protected can be \textit{time}, i.e. protecting saved information for later usage, or \textit{space}, i.e. protect information
+The domain in which the data is to protected can be time, i.e. protecting saved information for later usage, or space, i.e. protect information
 transmitted physically from one user to another. To protect information, three key objectives must be met:
 \\
 \\
@@ -14,6 +14,7 @@ that information is only modified in an authorized manner, the latter one demand
 \\
 \textbf{Availability} guarantees that the system works promptly and information, which is needed by an entity to provide some service, is accessible.
 \\
+\\
 Because all three properties go hand-in-hand with each other they are also called the \textit{"CIA - triad"} \cite{stallings} - successfully attacking one property may allow attacking
 another one. 
 \\
@@ -21,10 +22,10 @@ For example, if a
 confidentiality attack against a computer system responsible for money transfers can be conducted to steal a password used for controlling this system,
 an attacker
 can subsequently render the system unusable, therefore compromising availability. On the other hand, the attacker could also try to remain undetected and change
-booking orders, thus mounting an attack against the integrity of the system. Thus, these 3 basic concepts are interleaved, and building a system which honors
+booking orders, thus mounting an attack against the integrity of the system. Thus, these three basic concepts are interleaved and building a system which honors
 only parts of them will most likely lead to an insecure system.
 \\
-In addition to the 3 objectives listed above, additional security objectives are used frequently: \textbf{authenticity} is the property of being genuine and being able to be 
+In addition to the three objectives listed above, additional security objectives are used frequently: \textbf{authenticity} is the property of being genuine and being able to be 
 trusted, while \textbf{accountability} allows to trace the actions of an entity uniquely to that entity.
 %Integrity and authenticity are semantically related: checking the integrity implicitly checks authenticity, provided that the key used to generate the tag is only known to authentic entities.
 %Vice versa, authenticating the sender of a message is only useful if the message itself cannot be modified by an adversary, i.e. integrity is guaranteed.
@@ -149,7 +150,7 @@ cannot be ruled out, allowing the attacker to modify the data stream, or to crea
 not prevented, so the focus lies on detecting and recovering from active attacks.
 \\
 \\
-\begin{figure}[h]
+\begin{figure}[hf]
 \centering
 \begin{tikzpicture}[scale=0.2]
 \tikzstyle{every node}+=[inner sep=2pt]
@@ -183,7 +184,7 @@ authentication messages of an authorized entity.
 \\
 To prevent active attacks, integrity mechanisms must be combined with confidentiality mechanisms - 
 the basic tool to achieve them is cryptography, introduced in the next section \ref{sec:crypto}. To provide availability, different techniques must be used,
-as shown in Chapter \ref{sec:availability}.
+as shown in Section \ref{sec:availability}.
 
 \section{Cryptography}\label{sec:crypto}
 Cryptography\footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
@@ -195,21 +196,23 @@ is suggested \cite{codebreakers}.
 \\
 One of the oldest witnesses for cryptography are hieroglyphs used in Egypt about 2000 B.C., forming the predecessor
 of a simple substitution cipher. 500 B.C., the "skytale" was used by greek and spartan military leaders, performing a transposition cipher. Another classical
-example was the "Caesar Cipher", used by its inventor about 100 B.C. to hide information by replacing every letter of the alphabet by a letter some fixed number down the alphabet,
+example was the "Caesar Cipher", named after its inventor and used about 100 B.C. to hide information by replacing every letter of the alphabet by a letter some fixed number down the alphabet,
 thus performing a substitution cipher. Ahmas al-Qalqashandi, an egypt writer, introduced the frequency analysis, a method for breaking substitution ciphers,
 in the 14th century. About 300 years later, the "Geheime Kabinets-Kanzlei" in Vienna routinely intercepts, copies and 
  re-seales diplomatic correspondence to embassies, and manages to decrypt a great percentage of the ciphertexts. In the beginning of the 20th century, the 
  first cryptographic device called "Enigma"\footnote{classical greek for "riddle"} is patented for commercial use and is later used in World War 2 by german troops for 
  military communication. Successful attacks against the "Enigma" cipher are demonstrated by polish mathematicians even before outbreak of the war, and systematic
  decryption of "Enigma" - based ciphertexts are conducted in Bleatchley Park, U.K., by using so called "Turing-Bombs", giving the allies invaluable advantages.
-The second half of the 20th century brings the introduction of public key cryptography with it: in 1976 Whitfield Diffie and Martin Hellman specify a 
+The second half of the 20th century introduces public key cryptography: in 1976 Whitfield Diffie and Martin Hellman specify a 
 protocol for key exchange, based on a public key system developed by Ralph Merkle, and one year later, the RSA public key encryption is found by the american
 mathematicians Rivest, Shamir and Adleman.
 \\
 Cryptography is basically the art of hiding information by turning cleartext
 data into a random looking stream or block of bits, called ciphertext, using some kind of
 \textit{key}. This process is referred to as \textit{encryption} in general, but it is important to note that for many block ciphers, this encryption process
-can also be used to generate a special tag called \gls{mac2}, providing integrity. The next sections deal with how to achieve confidentiality, the 
+can also be used to generate a special tag called \gls{mac2}, providing integrity.
+\\
+The next sections deal with how to achieve confidentiality, the 
 concepts how to achieve integrity are partially based on the confidentiality methods and are introduced in section \ref{Integrity}.
 \\
 \\
@@ -260,6 +263,8 @@ Combining this properties yields a cipher or \textit{encryption scheme} defined 
 
 \subsection{Security of a cipher}
 
+\subsubsection{Perfect secrecy}
+
 A formal definition of a secure cipher was introduced by Shannon in 1949 \cite{6769090}, viewed from a communication-theory point of view, as follows:
 given a finite message space, every possible cleartext message has its own \textit{a priori} probability (for example, the distribution of letters in a 
 specific language). Additionally, every key can be chosen with specific probability. It is assumed that these
@@ -267,7 +272,7 @@ two probabilities constitute the a priori knowledge of an attacker.
 \\
 A message is picked, encrypted
 and sent to the receiver. The eavesdropper, intercepting the message, can calculate the \textit{a posteriori} probabilities for all possible cleartext messages, 
-leading to the observed cipher text - this are the conditional properties that under a fixed key, encrypting the cleartext message lead to the
+leading to the observed cipher text - these are the conditional properties that under a fixed key, encrypting the cleartext message lead to the
 observed ciphertext message.
 \\
 If the a posteriori probabilities for all possible encryptions are the same as all a priory probabilities, the attacker has learned absolutely
@@ -277,8 +282,9 @@ even by an adversary with unlimited time and processing power.
 Shannon proofed that for a perfectly secure cipher, the key space must be at least as big as the message space.
 Otherwise there will exist cleartext messages which are mapped to the same cipher texts, and thus a priori and a posteriori probabilities will be different,
 allowing the attacker to get knowledge he should not have gotten. 
-\\
-\\
+
+\subsubsection{Semantic security}
+
 Another definition of the security of a cipher, based on complexity theory, is \textit{semantic security}.
 To be semantically secure, a cipher must not be breakable by an adversary in a reasonable time
 frame \cite{handbook1}, where this time frame is a function of the useful timespan of the protected data. This synonymously means for a semantically secure
@@ -287,19 +293,19 @@ can be broken in principle by mounting the "brute-focrce" attack, searching the 
 exhaustive search must be rendered impracticable by using a suitable large key space to obtain a secure cipher.
 Semantic security is therefore a weaker form of security, namely perfect secrecy against an adversary having only polynomially bounded
 processing powers \cite{GoldwasserMicali}.
-\\
-\\
+
+\subsubsection{Kerckhoff's principle}
 When designing cryptographic systems, a fundamental question is what components of it must be protected from public knowledge, and what parts can be
 published without compromising the security of the system. 
 \\
 The dutch cryptographer Auguste Kerckhoff stated rules for designing a secure cipher.
-According to \textit{Kerckhoff's Principle} stated 1883, among other properties, a secure system should not rely on the secrecy of
+According to \textit{Kerckhoff's Principle} stated in the year 1883, among other properties, a secure system should not rely on the secrecy of
 its components, the only part that should be kept secret is the key alone. Shannon acknowledged these assumptions to be "pessimistic and hence safe, but 
 in the long run realistic, since one must expect the system to be found out eventually".
 \\
 \\
 Mapped to the definitions above, the sets $\mathcal{M, C, K}$, as well as the
-transformation functions $E_e$ and $D_d$, must not secret. The only thing that has to be kept private is the decryption key $d$.
+transformation functions $E_e$ and $D_d$, must not be secret. The only thing that has to be kept private is the decryption key $d$.
 This separation of key and algorithm allows the publication of the basic cipher methods, benefiting from peer review. A contradicting approach, 
 trying to strengthen the safety of a cryptographic system by hiding the inner workings of it from public is also known as "Security by Obscurity".
 
@@ -349,11 +355,11 @@ To encounter the shortcomings of a \gls{prng}, a \gls{trng} uses a natural proce
 thermal noise of a semi conductor, cosmic noise from space or digital oscillators.
 \\
 The used hardware platform, the RapsberryPi, offers a hardware number generator - the quality of its provided random numbers will be subject
-to various statistical tests, see Chapter \ref{chap5} for the results.
+to various statistical tests, see Chapter FIXME for the results. FIXME - DO IT?
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{figures/uniform}
-    \caption{Uniform Distribution of binary string of length 3}
+    \caption{Uniform Distribution of binary string of length three}
     \label{fig:uniform}
 \end{figure}
 \begin{figure}
@@ -478,8 +484,11 @@ Multiplication is defined as successive addition of a point to it self in the wa
 
 \subsubsection{\gls{ecdlp}}\label{ecdp}
 
-Based on this group operations, the \gls{ecdlp} \cite{ecdlp} can be defined as following: given an \gls{ec} $E$ over the finite field $\mathcal{F}_p$ and 2 points $P,Q$ on this curve, %FIXME: "P of order n...???"
-find the integer $k$ s.t. $Q = kP$. $k$ is called the discrete logarithm of $Q$ to the base $P$.
-
+Based on this group operations, the \gls{ecdlp} \cite{ecdlp} can be defined as following: given an \gls{ec} $E$ over the finite field $\mathcal{F}_p$, $P$ of order $n$ of this curve 
+and a point $Q$, find the integer $k$ s.t. $Q = kP$. $k$ is called the discrete logarithm of $Q$ to the base $P$.
+\\
+\\
+To find $k$, the most naive algorithm trying all possible numbers will terminate after $\frac{n}{2}$ on average. In contrast, the running time of the best known attack is bounded by 
+$\sqrt{p}$, where $p$ is the largest prime divisor of $n$. Therefore, such an attack is infeasible for properly chosen \gls{ec} parameters.
 %Additionally to the CIA - triad, sometimes two more concepts are used in the security field: \textbf{Authenticity} is tied to integrity and ensures the property
 %of being genuine, while \textbf{Accountability} allows to link actions performed on a system uniquely to the entity responsible for them.

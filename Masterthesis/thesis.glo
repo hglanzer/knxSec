@@ -31,8 +31,8 @@
 \glossaryentry{IV?\glossaryentryfield{iv}{\glsnamefont{IV}}{Initialization Vector}{\relax }|setentrycounter[]{page}\glsnumberformat}{11}
 \glossaryentry{PRNG?\glossaryentryfield{prng}{\glsnamefont{PRNG}}{Pseudo Random Number Generator}{\relax }|setentrycounter[]{page}\glsnumberformat}{11}
 \glossaryentry{PRNG?\glossaryentryfield{prng}{\glsnamefont{PRNG}}{Pseudo Random Number Generator}{\relax }|setentrycounter[]{page}\glsnumberformat}{11}
-\glossaryentry{PRNG?\glossaryentryfield{prng}{\glsnamefont{PRNG}}{Pseudo Random Number Generator}{\relax }|setentrycounter[]{page}\glsnumberformat}{11}
-\glossaryentry{TRNG?\glossaryentryfield{trng}{\glsnamefont{TRNG}}{True Random Number Generator}{\relax }|setentrycounter[]{page}\glsnumberformat}{11}
+\glossaryentry{PRNG?\glossaryentryfield{prng}{\glsnamefont{PRNG}}{Pseudo Random Number Generator}{\relax }|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{TRNG?\glossaryentryfield{trng}{\glsnamefont{TRNG}}{True Random Number Generator}{\relax }|setentrycounter[]{page}\glsnumberformat}{12}
 \glossaryentry{DLP?\glossaryentryfield{dlp}{\glsnamefont{DLP}}{Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{12}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{12}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{12}
@@ -42,7 +42,7 @@
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
-\glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{14}
+\glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{15}
 \glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{16}
@@ -118,7 +118,7 @@
 \glossaryentry{OFB?\glossaryentryfield{ofb}{\glsnamefont{OFB}}{Output Feedback Mode}{\relax }|setentrycounter[]{page}\glsnumberformat}{26}
 \glossaryentry{CFB?\glossaryentryfield{cfb}{\glsnamefont{CFB}}{Cipher Feedback Mode}{\relax }|setentrycounter[]{page}\glsnumberformat}{26}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{27}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{27}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{28}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{28}
 \glossaryentry{AE?\glossaryentryfield{ae}{\glsnamefont{AE}}{Authenticated Encryption}{\relax }|setentrycounter[]{page}\glsnumberformat}{28}
 \glossaryentry{CRC?\glossaryentryfield{crc}{\glsnamefont{CRC}}{Cyclic Redundancy Check}{\relax }|setentrycounter[]{page}\glsnumberformat}{28}
@@ -170,8 +170,8 @@
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{ECC?\glossaryentryfield{ecc}{\glsnamefont{ECC}}{Elliptic Curve Cryptography}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
-\glossaryentry{DLP?\glossaryentryfield{dlp}{\glsnamefont{DLP}}{Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
-\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{34}
+\glossaryentry{DLP?\glossaryentryfield{dlp}{\glsnamefont{DLP}}{Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
 \glossaryentry{DLP?\glossaryentryfield{dlp}{\glsnamefont{DLP}}{Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
 \glossaryentry{ECC?\glossaryentryfield{ecc}{\glsnamefont{ECC}}{Elliptic Curve Cryptography}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
@@ -188,11 +188,11 @@
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
-\glossaryentry{ECDSA?\glossaryentryfield{ecdsa}{\glsnamefont{ECDSA}}{Elliptic Curve Digital Signature Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
-\glossaryentry{ECC?\glossaryentryfield{ecc}{\glsnamefont{ECC}}{Elliptic Curve Cryptography}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
-\glossaryentry{DSA?\glossaryentryfield{dsa}{\glsnamefont{DSA}}{Digital Signature Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
-\glossaryentry{NIST?\glossaryentryfield{nist}{\glsnamefont{NIST}}{National Institute of Standards and Technology}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
-\glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{ECDSA?\glossaryentryfield{ecdsa}{\glsnamefont{ECDSA}}{Elliptic Curve Digital Signature Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{ECC?\glossaryentryfield{ecc}{\glsnamefont{ECC}}{Elliptic Curve Cryptography}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{DSA?\glossaryentryfield{dsa}{\glsnamefont{DSA}}{Digital Signature Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{NIST?\glossaryentryfield{nist}{\glsnamefont{NIST}}{National Institute of Standards and Technology}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
 \glossaryentry{SLA?\glossaryentryfield{sla}{\glsnamefont{SLA}}{Service Level Agreement}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{SLA?\glossaryentryfield{sla}{\glsnamefont{SLA}}{Service Level Agreement}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
@@ -553,23 +553,27 @@
 \glossaryentry{AES?\glossaryentryfield{aes}{\glsnamefont{AES}}{Advanced Encryption Standard}{\relax }|setentrycounter[]{page}\glsnumberformat}{91}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{91}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{91}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{91}
 \glossaryentry{DOS?\glossaryentryfield{dos}{\glsnamefont{DOS}}{Denial of Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{91}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{91}
+\glossaryentry{DOS?\glossaryentryfield{dos}{\glsnamefont{DOS}}{Denial of Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{91}
+\glossaryentry{TP?\glossaryentryfield{TP}{\glsnamefont{TP}}{Twisted Pair}{\relax }|setentrycounter[]{page}\glsnumberformat}{91}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{92}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{92}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{92}
 \glossaryentry{ECDH?\glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{92}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{92}
 \glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{92}
-\glossaryentry{AES?\glossaryentryfield{aes}{\glsnamefont{AES}}{Advanced Encryption Standard}{\relax }|setentrycounter[]{page}\glsnumberformat}{92}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
-\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
 \glossaryentry{AES?\glossaryentryfield{aes}{\glsnamefont{AES}}{Advanced Encryption Standard}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
-\glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{94}
-\glossaryentry{USB?\glossaryentryfield{usb}{\glsnamefont{USB}}{Universal Serial Bus}{\relax }|setentrycounter[]{page}\glsnumberformat}{94}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{93}
+\glossaryentry{AES?\glossaryentryfield{aes}{\glsnamefont{AES}}{Advanced Encryption Standard}{\relax }|setentrycounter[]{page}\glsnumberformat}{94}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{94}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{94}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{94}
+\glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{94}
 \glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{96}
 \glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{96}
 \glossaryentry{SSH?\glossaryentryfield{ssh}{\glsnamefont{SSH}}{Secure Shell}{\relax }|setentrycounter[]{page}\glsnumberformat}{96}

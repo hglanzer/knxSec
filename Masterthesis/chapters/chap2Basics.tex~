@@ -2,7 +2,7 @@
 \section{Information Security}
 
 Information security is the effort to protect information - be it in electronic or physical form - from adversary threats. 
-The domain in which the data is to protected can be \textit{time}, i.e. protecting saved information for later usage, or \textit{space}, i.e. protect information
+The domain in which the data is to protected can be time, i.e. protecting saved information for later usage, or space, i.e. protect information
 transmitted physically from one user to another. To protect information, three key objectives must be met:
 \\
 \\
@@ -22,10 +22,10 @@ For example, if a
 confidentiality attack against a computer system responsible for money transfers can be conducted to steal a password used for controlling this system,
 an attacker
 can subsequently render the system unusable, therefore compromising availability. On the other hand, the attacker could also try to remain undetected and change
-booking orders, thus mounting an attack against the integrity of the system. Thus, these 3 basic concepts are interleaved, and building a system which honors
+booking orders, thus mounting an attack against the integrity of the system. Thus, these three basic concepts are interleaved and building a system which honors
 only parts of them will most likely lead to an insecure system.
 \\
-In addition to the 3 objectives listed above, additional security objectives are used frequently: \textbf{authenticity} is the property of being genuine and being able to be 
+In addition to the three objectives listed above, additional security objectives are used frequently: \textbf{authenticity} is the property of being genuine and being able to be 
 trusted, while \textbf{accountability} allows to trace the actions of an entity uniquely to that entity.
 %Integrity and authenticity are semantically related: checking the integrity implicitly checks authenticity, provided that the key used to generate the tag is only known to authentic entities.
 %Vice versa, authenticating the sender of a message is only useful if the message itself cannot be modified by an adversary, i.e. integrity is guaranteed.
@@ -150,7 +150,7 @@ cannot be ruled out, allowing the attacker to modify the data stream, or to crea
 not prevented, so the focus lies on detecting and recovering from active attacks.
 \\
 \\
-\begin{figure}[h]
+\begin{figure}[hf]
 \centering
 \begin{tikzpicture}[scale=0.2]
 \tikzstyle{every node}+=[inner sep=2pt]
@@ -184,7 +184,7 @@ authentication messages of an authorized entity.
 \\
 To prevent active attacks, integrity mechanisms must be combined with confidentiality mechanisms - 
 the basic tool to achieve them is cryptography, introduced in the next section \ref{sec:crypto}. To provide availability, different techniques must be used,
-as shown in Chapter \ref{sec:availability}.
+as shown in Section \ref{sec:availability}.
 
 \section{Cryptography}\label{sec:crypto}
 Cryptography\footnote{classical greek for \textit{krypt\^{o}s}: \textit{concealed}}
@@ -196,21 +196,23 @@ is suggested \cite{codebreakers}.
 \\
 One of the oldest witnesses for cryptography are hieroglyphs used in Egypt about 2000 B.C., forming the predecessor
 of a simple substitution cipher. 500 B.C., the "skytale" was used by greek and spartan military leaders, performing a transposition cipher. Another classical
-example was the "Caesar Cipher", used by its inventor about 100 B.C. to hide information by replacing every letter of the alphabet by a letter some fixed number down the alphabet,
+example was the "Caesar Cipher", named after its inventor and used about 100 B.C. to hide information by replacing every letter of the alphabet by a letter some fixed number down the alphabet,
 thus performing a substitution cipher. Ahmas al-Qalqashandi, an egypt writer, introduced the frequency analysis, a method for breaking substitution ciphers,
 in the 14th century. About 300 years later, the "Geheime Kabinets-Kanzlei" in Vienna routinely intercepts, copies and 
  re-seales diplomatic correspondence to embassies, and manages to decrypt a great percentage of the ciphertexts. In the beginning of the 20th century, the 
  first cryptographic device called "Enigma"\footnote{classical greek for "riddle"} is patented for commercial use and is later used in World War 2 by german troops for 
  military communication. Successful attacks against the "Enigma" cipher are demonstrated by polish mathematicians even before outbreak of the war, and systematic
  decryption of "Enigma" - based ciphertexts are conducted in Bleatchley Park, U.K., by using so called "Turing-Bombs", giving the allies invaluable advantages.
-The second half of the 20th century brings the introduction of public key cryptography with it: in 1976 Whitfield Diffie and Martin Hellman specify a 
+The second half of the 20th century introduces public key cryptography: in 1976 Whitfield Diffie and Martin Hellman specify a 
 protocol for key exchange, based on a public key system developed by Ralph Merkle, and one year later, the RSA public key encryption is found by the american
 mathematicians Rivest, Shamir and Adleman.
 \\
 Cryptography is basically the art of hiding information by turning cleartext
 data into a random looking stream or block of bits, called ciphertext, using some kind of
 \textit{key}. This process is referred to as \textit{encryption} in general, but it is important to note that for many block ciphers, this encryption process
-can also be used to generate a special tag called \gls{mac2}, providing integrity. The next sections deal with how to achieve confidentiality, the 
+can also be used to generate a special tag called \gls{mac2}, providing integrity.
+\\
+The next sections deal with how to achieve confidentiality, the 
 concepts how to achieve integrity are partially based on the confidentiality methods and are introduced in section \ref{Integrity}.
 \\
 \\
@@ -270,7 +272,7 @@ two probabilities constitute the a priori knowledge of an attacker.
 \\
 A message is picked, encrypted
 and sent to the receiver. The eavesdropper, intercepting the message, can calculate the \textit{a posteriori} probabilities for all possible cleartext messages, 
-leading to the observed cipher text - this are the conditional properties that under a fixed key, encrypting the cleartext message lead to the
+leading to the observed cipher text - these are the conditional properties that under a fixed key, encrypting the cleartext message lead to the
 observed ciphertext message.
 \\
 If the a posteriori probabilities for all possible encryptions are the same as all a priory probabilities, the attacker has learned absolutely
@@ -297,14 +299,14 @@ When designing cryptographic systems, a fundamental question is what components 
 published without compromising the security of the system. 
 \\
 The dutch cryptographer Auguste Kerckhoff stated rules for designing a secure cipher.
-According to \textit{Kerckhoff's Principle} stated 1883, among other properties, a secure system should not rely on the secrecy of
+According to \textit{Kerckhoff's Principle} stated in the year 1883, among other properties, a secure system should not rely on the secrecy of
 its components, the only part that should be kept secret is the key alone. Shannon acknowledged these assumptions to be "pessimistic and hence safe, but 
 in the long run realistic, since one must expect the system to be found out eventually".
 \\
 \\
 Mapped to the definitions above, the sets $\mathcal{M, C, K}$, as well as the
-transformation functions $E_e$ and $D_d$, must not secret. The only thing that has to be kept private is the decryption key $d$.
-This separation of key and algorithm allows the publication of the basic cipher methods, benefiting from peer review. A contradicting approach, 
+transformation functions $E_e$ and $D_d$, must not be secret. The only thing that has to be kept private is the decryption key $d$.
+This separation of key and algorithm allows the publication of the basic cipher methods, benefiting from peer review. A contradicting approach 
 trying to strengthen the safety of a cryptographic system by hiding the inner workings of it from public is also known as "Security by Obscurity".
 
 \subsection{Randomness and Probabilistic Theory}
@@ -320,7 +322,7 @@ strings of same length is equal, as shown in Figure \ref{fig:uniform}, yielding 
 $H = 2^n*\frac{1}{2^n}*ln(2^n) = n$ bit. 
 \\
 \\
-The importance of random numbers in cryptography is founded on the nature of the cipher used, as will be shown in the next sections. For example,
+The importance of random numbers in cryptography is founded on the nature of the cipher used, as will be shown in the next sections. For example
 stream ciphers generate a keystream which is used
 for encryption. If the keystream is predictable by an adversary, the security of the cipher is reduced. Similar arguments are valid for block ciphers, which often
 rely on an initial value called \gls{iv} for encryption. Also, many key negotiation algorithms schemes rely on determining a random prime number, which is often 
@@ -334,17 +336,17 @@ A fundamental problem in generating random numbers by utilizing computing device
 \\
 \\
 Such numbers are therefore called \textit{pseudo}random. Lots of cryptographic products suffered serious flaws because of relying on a broken \gls{prng}. A 
-historical example of such a broken random number generator, outputting biased (i.e., not uniformly distributed) values was "RANDU", invented by IBM in the
+historical example of such a broken random number generator, outputting biased (i.e. not uniformly distributed) values was "RANDU", invented by IBM in the
 1960s. 
 The generator belongs to the class of multiplicative congruential algorithms as proposed by Lehmer \cite{MR0044899}, which can in principle generate random
-numbers of sufficient quality, \textit{if} the parameters are chosen correctly.
+numbers of sufficient quality, \textbf{if} the parameters are chosen correctly.
 Random values can be obtained after setting an initial value for $I_0$, called \textit{seed}, and repeatedly executing the calculation
 \begin{center}
- $I_{j+1} = 65539 * I_j \pmod{2^{31}}$
+ $I_{j+1} = 65539 * I_j \pmod{2^{31}}$		% FIXME: unvollendeter satz...?
 \end{center}
 One problem 
 is that consecutive values generated by RANDU are not independent, a fact that	 can be seen in Figure \ref{fig:randu}. To obtain the plot, 10000 uniformly distributed 
-random numbers were chosen as initial seeds for $I_i$ and plotted as x-values. $I_{i+1}$ served as y- and $I_{i+2}$ as z-values. While one would suspect that all points
+random numbers were chosen as initial seeds for $I_i$ and plotted as x-values, $I_{i+1}$ served as y- and $I_{i+2}$ as z-values. While one would suspect that all points
 would be equally distributed in space, a clear pattern is visible, indicating that the values are correlated.
 \\
 To assess the quality of a \gls{prng}, beside of such spectral tests lots of additional tests are available, see \cite{nistRAND} for details.
@@ -353,11 +355,11 @@ To encounter the shortcomings of a \gls{prng}, a \gls{trng} uses a natural proce
 thermal noise of a semi conductor, cosmic noise from space or digital oscillators.
 \\
 The used hardware platform, the RapsberryPi, offers a hardware number generator - the quality of its provided random numbers will be subject
-to various statistical tests, see Chapter \ref{chap5} for the results. FIXME - DO IT?
+to various statistical tests, see Chapter FIXME for the results. FIXME - DO IT?
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{figures/uniform}
-    \caption{Uniform Distribution of binary string of length 3}
+    \caption{Uniform Distribution of binary string of length three}
     \label{fig:uniform}
 \end{figure}
 \begin{figure}

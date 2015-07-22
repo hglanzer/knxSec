@@ -321,16 +321,26 @@ EVP_CIPHER_CTX_free(aesCtx);
 \end{lstlisting}
 
 \section{Evaluation}
-The evaluation of the proposed solution was done by exposing it to the attacks defined in Section \ref{sec:attacks}. Additional attacks against the hardware are handled afterwards.
+The proposed solution was evaluated by showing that it can resist against the attacks defined in Section \ref{sec:attacks}, and is robust against temporarily or permanent 
+failure of one out of two secure \gls{knx} line.
 \\
-It is assumed that the attacker has polynomially bounded processing
-powers and is able to passively read frames from and inject frames into both secure communication lines. In contrast, it is assumed that the cleartext \gls{knx} lines are out 
-of reach of an attacker.
+\\
+Failure of one secure communication line does not imply failure of the whole system: as long as the other secured line is still functional, synchronization, discovery and data services
+will be handled by the functional line alone. As soon as the broken line is available again, discovery and data service messages will be sent on booth lines.
+\\
+\\
+For malicious attacks, it is assumed that an attacker only has polynomially bounded processing
+powers and is able to passively read frames from and inject arbitrary frames into both secure communication lines. In contrast, it is assumed that the cleartext \gls{knx} lines are out 
+of reach of an attacker, as well as the hardware running the master daemons, especially the memory holding the long-term encryption and authentication keys. Attacking the hardware
+itself would allow the attacker to obtain these keys and thus present itself as legitimate gateway.
+\\
+\\
 The overall aim is to show that the communication network is able to withstand maliciously introduced faults, as well as unintended faults happening randomly, resulting
 in a \gls{knx} network with improved availability. In the case of \gls{dos} attacks it is stated that the proposed solution can withstand such an attack against \textbf{one} of it's
-two secure communication lines because the duplicate and independent sending of the corresponding messages. An attacker interrupting both lines will obviously cripple the 
-data exchange in total. 
-
+two secure communication lines because of the duplicate and independent sending of the corresponding messages. An attacker interrupting both lines will obviously cripple the 
+data exchange in total. Such a \gls{dos} attack can be conducted for example by shortcutting the \gls{TP} lines, or by permanently driving the bus line into the dominant level.
+\\
+\\
 \subsection{Synchronization phase}
 \subsubsection{Passive attacks}
 Packages in the synchronization phase are not encrypted, allowing a passive adversary to learn the value of the global counter value $Ctr_{global}$. Nevertheless,
@@ -397,17 +407,19 @@ Secondly, the attacker is unable to get knowledge of the key because of the key 
 An attacker, trying to inject a new data frame, again must succeed in forging the correct \gls{mac2}. Failure to do so will be detected by the receiving gateway.
 A replayed message will be be correctly verified and decrypted by the receiving device, but because of the outdated counter value $Ctr_{ind}$ the message will be discarded.
 
-\subsection{\gls{usb}}
-Unstable \gls{usb} connection, enumeration errors, to fix reboot hub
-
-\section{Outlook}
-obfuscate discovery messages by using a cache...
+\subsection{Conclusion and outlook}
+It was shown that the proposed solution can withstand malicious attacks, as well as transient hardware failures of one of the secured lines. Therefore, the solution allows to connect
+standard \gls{knx} devices which are spatially divided in a secure manner, bridging over areas where malicious behavior cannot be ruled out.
+The proposed solution can be deployed in a 'plug-and-play' 
+manner, as long as the constraints defined in Section \ref{sec:opContraints} are regarded. Thus it is possible to add confidentiality, integrity and availability to a \gls{knx}
+network just where needed, coexisting with segments with low security. By using more than 2 secured lines, the solution can easily be extended to use $n$ instead of 2 secure threads
+and communication lines, boosting availability to an even higher level.
 \\
 \\
-data-msg:obfuscate size of the messages by appending random size pad
-\\
-\\
-erkennen eines angriffes - mac forgery
-\\
-\\
-n statt 2 communication lines
+The following improvements to the prototype solution are proposed: 
+\begin{itemize}
+ \item Using a cache for the mapping group address - security gateway / encryption key: this allows to reduce the bus load
+ \item Obfuscating the size of the data service messages: this can be achieved by adding an additional length field and corresponding padding, chosen randomly. This makes it harder
+ to derive communication profiles
+ \item Attacks can be detected if frames with forged \gls{mac2} are received, allowing to send an alert to an operator and adding the corresponding device address to a blacklist. 
+ \end{itemize}
