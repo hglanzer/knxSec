@@ -1,4 +1,4 @@
-The base system consists of raspbian pi board running the raspbian operating system(a Debian variant), the EIBD daemon, shared libraries which
+The base system consists of RaspberryPi board running the Raspbian operating system (a Debian variant), the EIBD daemon, shared libraries which
 are used by EIBD and the master daemon.
 The operating system is based on the Debian project, with the kernel, libraries and binaries ported to the ARM platform, so it is possible to benefit from
 using a full-scale operating system, e.g. by using the comfortable packet manager called
@@ -6,12 +6,12 @@ using a full-scale operating system, e.g. by using the comfortable packet manage
 
 \section{Raspbian}
 
-To obtain a running system for deploying the secure KNX daemon, a prebuilt Debian image is used, which can be ownloaded from the raspberry homepage:
+To obtain a running system for deploying the secure KNX daemon, a prebuilt Debian image is used, which can be ownloaded from the RaspberryPi homepage:
 
 \url{http://downloads.raspberrypi.org/raspbian_latest.torrent}
 
-The image must be unzipped and copied to a suitable memorycard. First-generation raspberries(model 'A') have SD slots, while
-all later models come with micro-SD slots. To copy the basic operating system to the memorycard, the linux commandline tool 'dd' can
+The image must be unzipped and copied to a suitable memorycard. First-generation RaspberryPis (model 'A') have SD slots, while
+all later models come with micro-SD slots. To copy the basic operating system to the memorycard, the Linux commandline tool 'dd' can
 be used. To find the correct device to write the image to, the following command can be used: 
 
 \begin{lstlisting}[style=BashInputStyle,label=lst:kern.log]
@@ -32,13 +32,13 @@ Here, the proper device to use is the device /dev/sdb.
     # dd if=<Path to Image> of=<Device to overwrite>
 \end{lstlisting}
 
-After the write command has finished, the memory card is ready to use. For first time setup, a display must be connected via HDMI. Powering up the raspberry
+After the write command has finished, the memory card is ready to use. For first time setup, a display must be connected via HDMI. Powering up the RaspberryPi
 opens a ncurses configuration dialogue. First thing to do is to resize the root partition to maximum size and set a password for the administrative
 account. Optionally, different options like keyboard layout can be set.
-To be able to operate the raspberry without external display, it is necessary to start the \gls{ssh} server under \textit{Advanced Options} and assign a 
+To be able to operate the RaspberryPi without external display, it is necessary to start the \gls{ssh} server under \textit{Advanced Options} and assign a 
 fixed ip to the host by editing the file \textit{/etc/network/interfaces}, as shown in example \ref{lst:staticIP}. This way it is possible to connect to the
-raspberry with a \gls{ssh} client. For password less logins, create an unpriviliged user and
- a \gls{ssh} public/private key pair for that user by executing these commands on the raspberry pi:
+RaspberryPi with a \gls{ssh} client. For password less logins, create an unpriviliged user and
+ a \gls{ssh} public/private key pair for that user by executing these commands on the RaspberryPi:
 
 \begin{lstlisting}[style=BashInputStyle]
     # groupadd <usergroup>
@@ -51,7 +51,7 @@ The program generates the user and the correspoding key pair and saves public an
 to use a password-less keypair, an option that should only be used in restriced areas.
 To actually use the keypair for logging into
 the raspberry pi, the public key must be saved in the file \textit{~/.ssh/authorized\_keys}. Additionally, the private key must be copied to every host
-from that \gls{ssh} connections to the raspberry pi want to be opened. After that, it is possible to load the private key into memory with the command \textit{ssh-add}
+from that \gls{ssh} connections to the RaspberryPi want to be opened. After that, it is possible to load the private key into memory with the command \textit{ssh-add}
 and to connect to the host without a password:
 
 \begin{lstlisting}[style=BashInputStyle]
@@ -79,10 +79,10 @@ The maintainer of EIBD only provides binary packages for the i386 architecture, 
 suitable binaries and shared libraries for the ARM environment. Building software under GNU Linux or *nix from source always follows this scheme:
 
 \begin{enumerate}
- \item Downloading and extracting the source code
+ \item Downloading and extracting the source code.
  \item If possible, comparing the developer supplied hash code  with the hash code of the downloaded source files with
  \textit{sha256} or one of its variants to verify that no modified software has been downloaded.
- \item Optionally, apply patches to the source code(not necessary here).
+ \item Optionally, apply patches to the source code (not necessary here).
  \item Set the make-options by calling \textit{./configure <options>}, overriding default compilation options by setting the corresponding command line parameters.
  \textit{./configure --help} should print a list of valid options.
  \item Compiling the source code by calling \textit{make}.
@@ -96,7 +96,7 @@ EIBD and the needed library \textit{pthsem} are available from these locations:
 \url{http://sourceforge.net/projects/bcusdk/}
 \\
 \\
-After copying the archives to the raspberry, they must be unpacked and compiled. First the pthsem shared library, which offers user mode multi
+After copying the archives to the RaspberryPi, they must be unpacked and compiled. First the pthsem shared library, which offers user mode multi
 threading with semaphores, must be compiled because it is used by EIBD. 
 \begin{lstlisting}[style=BashInputStyle]
     # tar -xvzf pthsem-2.0.8.tar.gz
@@ -175,7 +175,7 @@ in \ref{lst:flash} must be executed.
 \section{UDEV}
 
 To obtain a consistent naming scheme for the busware dongles, udev rules are provided. This way it is possible to always use the same
-device file for the distinct bus lines, no matter in which ordering the dongles are connected to the raspberry.
+device file for the distinct bus lines, no matter in which ordering the dongles are connected to the RaspberryPi.
 
 \begin{lstlisting}[style=BashInputStyle,label=lst:udev]
   udevadm info --name=/dev/ttyACM0 --attribute-walk
@@ -183,7 +183,7 @@ device file for the distinct bus lines, no matter in which ordering the dongles 
 
 \section{Test setup}
 
-The test environment consists of 2 raspberry pis, as shown in Figure \ref{fig:secArea}. 
+The test environment consists of 2 RaspberryPis, as shown in Figure \ref{fig:secArea}. 
 
 \chapter{Code snippets and configuration files}
 

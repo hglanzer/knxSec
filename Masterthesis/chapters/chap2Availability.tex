@@ -9,9 +9,9 @@ The services provided by the system through its service interface to the user(s)
 is described by the functional specification. Whenever the provided service
 deviates from correct service a system failure, called \textit{outage} or \textit{downtime}\footnote{in contrast, \textit{uptime} does not guarantee correct
 service - for example, a server can be 'up' but unreachable} occurs. A failure is defined to be caused originally by a fault inside the system, which may be 
-dormant. Under special conditions, the fault \textit{may} become apparent and lead to an error. Faults can be categorized into random and systematic faults:
-random faults are unpredictable and concern hardware: for example, because of aging, a memory cell can be damaged, but the fault may be hidden because the cell
-is not used. Software and design faults belong to systematic faults. Similar to the damaged memory cell, a software bug may only 
+dormant. Under special conditions, the fault may become apparent and lead to an error. Faults can be categorized into random and systematic faults.
+Random faults are unpredictable and concern hardware: for example, because of aging a memory cell can be damaged, but the fault may be hidden because the cell
+is not used. Software and design faults belong to systematic faults. Similar to a damaged memory cell, a software bug may only 
 trigger an error under special inputs. In both cases, the error then causes a deviation from the required operation of the system or a subsystem. Finally, the 
 error can cause a failure if the system fails to provide the correct service:
 \begin{align*}
@@ -20,20 +20,20 @@ error can cause a failure if the system fails to provide the correct service:
 Availability is measured subjectively from the system user's point of view.
 While an optimal system may have availability of 1, this value is only of theoretical value because random faults can not be ruled out. Therefore,
 system failures are inevitable, and availability is often given in \textit{x-9s}\footnote{read 'one-nine', 'two-nines', ...} notation, denoting the 
-number of nines in the time fraction the system delivers correct service, as shown in table \ref{table:x-9}.
+number of nines in the time fraction the system delivers correct service, as shown in Table \ref{table:x-9}.
 The availability may be asserted by the provider of the system to the customer by an
 \gls{sla} - if the \gls{sla} is violated, the provider may be fined.
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{figures/availability.eps}
     \caption{Relationship between MTTF and MTTR}
-  %  \caption{Relationship between \gls{mttf} and \gls{mttr}}
-
     \label{fig:relmttfmttr}
 \end{figure}
-\begin{center}
+%\begin{center}
+
+\begin{table}
+\centering
 \begin{tabular}{ c | c c  }
- \label{table:x-9}
   x & $P_{availability}$ & failure duration per year \\ \hline
   1 & 90,0000    & ~ 36 days \\
   2 & 99,0000    & ~ 3,5 days  \\
@@ -41,9 +41,11 @@ The availability may be asserted by the provider of the system to the customer b
   4 & 99,9900    & ~ 1 hour \\
   5 & 99,9990    & ~ 5 minutes \\
   6 & 99,9999    & ~ 31 seconds \\ 
-  
 \end{tabular}
-\end{center}
+\caption{Availability in x-9 notation}
+\label{table:x-9}
+\end{table}
+%\end{center}
 For a system with 6-9 availability, this would mean that the system provider assures that the system will be unavailable not more than about 31 seconds over a
 whole year.
 \\
@@ -65,7 +67,7 @@ Reliability measures the probability that the service will work as expected unti
 \begin{align}\label{expFailLaw}
  R(t) = e^{-\lambda(t-t_0)}
 \end{align}
-\ref{expFailLaw} is known as the \textit{exponential failure law}, $\lambda$ denotes the failures per hour, its inverse $\frac{1}{\lambda}$ is
+Equation \ref{expFailLaw} is known as the \textit{exponential failure law}, $\lambda$ denotes the failures per hour, its inverse $\frac{1}{\lambda}$ is
 called \gls{mttf}. Reliability can also be expressed in terms of \textit{un}reliability, denoted $Q(t)$:
 \begin{align}
  Q(t) = 1 - R(t)
@@ -89,7 +91,7 @@ of one single components breaks the whole system. System's reliability then equa
 R_{system}(t) = \prod_{i=1}^{N} R_{i}(t) 
 \end{align}
 In contrast, a system containing redundant components, failure of one such component must not produce an outage of the overall system. This can be modeled as
-a parallel system \ref{fig:parallelSys}. Here, the overall reliability can be calculated as given in \ref{parallelSysEqu}.
+a parallel system (as shown in Figure \ref{fig:parallelSys}). Here, the overall reliability can be calculated as given in Equation \ref{parallelSysEqu}.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/parallelSys.eps}
@@ -119,7 +121,7 @@ On the other side, systems that will produce only minor costs when not operating
 will probably have to meet less stringent availability levels.
 \\
 For example, our society heavily depends on electric power supply, an outage
-is nearly unacceptable. On the other side, it is impossible to guarantee 100\% availability, so \textit{if} a power outage occurs, the system must be fixed as soon as
+is nearly unacceptable. On the other side, it is impossible to guarantee 100\% availability, so if a power outage occurs, the system must be fixed as soon as
 possible to restore correct service, otherwise risking human lives. On the contrary, a booking system will obviously result in financial losses for the company 
 if not working, but no more serious consequences are to be assumed.
 \\
@@ -148,7 +150,7 @@ Fault avoidance aims at producing a system which is fault-free
 per design and is applied at the design stage of the system. Despite the methods for achieving fault avoidance can be applied in the domain of sofware and hardware,
 they can not guard against transient hardware faults occurring after the system is deployed.
 \\
-Fault avoidance is based on two distinct processing steps: validation and verification. Validation is used to to show that the specification, which is
+Fault avoidance is based on two distinct processing steps: validation and verification. Validation is used to show that the specification, which is
 the basis of system implementation, matches the real world within reasonable borders. This is necessary because every human built system uses an abstraction
 of the real world, thus simplifying the model.
 \\
@@ -196,7 +198,7 @@ A \gls{tmr} system, see Figure \ref{fig:tmr}, is composed out of 3 modules or \t
 and one \textit{majoriy organ} $V$, as proposed by Von Neumann \cite{vN56}. The latter element
 is also called \textit{voter} because out of its 3 inputs, it chooses the 'correct' output based on majority voting. As long as at least 2 black boxes do not
 fail, the system can provide correct service. If it is assumed that the voting element has perfect reliability = 1 and all black boxes $M$ are independent from
-each other and have reliability $R_M$, the overall, time-invariant system's reliability is given in \ref{tmrEq} \cite{Lyons:1962:UTR:1661979.1661984} and plotted in graph \ref{fig:tmrGrp}
+each other and have reliability $R_M$, the overall, time-invariant system's reliability is given in Equation \ref{tmrEq} \cite{Lyons:1962:UTR:1661979.1661984} and plotted in Figure \ref{fig:tmrGrp}
 \begin{align}\label{tmrEq}
  R_{system} = {R_M}^3 + 3{R_M}^2(1-R_M) = 3{R_M}^2 - 2{R_M}^3
 \end{align}
@@ -212,12 +214,12 @@ each other and have reliability $R_M$, the overall, time-invariant system's reli
     \caption{Reliability of resulting system}
     \label{fig:tmrGrp}
 \end{figure}
-It can be seen that if $R_M \leq 0.5$, overall reliability even worses, while for components reliabilities nearly being unit, very high system reliability can
+It can be seen that if $R_M \leq 0.5$, overall reliability even gets worse, while for components reliabilities nearly being unit, very high system reliability can
 be achieved.
 \\
 \\
 The concept of \gls{tmr} can be generalized to $n$ devices performing
-the same operation. In most cases $n$ will be odd, so failure of at least $\frac{n-1}{2}$ modules can be tolerated.
+the same operation. In most cases $n$ will be odd, so failure of up to $\frac{n-1}{2}$ modules can be tolerated.
 
 \section{Fault Tolerant Technologies}
 In the next sections, communication protocols based on ethernet, satisfying the needs of industrial communication networks, are examined. Beside the need for high availability,
@@ -252,9 +254,9 @@ Nevertheless, it already provided basic fault tolerance mechanisms based on the 
 In typical ethernet installations, depending on the network topology different
 nodes may be reachable through different paths, i.e. physical loops may exist.
 Switches, operating at \gls{osi} layer 2, are responsible for loop detection and
-loop prevention and must logically disconnect such loops by blocking the corresponding ports to protect the network,
+loop prevention. They must logically disconnect such loops by blocking the corresponding ports to protect the network,
 as required by the ethernet specification, because multicast or broadcast traffic, generated by one of the connected
-devices, will be forwarded by all switches on all ports (except the incoming ports), thus flooding the network until no regular communication will be possible any
+devices, will be forwarded by all switches on all ports (except the incoming ports). This would flood the network until no regular communication will be possible any
 more.
 \\
 \begin{figure}[H]
@@ -274,7 +276,7 @@ with the major difference that switches can break network segments into multiple
 or dynamically through the exchange of packages containing a priority. All switches will agree on lowest priority device as root bridge, additionally using the unique
 hardware \gls{mac} address if collisions occur. The root bridge sets all interfaces to forwarding mode. 
  \item Afterwards, every switch determines the path with minimal costs for reaching the root bridge. The cost of every connection can be determined by the link
- speed or configured by the network administrator manually
+ speed or configured by the network administrator manually.
  \item Finally, all devices except the root bridge set the ports belonging to the minimal-cost path to forward mode. All other ports are set to blocking mode, thus removing
  any loops.
 \end{itemize}
@@ -297,7 +299,7 @@ and enabling its deployment in industrial applications. Three extensions are int
 
 \subsubsection{\gls{mrp}}
 After IEC 62439-1 specifying basic definitions, the second draft introduced \gls{mrp} which confines network outages to less than 500ms \cite{6145654}.
-This is achieved by restricting the valid topologies to ring-only, so all switches are connected to the network by 2 interfaces. All switches beside the ring manager
+This is achieved by restricting the valid topologies to ring-only, so all switches are connected to the network by 2 interfaces. All switches, beside the ring manager,
 forward all traffic received, while the ring manager opens the loop logically by setting one of its interfaces to blocking mode.
 In this mode, all packages except management messages are discarded. The ring manager detects a failure by periodically sending test management messages in both
 directions. Additionally every node is able to detect a link failure on its local ports. It then sets the port to blocking and signals this link failure to the

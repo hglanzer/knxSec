@@ -1055,20 +1055,6 @@
   \field{year}{2013}
 \endentry
 
-\entry{Lenstra04keylength}{misc}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Lenstra}{L.}%
-     {Arjen~K.}{A.~K.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{LAK1}
-  \strng{fullhash}{LAK1}
-  \field{title}{Key Length}
-  \field{year}{2004}
-\endentry
-
 \entry{1007998}{inproceedings}{}
   \name{author}{1}{}{%
     {{}%
@@ -1845,6 +1831,20 @@
   \field{journaltitle}{J. ACM}
   \field{month}{01}
   \field{year}{1967}
+\endentry
+
+\entry{Lenstra04keylength}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Lenstra}{L.}%
+     {Arjen~K.}{A.~K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{LAK1}
+  \strng{fullhash}{LAK1}
+  \field{title}{Key Length}
+  \field{year}{2004}
 \endentry
 
 \entry{orderMacEnc}{misc}{}

@@ -1,5 +1,5 @@
 \section{KNX security concept}
-As shown in section \ref{hbaSec}, a paradigm shift towards towards increased security in \gls{hbas} can be observed. 
+As shown in Section \ref{hbaSec}, a paradigm shift towards increased security in \gls{hbas} can be observed. 
 Despite that fact, the basic \gls{knx} standard does not specify any security mechanisms for control information:
 \\
 
@@ -10,7 +10,7 @@ Hence, security aspects are less of a concern for KNX field level media."} \cite
 \\
 \\
 For \gls{knx}/\gls{ip}, the physical containment arguments do not apply. To counter this, it is proposed to use firewalls and \glspl{vpn} to prevent unauthorized access,
-as well as hiding critical network parameters from public. The latter concept is also known as \textit{"security by obscurity"}, offering - if at all - only 
+as well as hiding critical network parameters from public. The latter concept is also known as \textit{security by obscurity}, offering - if at all - only 
 little protection.
 \\
 For management communication, a rudimentary, password-based control is used. Therefore, \gls{knx} suffers the following security flaws 
@@ -48,8 +48,8 @@ device for securing of the outgoing messages. Consequently, every device must kn
 \\
 \\
 While the \gls{s-al} empowers two devices to communicate in a secure way, the \gls{ail} allows a fine-grained control which sender has access to which
-data objects. Therefore, every \textit{link} (a combination of source address and data or service object) is connected with a \textit{role}, which in turn
-has some specific \textit{permissions}. 
+data objects. Therefore, every link (a combination of source address and data or service object) is connected with a role, which in turn
+has some specific permissions. 
 
 \subsection{EIBsec}
 
@@ -72,25 +72,25 @@ This work focuses on securing the \gls{knx} \gls{ip} specification, which can be
 Thanks to the widespread use of \gls{tcp}/\gls{ip}, a wide range of physical transport mechanisms can be utilized.
 \\
 A structure comparable to the design of \gls{tls} is defined by building a distinct security layer, residing above the transport layer (therefore, it directly
-connects the transport to the application layer, because session- and presentation layer are empty, as defined by the \gls{knx} specifications, see chapter
-\ref{ch:knx}).
+connects the transport to the application layer, because session- and presentation layer are empty, as defined by the \gls{knx} specifications, see Section
+\ref{sec:knxLayers}).
 \\
-The design distinguishes 3 different types of modes: 
+The design distinguishes three different types of modes: 
 
 \begin{itemize}
- \item In the \textit{configuration phase}, every device that wants to participate in the secure network
+ \item In the configuration phase, every device that wants to participate in the secure network
 generates an asymmetric key pair, which is sent to the \gls{ets} over a secure channel (for example, by transmitting the data over a direct, serial connection
 between the \gls{ets} host and the \gls{knx} device).
 The \gls{ets}, acting as \gls{ca1}, signs the combination of \gls{ip} and public key with its own private key, thus generating a certificate, which is sent back to the device, along
 with the public key of the \gls{ets}. 
- \item After that, the \textit{key set distribution phase} starts, where a unicast and a multicast scenario are differentiated:
+ \item After that, the key set distribution phase starts, where a unicast and a multicast scenario are differentiated:
 in the unicast case, the device initiating the communication - called client - obtains the key set from the target device by a 2-step handshake: at first, mutual entity 
 authenticity is established by utilizing the certificate provided by the \gls{ets}. Afterwards the keyset is obtained from the target, which concludes the second
 phase.
 \item In the last step, secure communication can take place, i.e. the the client is able to
 encrypt the data with the obtained key and sends it to the target device.
 \end{itemize}
-For the multicast scenario, a distinct \textit{coordinator}, responsible for maintaining the group key, is necessary. Every powered-up device
+For the multicast scenario, a distinct coordinator, responsible for maintaining the group key, is necessary. Every powered-up device
 identifies the coordinator as soon as possible by broadcasting \textit{hello} requests, adopting the coordinator role if no replies are received in time.
 To actually send a payload, the group key is obtained from the coordinator and the data is sent to the group, analog to the unicast case.
 By adding mechanisms to detect "dead" coordinators and delegating the coordinator role to a different device, the design avoids a \gls{spof}.

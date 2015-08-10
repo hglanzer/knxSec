@@ -183,7 +183,7 @@ authentication messages of an authorized entity.
 \\
 \\
 To prevent active attacks, integrity mechanisms must be combined with confidentiality mechanisms - 
-the basic tool to achieve them is cryptography, introduced in the next section \ref{sec:crypto}. To provide availability, different techniques must be used,
+the basic tool to achieve them is cryptography, introduced in the next Section \ref{sec:crypto}. To provide availability, different techniques must be used,
 as shown in Section \ref{sec:availability}.
 
 \section{Cryptography}\label{sec:crypto}
@@ -213,7 +213,7 @@ data into a random looking stream or block of bits, called ciphertext, using som
 can also be used to generate a special tag called \gls{mac2}, providing integrity.
 \\
 The next sections deal with how to achieve confidentiality, the 
-concepts how to achieve integrity are partially based on the confidentiality methods and are introduced in section \ref{Integrity}.
+concepts how to achieve integrity are partially based on the confidentiality methods and are introduced in Section \ref{Integrity}.
 \\
 \\
 Key, clear- and cipher text all are strings built from the alphabet $\mathcal{A}$. 
@@ -370,7 +370,7 @@ to various statistical tests, see Chapter FIXME for the results. FIXME - DO IT?
 \end{figure}
 
 \subsection{The discrete logarithm problem}\label{refDLP}
-The \gls{dlp}, a mathematical problem, is the basis of two important key exchange algorithms, both introduced in section \ref{pkc}: the first one, \gls{dh} utilizes finite fields, whose
+The \gls{dlp}, a mathematical problem, is the basis of two important key exchange algorithms, both introduced in Section \ref{pkc}: the first one, \gls{dh} utilizes finite fields, whose
 theoretical background is introduced below. \glspl{ec}, basis for the second algorithm, are also explained.
 
 \subsubsection{Finite Fields \gls{dlp}}
@@ -378,7 +378,7 @@ A field consists of a set $\mathcal{F}$ together with two operations $\cdot$, na
 \begin{itemize}
  \item  Closure: for all elements from $\mathcal{F}$, the set is closed under the defined operations, i.e. applying an operator $\cdot$ to two elements from the set results in an
 element also belonging to the set.
- \item Associativity and Commutativity hold, i.e. $a \cdot (b \cdot c) = (a \cdot b) \cdot c$ and $a \cdot b = b \cdot a$
+ \item Associativity and commutativity hold, i.e. $a \cdot (b \cdot c) = (a \cdot b) \cdot c$ and $a \cdot b = b \cdot a$
  \item For both operations and all elements from the set $\mathcal{F}$ an identity element $e$ exists s.t. $a\cdot e = a$
  \item For both operations and all elements from the set $\mathcal{F} \backslash \{0\}$ an inverse element exists s.t. $a\cdot a^{-1} = e$
  \item Distributivity holds: $(a+b) \cdot c = a \cdot c + b \cdot c$ for all elements 

@@ -242,32 +242,42 @@ in the clear text, thus the name error propagation \cite{burda}.
 
 \gls{ecb} can be used to gain confidentiality and allows the parallel processing of all input blocks. This mode does not use any \gls{iv} or nonce\footnote{short for "\textit{n}umber used \textit{once}"},
 therefore repeating input blocks are mapped to the same output blocks under the same key, implementing a deterministic encryption scheme.
-This is problematic, which can be seen quite intuitively by comparing 
-Figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefore, this mode should never be used.
+This is problematic, which can be seen quite intuitively. 
+Figure \ref{fig:tuxclr} shows a picture saved in the bitmap format. The pixel data following the header were extracted and encrypted in \gls{ecb} mode, as shown in
+Figure \ref{fig:tuxecb}. It can be seen easily that patterns occurring in the input data can be detected in the encrypted output data. Therefore, this mode should never be used. In 
+contrast, Figure \ref{fig:cbc_picture} shows the same picture encrypted with \gls{cbc} mode, as introduced in the next section.	
 \\
- \begin{minipage}{\linewidth}
+\begin{minipage}{\linewidth}
       \centering
-      \begin{minipage}{0.4\linewidth}
+  \begin{minipage}{0.32\linewidth}
           \begin{figure}[H]
-              \includegraphics[width=\linewidth]{figures/TuxCleartext.png}
-              \caption{Unencrypted Picture}
+              \includegraphics[width=\linewidth]{figures/ECB.eps}
+              \caption{}
               \label{fig:tuxclr}
           \end{figure}
-      \end{minipage}
-      \hspace{0.05\linewidth}
-      \begin{minipage}{0.4\linewidth}
+  \end{minipage}
+     % \hspace{0.1\linewidth}
+  \begin{minipage}{0.32\linewidth}
           \begin{figure}[H]
-              \includegraphics[width=\linewidth]{figures/TuxECB.png}
-              \caption{\gls{ecb} encryption of the picture}
+              \includegraphics[width=\linewidth]{figures/ECB-enc.eps}
+              \caption{\gls{ecb} mode}
               \label{fig:tuxecb}
           \end{figure}
-      \end{minipage}
   \end{minipage}
+  \begin{minipage}{0.32\linewidth}
+       \begin{figure}[H]
+%	\centering
+	\includegraphics[width=1\linewidth]{figures/CBC-enc.eps}
+	\caption{\gls{cbc} mode}
+	\label{fig:cbc_picture}
+      \end{figure}
+  \end{minipage}
+\end{minipage}
 
 \subsubsection{\gls{cbc}}
 
 This mode uses an \gls{iv} and can therefore be used for encryption of same messages without changing the key. Additionally, \gls{cbc} can also be used
-for \gls{mac2} generation, as shown in section \ref{Integrity}.
+for \gls{mac2} generation, as shown in Section \ref{Integrity}.
 \\
 Encrypting a message is shown in Figure \ref{fig:cbc_encrypt}.
 \begin{center}
@@ -292,10 +302,10 @@ $ M_i = D(k, C_i) \bigoplus C_{i-1} $
 The \gls{iv} does not have to be kept private, but must be known to the receiver of the message. It is important that such an \gls{iv} is unpredictable, otherwise
 allowing a \gls{cpa}. Also, it must not repeat over the lifetime of the key, otherwise introducing the \gls{ecb} problem again. 
 \\
-The \gls{iv} introduces overhead, which is more problematic for  shorter messages.
+The \gls{iv} introduces overhead, which is problematic for  short messages.
 To avoid such a message expansion, a solution is to use a nonce, as suggested in \cite{cryptoEng}.
-Sender and receiver must maintain a message counter. This message counter must be encrypted to avoid predictability, and can then be used as \gls{iv}. Care must
-be taken for the counter not to overflow within the lifetime of a key.
+To avoid the need for sending the nonce with every message, sender and receiver must maintain a message counter. This message counter must be encrypted to avoid predictability, and can
+then be used as \gls{iv}. Care must be taken for the counter not to overflow within the lifetime of a key.
 
 \begin{figure}
     \centering
@@ -397,7 +407,7 @@ encrypted but should be secured against modification. For example, the UNIX base
 management system from adversary modification.
 \\
 \\
-Combining integrity and confidentiality in a security scheme called \gls{ae} will be handled in section \ref{authEncrypt}.
+Combining integrity and confidentiality in a security scheme called \gls{ae} will be handled in Section \ref{authEncrypt}.
 \\
 \\
 As tag generation and tag verification algorithms, keyed or unkeyed cryptographic secure hash functions are used.
@@ -639,7 +649,7 @@ public key and raising it to the power of its own private key in the domain of $
 \end{center}
 An eavesdropper that intercepts the initially sent parameter set $\{p, g, q\}$ and the public keys $y_A$ and $y_B$ and that wants to calculate the shared secret
 $k_A = K_B$  must therefore calculate the discrete logarithm of $y_A$ or $y_B$ to the base $p$, i.e. must solve the \gls{dlp}, a hard problem as shown in
-section \ref{refDLP}.
+Section \ref{refDLP}.
 \\
 
 %FIXME el gamal??
@@ -804,7 +814,7 @@ the hash of the message and comparing it to the decrypted hash.
 \subsubsection{\gls{ecdsa}}
 
 Based on the idea of Scott Vanstone, this signature algorithm is the \gls{ecc} variant of the \gls{dsa}, standardized by \gls{nist} \cite{nistECDSA}.
-Analog to the \gls{ecdlp}, as shown in section \ref{ecdp}, the domain parameters are public knowledge. The signer of the message chooses a random integer $k$ and
+Analog to the \gls{ecdlp}, as shown in Section \ref{ecdp}, the domain parameters are public knowledge. The signer of the message chooses a random integer $k$ and
 computes the coordinates $(x_Q, y_Q)$ of a new point $Q$ by multiplying $k*P = Q$. Afterwards, $x_Q$ is converted to an integer, obtaining $r = x_Q' \pmod n$. Finally,
 by using his private key $d$, $s$ is calculated:
 
@@ -824,11 +834,11 @@ The receiver of the message can use the domain parameters and signature to verif
 $x'$ is converted to an integer an reduced $\pmod$ to obtain $r'$. If $r = r'$, the signature is accepted, proofing the authenticity of the message.
 
 
-\subsection{Key lenghts}
-
-\cite{Lenstra04keylength}
-
-TODO: BIRTHDAY PARADOXON
+%\subsection{Key lenghts}
+%
+%\cite{Lenstra04keylength}
+%
+%TODO: BIRTHDAY PARADOXON
 
 
 % Such a cipher as defined above provides confidentiality, i.e. it ensures that only authorized parties are able to decrypt the message. This leads to other

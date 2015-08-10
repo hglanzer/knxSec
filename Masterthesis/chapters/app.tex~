@@ -1,4 +1,4 @@
-The base system consists of raspbian pi board running the raspbian operating system(a Debian variant), the EIBD daemon, shared libraries which
+The base system consists of RaspberryPi board running the Raspbian operating system (a Debian variant), the EIBD daemon, shared libraries which
 are used by EIBD and the master daemon.
 The operating system is based on the Debian project, with the kernel, libraries and binaries ported to the ARM platform, so it is possible to benefit from
 using a full-scale operating system, e.g. by using the comfortable packet manager called
@@ -6,11 +6,11 @@ using a full-scale operating system, e.g. by using the comfortable packet manage
 
 \section{Raspbian}
 
-To obtain a running system for deploying the secure KNX daemon, a prebuilt Debian image is used, which can be ownloaded from the raspberry homepage:
+To obtain a running system for deploying the secure KNX daemon, a prebuilt Debian image is used, which can be ownloaded from the RaspberryPi homepage:
 
 \url{http://downloads.raspberrypi.org/raspbian_latest.torrent}
 
-The image must be unzipped and copied to a suitable memorycard. First-generation raspberries(model 'A') have SD slots, while
+The image must be unzipped and copied to a suitable memorycard. First-generation RaspberryPis (model 'A') have SD slots, while
 all later models come with micro-SD slots. To copy the basic operating system to the memorycard, the linux commandline tool 'dd' can
 be used. To find the correct device to write the image to, the following command can be used: 
 
@@ -79,10 +79,10 @@ The maintainer of EIBD only provides binary packages for the i386 architecture, 
 suitable binaries and shared libraries for the ARM environment. Building software under GNU Linux or *nix from source always follows this scheme:
 
 \begin{enumerate}
- \item Downloading and extracting the source code
+ \item Downloading and extracting the source code.
  \item If possible, comparing the developer supplied hash code  with the hash code of the downloaded source files with
  \textit{sha256} or one of its variants to verify that no modified software has been downloaded.
- \item Optionally, apply patches to the source code(not necessary here).
+ \item Optionally, apply patches to the source code (not necessary here).
  \item Set the make-options by calling \textit{./configure <options>}, overriding default compilation options by setting the corresponding command line parameters.
  \textit{./configure --help} should print a list of valid options.
  \item Compiling the source code by calling \textit{make}.
@@ -96,7 +96,7 @@ EIBD and the needed library \textit{pthsem} are available from these locations:
 \url{http://sourceforge.net/projects/bcusdk/}
 \\
 \\
-After copying the archives to the raspberry, they must be unpacked and compiled. First the pthsem shared library, which offers user mode multi
+After copying the archives to the RaspberryPi, they must be unpacked and compiled. First the pthsem shared library, which offers user mode multi
 threading with semaphores, must be compiled because it is used by EIBD. 
 \begin{lstlisting}[style=BashInputStyle]
     # tar -xvzf pthsem-2.0.8.tar.gz
@@ -127,7 +127,7 @@ Additionally, the development files for interfacing with the openSSL \gls{api} m
 
 \section{Revision control}
 
-The source of the master daemon is managed by GIT. GIT is a decentralized revision-control system and is available under Debian/Raspbian after installing
+The source of the master daemon is managed by GIT. GIT is a decentralized furevision-control system and is available under Debian/Raspbian after installing
 the package 'git'. The command \ref{lst:git} fetches the latest version and creates a directory called 'knxSec' which contains all the needed source files,
 a proper makefile \ref{lst:makefile} for the project, as well as all other needed files.
 
@@ -175,15 +175,15 @@ in \ref{lst:flash} must be executed.
 \section{UDEV}
 
 To obtain a consistent naming scheme for the busware dongles, udev rules are provided. This way it is possible to always use the same
-device file for the distinct bus lines, no matter in which ordering the dongles are connected to the raspberry.
+device file for the distinct bus lines, no matter in which ordering the dongles are connected to the RaspberryPi.
 
-\begin{lstlisting}[style=BashInputStyle,label=lst:flash]
+\begin{lstlisting}[style=BashInputStyle,label=lst:udev]
   udevadm info --name=/dev/ttyACM0 --attribute-walk
 \end{lstlisting}
 
 \section{Test setup}
 
-The test environment consists of 2 raspberry pis, as shown in Figure \ref{fig:secArea}. 
+The test environment consists of 2 RaspberryPis, as shown in Figure \ref{fig:secArea}. 
 
 \chapter{Code snippets and configuration files}
 

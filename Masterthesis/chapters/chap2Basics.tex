@@ -183,7 +183,7 @@ authentication messages of an authorized entity.
 \\
 \\
 To prevent active attacks, integrity mechanisms must be combined with confidentiality mechanisms - 
-the basic tool to achieve them is cryptography, introduced in the next section \ref{sec:crypto}. To provide availability, different techniques must be used,
+the basic tool to achieve them is cryptography, introduced in the next Section \ref{sec:crypto}. To provide availability, different techniques must be used,
 as shown in Section \ref{sec:availability}.
 
 \section{Cryptography}\label{sec:crypto}
@@ -213,7 +213,7 @@ data into a random looking stream or block of bits, called ciphertext, using som
 can also be used to generate a special tag called \gls{mac2}, providing integrity.
 \\
 The next sections deal with how to achieve confidentiality, the 
-concepts how to achieve integrity are partially based on the confidentiality methods and are introduced in section \ref{Integrity}.
+concepts how to achieve integrity are partially based on the confidentiality methods and are introduced in Section \ref{Integrity}.
 \\
 \\
 Key, clear- and cipher text all are strings built from the alphabet $\mathcal{A}$. 
@@ -353,9 +353,6 @@ To assess the quality of a \gls{prng}, beside of such spectral tests lots of add
 \\
 To encounter the shortcomings of a \gls{prng}, a \gls{trng} uses a natural process as non-deterministic data source, for example
 thermal noise of a semi conductor, cosmic noise from space or digital oscillators.
-\\
-The used hardware platform, the RapsberryPi, offers a hardware number generator - the quality of its provided random numbers will be subject
-to various statistical tests, see Chapter FIXME for the results. FIXME - DO IT?
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{figures/uniform}
@@ -370,7 +367,7 @@ to various statistical tests, see Chapter FIXME for the results. FIXME - DO IT?
 \end{figure}
 
 \subsection{The discrete logarithm problem}\label{refDLP}
-The \gls{dlp}, a mathematical problem, is the basis of two important key exchange algorithms, both introduced in section \ref{pkc}: the first one, \gls{dh} utilizes finite fields, whose
+The \gls{dlp}, a mathematical problem, is the basis of two important key exchange algorithms, both introduced in Section \ref{pkc}: the first one, \gls{dh} utilizes finite fields, whose
 theoretical background is introduced below. \glspl{ec}, basis for the second algorithm, are also explained.
 
 \subsubsection{Finite Fields \gls{dlp}}

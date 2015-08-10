@@ -24,7 +24,7 @@
 \usepackage{pgf}					
 \usepackage{tikz}					% tikz graphics
 \usetikzlibrary{arrows,automata}
-\usepackage{glossaries}
+\usepackage[toc]{glossaries}
 
 \makeglossary
 \loadglsentries{acronyms}
@@ -206,7 +206,6 @@
 \label{ch:implementation}
 \input{chapters/implementation}
 
-GNUTLS???
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \appendix

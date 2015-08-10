@@ -1,7 +1,8 @@
+\label{chap3}
 \section{Introduction}
 
 \gls{knx} \footnote{connexio, latin for connetion} implements a specialized form of automated process control, dedicated to the needs of \gls{hbas}. \gls{knx}
-emerged from 3 leading standards namely the \gls{eib}, the \gls{ehs} and BatiBUS. It is an open, platform independent standard,
+emerged from three leading standards namely the \gls{eib}, the \gls{ehs} and BatiBUS. It is an open, platform independent standard,
 developed by the KNX association implementing the EN50090 standard for home and building electronic systems.
 \\
 To provide platform independence, the standard uses a layered structure, based on the \gls{iso} / \gls{osi}. Different kinds of physical backends are supported,
@@ -11,7 +12,7 @@ allowing its use in different environments.
 the definition of the \gls{eis}, which standardizes
 the data transported inside the datragrams. \gls{knx} continued this efforts with the introduction of common \gls{dt}, distinguishable through unique ids, thus
 standardizing their encoding, format, range and unit.
-Every \gls{dt} groups related \glspl{dpt}, the actual control variables of the network, together, allowing 
+Every \gls{dt} groups related \glspl{dpt}, the actual control variables of the network, together.
 \\
 For example, every \gls{knx} 
 certified manufacturer producing a switching actuator must use the defined dataformat - an end-user can therefore exchange such an actuator without caring

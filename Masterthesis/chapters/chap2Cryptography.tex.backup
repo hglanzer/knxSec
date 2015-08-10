@@ -21,7 +21,7 @@ key, which then can be used to encrypt the actual, sensitive data.
 Most stream ciphers belong to the family of symmetric ciphers, thus $e_i = d_i$. The reason is that most asymmetric ciphers are deterministic ciphers,
 i.e. the encryption of the same message with a fixed public key always yields the same cipher text. Thus, such repeated messages can be detected by 
 an adversary. 
-Probabilistic public-key encryption can solves this problem for stream ciphers,
+Probabilistic public-key encryption can solve this problem for stream ciphers,
 but this scheme will not be handled in this work because of its low practical application.
 \\
 For encryption, stream ciphers take arbitrary long messages (from the message space $\mathcal{M}$), and encrypt
@@ -92,7 +92,7 @@ should never be used as keystream generator directly, instead the outputs of dif
 nonlinear generator.
 \begin{figure}
     \centering
-    \includegraphics[width=1\textwidth]{figures/LSFR}
+    \includegraphics[width=0.8\textwidth]{figures/LSFR.eps}
     \caption{4 Stage LFSR}
     \label{fig:lsfr}
 \end{figure}
@@ -127,7 +127,6 @@ nonlinear generator.
 \end{center}
 
 \subsection{Block Ciphers}
-
 These ciphers operate on input blocks of fixed size, transforming them into output blocks of same size. This implies that larger messages must be broken into
 suitable blocks, and that for the last remaining block it may be necessary to add padding bytes to yield the full block size,
 adding overhead to the message - a disadvantage compared to stream ciphers. For example, to encrypt a message just exceeding the block size by one byte,
@@ -230,7 +229,7 @@ and mixing columns can also be reversed.
 \subsection{Mode of Operation}\label{confidentiality}
 
 Because block ciphers  operate on a fixed number of bytes, messages larger than this block size must be broken into parts of suitable size, and depending on 
-the resulting size of the last block, it may be necessary to append a padding to it. Five different such modes were defined by \gls{nist} in 2001 \cite{moo},
+the resulting size of the last block, it may be necessary to append a padding to it. Five different modes of operation were defined by \gls{nist} in 2001 \cite{moo},
 which will be introduced in the next sections. For all modes it does not matter what underlying block cipher is used, as long as the block cipher implements
 a cryptographic secure function. 
 \\
@@ -241,34 +240,44 @@ in the clear text, thus the name error propagation \cite{burda}.
 
 \subsubsection{\gls{ecb}}\label{deterministicEnc}
 
-\gls{ecb} can be used to gain confidentiality and allows the parallel processing of all input blocks. This mode does not use any \gls{iv} or nonce, therefore
-repeating input blocks are mapped to the same output blocks under the same key, implementing a deterministic encryption scheme.
-This is problematic, which can be seen quite intuitively by comparing 
-Figures \ref{fig:tuxclr} and \ref{fig:tuxecb}. Therefore, this mode should never be used.
+\gls{ecb} can be used to gain confidentiality and allows the parallel processing of all input blocks. This mode does not use any \gls{iv} or nonce\footnote{short for "\textit{n}umber used \textit{once}"},
+therefore repeating input blocks are mapped to the same output blocks under the same key, implementing a deterministic encryption scheme.
+This is problematic, which can be seen quite intuitively. 
+Figure \ref{fig:tuxclr} shows a picture saved in the bitmap format. The pixel data following the header were extracted and encrypted in \gls{ecb} mode, as shown in
+Figure \ref{fig:tuxecb}. It can be seen easily that patterns occurring in the input data can be detected in the encrypted output data. Therefore, this mode should never be used. In 
+contrast, Figure \ref{fig:cbc_picture} shows the same picture encrypted with \gls{cbc} mode, as introduced in the next section.	
 \\
- \begin{minipage}{\linewidth}
+\begin{minipage}{\linewidth}
       \centering
-      \begin{minipage}{0.4\linewidth}
+  \begin{minipage}{0.32\linewidth}
           \begin{figure}[H]
-              \includegraphics[width=\linewidth]{figures/TuxCleartext.png}
-              \caption{Unencrypted Picture}
+              \includegraphics[width=\linewidth]{figures/ECB.eps}
+              \caption{}
               \label{fig:tuxclr}
           \end{figure}
-      \end{minipage}
-      \hspace{0.05\linewidth}
-      \begin{minipage}{0.4\linewidth}
+  \end{minipage}
+     % \hspace{0.1\linewidth}
+  \begin{minipage}{0.32\linewidth}
           \begin{figure}[H]
-              \includegraphics[width=\linewidth]{figures/TuxECB.png}
-              \caption{\gls{ecb} encryption of the picture}
+              \includegraphics[width=\linewidth]{figures/ECB-enc.eps}
+              \caption{\gls{ecb} mode}
               \label{fig:tuxecb}
           \end{figure}
-      \end{minipage}
   \end{minipage}
+  \begin{minipage}{0.32\linewidth}
+       \begin{figure}[H]
+%	\centering
+	\includegraphics[width=1\linewidth]{figures/CBC-enc.eps}
+	\caption{\gls{cbc} mode}
+	\label{fig:cbc_picture}
+      \end{figure}
+  \end{minipage}
+\end{minipage}
 
 \subsubsection{\gls{cbc}}
 
 This mode uses an \gls{iv} and can therefore be used for encryption of same messages without changing the key. Additionally, \gls{cbc} can also be used
-for \gls{mac2} generation, as shown in section \ref{Integrity}.
+for \gls{mac2} generation, as shown in Section \ref{Integrity}.
 \\
 Encrypting a message is shown in Figure \ref{fig:cbc_encrypt}.
 \begin{center}
@@ -293,10 +302,10 @@ $ M_i = D(k, C_i) \bigoplus C_{i-1} $
 The \gls{iv} does not have to be kept private, but must be known to the receiver of the message. It is important that such an \gls{iv} is unpredictable, otherwise
 allowing a \gls{cpa}. Also, it must not repeat over the lifetime of the key, otherwise introducing the \gls{ecb} problem again. 
 \\
-The \gls{iv} introduces overhead, which is more problematic for  shorter messages.
-To avoid such a message expansion, a solution is to use a "nonce", which stands for "\textit{n}umber used \textit{once}", as suggested in \cite{cryptoEng}.
-Sender and receiver must maintain a message counter. This message counter must be encrypted to avoid predictability, and can then be used as \gls{iv}. Care must
-be taken for the counter not to overflow within the lifetime of a key.
+The \gls{iv} introduces overhead, which is problematic for  short messages.
+To avoid such a message expansion, a solution is to use a nonce, as suggested in \cite{cryptoEng}.
+To avoid the need for sending the nonce with every message, sender and receiver must maintain a message counter. This message counter must be encrypted to avoid predictability, and can
+then be used as \gls{iv}. Care must be taken for the counter not to overflow within the lifetime of a key.
 
 \begin{figure}
     \centering
@@ -336,7 +345,6 @@ concatenation before encrypting the counter:
 \end{center}
  
 \subsubsection{\gls{cfb}}
-
 \gls{cfb} can be used to turn a block cipher into a stream cipher. Beside the block size $b$, another parameter $s$ determines the operation. $s$ corresponds
 to the size of one transmission unit. For initialization, an unpredictable \gls{iv} is set as input for the underlying block cipher. Then, in every
 processing step a new transmission unit is generated by \gls{xor}ing the $s$ most significant bits
@@ -360,7 +368,6 @@ To decrypt, the same encryption function, \gls{iv} and key is used to retrieve o
 \end{figure}
 
 \subsubsection{\gls{ofb}}
-
 This mode is very similar to \gls{cfb}, but here the $s$ bit output from the encryption function is used directly to update the space caused by the \gls{iv} 
 left shift. This avoids error propagation in case a transmission unit was damaged on transmit and thus a bit changed its value:
 for \gls{ofb} encryption systems, one or more bit errors in one ciphertext character only affects the decryption of this character. In contrast, one bit error in \gls{cfb} affects
@@ -384,24 +391,23 @@ $C[0] = O_0 \bigoplus M[0]$\\
 \end{figure}
 
 \subsubsection{Integrity}\label{Integrity}
-
 All modes of operation introduced so far are used to provide confidentiality only. To provide the second column of information security, i.e. integrity, in general
 \glspl{mac2} or digital signatures are used.
-Digital signatures are based on public key cryptography and are introduced in section \ref{digitalSignatures}. In contrast, \glspl{mac2} use symmetric keys,
+Digital signatures, based on public key cryptography, are introduced in Section \ref{digitalSignatures}. In contrast, \glspl{mac2} use symmetric keys,
 providing integrity and authenticity. 
 \\
 The basic way to protect a data unit - be it a message traveling from sender to recipient or a file saved for later usage - from modification by a third party is to
 generate a tag $t$, also called \gls{mac2}, and concatenating this tag to the message, as shown in Figure \ref{fig:tag}.
-Verifying the integrity is done by re-generating the tag and comparing it to the saved on. 
+Verifying the integrity is done by re-generating the tag and comparing it to the saved one. 
 \\
 \\
-In contrast to confidentiality modes, which should always be combined with a method to guarantee integrity (FIXME: begruendung..?), 
+In contrast to confidentiality modes, which should always be combined with a method to guarantee integrity, 
 integrity-only modes do have a right to exist. For example, archives containing source code for open source project, available from the internet, must not be
 encrypted but should be secured against modification. For example, the UNIX based operating system "FreeBSD" uses asymmetric keys to protect its package
 management system from adversary modification.
 \\
 \\
-Combining integrity and confidentiality in a security scheme called \gls{ae} will be handled in section \ref{authEncrypt}.
+Combining integrity and confidentiality in a security scheme called \gls{ae} will be handled in Section \ref{authEncrypt}.
 \\
 \\
 As tag generation and tag verification algorithms, keyed or unkeyed cryptographic secure hash functions are used.
@@ -417,7 +423,7 @@ A hash functions takes as input an arbitrary large message $\mathcal{M}$ and gen
 mapping implies the existence of collisions, i.e. the existence of distinct messages $m_1, m_2$ which are mapped to the same tag $t$.
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/tag.eps}
+    \includegraphics[width=0.8\textwidth]{figures/tag.eps}
     \caption{Tag generation}
     \label{fig:tag}
 \end{figure}
@@ -518,7 +524,7 @@ Bit 6 of the length field is set to 1 if additional authenticated data are sent,
 
 \subsubsection{Generating the \gls{mac2}}
 
-As shown in chapter \ref{authenticity} in Figure\ref{fig:cbc_MAC}, the first message block $M_0$ is \gls{xor}'d with a nonce or \gls{iv} (see Figure
+As shown in Figure \ref{fig:cbc_MAC}, the first message block $M_0$ is \gls{xor}'d with a nonce or \gls{iv} (see Figure
 \ref{fig:ccrMacIV}), which must be unique per key to avoid deterministic encryption.
 The result of the \gls{xor} operation is then feed to the block-cipher to get the first cipherblock $C_0$. The encrypted data $C_0$ gets \gls{xor}'d with the next message block $M_1$, and this
 result becomes the input for the block cipher, and so on, iterating over all $n$ message blocks to determine the tag $t$:
@@ -643,14 +649,14 @@ public key and raising it to the power of its own private key in the domain of $
 \end{center}
 An eavesdropper that intercepts the initially sent parameter set $\{p, g, q\}$ and the public keys $y_A$ and $y_B$ and that wants to calculate the shared secret
 $k_A = K_B$  must therefore calculate the discrete logarithm of $y_A$ or $y_B$ to the base $p$, i.e. must solve the \gls{dlp}, a hard problem as shown in
-section \ref{refDLP}.
+Section \ref{refDLP}.
 \\
 
 %FIXME el gamal??
 \subsection{\gls{ecc}}
 
 The \gls{dh} protocol can be based on different kinds of cyclic groups. Koblitz and Miller independently proposed the usage of cyclic groups based on
-\glspl{ec} \cite{eccKoblitz} \cite{eccMiller}. See \ref{pkc} for the theoretical introduction.
+\glspl{ec} \cite{eccKoblitz} \cite{eccMiller}. See Section \ref{pkc} for the theoretical introduction.
 This cyclic groups are receiving increased importance in cryptography because they allow the usage
 of shorter keys compared to \gls{dh} over prime fields or RSA, while providing the same level of secrecy.
 \\
@@ -719,7 +725,6 @@ shown in Figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all 3
 \path[pil,->] (a)  edge[]   node[text width=4cm,align=left] {send $(g^c)^a$} (b); 
 \path[pil,->] (b)  edge[]   node[text width=4cm,align=right] {send $(g^a)^b$} (c); 
 \path[pil,->] (c)  edge[]   node[text width=1cm,align=center] {send $(g^b)^c$} (a); 
-
 \end{tikzpicture}
    % \includegraphics[width=0.8\textwidth]{figures/dh-group_round2.eps}
   \caption{\gls{dh} Round 2}
@@ -732,7 +737,7 @@ After finishing the second communication round, every party raises the last rece
 This algorithm can be generalized to $n$ parties, using $(n-1)$ communication rounds. Obviously, this algorithm may not be practicable for a large $n$. Additionally,
 a complete new run must be executed whenever a new node joins.
 \\
-Additionally, this key agreement mechanism (as well as all others presented so far) uses not authentication and is therefore vulnerable to active attacks.
+Additionally, this key agreement mechanism (as well as all others presented so far) uses no authentication and is therefore vulnerable to active attacks.
 
 \subsection{RSA}
 
@@ -794,10 +799,10 @@ cryptographically secure hash functions, so the same requirements as listed in \
 \\
 \\
 Nevertheless, due to the use of asymmetric keys, an important semantic difference between \glspl{mac2} and digital signatures emerges: for a \gls{mac2} 
-a key is shared by at least 2 entities. A digital signature, in contrast, is generated by utilizing the private key of an entity. Therefore,
-digital signatures can also provide non-repudiation.
-This property allows to convince an unbiased "judge" that a message, signed by the sender, was indeed sent by this sender, i.e. the message was not
-forged by a third party. This is an important difference to \glspl{mac2}, where such a behavior is not possible.
+a key is shared by at least 2 entities. A digital signature, in contrast, is generated by utilizing the private key of an entity and is not thought to be shared with
+other entities. Therefore, digital signatures can also provide non-repudiation:
+this property allows to convince an unbiased "judge" that a message, signed by the sender, was indeed sent by this sender, i.e. the message was not
+forged by a third party. This is an important difference to \glspl{mac2}, where such an assessment is not possible.
 
 \subsubsection{RSA}
 
@@ -809,7 +814,7 @@ the hash of the message and comparing it to the decrypted hash.
 \subsubsection{\gls{ecdsa}}
 
 Based on the idea of Scott Vanstone, this signature algorithm is the \gls{ecc} variant of the \gls{dsa}, standardized by \gls{nist} \cite{nistECDSA}.
-Analog to the \gls{ecdlp}, as shown in section \ref{ecdp}, the domain parameters are public knowledge. The signer of the message chooses a random integer $k$ and
+Analog to the \gls{ecdlp}, as shown in Section \ref{ecdp}, the domain parameters are public knowledge. The signer of the message chooses a random integer $k$ and
 computes the coordinates $(x_Q, y_Q)$ of a new point $Q$ by multiplying $k*P = Q$. Afterwards, $x_Q$ is converted to an integer, obtaining $r = x_Q' \pmod n$. Finally,
 by using his private key $d$, $s$ is calculated:
 

@@ -1,4 +1,4 @@
-\section{KNX Layers}
+\section{KNX Layers}\label{sec:knxLayers}
 
 The \gls{osi} standardizes the communication between different, independent systems
 by grouping the needed functions into 7 sublayers to provide interchangeability and abstraction. Every layer provides services to its next-higher layer, and
@@ -7,14 +7,14 @@ compromising the function of the system, as long as the defined interfaces are i
 \textit{impera et divide}\footnote{latin: \textit{dive and rule}} and facilitates the building of complex systems by dividing one complex problem into subsequent,
 less-complex problems.
 \\
-KNX implements this model, omitting 
+\gls{knx} implements this model, omitting 
 layers 5 and 6, as shown in Figure \ref{fig:knxlayers}. Data from applications are directly passed to the transport layer in a transparent way, and vice versa.
 \begin{figure}
     \centering
    % \includegraphics[width=0.7\textwidth]{figures/KNXvsISO.eps}
      \includegraphics[width=0.7\textwidth]{figures/isoOSI.eps}
 
-    \caption{OSI Layer Model, compared to the KNX Modell}
+    \caption{OSI Layer Model, compared to the \gls{knx} Modell}
     \label{fig:knxlayers}
 \end{figure}
 
@@ -23,17 +23,17 @@ This is the lowest layer as defined by \gls{osi} and determines the basic transm
 characteristics like which connectors are used.
 \\
 \\
-To provide flexibility in \gls{knx}, 4 different physical media are defined. \gls{TP}-1 which was inherited from \gls{eib}, and is the successor of \gls{TP}-0,
+To provide flexibility in \gls{knx}, four different physical media are defined. \gls{TP}-1 which was inherited from \gls{eib}, and is the successor of \gls{TP}-0,
 as defined by BatiBUS, is the basis medium, consisting of a twisted pair cabeling. Data and power can be transmitted with one pair, so low-power
 devices can be fed over the bus. Data transfer is done asynchronously, with bidirectional, half-duplex
 communication and a datarate of 9600 \gls{bps}. \gls{TP}-1 uses collision avoidance, and allows all topologies beside rings. 
 \\
-Because this work is base on the \gls{TP}1 - part of KNX only, this medium will be explained in more detail in the next section.
+Because this work is base on the \gls{TP}1 - part of \gls{knx} only, this medium will be explained in more detail in the next section.
 \\
 \\
 PL110, which was also inherited from \gls{eib}, uses power line installations for communications. The carrier uses spread frequency shift keying, and can be used 
 for bidirectional, half duplex  communication with an even lower data rate of 1200 bit/sec. \gls{knx} \gls{rf} is used for short range wireless communication
-at 868,3 MHz. \gls{knx}net/\gls{ip} allows the integration of \gls{knx} into networks using \gls{TCP} / \gls{ip} for communication. Here, 3 different communication
+at 868,3 MHz. \gls{knx}net/\gls{ip} allows the integration of \gls{knx} into networks using \gls{TCP} / \gls{ip} for communication. Here, three different communication
 modes are defined: \textit{tunneling} mode is used for configuration and monitoring a client device by a \gls{knx}net/\gls{ip} server. Routing mode is used
 for connecting \gls{knx} lines over \gls{ip}, while \gls{knx} \gls{ip} is used for direct communication between \gls{knx} devices. \cite{KraInnosec2013}
 
@@ -61,7 +61,7 @@ Gateways are used to connect \gls{knx} networks to non-\gls{knx} networks.
 \\
 \\
 A logical '1' is regarded as the idle state of the bus, so the transmitter of the \gls{mau} is disabled when sending a '1', i.e. the analog signal on
-the bus consists only of the DC part. \gls{TP}-1 uses \gls{csma}/\gls{ca} for bus access, so every devices must listen to the bus and is only allowed
+the bus consists only of the DC part. \gls{TP}-1 uses \gls{csma}/\gls{ca} for bus access, so every device must listen to the bus and is only allowed
 to begin sending when the bus is idle. In the case of a simultaneous transmission start, a logical '1' of one
 device will eventually be overwritten by a logical '0' of the other device. The overruled
 sender will detect this by continuously checking the state of the bus and has to stop 
@@ -80,8 +80,8 @@ It is often broken into 2 distinct sublayers, namely the \gls{mac} as bus arbite
     \label{fig:ctrlfield}
 \end{figure}
 Three frame formats are defined: L\_Data frames are used for sending a data payload to an \gls{ia}, a group address or for broadcasting data to
-the bus. L\_Poll\_Data frames are used to request data from an individual knx device or a group of devices. Acknowledgement frames are used to provide a reliable
-transport mechanism, i.e. to acknowledge the reception of a frame by a knx device. 
+the bus. L\_Poll\_Data frames are used to request data from an individual \gls{knx} device or a group of devices. Acknowledgement frames are used to provide a reliable
+transport mechanism, i.e. to acknowledge the reception of a frame by a \gls{knx} device. 
 \\
 For L\_Data\_Frame, 2 different formats are defined: standard frames, as shown in Figure \ref{fig:stdframe} and extended frames, see Figure \ref{fig:extframe}.
 While standard frames can bear up to
@@ -131,11 +131,11 @@ as escape code, resulting in a maximum payload of 254 byte. After the length fie
     \label{fig:ctrle}
 \end{figure}
 
-\subsubsection{L\_Poll\_Data Frame}
+\subsubsection{L\_Poll\_Data Frame}\label{sec:pollDataFrame}
 
 These frames serve as data requests of the poll-data master for a maximum of 15 bytes
 and start with a control field, as defined, followed by the 2 byte source address
-of the sender(called Poll\_Data Master). The following 2 byte destination address is 
+of the sender (called Poll\_Data Master). The following 2 byte destination address is 
 used to address up to 15 poll slaves, all belonging to the same poll group. The number of
 exptected bytes and the check octet follow.
 \\
@@ -143,9 +143,9 @@ Poll requests are answered by poll slaves by transmitting the databytes in the c
 This is achieved by defining exact timings when each poll data slave must send the requested data. Therefore, such frames can only be used within
 one physical segment \cite{knxTP1}.
 
-\subsubsection{Acknowledge Frame}
+\subsubsection{Acknowledge Frame}\label{sec:ackFrame}
 
-This frames are used to acknowledge the reception of a knx data frames for \glspl{ga} or \glspl{ia} and consist
+This frames are used to acknowledge the reception of a \gls{knx} data frames for \glspl{ga} or \glspl{ia} and consist
 of one byte, sent after a fixed timespan after reception of the frame.
 
 \subsection{KNX addressing scheme}
@@ -176,7 +176,7 @@ datagram. Additionally, \gls{knx} reserves 3 bits of every standard- and extende
 \textit{hop count}. This counter is decremented by every router and the frame is discarded if the counter reaches the value zero. This mechanism, known from
 \gls{ipv4} \cite{rfc791} \footnote{Originally, this was called \gls{ttl}}, avoids the infinite circulation of packages within an incorrectly configured network.
 
-\subsection{Transport Layer}
+\subsection{Transport Layer}\label{sec:knxTransportLayer}
 
 Accoriding to the \gls{osi} modell, this layer provides point-to-point communication for hosts.
 \\
@@ -206,11 +206,11 @@ acknowledge-frames, can be discarded.
 
 \subsection{Session Layer}
 
-This layer is responsible for maintaining sessions, i.e. it provides services to maintain synchronized data exchange. It does not exist in KNX.
+This layer is responsible for maintaining sessions, i.e. it provides services to maintain synchronized data exchange. It does not exist in \gls{knx}.
 
 \subsection{Presentation Layer}
 
-This layer allows a system-independent data representation, which is not necessary in KNX because the useage of standardized \glspl{dt}.
+This layer allows a system-independent data representation, which is not necessary in \gls{knx} because the usage of standardized \glspl{dt}.
 
 \subsection{Application Layer}
 
