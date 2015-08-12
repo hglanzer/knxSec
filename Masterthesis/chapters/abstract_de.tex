@@ -1,3 +1,23 @@
 \chapter*{Kurzfassung}
-
-Hier fügen Sie die Kurzfassung auf Deutsch gemäß den Vorgaben der Fakultät ein.
+\gls{hga} befasst sich mit Systemen zur Steuerung bzw. Regelung von Gebäudeanwendungen wie Heizungen, Klimaanlagen oder Beleuchtungssystemen. Raumparameter
+können so zentral gesteuert werden, was sowohl den Verwaltungsaufwand als auch den Energieverbrauch senken und den Komfort erhöhen kann. 
+Sicherheitstechnische Überlegungen spielten bei derartigen Systemen zumeist keine Rolle.
+Einerseits standen die Ressourcen auf den verwendeten Plattformen nicht zur Verfügung, andererseits wurden die Auswirkungen eines böswilligen Eingriffes in das System vernachlässigt.
+%Zusätzlich ist z.B. die optimale Regelung der Raumtemperatur in einem
+%Bürogebäude wichtig für den Komfort der darin arbeitenden Menschen, was sich auch auf die Produktivität auswirken kann.
+\\
+Firmengebäude wie Privatgebäude beherbergen jedoch eine viel grössere Anzahl an Applikationen, man denke hier an Zugangskontrollen, 
+Alarmanlagen oder Brandlöschsysteme. Diese Gruppe von Anwendungen stellt höhere Anforderungen an das zugrunde liegende technische System:
+Türe dürfen nur von authorisierten Personen geöffnet werden können, Alarmanlagen dürfen sich nicht einfach von Einbrechern deaktivieren lassen, und Brandmeldesysteme müssen im
+Extremfall mit einem hohen Grad an Zuverlässigkeit funktionieren. 
+\\
+Diese unterschiedlichen Anforderungen führte zu einem Auseinanderwachsen der vorhandenen Systeme. Das Zusammenführen 
+von kritischen und unkritischen Systemen würde einerseits den Verwaltungsaufwand weiter senken und zusätzlich erlauben die vorhandene Verkabelung für beide Anwendungsgebiete zu
+verwenden.
+\\
+\\
+Diese Arbeit beschäftigt sich deshalb mit einer Erweiterung des \gls{knx} Standards für die \gls{hga} welcher auch in kritischen Umgebungen eingesetzt werden kann.
+Dazu ist es einerseits nötig, böswillige Angriffe zu erkennen und zu verhindern als auch technische Defekte abfedern zu können. Ersteres ermöglicht der Einsatz von Kryptographie,
+zweiteres kann mittels Redundanz bewerkstelligt werden. Beide Begriffe sowie \gls{knx} selbst werden ausführlich erläutert, gefolgt von dem erarbeitetem Lösungsvorschlag.
+Der Ansatz unterteilt eine \gls{knx}-Installation in einen ungesicherten und einen gesicherten Teil. Letzterer ist geschützt gegen böswillige Angriffe und ausserdem doppelt ausgeführt,
+womit ein teilweiser Ausfall kompensiert werden kann. Abschliessend wird der implementierte Prototyp erläutert. 

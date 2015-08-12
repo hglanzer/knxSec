@@ -97,7 +97,8 @@ nonlinear generator.
     \label{fig:lsfr}
 \end{figure}
 \begin{center}
-\begin{minipage}{0.45\textwidth}
+\begin{minipage}{0.5\textwidth}
+\centering
 \begin{tabular}{ c | c | c | c | c }
  \label{table:lfsr}
   t & $D_3$ & $D_2$ & $D_1$ & $D_0$ \\ \hline
@@ -110,8 +111,9 @@ nonlinear generator.
   6 & 1&0 &0 &0 \\
   7 & 1&1 &0 &0 \\
   \end{tabular}
-\end{minipage}\hfill
-\begin{minipage}{0.45\textwidth} 
+\end{minipage}%\hfill{0.4}
+\begin{minipage}{0.5\textwidth} 
+\centering
 \begin{tabular}{ c | c | c | c | c }
   t & $D_3$ & $D_2$ & $D_1$ & $D_0$ \\ \hline
   8  & 1& 1& 1& 0\\
@@ -602,7 +604,7 @@ In \cite{Merkle}, Ralph C. Merkle developed an algorithm for key exchange betwee
 not practicable, it motivates the usage of public key systems based on algebraic structures and is therefore introduced.
 \\
 \\
-The key idea is that the necessary work by the two legitimate parties when negotiating a key is bounded by $O(n)$, while an adversary must spend $O(n^2)$ to 
+The basic idea is that the necessary work by the two legitimate parties when negotiating a key is bounded by $O(n)$, while an adversary must spend $O(n^2)$ to 
 also calculate the key, thus generating a quadratic gap. 
 Merkle defines a puzzle as cipher text that is supposed to be broken. This can be achieved by restricting the size of the symmetric key used such that an
 exhaustive search can be finished in feasible time. Every puzzle contains an id and a session key, both chosen randomly, as well as a static string,
@@ -834,11 +836,11 @@ The receiver of the message can use the domain parameters and signature to verif
 $x'$ is converted to an integer an reduced $\pmod$ to obtain $r'$. If $r = r'$, the signature is accepted, proofing the authenticity of the message.
 
 
-\subsection{Key lenghts}
-
-\cite{Lenstra04keylength}
-
-TODO: BIRTHDAY PARADOXON
+%\subsection{Key lenghts}
+%
+%\cite{Lenstra04keylength}
+%
+%TODO: BIRTHDAY PARADOXON
 
 
 % Such a cipher as defined above provides confidentiality, i.e. it ensures that only authorized parties are able to decrypt the message. This leads to other

@@ -1,9 +1,19 @@
 \section{Summary}
-Examining the security measurements shows up parallels to the \gls{ipv4} world. As with \gls{knx}, no security measurements were foreseen in the
-original standard. The problem was
-fixed here in two ways: \gls{tls} was added as a sublayer between \gls{osi} layers 4 and 5, allowing application-transparent encryption and authentication, 
-similar to KNX Application Note 158, as described above. The second solution was the introduction of \gls{ipsec}, extending \gls{ipv4} and thus enabling authentication and encryption on \gls{ip} level.
+When examining the security mechanisms for \gls{knx} it shows up that only rudimentary precautions were defined in the basic standard simply because they were not considered
+necessary. 
+\\
+This perspective changed and different extensions where introduced. 
+Modes for application-transparent encryption and authentication were introduced with "KNX Application Note 158". Securing \gls{ip} based \gls{knx} backbones is possible by using 
+"KNX IP Security".
 \\
 \\
-Despite the \gls{knx} extensions, no solution providing high availability exists. Therefore, this work proposes to combination of cryptographic measurements with
+Despite the \gls{knx} extensions, no solution providing high availability exists. Therefore, this work proposes a solution which brings together cryptographic measurements with
 redundancy mechanisms, allowing its deployment in more demanding environments.
+
+
+% Examining the \gls{knx} security measurements shows up parallels to the \gls{ipv4} world. Similar to \gls{ipv4}, only rudimentary security measurements were foreseen in the
+% original standard. 
+% Various \gls{knx} extensions were introduced to fix this flaw.
+% For \gls{ipv4}, the problem was
+% fixed in two various ways: \gls{tls} was added as a sublayer between \gls{osi} layers 4 and 5, allowing application-transparent encryption and authentication, 
+% similar to KNX Application Note 158, as described above. The second solution was the introduction of \gls{ipsec}, extending \gls{ipv4} and thus enabling authentication and encryption on \gls{ip} level.

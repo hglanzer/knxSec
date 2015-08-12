@@ -131,7 +131,7 @@ as escape code, resulting in a maximum payload of 254 byte. After the length fie
     \label{fig:ctrle}
 \end{figure}
 
-\subsubsection{L\_Poll\_Data Frame}\label{sec:pollData}
+\subsubsection{L\_Poll\_Data Frame}\label{sec:pollDataFrame}
 
 These frames serve as data requests of the poll-data master for a maximum of 15 bytes
 and start with a control field, as defined, followed by the 2 byte source address
@@ -143,7 +143,7 @@ Poll requests are answered by poll slaves by transmitting the databytes in the c
 This is achieved by defining exact timings when each poll data slave must send the requested data. Therefore, such frames can only be used within
 one physical segment \cite{knxTP1}.
 
-\subsubsection{Acknowledge Frame}
+\subsubsection{Acknowledge Frame}\label{sec:ackFrame}
 
 This frames are used to acknowledge the reception of a \gls{knx} data frames for \glspl{ga} or \glspl{ia} and consist
 of one byte, sent after a fixed timespan after reception of the frame.

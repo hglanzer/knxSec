@@ -11,10 +11,33 @@ i.e. physical access to the network would have been necessary for attacking the 
 were considered negligible. Additionally, the devices used in such networks were characterized by very limited processing power - thus, the comprehensive
 use of cryptographic measurements would have put remarkable computing loads onto these devices and was therefore considered impracticable.
 \\
+These arguments turn out to be true only at first glance. Because \gls{hbas} are operational over years, excluding short-time, temporary physical access is often impossible
+for wired networks and nearly impossible for
+wireless networks. Regarding the second argument it is easy to see that simple acts of vandalism, for example shutting down the lighting system of a company building, can result
+in considerable financial losses.
+\\
+\\
 Today the necessary processing power is available even on embedded systems, meanwhile systems integration continued until a point where security concerns could
-no longer be neglected. Therefore, the needs of \gls{hbas} regarding security is introduced next.
+no longer be neglected. It follows that such a \gls{hbas} must be protected against misuse on all existing levels. 
+Communication networks for \gls{hbas} systems are usually built upon a two-tier model, consisting of a field- an a backbone level. The field level contains \glspl{sac},
+interacting with the environment and performing the control functions. They are interconnected by the backbone network. Here, \glspl{md}, used for configuration,
+visualization and monitoring, as well as \glspl{icd}, connecting physical segments, are found. Special \glspl{icd} may act as gateways, providing a connection to foreign networks. 
 \\
 \\
-Communication networks for \gls{hbas} systems are usually built upon a two-tier model.
+Due to this topology, two different classes of attacks are possible: network- and device attacks \cite{5332331}.
+
+\subsubsection{Network attacks}
+Here, the adversary either tries to compromise the field or backbone network. In the first scenario, the attacker can analyze or modify the control application. In the latter he
+gains access to the concentrated network data and can thus obtain a global view of the system.
 \\
-FIXME: not finished yet.
+To protect a communication network it would be possible to use security mechanism known from the \gls{ip} world. 
+Unfortunately, these mechanisms often cannot be mapped directly to \glspl{hbas} because of the introduced overhead. Using
+established techniques like \gls{vpn}, \gls{tls} or \gls{ipsec} is therefore reserved for the backbone level where \gls{ip} is used.
+\\
+At the field level \gls{ip} is hardly ever used, a fact that excludes \gls{ip} based technologies here.
+
+\subsubsection{Device attacks}
+Alternatively, the three different kinds of devices can be aimed at by either attacking a \gls{sac} to manipulate it's behavior or by attacking a \gls{icd} to access data of the segment.
+Finally, the attacker can launch an attack against the \glspl{md} to gain management access to the other two types of devices.
+\\
+Such device attacks are divided into three categories: software attacks, side-channel and physical attacks, extensively surveyed in \cite{5332331} and \cite{secAn}.

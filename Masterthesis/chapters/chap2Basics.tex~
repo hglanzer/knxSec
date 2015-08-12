@@ -353,9 +353,6 @@ To assess the quality of a \gls{prng}, beside of such spectral tests lots of add
 \\
 To encounter the shortcomings of a \gls{prng}, a \gls{trng} uses a natural process as non-deterministic data source, for example
 thermal noise of a semi conductor, cosmic noise from space or digital oscillators.
-\\
-The used hardware platform, the RapsberryPi, offers a hardware number generator - the quality of its provided random numbers will be subject
-to various statistical tests, see Chapter FIXME for the results. FIXME - DO IT?
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{figures/uniform}

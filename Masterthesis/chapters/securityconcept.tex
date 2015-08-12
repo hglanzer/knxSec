@@ -6,7 +6,7 @@ The prototype should be designed in a transparent way, utilizing a "plug and pla
 This means that a device outside of this network, unaware of
 the secured \gls{knx} network, should be able to deliver through and receive messages from such a secured network without any prerequisites. 
 Every device with one connection to an unsecured \gls{knx} network (called cleartext \gls{knx} line) and two distinct connections to a secured \gls{knx}
-network (called secure lines, running the master daemon), will work
+network (called secure lines), running the master daemon, will work
 as a security gateway. Thus, the presence of at least two of these security gateways connected to each other by two secure lines will constitute a 
 secured \gls{knx} area, bridging between areas with increased security demands, as shown in Figure \ref{fig:secArea}.
 \\
@@ -178,7 +178,7 @@ Sending data to a group address therefore follows the triad discovery request, d
 messages are depicted as solid end of the arrow, the rest denoting unicast messages.
 \begin{figure}
   \centering
-    \includegraphics[width=0.8\textwidth]{figures/protokoll1.eps}
+    \includegraphics[width=0.95\textwidth]{figures/protokoll1.eps}
  \caption{Communication schema}
  \label{fig:prot1}
 \end{figure}
@@ -432,7 +432,7 @@ network and resets the global counter $Ctr_{global}$.
 The \gls{mac2} is calculated over all frame fields except the trailing frame check fields and parts of the \textit{Header} field. 
 
 \subsection{Discovery service}
-Whenever a gateway receives a message on its cleartext line, 2 distinct discovery broadcast messages are sent, one for each secured line. 
+Whenever a gateway receives a message on its cleartext line, two distinct discovery broadcast messages are sent, one for each secured line. 
 The frame format is shown in Figure \ref{fig:discReqFormat}. \textit{DH-A} is the newly chosen \gls{ecdh} - parameter of the requesting device.
 The \gls{psk} encrypted field contains the group address, CTR contains the incremented global counter $Ctr_{global}$.
 \begin{figure}
@@ -444,7 +444,7 @@ The \gls{psk} encrypted field contains the group address, CTR contains the incre
 Every device in the network first checks the authenticity of the received frame by recalculating the \gls{mac2}. If the value differs from the received one, the frame
 is discarded. Otherwise, the requested group address is obtained by decrypting the corresponding field, and 
 every device recognizing the group address prepares a unicast response frame as shown in Figure \ref{fig:discResFormat}, 
-with \textit{DH-B} its own newly chosen \gls{ecdh} parameter and the incremented global counter in the \textit{CTR} field. The requested group address is also
+with \textit{DH-B} as its own newly chosen \gls{ecdh} parameter and the incremented global counter in the \textit{CTR} field. The requested group address is also
 sent, allowing the requester to identify the response message.
 \begin{figure}
   \centering
@@ -547,7 +547,7 @@ is a 4 byte integer, allowing $2^{32} \approx 4,3$ billion discovery request or 
 This amount is assumed sufficiently high, argued as follows:
 each discovery messages consists of a frame containing 53 bytes, sent with 9600 \gls{bps}, resulting in about 44 milliseconds transfer duration. Therefore,
 the absolute lower bound of the duration after that $Ctr_{global}$ overflows, assumed the \gls{knx} network is occupied by discovery messages only,
-is about 2 years, a very conservative estimate.
+is about two years, a very conservative estimate.
 
 \subsubsection{Individual counter}\label{ctrInd}
 

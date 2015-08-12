@@ -1508,6 +1508,78 @@
   \endverb
 \endentry
 
+\entry{5332331}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Granzer}{G.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Praus}{P.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kastner}{K.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GWPFKW1}
+  \strng{fullhash}{GWPFKW1}
+  \field{number}{11}
+  \field{pages}{3622\bibrangedash 3630}
+  \field{title}{Security in Building Automation Systems}
+  \field{volume}{57}
+  \field{journaltitle}{Industrial Electronics, IEEE Transactions on}
+  \field{year}{2010}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{secAn}{incollection}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Koeune}{K.}%
+     {François}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Standaert}{S.}%
+     {François-Xavier}{F.-X.}%
+     {}{}%
+     {}{}}%
+  }
+  \name{editor}{3}{}{%
+    {{}%
+     {Aldini}{A.}%
+     {Alessandro}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gorrieri}{G.}%
+     {Roberto}{R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Martinelli}{M.}%
+     {Fabio}{F.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer Berlin Heidelberg}%
+  }
+  \strng{namehash}{KFSFX1}
+  \strng{fullhash}{KFSFX1}
+  \field{booktitle}{Foundations of Security Analysis and Design III}
+  \field{pages}{78\bibrangedash 108}
+  \field{series}{Lecture Notes in Computer Science}
+  \field{title}{A Tutorial on Physical Security and Side-Channel Attacks}
+  \field{volume}{3655}
+  \field{year}{2005}
+\endentry
+
 \entry{Granzer05securityin}{report}{}
   \name{author}{4}{}{%
     {{}%
@@ -1552,6 +1624,39 @@
   \field{title}{{Application Note 158 -- KNX Data Security}}
   \field{month}{05}
   \field{year}{2013}
+\endentry
+
+\entry{WG2009a}{inproceedings}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Lechner}{L.}%
+     {D.}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Granzer}{G.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Praus}{P.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kastner}{K.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{LD+1}
+  \strng{fullhash}{LDGWPFKW1}
+  \field{booktitle}{{Proc. 7th IEEE International Conference on Industrial
+  Informatics (INDIN '09)}}
+  \field{pages}{410\bibrangedash 415}
+  \field{title}{{Securing IP Backbones in Building Automation Networks}}
+  \field{month}{06}
+  \field{year}{2009}
 \endentry
 
 \entry{5195839}{inproceedings}{}

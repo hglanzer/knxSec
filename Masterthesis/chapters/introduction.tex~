@@ -66,7 +66,7 @@ i.e. that it can recover from erroneous states. This will be done by exposing th
 \section{Structure of the work}
 
 Chapter \ref{ch:prerequisites} introduces the required prerequisites for providing integrity and confidentiality, handling symmetric and asymmetric ciphers. 
-Chapter \ref{ch:availability} explains the term availability is concluded by state-of-the art technologies implementing highly-available communication networks.
+Chapter \ref{ch:availability} explains the term availability and is concluded by state-of-the art technologies implementing highly-available communication networks.
 \\
 Chapter \ref{ch:knx} explains the structure of the \gls{knx} standard, and introduces the most important cryptographic extensions.
 \\

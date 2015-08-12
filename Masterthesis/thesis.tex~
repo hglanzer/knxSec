@@ -129,8 +129,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % optional acknowledgements may be included in german or in english
-%\input{chapters/danksagung} 		% optional
-\input{chapters/acknowledgements}	% optional
+\input{chapters/danksagung} 		% optional
+%\input{chapters/acknowledgements}	% optional
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%   ABSTARCT    %%%%%%%%%%%%%%%%%%%%%%%
