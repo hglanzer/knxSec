@@ -1,17 +1,17 @@
-The base system consists of RaspberryPi board running the Raspbian operating system (a Debian variant), the EIBD daemon, shared libraries which
-are used by EIBD and the master daemon.
-The operating system is based on the Debian project, with the kernel, libraries and binaries ported to the ARM platform, so it is possible to benefit from
+The base system consists of RaspberryPi boards running the Raspbian operating system (a Debian variant), \gls{eibd}, shared libraries which
+are used by \gls{eibd} and the master daemon.
+The operating system is based on the Debian project. The kernel, libraries and binaries are ported to the ARM platform, so it is possible to benefit from
 using a full-scale operating system, e.g. by using the comfortable packet manager called
 \textit{aptitude} provided by Debian. A short introduction to the most important commands is given below as they are needed.
 
 \section{Raspbian}
 
-To obtain a running system for deploying the secure KNX daemon, a prebuilt Debian image is used, which can be ownloaded from the RaspberryPi homepage:
+To obtain a running system for deploying the secure \gls{knx} daemon, a prebuilt Debian image is used, which can be downloaded from the RaspberryPi homepage.
 
 \url{http://downloads.raspberrypi.org/raspbian_latest.torrent}
 
-The image must be unzipped and copied to a suitable memorycard. First-generation RaspberryPis (model 'A') have SD slots, while
-all later models come with micro-SD slots. To copy the basic operating system to the memorycard, the linux commandline tool 'dd' can
+The image must be unzipped and copied to a suitable memory card. First-generation RaspberryPis (model 'A') have SD slots, while
+all later models come with micro-SD slots. To copy the basic operating system to the memory card, the Linux command "dd" can
 be used. To find the correct device to write the image to, the following command can be used: 
 
 \begin{lstlisting}[style=BashInputStyle,label=lst:kern.log]
@@ -32,13 +32,13 @@ Here, the proper device to use is the device /dev/sdb.
     # dd if=<Path to Image> of=<Device to overwrite>
 \end{lstlisting}
 
-After the write command has finished, the memory card is ready to use. For first time setup, a display must be connected via HDMI. Powering up the raspberry
+After the write-command has finished, the memory card is ready to use. For first time setup, a display must be connected via HDMI. Powering up the RaspberryPi
 opens a ncurses configuration dialogue. First thing to do is to resize the root partition to maximum size and set a password for the administrative
 account. Optionally, different options like keyboard layout can be set.
-To be able to operate the raspberry without external display, it is necessary to start the \gls{ssh} server under \textit{Advanced Options} and assign a 
-fixed ip to the host by editing the file \textit{/etc/network/interfaces}, as shown in example \ref{lst:staticIP}. This way it is possible to connect to the
-raspberry with a \gls{ssh} client. For password less logins, create an unpriviliged user and
- a \gls{ssh} public/private key pair for that user by executing these commands on the raspberry pi:
+To be able to operate the RaspberryPi without external display, it is necessary to start a \gls{ssh} server under \textit{Advanced Options} and assign a 
+fixed \gls{ip} to the host by editing the file \textit{/etc/network/interfaces}, as shown in example \ref{lst:staticIP}. This way it is possible to connect to the
+RaspberryPi with a \gls{ssh} client. For password less logins, create an unprivileged user and
+ a \gls{ssh} public/private key pair for that user by executing these commands on the RaspberryPi:
 
 \begin{lstlisting}[style=BashInputStyle]
     # groupadd <usergroup>
@@ -47,11 +47,11 @@ raspberry with a \gls{ssh} client. For password less logins, create an unprivili
     # ssh-keygen
 \end{lstlisting}
  
-The program generates the user and the correspoding key pair and saves public and private key in the subdirectory ~/.ssh/ on the actual host. When asked for a passphrase, it is possible
-to use a password-less keypair, an option that should only be used in restriced areas.
+The program generates the user and the corresponding key pair and saves public and private key in the subdirectory ~/.ssh/ of the actual user. When asked for a passphrase, it is
+possible to use a password-less keypair, an option that should only be used in restricted areas.
 To actually use the keypair for logging into
-the raspberry pi, the public key must be saved in the file \textit{~/.ssh/authorized\_keys}. Additionally, the private key must be copied to every host
-from that \gls{ssh} connections to the raspberry pi want to be opened. After that, it is possible to load the private key into memory with the command \textit{ssh-add}
+the RaspberryPi, the public key must be saved in the file \textit{~/.ssh/authorized\_keys}. Additionally, the private key must be copied to every host
+from that \gls{ssh} connections to the RaspberryPi want to be opened. After that, it is possible to load the private key into memory with the command \textit{ssh-add}
 and to connect to the host without a password:
 
 \begin{lstlisting}[style=BashInputStyle]
@@ -75,12 +75,12 @@ This will install the latest package versions of all installed packages. New sof
 
 \section{EIBD}
 
-The maintainer of EIBD only provides binary packages for the i386 architecture, so the daemon and its prerequisites must be built from source to get
+The maintainer of \gls{eibd} provides binary packages for the i386 architecture only. Therefore, the daemon and its prerequisites must be built from source to get
 suitable binaries and shared libraries for the ARM environment. Building software under GNU Linux or *nix from source always follows this scheme:
 
 \begin{enumerate}
  \item Downloading and extracting the source code.
- \item If possible, comparing the developer supplied hash code  with the hash code of the downloaded source files with
+ \item If possible, comparing the developer supplied hash code with the hash code of the downloaded source files with
  \textit{sha256} or one of its variants to verify that no modified software has been downloaded.
  \item Optionally, apply patches to the source code (not necessary here).
  \item Set the make-options by calling \textit{./configure <options>}, overriding default compilation options by setting the corresponding command line parameters.
@@ -89,15 +89,15 @@ suitable binaries and shared libraries for the ARM environment. Building softwar
  \item Copying the generated binaries and shared libraries into their correct place by calling \textit{make install}. This last step must always be executed
  as user root because the generated files will be copied into system directories which are not writeable by unprivileged users.
 \end{enumerate}
-EIBD and the needed library \textit{pthsem} are available from these locations:
+\gls{eibd} and the needed library \textit{pthsem} are available from these locations:
 \\
 \\
 \url{https://www.auto.tuwien.ac.at/~mkoegler/pth/pthsem_2.0.8.tar.gz}\\
 \url{http://sourceforge.net/projects/bcusdk/}
 \\
 \\
-After copying the archives to the RaspberryPi, they must be unpacked and compiled. First the pthsem shared library, which offers user mode multi
-threading with semaphores, must be compiled because it is used by EIBD. 
+After copying the archives to the RaspberryPi, they must be unpacked and compiled. First the pthsem shared library, offering user mode multi
+threading with semaphores, must be compiled because it is used by \gls{eibd}. 
 \begin{lstlisting}[style=BashInputStyle]
     # tar -xvzf pthsem-2.0.8.tar.gz
     # cd pthsem-2.0.8
@@ -107,7 +107,7 @@ threading with semaphores, must be compiled because it is used by EIBD.
 \end{lstlisting}
 This will, among other things, generate the shared library \textit{libpthsem.so.20} in the directory \textit{/usr/local/lib}. \textit{/usr/local}
  is by convention the destination where self compiled software should reside.
-Now that pthsem is available, which is a dependence of the EIBD daemon, EIBD itself is ready for compilation:
+Now that pthsem is available, \gls{eibd} itself is ready for compilation:
 
 \begin{lstlisting}[style=BashInputStyle]
     # tar -xvzf bcusdk-0.0.5.tar.gz
@@ -116,18 +116,17 @@ Now that pthsem is available, which is a dependence of the EIBD daemon, EIBD its
     # make
     # make install // must be executed as root
 \end{lstlisting}
-
 These steps generate the binary \textit{eibd} and lots of helper programs in the directories \textit{/usr/local/bin}, and the shared object
 \textit{/usr/local/lib/libeibclient.so.0} that provides the \gls{eibd} \gls{api} and therefore is needed to be linked to the master daemon.
 \\
-Additionally, the development files for interfacing with the openSSL \gls{api} must be installed by executing the following command:
+Additionally, the development files for interfacing with the OpenSSL \gls{api} must be installed by executing the following command:
 \begin{lstlisting}[style=BashInputStyle]
  # aptitude install libssl-dev
 \end{lstlisting}
 
 \section{Revision control}
 
-The source of the master daemon is managed by GIT. GIT is a decentralized furevision-control system and is available under Debian/Raspbian after installing
+The source of the master daemon is managed by GIT. GIT is a decentralized version-control system and is available under Debian/Raspbian after installing
 the package 'git'. The command \ref{lst:git} fetches the latest version and creates a directory called 'knxSec' which contains all the needed source files,
 a proper makefile \ref{lst:makefile} for the project, as well as all other needed files.
 
@@ -137,7 +136,7 @@ a proper makefile \ref{lst:makefile} for the project, as well as all other neede
 
 \section{Busware USB couplers}
 
-To make the KNX TP1 bus accessible, i.e. to write datagrams to and receive datagrams from the bus, \gls{usb} dongles as shown in Figure \ref{fig:busware}
+To make the KNX TP1 bus accessible, i.e., to write datagrams to and receive datagrams from the bus, \gls{usb} dongles as shown in Figure \ref{fig:busware}
 from the company \textit{Busware} are used. Depending on the revision, the bus couplers creates a new device which is used as \gls{url} by the \gls{eibd}.
 The coupler will be accessible by \textit{/dev/ttyACMx}, where x is the number of the device. It may be necessary to flash the bus couplers with the correct
 firmware first. The easiest way to check this is to use command \ref{lst:kern.log} and look for output similar to listing \ref{lst:device} when plugging 
@@ -203,3 +202,6 @@ The test environment consists of 2 RaspberryPis, as shown in Figure \ref{fig:sec
 \end{lstlisting}
 
 \lstinputlisting[style=BashInputStyle,caption={Makefile for the master daemon},label=lst:makefile]{../src/Makefile}
+
+\lstinputlisting[style=BashInputStyle,caption={Start script},label=lst:startScript]{../start.sh}
+

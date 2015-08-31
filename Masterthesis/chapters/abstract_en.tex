@@ -1,21 +1,18 @@
 \chapter*{Abstract}
-\gls{hbas} denominates systems for controlling building applications summarized under the term \gls{hvac}. Parameters can thus be controlled in a centralized manner, 
-promising lower maintenance and energy costs and higher comfort. Security aspects were often neglected because the used hardware platforms lacked the needed processing power
-and malicious attacks against such systems ignored.
+\gls{hbas} denominates systems for controlling building applications summarized under the terms \gls{hvac}. This allows to control room parameters in a centralized manner, 
+promising lower maintenance and energy costs and higher comfort. Usually, only basic security mechanisms were implemented. The reasons were twofold:
+firstly, the used hardware platforms often lacked the needed processing power to implement them.
+Secondly, the potential impact of malicious attacks against such systems were considered negligible.
 \\
-Nevertheless, corporate buildings as well as private homes contain a great variety of additional applications, for example access controls, burglar alarm or fire detection systems.
-This group of applications makes much greater demands regarding the underlying technical system. Obviously, access must be only granted to authenticated persons and fire detection
+Nevertheless, corporate buildings as well as private homes contain a great variety of additional applications, for example access controls, burglar alarms or fire detection systems.
+This group of applications has much higher demands regarding the underlying technical system. Obviously, access must be only granted to authenticated persons and fire detection
 systems must work reliable in case of emergency. 
 \\
-The different requirements lead to a separation of critical and uncritical systems, unifying them into one system would allow to further decrease maintenance costs and re-use
-the existing infrastructure for both fields of application 
+The different requirements led to a separation of critical and uncritical systems. Unifying them into one system would allow to further decrease maintenance costs and re-use
+the existing infrastructure for both fields of applications.
 \\
 \\
-Therefore, this thesis proposes a extension to \gls{knx} which is suitable for critical environments. For this purpose it is necessary to detect and guard against malicious attacks
-as well as to cope with randomly occurring hardware faults. 
-
-
-DErsteres ermöglicht der Einsatz von Kryptographie,
-zweiteres kann mittels Redundanz bewerkstelligt werden. Beide Begriffe sowie \gls{knx} selbst werden ausführlich erläutert, gefolgt von dem erarbeitetem Lösungsvorschlag.
-Der Ansatz unterteilt eine \gls{knx}-Installation in einen ungesicherten und einen gesicherten Teil. Letzterer ist geschützt gegen böswillige Angriffe und ausserdem doppelt ausgeführt,
-womit ein teilweiser Ausfall kompensiert werden kann. Abschliessend wird der implementierte Prototyp erläutert. 
+Therefore, this thesis proposes an extension to \gls{knx} which is suitable for critical environments. For this purpose it is necessary to detect and guard against malicious attacks
+as well as to cope with randomly occurring hardware faults. The former can be achieved through cryptography, the latter by implementing redundancy. Both terms as well as the \gls{knx}
+standard are introduced in detail, followed by the proposed solution. The proposal divides \gls{knx} installations into an insecure and a secure part. The latter is protected against
+malicious attacks and is implemented in a redundant way. This allows to partially resist against transient hardware faults. Finally, the implementation of the prototype is illustrated.

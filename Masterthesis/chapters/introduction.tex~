@@ -21,7 +21,7 @@ to develop further attack strategies.
 connection, rendering the corresponding network segment unavailable. Clearly, such attacks must be precluded for sensitive services like fire or burglar alarms,
 relying on the availability of the communication network.
 \\
-High availability, in general, can only be achieved by redundancy, i.e. by using replicated resources. Therefore, all
+High availability, in general, can only be achieved by redundancy, i.e., by using replicated resources. Therefore, all
 resources needed for transmitting data between two points must exist redundantly and independently from each other.
 \\
 The countermeasure against eavesdropping and replay attacks, providing integrity, confidentiality and authenticity, consists of authentication
@@ -35,12 +35,12 @@ The origin \gls{knx} standard did not include countermeasures to prevent adversa
 authenticity to \gls{knx}. Nevertheless, up to today no methods for increasing availability are provided, a fact considered problematic in view of the potential application domains.
 \\
 For example, a burglar can render an alarm system useless if he can shortcut the bus lines, thus suppressing the (encrypted) alarm messages. In contrast to such an malicious attack, a transient
-hardware failure can disable a system too, unacceptable for systems handling fire alarms or controlling elevators.
+hardware failure can also disable a system, unacceptable for systems handling fire alarms or controlling elevators.
 
 \section{Aim of the work}
 
 The overall goal of this work is to develop a concept for a secure and highly available \gls{knx} network that also considers interoperability and compatibility, 
-allowing the usage in environments even with increased safety-critical requirements. The proposed solution shall be resistant against malicious adversary as well as against
+allowing the usage in environments even with increased safety-critical requirements. The proposed solution shall be resistant against malicious adversary, as well as against
 transient hardware failures.
 \\
 To achieve this, so called security gateways will be used. These gateways will possess two kinds of \gls{knx} interfaces: one kind of interface will be
@@ -57,22 +57,22 @@ for reading datagrams from the \gls{knx} insecure world, encrypting and authenti
 \gls{knx} lines.
 \\
 It is important to note that the practical part of this work will only
-handle the twisted-pair media of \gls{knx} (i.e. \gls{knx} \gls{TP}-1), although the basic principles can be deployed in a modified manner in
+handle the twisted-pair media of \gls{knx} (i.e., \gls{knx} \gls{TP}-1), although the basic principles can be deployed in a modified manner in
 wireless and power line networks as well.
 \\
 A threat analysis will be conducted to prove that the system can withstand the defined attacks and is robust,
-i.e. that it can recover from erroneous states. This will be done by exposing the demonstration network to the various defined attacks. 
+i.e., that it can recover from erroneous states. This will be done by exposing the demonstration network to the various defined attacks. 
 
 \section{Structure of the work}
 
 Chapter \ref{ch:prerequisites} introduces the required prerequisites for providing integrity and confidentiality, handling symmetric and asymmetric ciphers. 
-Chapter \ref{ch:availability} explains the term availability and is concluded by state-of-the art technologies implementing highly-available communication networks.
+Afterwards Chapter \ref{ch:availability} explains the term availability and is concluded by state-of-the art technologies implementing highly-available communication networks.
 \\
-Chapter \ref{ch:knx} explains the structure of the \gls{knx} standard, and introduces the most important cryptographic extensions.
+The structure of the \gls{knx} standard and the most important cryptographic extensions are explained in Chapter \ref{ch:knx}.   
 \\
-Chapter \ref{ch:concept} suggests a \gls{knx} prototype, applicable in environments with increased availability needs.
+Chapter \ref{ch:concept} suggests a \gls{knx} extension, applicable in environments with increased availability needs.
 \\
-Finally, chapter \ref{ch:implementation} explains the implementation of the prototype, evaluates it and discusses the results.
+The work is concluded by Chapter \ref{ch:implementation}, which explains the implementation of the prototype, evaluates it and discusses the results.
 
 
 

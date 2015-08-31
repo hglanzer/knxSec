@@ -87,23 +87,23 @@ Figure \ref{fig:Concthreads}.
 \caption{Threads used in the implementation}
 \label{fig:Concthreads}
 \end{figure}
-This design allows to assign one timing-critical task to every thread: every \textit{READ} thread immediately opens its corresponding bus interface in "monitor" mode, allowing it
+This design allows to assign one timing-critical task to every thread: every READ thread immediately opens its corresponding bus interface in "monitor" mode, allowing it
 to read all the bus traffic on the corresponding line. After that, it enters a loop, performing a blocking read call to \gls{eibd} on every iteration.
 This will set the whole thread to "blocked", and the operating
 system will set another thread or process as runnable. Whenever data is available to the blocked thread, the operating system will buffer the received data and eventually set the
 thread runnable again. Thus, no frames will be missed.
 \\
 \\
-The main-threads of the secure lines (i.e. \textit{SEC0 MAIN} and \textit{SEC1 MAIN}) will start the synchronization sequence, as described in Section \ref{syncService}, and send out
-the synchronization messages. After  that, the main threads will enter the \textit{READY} state and listen for discovery messages.
+The main-threads of the secure lines (i.e., SEC0 MAIN and SEC1 MAIN) will start the synchronization sequence, as described in Section \ref{syncService}, and send out
+the synchronization messages. After  that, the main threads will enter the READY state and listen for discovery messages.
 \\
 \\
-Whenever the \textit{CLR READ} thread receives new data, the frame will be forwarded to both \textit{SEC MAIN} threads together with the counter for the unique source address, contained
-in the frame. Both \textit{SEC MAIN} threads will send discovery requests, independently from each other, each containing newly chosen \gls{ecdh} parameters. Responsible gateways (i.e.
+Whenever the CLR READ thread receives new data, the frame will be forwarded to both SEC MAIN threads together with the counter for the unique source address, contained
+in the frame. Both SEC MAIN threads will send discovery requests, independently from each other, each containing newly chosen \gls{ecdh} parameters. Responsible gateways (i.e.,
 gateways which are connected to the wanted destination address through their cleartext lines) will compute a new \gls{ecdh} parameter, derive distinct shared secrets for both lines,
 save them and send the parameters contained in the discovery responses back to the requesting device. The requester than derives the same shared secrets, and sends the encrypted frame,
 contained in extended \gls{knx} frames, to the destination gateways, which will check and decrypt them and forward both decrypted frames and the corresponding global counter values
-to the \textit{CLR MAIN} thread. Here, the duplicate will be discarded and one frame will be sent to its final destination.
+to the CLR MAIN thread. Here, the duplicate will be discarded and one frame will be sent to its final destination.
 \\
 \\
 A thread can be created in C with the function \textit{pthread\_create()}. The function expects four parameters:
@@ -193,7 +193,7 @@ several statements on machine language level, forming a \textit{critical region}
 If thread 1 gets interrupted after the second step and thread 2 afterwards finishes, thread 1 will overwrite the value just written by thread 2 and thus produce a false result.
 \\
 \\
-Such a critical region must be protected such that only one thread can enter it, a requirement also called \textit{mutex}, short for \textit{mut}ual \textit{ex}clusion.
+Such a critical region must be protected such that only one thread can enter it, a requirement also called mutex, short for \textit{mut}ual \textit{ex}clusion.
 The implementation uses the \gls{posix} \textit{pthread mutex} to lock critical regions, as shown in Listing \ref{lst:mutex}.  
 \begin{lstlisting}[style=cStyle,caption={Locking a critical region},label=lst:mutex]
 if(pthread_mutex_init(&globalMutex, NULL) != 0)
@@ -207,7 +207,7 @@ pthread_mutex_lock(&globalMutex);
 */
 pthread_mutex_unlock(&globalMutex);
 \end{lstlisting}
-\textit{globalMutex} is a global variable of type \textit{pthread\_mutex\_t}, shared between all threads which are accessing the shared resource. After calling pthread\_mutex\_lock(),
+globalMutex is a global variable of type \textit{pthread\_mutex\_t}, shared between all threads which are accessing the shared resource. After calling pthread\_mutex\_lock(),
 there are two possibilities: if the mutex is unlocked, the call will lock it and continue the program flow. If it is already locked, the call to pthread\_mutex\_lock() will block and
 the corresponding thread will be set to blocking.
 If the mutex is unlocked by the possessing thread, the blocked thread will be set active, lock for his part and continue execution.\footnote{Of course, pthread\_mutex\_lock() must
@@ -220,7 +220,7 @@ a low level interface. If possible, the high level interface should be used, but
 \\
 \\
 Documentation and code snippets can be found on https://wiki.openssl.org, another important source of information are the man-pages (available under Debian after installing the
-package \textit{libssl-doc}) and the header files.
+package libssl-doc) and the header files.
 \\
 \\
 It is noted that in the examples below no error checking of the return codes returned by the OpenSSL calls is executed. This checks are omitted here just for clarity, nevertheless it is
@@ -229,12 +229,12 @@ imperative to always check for error conditions.
 \subsubsection{Key derivation}
 To obtain a shared secret between two security gateways, \gls{ecdh} over the curve
 "NID X9 62 prime256v1" is used. This is a \gls{nist} elliptic curve defined over the 256 bit prime
-$p_{256} = 2^{256} - 2^{224} + 2^{192} + 2^{96} - 1$, thus the resulting points will have coordinates of size 256 bits each. The uncompressed form of such a point would consist of 65
+$p_{256} = 2^{256} - 2^{224} + 2^{192} + 2^{96} - 1$, thus the resulting points will have coordinates of size 256 bits each. The uncompressed form of such a point consists of 65
 byte: 1 byte for a leading tag, 32 byte for the x and 32 byte for the y coordinate of the point. Because of the quadratic form of the curve (see Section \ref{sec:ecIntro} for a recap),
 it suffices to transmit only the x coordinate and one byte, determining the sign of the solution. The corresponding y coordinate can than be recovered.
 \\
 \\
-Whenever a security gateway receives a new frame on its cleartext line, it generates a new \gls{ecdh} parameter, i.e. it generates a new key pair, the public key is then sent to all
+Whenever a security gateway receives a new frame on its cleartext line, it generates a new \gls{ecdh} parameter, i.e., it generates a new key pair, the public key is then sent to all
 other security gateways in the segment:
 \begin{lstlisting}[style=cStyle,caption={Generating a \gls{ecdh} parameter},label=lst:genEC]
 EC_KEY *pkey;
@@ -370,7 +370,7 @@ data transmission from the \gls{dh} parameters the attacker would need to solve 
 Additionally, the attacker can learn 
 the \textit{encrypted} value of the requested group address and also learns which gateway(s) are responsible for the encrypted gateway. It is argued that it is impossible for the
 attacker to learn the underlying cleartext group address because of the 256 bit \gls{aes} encryption, assuming that the attacker does not know the long term encryption key.
-Nevertheless, the attacker is able to derive communication profiles, i.e.
+Nevertheless, the attacker is able to derive communication profiles, i.e.,
 which devices behind which security gateways are communicating with each other, and therefore enables the attacker to derive the basic topology of the network.
 
 \subsubsection{Active attacks}
@@ -386,7 +386,7 @@ Replaying discovery messages is considered pointless because of the freshness pr
 because of the outdated value of $Ctr_{global}$, which will just drop the replayed frame. 
 \\
 Attacking alternating secure communication lines will also fail: for example, the attacker could at first
-shortcut one secure communication line s.t. the discovery message will not reach it's recipient(s). Receiving the discovery message on the other line and injecting the frame to the
+shortcut one secure communication line such that the discovery message will not reach it's recipient(s). Receiving the discovery message on the other line and injecting the frame to the
 previously blocked line would result in a fresh counter value. Nevertheless, such frames will bear the wrong secure line number as part of the source address (for discovery request
 messages, with the destination field set to the broadcast address) or source- and destination address, and will thus be detected.
 Alternating the source- and/or destination-address will invalidate the \gls{mac2}, forcing the attacker again to forge the \gls{mac2}, an infeasible task as already stated.

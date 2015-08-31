@@ -1,6 +1,6 @@
 \section{KNX security concept}
 As shown in Section \ref{hbaSec}, a paradigm shift towards increased security in \glspl{hbas} can be observed. 
-harming the basic \gls{knx} standard which does not specify any security mechanisms for control information:
+Unfortunately, the basic \gls{knx} standard does not specify any security mechanisms for control information:
 \\
 \\
 \textit{"For KNX, security is a minor concern, as any breach of security requires local access to the network. 
@@ -10,7 +10,7 @@ Hence, security aspects are less of a concern for KNX field level media."} \cite
 \\
 \\
 For \gls{knx}/\gls{ip}, the physical containment arguments do not apply. To counter this, it is proposed to use firewalls and \glspl{vpn} to prevent unauthorized access,
-as well as hiding critical network parameters from public. The latter concept is also known as \textit{security by obscurity}, offering - if at all - only 
+as well as hiding critical network parameters from public. The latter concept is also known as "security by obscurity", offering - if at all - only 
 little protection.
 \\
 For management communication, a rudimentary, password-based control is used. Therefore, \gls{knx} suffers the following security flaws 
@@ -21,8 +21,8 @@ arbitrary management messages. No methods are foreseen for generation or distrib
 For control information, an adversary can directly inject arbitrary messages to control the network, allowing passive and active attacks too.
 These shortcomings clearly disqualified \gls{knx} for usage in critical environments, restricting its possible field of application.
 \\
-Today, \gls{hbas} systems are used on a large scale, and the available processing power on embedded computing platforms has risen significantly, so the deployment
-of such systems would be possible also in critical environments, under the condition that proper security mechanisms are deployed. For \gls{knx}, several extensions
+Today, \glspl{hbas} are used on a large scale, and the available processing power on embedded computing platforms has risen significantly. Therefore, the deployment
+of such systems would be possible also in critical environments if proper security mechanisms are deployed. For \gls{knx}, several extensions
 exist which will be introduced in the next sections.
 
 \subsection{KNX Data Security}
@@ -56,7 +56,7 @@ has some specific permissions.
 EIBsec is another extension to \gls{knx}, providing data integrity, confidentiality and freshness, allowing its deployment in security-critical environments.
 A semi-centralized approach is taken here by using special key servers, responsible for dedicated sets
 of keys, providing a sophisticated key management. EIBsec divides a \gls{knx} network into subnets, connected by devices called \glspl{acu}. Beside their native
-task, i.e. routing traffic, they
+task, i.e., routing traffic, they
  are responsible for the key management of their network segments, which includes key generation, distribution and revocation. Every standard device that
  wishes to communicate with other devices must at first retrieve the corresponding secret key from its responsible \gls{acu}, which can therefore control the
  group membership of the requesting device by allowing or denying the request respectively by revoking the key at a later point in time.
@@ -87,11 +87,11 @@ with the public key of the \gls{ets}.
 in the unicast case, the device initiating the communication - called client - obtains the key set from the target device by a 2-step handshake: at first, mutual entity 
 authenticity is established by utilizing the certificate provided by the \gls{ets}. Afterwards the keyset is obtained from the target, which concludes the second
 phase.
-\item In the last step, secure communication can take place, i.e. the the client is able to
+\item In the last step, secure communication can take place, i.e., the the client is able to
 encrypt the data with the obtained key and sends it to the target device.
 \end{itemize}
 For the multicast scenario, a distinct coordinator, responsible for maintaining the group key, is necessary. Every powered-up device
-identifies the coordinator as soon as possible by broadcasting \textit{hello} requests, adopting the coordinator role if no replies are received in time.
+identifies the coordinator as soon as possible by broadcasting "hello" requests, adopting the coordinator role if no replies are received in time.
 To actually send a payload, the group key is obtained from the coordinator and the data is sent to the group, analog to the unicast case.
 By adding mechanisms to detect "dead" coordinators and delegating the coordinator role to a different device, the design avoids a \gls{spof}.
 

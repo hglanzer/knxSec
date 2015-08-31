@@ -765,6 +765,43 @@
   \field{year}{2004}
 \endentry
 
+\entry{ccm}{report}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Whiting}{W.}%
+     {D.}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Housley}{H.}%
+     {R}{R}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Ferguson}{F.}%
+     {N.}{N.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {RFC Editor}%
+  }
+  \strng{namehash}{WDHRFN1}
+  \strng{fullhash}{WDHRFN1}
+  \field{howpublished}{Internet Requests for Comments}
+  \field{number}{2104}
+  \field{title}{Counter with CBC-MAC (CCM)}
+  \verb{url}
+  \verb http://tools.ietf.org/html/rfc3610
+  \endverb
+  \list{institution}{1}{%
+    {RFC Editor}%
+  }
+  \field{type}{RFC}
+  \field{month}{09}
+  \field{year}{2003}
+\endentry
+
 \entry{eurocryptVaudenay02}{inproceedings}{}
   \name{author}{1}{}{%
     {{}%

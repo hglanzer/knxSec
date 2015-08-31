@@ -34,9 +34,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\thesistitle{KNX for Safety Critical Environments}
+\thesistitle{Hihgly available KNX networks}
 %\thesissubtitle{Building a secure and dependable Layer} % optional
-\thesisdate{1.12.2014}
+\thesisdate{14.8.2015}
 
 % all titles and designations have to be gender-related!
 \thesisdegree{Diplom-Ingenieur}{Diplom-Ingenieur}
@@ -46,8 +46,8 @@
 \thesisauthoraddress{Hardtgasse 25 / 12A, 1190 Wien} % your address
 \thesismatrikelno{0727156} % your registration number
 
-\thesisbetreins{ao.Univ.-Prof. Dipl.-Ing. Wolfgang Kastner}
-\thesisbetrzwei{Dr. Lukas Krammer}
+\thesisbetreins{Ao.Univ-Prof. DI Dr. Wolfgang Kastner}
+\thesisbetrzwei{DI Dr. Lukas Krammer}
 %\thesisbetrdrei{Dr. Vorname Familienname} % optional
 
 % define page numbering styles
@@ -129,7 +129,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % optional acknowledgements may be included in german or in english
+\selectlanguage{ngerman}
 \input{chapters/danksagung} 		% optional
+\selectlanguage{english}
 %\input{chapters/acknowledgements}	% optional
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
