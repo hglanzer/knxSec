@@ -1,4 +1,4 @@
-\section{KNX security concept}
+\section{KNX security concept}\label{sec:knxSecConcept}
 As shown in Section \ref{hbaSec}, a paradigm shift towards increased security in \glspl{hbas} can be observed. 
 Unfortunately, the basic \gls{knx} standard does not specify any security mechanisms for control information:
 \\
@@ -18,7 +18,7 @@ For management communication, a rudimentary, password-based control is used. The
 used keys are transmitted as cleartext, enabling an attacker to perform a passive attack to obtain the password. Subsequently, the attacker can mount an active
 attack, injecting
 arbitrary management messages. No methods are foreseen for generation or distribution of the keys.
-For control information, an adversary can directly inject arbitrary messages to control the network, allowing passive and active attacks too.
+For control information, an adversary can directly inject arbitrary messages to control the network, allowing passive and active attacks, too.
 These shortcomings clearly disqualified \gls{knx} for usage in critical environments, restricting its possible field of application.
 \\
 Today, \glspl{hbas} are used on a large scale, and the available processing power on embedded computing platforms has risen significantly. Therefore, the deployment
@@ -53,7 +53,7 @@ has some specific permissions.
 
 \subsection{EIBsec}
 
-EIBsec is another extension to \gls{knx}, providing data integrity, confidentiality and freshness, allowing its deployment in security-critical environments.
+EIBsec is another extension to \gls{knx}, providing data integrity, confidentiality and freshness \cite{WG2006d}.
 A semi-centralized approach is taken here by using special key servers, responsible for dedicated sets
 of keys, providing a sophisticated key management. EIBsec divides a \gls{knx} network into subnets, connected by devices called \glspl{acu}. Beside their native
 task, i.e., routing traffic, they
@@ -69,7 +69,7 @@ on transport level, allowing standard routers to handle the datagrams. As block 
 \subsection{KNX IP Security}
 
 This work \cite{WG2009a} focuses on securing the \gls{knx} \gls{ip} specification, which can be used as backbone for connecting distinct \gls{knx} installations \cite{5195839}.
-Thanks to the widespread use of \gls{tcp}/\gls{ip}, a wide range of physical transport mechanisms can be utilized.
+Thanks to the widespread use of \gls{ip}, a wide range of physical transport mechanisms can be utilized.
 \\
 A structure comparable to the design of \gls{tls} is defined by building a distinct security layer, residing above the transport layer (therefore, it directly
 connects the transport to the application layer, because session- and presentation layer are empty, as defined by the \gls{knx} specifications, see Section

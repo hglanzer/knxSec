@@ -1,5 +1,5 @@
 \section{Summary}
-Examining the security mechanisms for \gls{knx} it shows up that only rudimentary precautions were defined in the basic standard simply because they were not considered
+When examining the security mechanisms for \gls{knx} it shows up that only rudimentary precautions were defined in the basic standard simply because they were not considered
 necessary. 
 \\
 This perspective changed and different extensions where introduced. 
@@ -7,7 +7,7 @@ Modes for application-transparent encryption and authentication were introduced 
 "KNX IP Security".
 \\
 \\
-Despite the \gls{knx} extensions, no solution providing high availability exists. Therefore, this work proposes to combination of cryptographic measurements with
+Despite the \gls{knx} extensions, no solution providing high availability exists. Therefore, this work proposes a solution which brings together cryptographic measurements with
 redundancy mechanisms, allowing its deployment in more demanding environments.
 
 

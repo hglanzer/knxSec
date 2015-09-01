@@ -34,7 +34,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\thesistitle{Hihgly available KNX networks}
+\thesistitle{Highly available KNX networks}
 %\thesissubtitle{Building a secure and dependable Layer} % optional
 \thesisdate{14.8.2015}
 
@@ -209,6 +209,14 @@
 \input{chapters/implementation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Results}
+\label{ch:conclusion}
+\input{chapters/conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \appendix
 

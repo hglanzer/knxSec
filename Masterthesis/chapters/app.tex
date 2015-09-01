@@ -140,7 +140,7 @@ To access the \gls{knx} TP1 bus, i.e., to write datagrams to and receive datagra
 from the company \textit{Busware} are used. Depending on the revision, the bus couplers creates a new device which is used as \gls{url} by the \gls{eibd}.
 The coupler will be accessible by \textit{/dev/ttyACMx}, where x is the number of the device. It may be necessary to flash the bus couplers with the correct
 firmware first. The easiest way to check this is to use command \ref{lst:kern.log} and look for output similar to listing \ref{lst:device} when plugging 
-the coupler into an \gls{usb} slot.
+the coupler into a \gls{usb} slot.
 
 \begin{lstlisting}[style=BashInputStyle,label=lst:device]
 ... usb 1-1.2: new full-speed USB device number 19 using ehci_hcd
@@ -166,9 +166,9 @@ in \ref{lst:flash} must be executed.
 
 \begin{figure}
     \centering
-    \caption{Busware KNX-USB coupler}
     \label{fig:busware}
 \includegraphics[scale=0.2]{figures/busware.png}
+    \caption{Busware KNX-USB coupler}
 \end{figure}
 
 \section{UDEV}
@@ -186,7 +186,7 @@ The test environment consists of 2 RaspberryPis, as shown in Figure \ref{fig:sec
 
 \chapter{Code snippets and configuration files}
 
-\begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for static ip address},label=lst:staticIP]
+\begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for static \gls{ip} address},label=lst:staticIP]
 # device: eth0
   auto  eth0
   iface eth0 inet static
@@ -196,7 +196,7 @@ The test environment consists of 2 RaspberryPis, as shown in Figure \ref{fig:sec
   gateway   192.168.0.1
 \end{lstlisting}
 
-\begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for dynamic ip address},label=lst:dynamicIP]
+\begin{lstlisting}[style=BashInputStyle,caption={Raspbian configuration for dynamic \gls{ip} address},label=lst:dynamicIP]
 # device: eth0
   iface eth0 inet dhcp
 \end{lstlisting}

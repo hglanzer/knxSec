@@ -33,6 +33,129 @@
   \endverb
 \endentry
 
+\entry{1435745}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Kastner}{K.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Neugschwandtner}{N.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Soucek}{S.}%
+     {S.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Newmann}{N.}%
+     {H.M.}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KW+1}
+  \strng{fullhash}{KWNGSSNH1}
+  \field{number}{6}
+  \field{pages}{1178\bibrangedash 1203}
+  \field{title}{Communication Systems for Building Automation and Control}
+  \field{volume}{93}
+  \field{journaltitle}{Proceedings of the IEEE}
+  \field{month}{06}
+  \field{year}{2005}
+\endentry
+
+\entry{knxSpec}{unpublished}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Association}{A.}%
+     {KNX}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AK1}
+  \strng{fullhash}{AK1}
+  \field{pages}{11}
+  \field{title}{System Specifications, Overview}
+  \verb{url}
+  \verb http://www.knx.org/knx-en/knx/technology/specifications/index.php
+  \endverb
+\endentry
+
+\entry{5332331}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Granzer}{G.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Praus}{P.}%
+     {F.}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kastner}{K.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GWPFKW1}
+  \strng{fullhash}{GWPFKW1}
+  \field{number}{11}
+  \field{pages}{3622\bibrangedash 3630}
+  \field{title}{Security in Building Automation Systems}
+  \field{volume}{57}
+  \field{journaltitle}{Industrial Electronics, IEEE Transactions on}
+  \field{year}{2010}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{secAn}{incollection}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Koeune}{K.}%
+     {François}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Standaert}{S.}%
+     {François-Xavier}{F.-X.}%
+     {}{}%
+     {}{}}%
+  }
+  \name{editor}{3}{}{%
+    {{}%
+     {Aldini}{A.}%
+     {Alessandro}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gorrieri}{G.}%
+     {Roberto}{R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Martinelli}{M.}%
+     {Fabio}{F.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer Berlin Heidelberg}%
+  }
+  \strng{namehash}{KFSFX1}
+  \strng{fullhash}{KFSFX1}
+  \field{booktitle}{Foundations of Security Analysis and Design III}
+  \field{pages}{78\bibrangedash 108}
+  \field{series}{Lecture Notes in Computer Science}
+  \field{title}{A Tutorial on Physical Security and Side-Channel Attacks}
+  \field{volume}{3655}
+  \field{year}{2005}
+\endentry
+
 \entry{stallings}{inbook}{}
   \name{author}{1}{}{%
     {{}%
@@ -1494,129 +1617,6 @@
   \field{year}{1981}
 \endentry
 
-\entry{1435745}{article}{}
-  \name{author}{4}{}{%
-    {{}%
-     {Kastner}{K.}%
-     {W.}{W.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Neugschwandtner}{N.}%
-     {G.}{G.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Soucek}{S.}%
-     {S.}{S.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Newmann}{N.}%
-     {H.M.}{H.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{KW+1}
-  \strng{fullhash}{KWNGSSNH1}
-  \field{number}{6}
-  \field{pages}{1178\bibrangedash 1203}
-  \field{title}{Communication Systems for Building Automation and Control}
-  \field{volume}{93}
-  \field{journaltitle}{Proceedings of the IEEE}
-  \field{month}{06}
-  \field{year}{2005}
-\endentry
-
-\entry{knxSpec}{unpublished}{}
-  \name{author}{1}{}{%
-    {{}%
-     {Association}{A.}%
-     {KNX}{K.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{AK1}
-  \strng{fullhash}{AK1}
-  \field{pages}{11}
-  \field{title}{System Specifications, Overview}
-  \verb{url}
-  \verb http://www.knx.org/knx-en/knx/technology/specifications/index.php
-  \endverb
-\endentry
-
-\entry{5332331}{article}{}
-  \name{author}{3}{}{%
-    {{}%
-     {Granzer}{G.}%
-     {W.}{W.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Praus}{P.}%
-     {F.}{F.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Kastner}{K.}%
-     {W.}{W.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{GWPFKW1}
-  \strng{fullhash}{GWPFKW1}
-  \field{number}{11}
-  \field{pages}{3622\bibrangedash 3630}
-  \field{title}{Security in Building Automation Systems}
-  \field{volume}{57}
-  \field{journaltitle}{Industrial Electronics, IEEE Transactions on}
-  \field{year}{2010}
-  \warn{\item Invalid format of field 'month'}
-\endentry
-
-\entry{secAn}{incollection}{}
-  \name{author}{2}{}{%
-    {{}%
-     {Koeune}{K.}%
-     {François}{F.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Standaert}{S.}%
-     {François-Xavier}{F.-X.}%
-     {}{}%
-     {}{}}%
-  }
-  \name{editor}{3}{}{%
-    {{}%
-     {Aldini}{A.}%
-     {Alessandro}{A.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Gorrieri}{G.}%
-     {Roberto}{R.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Martinelli}{M.}%
-     {Fabio}{F.}%
-     {}{}%
-     {}{}}%
-  }
-  \list{publisher}{1}{%
-    {Springer Berlin Heidelberg}%
-  }
-  \strng{namehash}{KFSFX1}
-  \strng{fullhash}{KFSFX1}
-  \field{booktitle}{Foundations of Security Analysis and Design III}
-  \field{pages}{78\bibrangedash 108}
-  \field{series}{Lecture Notes in Computer Science}
-  \field{title}{A Tutorial on Physical Security and Side-Channel Attacks}
-  \field{volume}{3655}
-  \field{year}{2005}
-\endentry
-
 \entry{Granzer05securityin}{report}{}
   \name{author}{4}{}{%
     {{}%
@@ -1661,6 +1661,32 @@
   \field{title}{{Application Note 158 -- KNX Data Security}}
   \field{month}{05}
   \field{year}{2013}
+\endentry
+
+\entry{WG2006d}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Granzer}{G.}%
+     {W}{W}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Neugschwandtner}{N.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kastner}{K.}%
+     {W.}{W.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GWNGKW1}
+  \strng{fullhash}{GWNGKW1}
+  \field{booktitle}{{Konnex Scientific Conference}}
+  \field{title}{{EIBsec: A Security Extension to KNX/EIB}}
+  \field{month}{11}
+  \field{year}{2006}
 \endentry
 
 \entry{WG2009a}{inproceedings}{}
@@ -1732,32 +1758,6 @@
   \field{title}{Securing IP backbones in building automation networks}
   \field{month}{06}
   \field{year}{2009}
-\endentry
-
-\entry{WG2006d}{inproceedings}{}
-  \name{author}{3}{}{%
-    {{}%
-     {Granzer}{G.}%
-     {W}{W}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Neugschwandtner}{N.}%
-     {G.}{G.}%
-     {}{}%
-     {}{}}%
-    {{}%
-     {Kastner}{K.}%
-     {W.}{W.}%
-     {}{}%
-     {}{}}%
-  }
-  \strng{namehash}{GWNGKW1}
-  \strng{fullhash}{GWNGKW1}
-  \field{booktitle}{{Konnex Scientific Conference}}
-  \field{title}{{EIBsec: A Security Extension to KNX/EIB}}
-  \field{month}{11}
-  \field{year}{2006}
 \endentry
 
 \entry{rfc2246}{report}{}

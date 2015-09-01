@@ -4,7 +4,7 @@ The \gls{osi} standardizes the communication between different, independent syst
 by grouping the needed functions into 7 sublayers to provide interchangeability and abstraction. Every layer provides services to its next-higher layer, and
 uses the services provided by its next-lower layer. Every service is defined by standardized interfaces - that way any layer can be modified internally without
 compromising the function of the system, as long as the defined interfaces are implemented. This fragmentation of one service follows the paradigm of 
-\textit{impera et divide} \footnote{latin for: divide and rule} and facilitates the building of complex systems by dividing one complex problem into subsequent,
+\textit{divide et impera}\footnote{latin for: divide and rule} and facilitates the building of complex systems by dividing one complex problem into subsequent,
 less-complex problems.
 \\
 \gls{knx} implements this model, omitting 
@@ -28,19 +28,19 @@ as defined by BatiBUS, is the basis medium, consisting of a twisted pair cabling
 devices can be fed over the bus. Data transfer is done asynchronously, with bidirectional, half-duplex
 communication and a datarate of 9600 \gls{bps}. \gls{TP}-1 uses collision avoidance, and allows all topologies beside rings. 
 \\
-Because this work is base on the \gls{TP}1 - part of \gls{knx} only, this medium will be explained in more detail in the next section.
+Because this work is based on the \gls{TP}1 - part of \gls{knx} only, this medium will be explained in more detail in the next section.
 \\
 \\
 PL110, which was also inherited from \gls{eib}, uses power line installations for communications. The carrier uses spread frequency shift keying, and can be used 
 for bidirectional, half duplex  communication with an even lower data rate of 1200 bit/sec. \gls{knx} \gls{rf} is used for short range wireless communication
-at 868,3 MHz. \gls{knx}net/\gls{ip} allows the integration of \gls{knx} into networks using \gls{TCP} / \gls{ip} for communication. Here, three different communication
+at 868,3 MHz. \gls{knx}net/\gls{ip} allows the integration of \gls{knx} into networks using \gls{ip} for communication. Here, three different communication
 modes are defined: tunneling mode is used for configuration and monitoring a client device by a \gls{knx}net/\gls{ip} server. Routing mode is used
 for connecting \gls{knx} lines over \gls{ip}, while \gls{knx} \gls{ip} is used for direct communication between \gls{knx} devices. \cite{KraInnosec2013}
 
 \subsubsection{TP-1}
 
 The accurate name for this medium is 'Physical Layer type Twisted Pair', with variants
-PhL \gls{TP}-1-64 and PhL \gls{TP}-1-256, which is backward compatible to the former one. While the first one allows
+PhL \gls{TP}-1-64 and PhL \gls{TP}-1-256, which are backward compatible to the former one. While the first one allows
 the connection of up to 64 devices, the latter one allows up to 256 devices connected in a linear, star, tree or
 mixed topology as one physical segment, also called a line.
 \\
@@ -54,7 +54,7 @@ up to 16 areas to one network, thus providing the maximum size of a network cons
 \begin{itemize}
  \item up to 256 devices per line
  \item up to 16 lines per area = 4096 devices in 16 lines
- \item up to 16 areas for whole network = 65536\footnote{it is to be noted that the actual number of usable devices is smaller because routers have
+ \item up to 16 areas for whole network = 65536\footnote{It is to be noted that the actual number of usable devices is smaller because routers have
  their own address} devices in 16 areas
 \end{itemize}
 Gateways are used to connect \gls{knx} networks to non-\gls{knx} networks.
@@ -90,9 +90,9 @@ While standard frames can bear up to
 \subsubsection{Standard L\_Data\_Frame}
 
 Every standard frame starts with the control field, determining the frame type. 
-After that, sender address and destination address, each 2 byte, follow.
+After that, sender address and destination address, each 2 bytes, follow.
 The next byte contains 1 address type bit, 3 bits which belong to the \gls{lsdu} of the next higher layer
-and 4 bits of length information, resulting in an maximum payload of 15 bytes(by design, it is also allowed to set this length
+and 4 bits of length information, resulting in an maximum payload of 15 bytes (by design, it is also allowed to set this length
 field to 0, i.e., to send an empty data frame). After the corresponding number of payload bytes, a check byte completes the frame. This check
 frame is defined as an odd parity over all preceding bytes, which represents a logical NOT XOR function. 
 
@@ -115,7 +115,7 @@ frame is defined as an odd parity over all preceding bytes, which represents a l
 
 The extended frame starts with a control field, as a standard frame. After that, a special \gls{ctrle} follows, as shown in Figure \ref{fig:ctrle}.
 Source- and destination addresses, each 2 bytes, follow. To allow the bigger payload, the next byte is used as length field, with the value 0xFF reserved
-as escape code, resulting in a maximum payload of 254 byte. After the length field, the payload and the check byte, as defined above, follow.
+as escape code, resulting in a maximum payload of 254 bytes. After the length field, the payload and the check byte, as defined above, follow.
 
 \begin{figure}
     \centering
@@ -174,11 +174,11 @@ Poll data responses as well as acknowledgement frames each just contain 1 byte, 
 The main task of the network layer is the routing and forwarding of packets, so the main parameter on this layer is the destination address of the
 datagram. Additionally, \gls{knx} reserves 3 bits of every standard- and extended data frame as
 hop count. This counter is decremented by every router and the frame is discarded if the counter reaches the value zero. This mechanism, known from
-\gls{ipv4} \cite{rfc791} \footnote{Originally, this was called \gls{ttl}}, avoids the infinite circulation of packages within an incorrectly configured network.
+\gls{ipv4} \cite{rfc791}\footnote{Originally, this was called \gls{ttl}}, avoids the infinite circulation of packages within an incorrectly configured network.
 
 \subsection{Transport layer}\label{sec:knxTransportLayer}
 
-Accoriding to the \gls{osi} modell, this layer provides point-to-point communication for hosts.
+According to the \gls{osi} modell, this layer provides point-to-point communication for hosts.
 \\
 In \gls{knx}, the connection orientated, reliable point-to-point communication mode addresses the \gls{ia} of a remote device and uses a timer to detect timeouts.
 Up to to 3 retransmissions are allowed if the sent datagram is not acknowledged. A simple handshake - similar to \gls{tcp} - is used, as shown in Figure \ref{fig:handshake}.
@@ -210,7 +210,7 @@ This layer is responsible for maintaining sessions, i.e., it provides services t
 
 \subsection{Presentation layer}
 
-This layer allows a system-independent data representation, which is not necessary in \gls{knx} because the usage of standardized \glspl{dt}.
+This layer allows a system-independent data representation, which is not necessary in \gls{knx} because the usage of standardized \glspl{dpt}.
 
 \subsection{Application layer}
 

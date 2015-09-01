@@ -31,7 +31,7 @@ trusted, while \textbf{accountability} allows to trace the actions of an entity 
 %Vice versa, authenticating the sender of a message is only useful if the message itself cannot be modified by an adversary, i.e., integrity is guaranteed.
 %To avoid confusion, the term integrity is used if the meaning is clear from the context.
 \subsection{Threats}
-Threats form a \textit{potential} violation of security - a violation must not need to occur for there to be a threat. Stallings \cite{stallingsThreat}
+Threats form a \textit{potential} violation of security. Stallings \cite{stallingsThreat}
 divides threat consequences into four categories:
 \begin{itemize}
  \item \textbf{Unauthorized disclosure} is a threat aimed against confidentiality. It occurs when an entity gains access to information for which it is not authorized.
@@ -197,14 +197,14 @@ is suggested \cite{codebreakers}.
 One of the oldest witnesses for cryptography are hieroglyphs used in Egypt about 2000 B.C., forming the predecessor
 of a simple substitution cipher. 500 B.C., the "skytale" was used by greek and spartan military leaders, performing a transposition cipher. Another classical
 example is the "Caesar Cipher", named after its inventor and used about 100 B.C. to hide information by replacing every letter of the alphabet by a letter some fixed number down the alphabet,
-thus performing a substitution cipher. Ahmas al-Qalqashandi, an egypt writer, introduced the frequency analysis, a method for breaking substitution ciphers,
+thus performing a substitution cipher. Ahmas al-Qalqashandi, an Egypt writer, introduced the frequency analysis, a method for breaking substitution ciphers,
 in the 14th century. About 300 years later, the "Geheime Kabinets-Kanzlei" in Vienna routinely intercepts, copies and 
  re-seales diplomatic correspondence to embassies, and manages to decrypt a great percentage of the ciphertexts. In the beginning of the 20th century, the 
  first cryptographic device called "Enigma"\footnote{classical greek for "riddle"} is patented for commercial use and is later used in World War 2 by german troops for 
  military communication. Successful attacks against the "Enigma" cipher are demonstrated by polish mathematicians even before outbreak of the war, and systematic
  decryption of "Enigma" - based ciphertexts are conducted in Bleatchley Park, U.K., by using so called "Turing-Bombs", giving the allies invaluable advantages.
 The second half of the 20th century introduces public key cryptography. In 1976 Whitfield Diffie and Martin Hellman specify a 
-protocol for key exchange, based on a public key system developed by Ralph Merkle. One year later, the RSA public key encryption is invented by the american
+protocol for key exchange, based on a public key system developed by Ralph Merkle. One year later, the RSA public key encryption is invented by the American
 mathematicians Rivest, Shamir and Adleman.
 \\
 Cryptography is basically the art of hiding information by turning cleartext
@@ -216,7 +216,7 @@ The next sections deal with how to achieve confidentiality, the
 concepts of how to achieve integrity are partially based on the confidentiality methods and are introduced in Section \ref{Integrity}.
 \\
 \\
-Key, clear- and cipher text are strings built from the alphabet $\mathcal{A}$. 
+Key, clear- and ciphertext are strings built from the alphabet $\mathcal{A}$. 
 \begin{itemize}
  \item $\mathcal{A}$ is a finite set, denoting the alphabet used, for example
  $\mathcal{A} = \{0, 1\}$
@@ -224,7 +224,7 @@ Key, clear- and cipher text are strings built from the alphabet $\mathcal{A}$.
  \item $\mathcal{M}$ denotes the message space, consisting of all strings that can be built with the 
  underlying alphabet
  \item $\mathcal{C}$ denotes the ciphertext space, also consisting of the strings from 
- the alphbet
+ the alphabet
 $\mathcal{A} = \{0, 1\}$
 \item $\mathcal{K}$ denotes the keyspace, also built from the alphabet. Key $e$ is used for encryption, while key $d$ is used for decryption.
 Both keys are also referred to as keypair, written $(e,d)$. 
@@ -271,15 +271,15 @@ two probabilities constitute the a priori knowledge of an attacker.
 \\
 A message is picked, encrypted
 and sent to the receiver. The eavesdropper, intercepting the message, can calculate the a posteriori probabilities for all possible cleartext messages, 
-leading to the observed cipher text - these are the conditional properties that under a fixed key, encrypting the cleartext message lead to the
+leading to the observed ciphertext - these are the conditional properties that under a fixed key, encrypting the cleartext message lead to the
 observed ciphertext message.
 \\
 If the a posteriori probabilities for all possible encryptions are the same as all a priory probabilities, the attacker has learned absolutely
-nothing from intercepting the cipher text, which is defined by Shannon as "perfect secrecy". Such a cipher cannot be broken by a ciphertext-only-attack,
+nothing from intercepting the ciphertext, which is defined by Shannon as "perfect secrecy". Such a cipher cannot be broken by a ciphertext-only-attack,
 even by an adversary with unlimited time and processing power.
 \\
 Shannon proved that for a perfectly secure cipher, the key space must be at least as big as the message space.
-Otherwise there will exist cleartext messages which are mapped to the same cipher texts, and thus a priori and a posteriori probabilities will be different,
+Otherwise there will exist cleartext messages which are mapped to the same ciphertexts, and thus a priori and a posteriori probabilities will be different,
 allowing the attacker to get knowledge he should not have gotten. 
 
 \subsubsection{Semantic security}
@@ -297,7 +297,7 @@ processing powers \cite{GoldwasserMicali}.
 When designing cryptographic systems, a fundamental question is what components of it have to be protected from public knowledge, and what parts can be
 published without compromising the security of the system. 
 \\
-The dutch cryptographer Auguste Kerckhoff stated rules for designing a secure cipher.
+The Dutch cryptographer Auguste Kerckhoff stated rules for designing a secure cipher.
 According to "Kerckhoff's Principle" that was stated in the year 1883, among other properties, a secure system should not rely on the secrecy of
 its components, the only part that should be kept secret is the key alone. Shannon acknowledged these assumptions to be "pessimistic and hence safe, but 
 in the long run realistic, since one must expect the system to be found out eventually".
@@ -319,7 +319,7 @@ The higher the predictability, or in other words, the more likely an event, the 
 example of a process with maximum entropy, because every coin flip has a probability of $\frac{1}{2}$, and all flips are independent from each other \cite{1621063}.
 If obtaining "heads" of the coin is viewed as a logical "0" and "tails" as a logical "1", a binary string of length $n$ can be built, where the probability of all possible
 strings of same length is equal, as shown in Figure \ref{fig:uniform}, yielding a uniform distribution, with
-$H = 2^n*\frac{1}{2^n}*ln(2^n) = n$ bit. 
+$H = 2^n*\frac{1}{2^n}*ln(2^n) = n$ bits. 
 \\
 \\
 The importance of random numbers in cryptography is founded on the nature of the cipher used, as will be shown in the next sections. For example,
@@ -433,7 +433,7 @@ $(x,-y)$, thus satisfying $P + (-P) = \infty$.
 \\
 By defining an \gls{ec} over $\mathbb{Z}_p$, with $a, b \in \mathbb{Z}_p$, a cyclic group can be generated. The addition operation that "adds" two points on
 this curve is defined by a "chord-and-tangent" rule. Figure \ref{fig:ecAdd}
-shows addition of two points, while \ref{fig:ecDouble} shows adding a point to itself. It is important to note that this representation is shown in the domain
+shows addition of two points, while Figure \ref{fig:ecDouble} shows adding a point to itself. It is important to note that this representation is shown in the domain
 $\mathbb{R}$ for visualization - in real \gls{ec} cryptography, only elements $\pmod p$ (i.e., from the set $\mathbb{Z}_p$)
 are allowed to avoid rounding errors. 
 \\
@@ -449,7 +449,7 @@ $Q$, finding the intersection of the line with the \gls{ec} ($R'$) and reflectin
               \caption{Adding two points}
               \label{fig:ecAdd}
           \end{figure}
-Mathematically, the new coordinates can be calculated as shown in equation \ref{adding}
+Mathematically, the new coordinates can be calculated as shown in Equation \ref{adding}
 \begin{align}\label{adding}
 x_3 = (\frac{y_2-y_1}{x_2-x_1})^2-x_1-x_2, y_3=\frac{y_2-y_1}{x_2-x_1}(x_1-x_3)-y_1.
 \end{align}   

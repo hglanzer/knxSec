@@ -42,7 +42,7 @@ On the unsecured lines, every gateway uses an address from the range 1.0.1 - 1.0
 uses addresses 1.1.1 and 1.2.1 for secure lines 1 and 2, and 1.0.1 for its unsecured line.
 
 \subsection{Concurrency}
-Every platform possess three distinct interfaces to the bus (two interfaces form the redundant "secure" part of the network, one is connected
+Every platform possesses three distinct interfaces to the bus (two interfaces form the redundant "secure" part of the network, one is connected
 to a standard \gls{knx} network), so care must be taken that no frames are missed or delayed due to a blocking call to \gls{eibd}. This can be achieved by splitting the main program into different 
 processes or alternatively, threads, where for each critical task, a distinct part is responsible. While threads share the same address space, facilitating communication with
 each other, processes rely on special system calls 
@@ -207,11 +207,17 @@ pthread_mutex_lock(&globalMutex);
 */
 pthread_mutex_unlock(&globalMutex);
 \end{lstlisting}
-globalMutex is a global variable of type \textit{pthread\_mutex\_t}, shared between all threads which are accessing the shared resource. After calling pthread\_mutex\_lock(),
+\textit{globalMutex} is a global variable of type \textit{pthread\_mutex\_t}, shared between all threads which are accessing the shared resource. After calling pthread\_mutex\_lock(),
 there are two possibilities: if the mutex is unlocked, the call will lock it and continue the program flow. If it is already locked, the call to pthread\_mutex\_lock() will block and
 the corresponding thread will be set to blocking.
 If the mutex is unlocked by the possessing thread, the blocked thread will be set active, lock for his part and continue execution.\footnote{Of course, pthread\_mutex\_lock() must
-be executed in an atomic way, otherwise introducing a race condition on another level}
+be executed in an atomic way, otherwise introducing a race condition on another level.}
+\\
+\\
+Communication between the CLR and SEC0/SEC1 threads is achieved by pipes, as introduced above. Because data exchanged by pipes does not possess any internal structure, accessing
+them must be done in a consistent way, which is the task of \textit{globalMutex}. If one thread wants to write data to another thread, it first locks the mutex, writes the
+data to the pipe and finally releases the mutex. The reading thread, waiting for data in state "blocked", will be set running by the operating system, immediately lock the mutex
+and read the data. Finally, it will unlock the mutex again.
 
 \subsection{Cryptographic functions}
 To use the needed cryptographic functions, the open source library "OpenSSL" is utilized. The \gls{api} supports a wide range of symmetric and asymmetric encryption, 
@@ -230,13 +236,13 @@ imperative to always check for error conditions.
 To obtain a shared secret between two security gateways, \gls{ecdh} over the curve
 "NID X9 62 prime256v1" is used. This is a \gls{nist} elliptic curve defined over the 256 bit prime
 $p_{256} = 2^{256} - 2^{224} + 2^{192} + 2^{96} - 1$, thus the resulting points will have coordinates of size 256 bits each. The uncompressed form of such a point consists of 65
-byte: 1 byte for a leading tag, 32 byte for the x and 32 byte for the y coordinate of the point. Because of the quadratic form of the curve (see Section \ref{sec:ecIntro} for a recap),
+bytes: 1 byte for a leading tag, 32 bytes for the x and 32 bytes for the y coordinate of the point. Because of the quadratic form of the curve (see Section \ref{sec:ecIntro} for a recap),
 it suffices to transmit only the x coordinate and one byte, determining the sign of the solution. The corresponding y coordinate can than be recovered.
 \\
 \\
 Whenever a security gateway receives a new frame on its cleartext line, it generates a new \gls{ecdh} parameter, i.e., it generates a new key pair, the public key is then sent to all
 other security gateways in the segment:
-\begin{lstlisting}[style=cStyle,caption={Generating a \gls{ecdh} parameter},label=lst:genEC]
+\begin{lstlisting}[style=cStyle,caption={Generating an \gls{ecdh} parameter},label=lst:genEC]
 EC_KEY *pkey;
 pkey = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1)
 EC_POINT *ecPoint = NULL;
@@ -253,7 +259,7 @@ if(!EC_POINT_is_on_curve(group, ecPoint, NULL))
   exit(-1);
 }
 \end{lstlisting}
-The new key pair is generated in line 6, the public key is obtained and converted to a hexadecimal string in lines 8 and 10. Finally it is checked if the new point indeed is part of
+The new key pair is generated in line 6, the public key is obtained and converted to a hexadecimal string in lines 8 and 10. Finally, it is checked if the new point indeed is part of
 the curve.
 \\
 \\
@@ -284,7 +290,7 @@ it is also possible to derive an encryption and a \gls{mac2} key in one run.
 \subsubsection{MAC generation}
 For this task, a \gls{sha}-256 based \gls{hmac} is used, producing a 32 byte \gls{mac2}. To reduce the overhead, only 4 bytes are used and contained in the messages. The usage of
 the high-level \gls{api} is shown in Listing \ref{lst:hmac}.
-\begin{lstlisting}[style=cStyle,caption={Generating a \gls{hmac}},label=lst:hmac]
+\begin{lstlisting}[style=cStyle,caption={Generating an \gls{hmac}},label=lst:hmac]
 size_t req = 0;
 EVP_MD_CTX* ctx = EVP_MD_CTX_create();
 const EVP_MD* md = EVP_get_digestbyname("SHA256");
@@ -299,10 +305,10 @@ EVP_MD_CTX_destroy(ctx);
 \end{lstlisting}
 Line 2 allocates and initializes a digest context, a digest structure for \gls{sha}-256 is obtained in line 3 and initialized in line 4. Line 5 sets up the signing context for the
 underlying digest function. The actual signing of the input message string pointed to by $msg$ is done in line 6. Afterwards, the length of the signature is obtained by the first call
-to EVP\_DigestSignFinal(), the signature is written to the newly allocated memory and the context memory is deallocated
+to EVP\_DigestSignFinal(), the signature is written to the newly allocated memory and the context memory is deallocated.
 
 \subsubsection{Encryption and decryption}
-As cipher, \gls{aes}-256 in \gls{ctr} mode is utilized. This mode has the advantage that no fixed block size must be transmitted, but only the actual size of the cipher text.
+As cipher, \gls{aes}-256 in \gls{ctr} mode is utilized. This mode has the advantage that no fixed block size must be transmitted, but only the actual size of the ciphertext.
 Encryption with the OpenSSL high level interface is shown in Listing \ref{lst:encAES}. As with the \gls{hmac}, a context must be created and initialized.
 
 \begin{lstlisting}[style=cStyle,caption={\gls{aes} encryption},label=lst:encAES]
@@ -319,7 +325,7 @@ EVP_CIPHER_CTX_free(aesCtx);
 
 \section{Evaluation}
 The proposed solution was evaluated by showing that it can resist against the attacks defined in Section \ref{sec:attacks}, and is robust against temporarily or permanent 
-failure of one out of two secure \gls{knx} line.
+failure of one out of two secure \gls{knx} lines.
 \\
 \\
 Failure of one secure communication line does not imply failure of the whole system: as long as the other secured line is still functional, synchronization, discovery and data services
@@ -333,7 +339,7 @@ itself would allow the attacker to obtain these keys and thus present itself as 
 \\
 \\
 The overall aim is to show that the communication network is able to withstand maliciously introduced faults, as well as unintended faults happening randomly, resulting
-in a \gls{knx} network with improved availability. In the case of \gls{dos} attacks it is stated that the proposed solution can withstand such an attack against \textbf{one} of it's
+in a \gls{knx} network with improved availability. In the case of \gls{dos} attacks, it is stated that the proposed solution can withstand such an attack against \textbf{one} of its
 two secure communication lines because of the duplicate and independent sending of the corresponding messages. An attacker interrupting both lines will obviously cripple the 
 data exchange in total. Such a \gls{dos} attack can be conducted for example by shortcutting the \gls{TP} lines, or by permanently driving the bus line into the dominant level.
 \\
@@ -374,7 +380,7 @@ Nevertheless, the attacker is able to derive communication profiles, i.e.,
 which devices behind which security gateways are communicating with each other, and therefore enables the attacker to derive the basic topology of the network.
 
 \subsubsection{Active attacks}
-Injecting new or replaying old messages is useless from an attackers point of view, argued as following: for newly generated, injected discovery request messages, the attacker must at first
+Injecting new or replaying old messages is useless from an attacker's point of view, argued as following: for newly generated, injected discovery request messages, the attacker must at first
 generate the encryption for the wanted group address. Lacking the encryption key, the attacker can produce the correct encryption for the 2 byte group address with probability
 $1-2^{16}$. Afterwards, the attacker additionally must guess the correct lowest 4 bytes of the 256 bit \gls{mac2} for the header fields and payload (again provided that the attacker
 does not know the key used for \gls{mac2} generation). Failure to forge the correct \gls{mac2} will be detected by all receiving devices.
@@ -386,10 +392,10 @@ Replaying discovery messages is considered pointless because of the freshness pr
 because of the outdated value of $Ctr_{global}$, which will just drop the replayed frame. 
 \\
 Attacking alternating secure communication lines will also fail: for example, the attacker could at first
-shortcut one secure communication line such that the discovery message will not reach it's recipient(s). Receiving the discovery message on the other line and injecting the frame to the
+shortcut one secure communication line such that the discovery message will not reach its recipient(s). Receiving the discovery message on the other line and injecting the frame to the
 previously blocked line would result in a fresh counter value. Nevertheless, such frames will bear the wrong secure line number as part of the source address (for discovery request
 messages, with the destination field set to the broadcast address) or source- and destination address, and will thus be detected.
-Alternating the source- and/or destination-address will invalidate the \gls{mac2}, forcing the attacker again to forge the \gls{mac2}, an infeasible task as already stated.
+Alternating the source- and/or destination-addresses will invalidate the \gls{mac2}, forcing the attacker again to forge the \gls{mac2}, an infeasible task as already stated.
 
 \subsection{Data transmission phase}
 
@@ -398,37 +404,10 @@ An eavesdropping attacker will be able to learn source- and destination addresse
 individual counter $Ctr_{ind}$. Again, the meta data can be used to generate communication profiles, a fact considered inevitable. The individual counter is used as freshness property
 and to detect the duplicate frames on the receiving side. Therefore, an attacker does not benefit from knowing this counter value.
 \\
-Decrypting the contained inner frame is considered impossible base on the following facts: firstly, encryption is based on \gls{aes}-256, therefore trying all possible keys is infeasible.
+Decrypting the contained inner frame is considered impossible based on the following facts: firstly, encryption is based on \gls{aes}-256, therefore trying all possible keys is infeasible.
 Secondly, the attacker is unable to get knowledge of the key because of the key agreement protocol used in the discovery phase.
 \subsubsection{Active attacks}
 An attacker, trying to inject a new data frame, again must succeed in forging the correct \gls{mac2}. Failure to do so will be detected by the receiving gateway.
 A replayed message will be be correctly verified and decrypted by the receiving device, but because of the outdated counter value $Ctr_{ind}$ the message will be discarded.
 
-\subsection{Conclusion and outlook}
-It was shown that the proposed solution can withstand malicious attacks, as well as transient hardware failures of one of the secured lines. Therefore, the solution allows to connect
-standard \gls{knx} devices which are spatially divided in a secure manner, bridging over areas where malicious behavior cannot be ruled out.
-The proposed solution can be deployed in a 'plug-and-play' 
-manner, as long as the constraints defined in Section \ref{sec:opContraints} are regarded. Thus it is possible to add confidentiality, integrity and availability to a \gls{knx}
-network just where needed, coexisting with segments with low security demands. By using more than 2 secured lines, the solution can easily be extended to use $n$ instead of 2 secure threads
-and communication lines, increasing availability to an even higher level.
-\\
-\\
-The following improvements to the prototype solution are proposed: 
-\begin{itemize}
- \item Using a cache for the mapping group address - security gateway / encryption key, which allows to reduce the bus load.
- \item Obfuscating the size of the data service messages, which  can be achieved by adding an additional length field and corresponding padding, chosen randomly. This makes it harder
- to derive communication profiles
- \item Attacks can be detected if frames with forged \gls{mac2} are received, allowing to send an alert to an operator and adding the corresponding device address to a blacklist. 
- \end{itemize}
- 
-\subsubsection{Restrictions }
-\begin{itemize}
-  \item While \gls{eibd} can send extended frames, it does not support receiving frames with payload $\geq$ 56 byte
-  \item With the current \gls{eibd} \gls{api}, sending raw layer one \gls{knx} frames is not possible, but only application- or transport layer data units. This implies that 
-  it is not possible to set the source address of a written frame. Frames delivered by a security gateway are therefore sent with the gateway's device address, instead of the 
-  origin device address.
- \end{itemize}
-
- 
- 
  

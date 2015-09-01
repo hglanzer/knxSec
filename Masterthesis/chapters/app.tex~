@@ -136,11 +136,11 @@ a proper makefile \ref{lst:makefile} for the project, as well as all other neede
 
 \section{Busware USB couplers}
 
-To make the KNX TP1 bus accessible, i.e., to write datagrams to and receive datagrams from the bus, \gls{usb} dongles as shown in Figure \ref{fig:busware}
+To access the \gls{knx} TP1 bus, i.e., to write datagrams to and receive datagrams from the bus, \gls{usb} dongles as shown in Figure \ref{fig:busware}
 from the company \textit{Busware} are used. Depending on the revision, the bus couplers creates a new device which is used as \gls{url} by the \gls{eibd}.
 The coupler will be accessible by \textit{/dev/ttyACMx}, where x is the number of the device. It may be necessary to flash the bus couplers with the correct
 firmware first. The easiest way to check this is to use command \ref{lst:kern.log} and look for output similar to listing \ref{lst:device} when plugging 
-the coupler into an \gls{usb} slot.
+the coupler into a \gls{usb} slot.
 
 \begin{lstlisting}[style=BashInputStyle,label=lst:device]
 ... usb 1-1.2: new full-speed USB device number 19 using ehci_hcd
@@ -166,9 +166,9 @@ in \ref{lst:flash} must be executed.
 
 \begin{figure}
     \centering
-    \caption{Busware KNX-USB coupler}
     \label{fig:busware}
 \includegraphics[scale=0.2]{figures/busware.png}
+    \caption{Busware KNX-USB coupler}
 \end{figure}
 
 \section{UDEV}
