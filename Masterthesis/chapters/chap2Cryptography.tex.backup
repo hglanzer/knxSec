@@ -8,7 +8,7 @@ and memory demands.
 The big disadvantage of symmetric ciphers is that the key must be known to sender
 and receiver of the message \textit{before} secure communication can take place. This constitutes some kind of chicken-egg problem: to be able to send encrypted
 data, the key must be distributed, i.e., a secure channel has to be setup first for key exchange. But if such a secure channel can be established, it could also be used
-for transmitting the sensitive data themself.
+for transmitting the sensitive data themselves.
 \\
 Asymmetric or public key cryptography solves the problem of key distribution by using two different keys, belonging to the same key pair: the private
 key must be be protected from disclosure, while the public key can be published without harming security. For encryption, the public key of the receiver
@@ -29,7 +29,7 @@ the decryption function inverts this substitution: $m_i = D_{d_i}(c_i)$.
 \\
 \\
 Most stream ciphers belong to the family of symmetric ciphers, thus $e_i = d_i$. The reason is that most asymmetric ciphers are deterministic ciphers,
-i.e., the encryption of the same message with a fixed public key always yields the same cipher text. Thus, such repeated messages can be detected by 
+i.e., the encryption of the same message with a fixed public key always yields the same ciphertext. Thus, such repeated messages can be detected by 
 an adversary. 
 Probabilistic public-key encryption can solve this problem for stream ciphers,
 but this scheme will not be handled in this work because of its low practical application.
@@ -39,7 +39,7 @@ This cipher, also called \gls{otp}, was invented by Gilbert Vernam in 1918, and 
 which means that every character of the original message is mapped to another character of the same alphabet. In contrast to a monoalphabetical cipher,
 there is no fixed mapping between the input and output characters.
 The substitution is achieved by generating a keystream and by executing 
-a bit-wise \gls{xor} operation, as defined in table \ref{table:xor}, of key and message.
+a bit-wise \gls{xor} operation, as defined in Table \ref{table:xor}, of key and message.
 \begin{center}
 \begin{tabular}{ c c | c }
  \label{table:xor}
@@ -72,7 +72,7 @@ inferences about the language used. By utilizing frequency analysis, the used ke
 
 \subsubsection{Stream ciphers based on \gls{lfsr}}
 
-An disadvantage of the Vernam cipher is that a key of equal length as the message is necessary. To mitigate this problem, a \gls{lfsr} can be used to generate
+A disadvantage of the Vernam cipher is that a key of equal length as the message is necessary. To mitigate this problem, a \gls{lfsr} can be used to generate
 a key of proper length from a much shorter, initial key, called seed. Such \gls{lfsr} are denoted by the tuple $\langle L, C(D) \rangle$. $L$ is the number of stages, and $C(D)$ is the
 connection polynomial. Because of the finite length, every \gls{lfsr} can only take on a finite number of internal states, producing
 a periodic output sequence.
@@ -132,7 +132,7 @@ adding overhead to the message - a disadvantage compared to stream ciphers. For 
 for the excess byte a complete block must be concatenated. 
 \\
 On the other hand, while stream ciphers are strictly sequential by nature, there exist methods to speed up block ciphers by splitting the message
-first, and then process them in parallel\footnote{Counter Mode, see Section \ref{confidentiality}}. 
+first, and then processing them in parallel\footnote{Counter Mode, see Section \ref{confidentiality}}. 
 \\
 Two main types of block cipher exist: transposition ciphers use a key-dependent permutation to re-order the characters of the block to obtain the ciphertext.
 This is a bijective transformation, so decryption can be achieved by simply reversing the permutation.
@@ -142,14 +142,14 @@ or more other characters. In the latter case, this equals an injective function 
 \\
 A product cipher is a combination of ciphers of different types to achieve a higher level of security than possible as with the basic ciphers. 
 \\
-Feistel networks are special product ciphers, composed of \gls{sp} networks. They were first described by Horst Feistel in the year 1973\cite{feistel}, and are 
+Feistel networks are special product ciphers, composed of \gls{sp} networks. They were first described by Horst Feistel in the year 1973 \cite{feistel}, and are 
 the basis of a variety of block ciphers like "LUCIFER" \cite{feistel1974block,} and \gls{des}.
 \\
 Figure \ref{fig:feistel} shows the principal layout of such ciphers: at first, the plaintext block of length
 2n-bits is divided into two n-bits blocks, often called $L_0$ and $R_0$ for left and right block, respectively. After that the first round starts: every round
 is characterized by performing a substitution, followed by a permutation of the two half-blocks. For substitution, at first a round function,
 parametrized by a round key is applied to one half of the data block, followed by a \gls{xor} operation. The output of the rounds can be calculated
-according to the formulas shown in \ref{table:feistel}
+according to the formulas shown in Table \ref{table:feistel}
 \\
 \begin{center}
 \begin{tabular}{ l l}
@@ -164,14 +164,14 @@ according to the formulas shown in \ref{table:feistel}
 \end{tabular}
 \end{center}
 Decryption is achieved by applying the ciphertext to the same network, with the round keys applied in reverse order, reducing hardware- respectively
-code size. Because every decryption step, see \ref{table:feistelRev}, does not rely on reversing the round function, there is no necessity for the round function to be bijective.
+code size. Because every decryption step, see Table \ref{table:feistelRev}, does not rely on reversing the round function, there is no necessity for the round function to be bijective.
 \\
 Reversing one encryption stage is achieved as follows:
 \begin{center}
 \begin{tabular}{ l l}
  \label{table:feistelRev}
  & $R_{n-1} = L_n$  \\
- & $L_{n-1} = R_n \bigoplus F(k_n, R_{n_1}) = R_n \bigoplus F(k_n, L_{n}) $.
+ & $L_{n-1} = R_n \bigoplus F(k_n, R_{n-1}) = R_n \bigoplus F(k_n, L_{n}) $.
 \end{tabular}
 \end{center}
 
@@ -201,15 +201,15 @@ To prevent such attacks, \gls{3des} was published: the cleartext- respectively
 cipertext block is fed 3 times to the \gls{des} cipher, using 3 different keys $k_1, k_2, k_3$ to first encrypt with $k_1$, decrypt with $k_2$ and finally 
 encrypt with $k_3$
 \begin{center}
- $ciphertext = E(k_3(D(k_2,E(k_1, cleartext)))$
+ $ciphertext = E(k_3(D(k_2,E(k_1, cleartext)))$,
 \end{center}
-, effectively tripling the key size.
+effectively tripling the key size.
 The special sequence of encryption, decryption and again encrypting was chosen because by setting $k_1 = k_2 = k_3$, a \gls{3des} implementation can also be used
 for en/decryption of \gls{des} messages.
 
 \subsubsection{\gls{aes}}
 
-Also called "Rijndael" after its developers Joan Daemen und Vincent Rijmen, \gls{aes} is is the successor of \gls{3des}, as
+Also called "Rijndael" after its developers Joan Daemen und Vincent Rijmen, \gls{aes} is the successor of \gls{3des}, as
 proposed by the \gls{nist} in 2001. Basic properties are a block size of 128 bit, and possible key sizes
 of 128, 192 or 256 bit.
 \\
@@ -237,8 +237,8 @@ a cryptographic secure function.
 \\
 An important property of this modes is the error propagation.
 Whenever a bit error occurs on the transmission channel due to noise or interference,
-a logical '0' of the transmitted cipher text is substituted by a logical '1' or vice versa. This bit error in the cipher text produces one or more bit errors
-in the clear text, thus the name error propagation \cite{burda}.
+a logical '0' of the transmitted ciphertext is substituted by a logical '1' or vice versa. This bit error in the ciphertext produces one or more bit errors
+in the cleartext, thus the name error propagation \cite{burda}.
 
 \subsubsection{\gls{ecb}}\label{deterministicEnc}
 
@@ -254,7 +254,7 @@ contrast, Figure \ref{fig:cbc_picture} shows the same picture encrypted with \gl
   \begin{minipage}{0.32\linewidth}
           \begin{figure}[H]
               \includegraphics[width=\linewidth]{figures/ECB.eps}
-              \caption{}
+              \caption{Original file}
               \label{fig:tuxclr}
           \end{figure}
   \end{minipage}
@@ -306,7 +306,7 @@ allowing a \gls{cpa}. Also, it must not repeat over the lifetime of the key, oth
 \\
 The \gls{iv} introduces overhead, which is problematic for  short messages.
 To avoid such a message expansion, a solution is to use a nonce, as suggested in \cite{cryptoEng}.
-To avoid the need for sending the nonce with every message, sender and receiver must maintain a message counter. This message counter must be encrypted to avoid predictability, and can
+To avoid the need for sending the nonce with every message, the sender and receiver must maintain a message counter. This message counter must be encrypted to avoid predictability, and can
 then be used as \gls{iv}. Care must be taken for the counter not to overflow within the lifetime of a key.
 
 \begin{figure}
@@ -398,13 +398,13 @@ All modes of operation introduced so far are used to provide confidentiality onl
 Digital signatures, based on public key cryptography, are introduced in Section \ref{digitalSignatures}. In contrast, \glspl{mac2} use symmetric keys,
 providing integrity and authenticity. 
 \\
-The basic way to protect a data unit - be it a message traveling from sender to recipient or a file saved for later usage - from modification by a third party is to
+The basic way to protect a data unit - be it a message traveling from a sender to a recipient or a file saved for later usage - from modification by a third party is to
 generate a tag $t$, also called \gls{mac2}, and concatenating this tag to the message, as shown in Figure \ref{fig:tag}.
 Verifying the integrity is done by re-generating the tag and comparing it to the saved one. 
 \\
 \\
 In contrast to confidentiality modes, which should always be combined with a method to guarantee integrity, 
-integrity-only modes do have a right to exist. For example, archives containing source code for open source project, available from the internet, must not be
+integrity-only modes do have a right to exist. For example, archives containing source code for open source project, available from the Internet, must not be
 encrypted but should be secured against modification. For example, the UNIX based operating system "FreeBSD" uses asymmetric keys to protect its package
 management system from adversary modification.
 \\
@@ -488,11 +488,11 @@ To avoid that attacks, methods to provide encryption and integrity are combined.
  \end{align}
 \end{itemize}
 For all 3 schemes, $E(k, m)$ must be a semantically secure encryption function, and $h(k, m)$ denotes a keyed, cryptographically secure hash function.
-The latter is of particular importance for \ref{encAndMac}, because this scheme otherwise directly leaks information about the plaintext in the tag. 
+The latter is of particular importance for "encrypt-and-mac", because this scheme otherwise directly leaks information about the plaintext in the tag. 
 \\
 As general, cryptographic data should always be authenticated first. Only if authenticity can be verified,
 the encrypted data should be processed further.
-Following this rule, it turns out that only \ref{encThenMac} is considered generically secure against chosen plaintext attacks.
+Following this rule, it turns out that only "encrypt-then-mac" is considered generically secure against chosen plaintext attacks.
 "Encrypt-and-mac" \cite{sshBellare}, used in \gls{ssh}, is considered generically
 insecure. For "mac-then-encrypt", used in \gls{ssl}, the same holds true, but this scheme can be used in a secure manner if \gls{cbc} or a stream cipher like 
 \gls{ctr} mode is used for encryption.
@@ -583,7 +583,7 @@ ever know."} \cite{wStanley}
 \\
 \\
 Although his statement was not related to cryptography at all, and of course factoring of much bigger numbers is doable nowadays, this statement exactly describes
-the spirit of public key systems, and the security of RSA, introduced below, is directly connected to the inability to factor large numbers in reasonable time.
+the spirit of public key systems. The security of RSA, introduced below, is directly connected to the inability to factor large numbers in reasonable time.
 \\
 Because disclosure of the public key does not affect the security of the scheme, the public key can be published in some sort of dictionary.
 An entity wanting to send an encrypted message to a receiver can then look up the receiver's public key, encrypt the message and send the resulting
@@ -599,7 +599,7 @@ not practicable, it motivates the usage of public key systems based on algebraic
 \\
 The basic idea is that the necessary work by the two legitimate parties when negotiating a key is bounded by $O(n)$, while an adversary must spend $O(n^2)$ to 
 also calculate the key, thus generating a quadratic gap. 
-Merkle defines a puzzle as cipher text that is supposed to be broken. This can be achieved by restricting the size of the symmetric key used such that an
+Merkle defines a puzzle as ciphertext that is supposed to be broken. This can be achieved by restricting the size of the symmetric key used such that an
 exhaustive search can be finished in feasible time. Every puzzle contains an id and a session key, both chosen randomly, as well as a static string,
 known to all participants.
 \\
@@ -650,7 +650,7 @@ Section \ref{refDLP}.
 \subsection{\gls{ecc}}
 
 The \gls{dh} protocol can be based on different kinds of cyclic groups. Koblitz and Miller independently proposed the usage of cyclic groups based on
-\glspl{ec} \cite{eccKoblitz} \cite{eccMiller}. See Section \ref{pkc} for the theoretical introduction.
+\glspl{ec} \cite{eccKoblitz} \cite{eccMiller}. See Section \ref{sec:ecIntro} for the theoretical introduction.
 These cyclic groups are receiving increased importance in cryptography because they allow the usage
 of shorter keys compared to \gls{dh} over prime fields or RSA, while providing the same level of secrecy.
 \\
@@ -753,7 +753,7 @@ Additionally, Euler's theorem is used:
 a^{\varphi(N)} \equiv 1 \pmod N
 \end{align}
 The public key consists of the pair  $(N, e)$ and the private key of the pair $(N, d)$.
-In practice, for the public exponent $e$ the numbers 3, 5, 17, 257 or 65537 are suggested \cite{891000}, a suitable $d$ satisfying \ref{ed} can then be found
+In practice, for the public exponent $e$ the numbers 3, 5, 17, 257 or 65537 are suggested \cite{891000}, a suitable $d$ satisfying Equation \ref{ed} can then be found
 by using the extended Euclidean algorithm.
 
 \subsubsection{Encryption and decryption of messages}
@@ -766,29 +766,29 @@ To decrypt, the receiver uses his own private key to raise $C$ to the power of $
 \begin{align}\label{decrypt}
  M' \equiv C^d \equiv M^{d*e} \bmod N
 \end{align}
-From the way $e$ and $d$ have been chosen in \ref{ed} it follows that 
+From the way $e$ and $d$ have been chosen in Equation \ref{ed} it follows that 
 \begin{align}\label{ed2}
  e*d = k * \varphi(N) + 1, k \in \mathbb{Z} 
 \end{align}
-Inserting \ref{ed2} in equation \ref{decrypt} yields:
+Inserting Equation \ref{ed2} in Equation \ref{decrypt} yields
 \begin{align}\label{cong}
   M' \equiv M^{k * \varphi(N) + 1} \equiv M* M^{k * \varphi(N)} \pmod N
 \end{align}
-By using Euler's theorem \ref{euler}, expression \ref{cong} shows that $M=M'$, i.e., decryption yields the correct value because
+By using Euler's Theorem \ref{euler}, Equation \ref{cong} shows that $M=M'$, i.e., decryption yields the correct value because
 \begin{align*}
- M' \equiv M* M^{k * \varphi(N)} \equiv M* (M^{ \varphi(N)})^k \equiv M * 1^k \equiv M \pmod N
+ M' \equiv M* M^{k * \varphi(N)} \equiv M* (M^{ \varphi(N)})^k \equiv M * 1^k \equiv M \pmod N.
 \end{align*} 
 
 \subsection{Digital signatures}\label{digitalSignatures}
 
 Digital signatures are, as its symmetric-key \gls{mac2} counterparts, used to provide integrity. Most digital signature schemes are based on
-cryptographically secure hash functions, so the same requirements as listed in \ref{Integrity} must also hold here.
+cryptographically secure hash functions, so the same requirements as listed in Section \ref{Integrity} must also hold here.
 \\
 \\
 Nevertheless, due to the use of asymmetric keys, an important semantic difference between \glspl{mac2} and digital signatures emerges: for a \gls{mac2} 
 a key is shared by at least 2 entities. A digital signature, in contrast, is generated by utilizing the private key of an entity, which is not thought to be shared with
-other entities. Therefore, digital signatures can also provide non-repudiation:
-this property allows to convince an unbiased "judge" that a message, signed by the sender, was indeed sent by this sender, i.e., the message was not
+other entities. Therefore, digital signatures can also provide non-repudiation.
+This property allows to convince an unbiased "judge" that a message, signed by the sender, was indeed sent by this sender, i.e., the message was not
 forged by a third party. This is an important difference to \glspl{mac2}, where such an assessment is not possible.
 
 \subsubsection{Signatures based on RSA}
@@ -818,7 +818,12 @@ The receiver of the message can use the domain parameters and signature to verif
  x' \equiv s^{-1}(h(m)P + rkP) \pmod n\\
  x' \equiv P \underbrace{(s^{-1}(h(m) + rk))}_{k'} \pmod n
 \end{align*}
-$x'$ is converted to an integer an reduced $\pmod n$ to obtain $r'$. If $r = r'$, the signature is accepted, proving the authenticity of the message.
+$x'$ is converted to an integer and reduced $\pmod n$ to obtain $r'$. If $r = r'$, the signature is accepted, proving the authenticity of the message.
+
+\section{Summary}
+It showed that when designing a cryptographic extension, both integrity \textbf{and} confidentiality must be honored. Additionally, the findings suggest that such
+an extension will most likely exist of a mixture of symmetric and asymmetric schemes. \gls{ecc} qualifies itself
+to keep key size small without harming security.
 
 
 %\subsection{Key lenghts}

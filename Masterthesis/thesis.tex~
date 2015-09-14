@@ -43,7 +43,7 @@
 \thesiscurriculum{Technische Informatik}{Computer Engineering} % your study
 \thesisverfassung{Verfasser} % Verfasser
 \thesisauthor{B.Sc. Harald Glanzer} % your name
-\thesisauthoraddress{Hardtgasse 25 / 12A, 1190 Wien} % your address
+\thesisauthoraddress{Hubergasse 19 / 2, 1160 Wien} % your address
 \thesismatrikelno{0727156} % your registration number
 
 \thesisbetreins{Ao.Univ-Prof. DI Dr. Wolfgang Kastner}
@@ -190,7 +190,7 @@
 \label{ch:knx}
 \input{chapters/knxGeneral}
 \input{chapters/knxLayers}
-\input{chapters/chap2SecurityBA}
+%\input{chapters/chap2SecurityBA}	% moved content to chap 1 / problem statement
 \input{chapters/knxSecurity}
 \input{chapters/knxConclusion}
 
@@ -211,7 +211,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Results}
+\chapter{Conclusion}
 \label{ch:conclusion}
 \input{chapters/conclusion}
 

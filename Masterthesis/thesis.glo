@@ -18,20 +18,17 @@
 \glossaryentry{DOS?\glossaryentryfield{dos}{\glsnamefont{DOS}}{Denial of Service}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{1}
 \glossaryentry{AE?\glossaryentryfield{ae}{\glsnamefont{AE}}{Authenticated Encryption}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
-\glossaryentry{HBAS?\glossaryentryfield{hbas}{\glsnamefont{HBAS}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
-\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
 \glossaryentry{HBAS?\glossaryentryfield{hbas}{\glsnamefont{HBAS}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
 \glossaryentry{HVAC?\glossaryentryfield{hvac}{\glsnamefont{HVAC}}{Heating, Ventilation and Air Conditioning}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
 \glossaryentry{HBAS?\glossaryentryfield{hbas}{\glsnamefont{HBAS}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
 \glossaryentry{HVAC?\glossaryentryfield{hvac}{\glsnamefont{HVAC}}{Heating, Ventilation and Air Conditioning}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
 \glossaryentry{HBAS?\glossaryentryfield{hbas}{\glsnamefont{HBAS}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
 \glossaryentry{HBAS?\glossaryentryfield{hbas}{\glsnamefont{HBAS}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
-\glossaryentry{HBAS?\glossaryentryfield{hbas}{\glsnamefont{HBAS}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
-\glossaryentry{SACs?\glossaryentryfield{sac}{\glsnamefont{SACs}}{Sensors, Actuators and Controllers}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
-\glossaryentry{MD?\glossaryentryfield{md}{\glsnamefont{MD}}{Management Device}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
-\glossaryentry{ICD?\glossaryentryfield{icd}{\glsnamefont{ICD}}{Interconnection Device}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
-\glossaryentry{ICD?\glossaryentryfield{icd}{\glsnamefont{ICD}}{Interconnection Device}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
+\glossaryentry{HBAS?\glossaryentryfield{hbas}{\glsnamefont{HBAS}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
+\glossaryentry{SACs?\glossaryentryfield{sac}{\glsnamefont{SACs}}{Sensors, Actuators and Controllers}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
+\glossaryentry{MD?\glossaryentryfield{md}{\glsnamefont{MD}}{Management Device}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
+\glossaryentry{ICD?\glossaryentryfield{icd}{\glsnamefont{ICD}}{Interconnection Device}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
+\glossaryentry{ICD?\glossaryentryfield{icd}{\glsnamefont{ICD}}{Interconnection Device}{\relax }|setentrycounter[]{page}\glsnumberformat}{2}
 \glossaryentry{IP?\glossaryentryfield{ip}{\glsnamefont{IP}}{Internet Protocol}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
 \glossaryentry{HBAS?\glossaryentryfield{hbas}{\glsnamefont{HBAS}}{Home and Building Automation System}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
 \glossaryentry{VPN?\glossaryentryfield{vpn}{\glsnamefont{VPN}}{Virtual Private Network}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
@@ -43,6 +40,8 @@
 \glossaryentry{SACs?\glossaryentryfield{sac}{\glsnamefont{SACs}}{Sensors, Actuators and Controllers}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
 \glossaryentry{ICD?\glossaryentryfield{icd}{\glsnamefont{ICD}}{Interconnection Device}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
 \glossaryentry{MD?\glossaryentryfield{md}{\glsnamefont{MD}}{Management Device}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{3}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{4}
@@ -59,6 +58,8 @@
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{4}
 \glossaryentry{TP?\glossaryentryfield{TP}{\glsnamefont{TP}}{Twisted Pair}{\relax }|setentrycounter[]{page}\glsnumberformat}{4}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{4}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{5}
+\glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{5}
 \glossaryentry{KNX?\glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }|setentrycounter[]{page}\glsnumberformat}{5}
 \glossaryentry{MAC?\glossaryentryfield{mac2}{\glsnamefont{MAC}}{Message Authentication Code}{\relax }|setentrycounter[]{page}\glsnumberformat}{10}
 \glossaryentry{IV?\glossaryentryfield{iv}{\glsnamefont{IV}}{Initialization Vector}{\relax }|setentrycounter[]{page}\glsnumberformat}{13}
@@ -190,14 +191,14 @@
 \glossaryentry{DLP?\glossaryentryfield{dlp}{\glsnamefont{DLP}}{Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
 \glossaryentry{DLP?\glossaryentryfield{dlp}{\glsnamefont{DLP}}{Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
-\glossaryentry{ECC?\glossaryentryfield{ecc}{\glsnamefont{ECC}}{Elliptic Curve Cryptography}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
+\glossaryentry{ECC?\glossaryentryfield{ecc}{\glsnamefont{ECC}}{Elliptic Curve Cryptography}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{35}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
-\glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{EC?\glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
-\glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{36}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
 \glossaryentry{D-H?\glossaryentryfield{dh}{\glsnamefont{D-H}}{Diffie-Hellman}{\relax }|setentrycounter[]{page}\glsnumberformat}{37}
@@ -210,6 +211,9 @@
 \glossaryentry{DSA?\glossaryentryfield{dsa}{\glsnamefont{DSA}}{Digital Signature Algorithm}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
 \glossaryentry{NIST?\glossaryentryfield{nist}{\glsnamefont{NIST}}{National Institute of Standards and Technology}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
 \glossaryentry{ECDLP?\glossaryentryfield{ecdlp}{\glsnamefont{ECDLP}}{Elliptic Curve Discrete Logarithm Problem}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{ECC?\glossaryentryfield{ecc}{\glsnamefont{ECC}}{Elliptic Curve Cryptography}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{CTR?\glossaryentryfield{ctr}{\glsnamefont{CTR}}{Counter Mode}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{AES?\glossaryentryfield{aes}{\glsnamefont{AES}}{Advanced Encryption Standard}{\relax }|setentrycounter[]{page}\glsnumberformat}{39}
 \glossaryentry{SLA?\glossaryentryfield{sla}{\glsnamefont{SLA}}{Service Level Agreement}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{SLA?\glossaryentryfield{sla}{\glsnamefont{SLA}}{Service Level Agreement}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}
 \glossaryentry{MTTF?\glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }|setentrycounter[]{page}\glsnumberformat}{41}

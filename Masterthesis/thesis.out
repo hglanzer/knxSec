@@ -1,6 +1,6 @@
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.1.1}{Motivation}{chapter.1}% 2
-\BOOKMARK [1][-]{section.1.2}{Problem statement}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.2}{Problem statement - security in HBAS}{chapter.1}% 3
 \BOOKMARK [1][-]{section.1.3}{Aim of the work}{chapter.1}% 4
 \BOOKMARK [1][-]{section.1.4}{Structure of the work}{chapter.1}% 5
 \BOOKMARK [0][-]{chapter.2}{Prerequisites}{}% 6
@@ -14,27 +14,28 @@
 \BOOKMARK [1][-]{section.3.1}{Introduction}{chapter.3}% 14
 \BOOKMARK [1][-]{section.3.2}{Failure avoidance}{chapter.3}% 15
 \BOOKMARK [1][-]{section.3.3}{Fault tolerant technologies}{chapter.3}% 16
-\BOOKMARK [0][-]{chapter.4}{KNX}{}% 17
-\BOOKMARK [1][-]{section.4.1}{Introduction}{chapter.4}% 18
-\BOOKMARK [1][-]{section.4.2}{KNX layers}{chapter.4}% 19
-\BOOKMARK [1][-]{section.4.3}{KNX security concept}{chapter.4}% 20
-\BOOKMARK [1][-]{section.4.4}{Summary}{chapter.4}% 21
-\BOOKMARK [0][-]{chapter.5}{Concept}{}% 22
-\BOOKMARK [1][-]{section.5.1}{Basic assumptions}{chapter.5}% 23
-\BOOKMARK [1][-]{section.5.2}{Services}{chapter.5}% 24
-\BOOKMARK [0][-]{chapter.6}{Evaluation}{}% 25
-\BOOKMARK [1][-]{section.6.1}{Implementation}{chapter.6}% 26
-\BOOKMARK [1][-]{section.6.2}{Evaluation}{chapter.6}% 27
-\BOOKMARK [0][-]{chapter.7}{Results}{}% 28
-\BOOKMARK [1][-]{section.7.1}{Contribution}{chapter.7}% 29
-\BOOKMARK [1][-]{section.7.2}{Outlook}{chapter.7}% 30
-\BOOKMARK [0][-]{appendix.A}{Setup of the base system}{}% 31
-\BOOKMARK [1][-]{section.A.1}{Raspbian}{appendix.A}% 32
-\BOOKMARK [1][-]{section.A.2}{EIBD}{appendix.A}% 33
-\BOOKMARK [1][-]{section.A.3}{Revision control}{appendix.A}% 34
-\BOOKMARK [1][-]{section.A.4}{Busware USB couplers}{appendix.A}% 35
-\BOOKMARK [1][-]{section.A.5}{UDEV}{appendix.A}% 36
-\BOOKMARK [1][-]{section.A.6}{Test setup}{appendix.A}% 37
-\BOOKMARK [0][-]{appendix.B}{Code snippets and configuration files}{}% 38
-\BOOKMARK [0][-]{section*.104}{Glossary}{}% 39
-\BOOKMARK [0][-]{section*.107}{Bibliography}{}% 40
+\BOOKMARK [1][-]{section.3.4}{Summary}{chapter.3}% 17
+\BOOKMARK [0][-]{chapter.4}{KNX}{}% 18
+\BOOKMARK [1][-]{section.4.1}{Introduction}{chapter.4}% 19
+\BOOKMARK [1][-]{section.4.2}{KNX layers}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.3}{KNX security concept}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.4}{Summary}{chapter.4}% 22
+\BOOKMARK [0][-]{chapter.5}{Concept}{}% 23
+\BOOKMARK [1][-]{section.5.1}{Basic assumptions}{chapter.5}% 24
+\BOOKMARK [1][-]{section.5.2}{Services}{chapter.5}% 25
+\BOOKMARK [0][-]{chapter.6}{Evaluation}{}% 26
+\BOOKMARK [1][-]{section.6.1}{Implementation}{chapter.6}% 27
+\BOOKMARK [1][-]{section.6.2}{Evaluation}{chapter.6}% 28
+\BOOKMARK [0][-]{chapter.7}{Conclusion}{}% 29
+\BOOKMARK [1][-]{section.7.1}{Contribution}{chapter.7}% 30
+\BOOKMARK [1][-]{section.7.2}{Outlook}{chapter.7}% 31
+\BOOKMARK [0][-]{appendix.A}{Setup of the base system}{}% 32
+\BOOKMARK [1][-]{section.A.1}{Raspbian}{appendix.A}% 33
+\BOOKMARK [1][-]{section.A.2}{EIBD}{appendix.A}% 34
+\BOOKMARK [1][-]{section.A.3}{Revision control}{appendix.A}% 35
+\BOOKMARK [1][-]{section.A.4}{Busware USB couplers}{appendix.A}% 36
+\BOOKMARK [1][-]{section.A.5}{UDEV}{appendix.A}% 37
+\BOOKMARK [1][-]{section.A.6}{Test setup}{appendix.A}% 38
+\BOOKMARK [0][-]{appendix.B}{Code snippets and configuration files}{}% 39
+\BOOKMARK [0][-]{section*.102}{Glossary}{}% 40
+\BOOKMARK [0][-]{section*.105}{Bibliography}{}% 41

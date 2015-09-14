@@ -195,7 +195,7 @@ To handle this situation, higher redundancy levels are needed, as implemented fo
 
 \subsubsection{\gls{tmr}}
 A \gls{tmr} system, see Figure \ref{fig:tmr}, is composed out of 3 modules or black boxes, all performing the same task,	
-and one majority organ $V$, as proposed by Von Neumann \cite{vN56}. The latter element
+and one majority organ $V$, as proposed by John von Neumann \cite{vN56}. The latter element
 is also called voter because out of its 3 inputs, it chooses the 'correct' output based on majority voting. As long as at least 2 black boxes do not
 fail, the system can provide correct service. If it is assumed that the voting element has perfect reliability = 1 and all black boxes $M$ are independent from
 each other and have reliability $R_M$, the overall, time-invariant system's reliability is given in Equation \ref{tmrEq} \cite{Lyons:1962:UTR:1661979.1661984} and plotted in Figure \ref{fig:tmrGrp}
@@ -342,7 +342,7 @@ sequence number, duplicates may not be detected as such - responsibility for fin
 %corresponding source address and can safely be discarded, thus preventing the processing of duplicate frames by the upper level.  
 \begin{figure}
     \centering
-    \includegraphics[width=1\textwidth]{figures/prp.eps}
+    \includegraphics[width=0.9\textwidth]{figures/prp.eps}
     \caption{\gls{prp} network}
     \label{fig:prp}
 \end{figure}
@@ -352,10 +352,10 @@ sequence number, duplicates may not be detected as such - responsibility for fin
 Every node is connected to the network by two interfaces, duplicating data from upper layers and sending one copy in clockwise, the other copy in counter-clockwise direction,
 thus eliminating the need for duplicated networks but wasting about half of the available bandwidth \cite{6174793}. 
 
-\subsection{Summary}
+\section{Summary}
 To increase availability, the \gls{mttf} has to be minimized by handling faults.
 When investigating different techniques to handle them, it turned out that the only possibility to handle malicious as well randomly happening transient faults is by applying
 redundancy. Because the \gls{knx} specification forbids ring topologies, using intrinsic network redundancy is not possible. Therefore, similar to \gls{prp},
-some kind of redundancy must be artificially introduced.
+some kind of redundancy must be artificially introduced to be able to improve availability.
 
 

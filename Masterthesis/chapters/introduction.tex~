@@ -30,13 +30,10 @@ between the sender and receiver of a message, and encryption of these messages, 
 %to prevent misuse and improved availability. Avoiding misused is in general achieved by integrating confidentiality and authenticity measurements, a fact which
 %was neglected by the \gls{knx} consortium at first, but was fixed in several extensions afterwards.
 %Improved availability, which is of course of prime interest in applications like burglar alarm systems or elevator control, can be achieved in various ways. 
-\section{Problem statement}
-To get insights into the deficits of \gls{knx}, the special requirements of \gls{hbas} are introduced. Afterwards, the shortcomings of \gls{knx}, avoiding its
-deployment in critical environments, are explained. In Section \ref{sec:knxSecConcept}, these shortcomings and the extensions dealing with them are reviewed in more depth.
+\section{Problem statement - security in HBAS}\label{hbaSec}
 
-\subsection{Security in HBAS}\label{hbaSec}
 \glspl{hbas} emerged from automation systems, originally used for \gls{hvac} building control.
-Central building management, leading to \textit{intelligent buildings}, promises
+Central building management, leading to "intelligent buildings", promises
 reduced maintenance costs, energy savings and improved user comfort \cite{1435745}, compensating the initially higher investment costs of such buildings.
 Following these arguments, it would be natural to integrate additional building management functions like alarm systems, access control or communication systems,
 exploiting already existing infrastructure like cabling and thus benefiting from synergy effects.
@@ -63,7 +60,7 @@ visualization and monitoring, as well as \glspl{icd}, connecting physical segmen
 Due to this topology, two different classes of attacks are possible: network- and device attacks \cite{5332331}.
 
 \subsubsection{Network attacks}
-Here, the adversary either tries to compromise the field or backbone network. In the first scenario, the attacker can analyze or modify the control application. In the latter he
+Here, the adversary tries to compromise either the field or backbone network. In the first scenario, the attacker can analyze or modify the control application. In the latter he
 gains access to the concentrated network data and can thus obtain a global view of the system.
 \\
 To protect a communication network it would be possible to use security mechanism known from the \gls{ip} world. 
@@ -79,17 +76,23 @@ Finally, the attacker can launch an attack against the \glspl{md} to gain manage
 Such device attacks are divided into three categories: software attacks, side-channel and physical attacks, extensively surveyed in \cite{5332331} and \cite{secAn}.
 \\
 \\
-Being a communication protocol, \gls{knx} can not handle attacks against devices.
-Nevertheless, the origin standard did not include countermeasures to prevent network attacks. This deficit was fixed afterwards by various extensions, bringing confidentiality and
-authenticity to \gls{knx}. Nevertheless, up to today no methods for increasing availability are provided, a fact considered problematic in view of the potential application domains.
+%To get insights into the deficits of \gls{knx}, the special requirements of \gls{hbas} regarding security are introduced. Afterwards, the shortcomings of \gls{knx}, avoiding its
+%deployment in critical environments, are explained. 
+%When comparing this potential weakpoints of a \gls{hbas} regarding security with the \gls{knx} standard, it turns out that the basic version of this standard does not offer any efficient protection against attackers.
+It turns out that the basic version of the \gls{knx} standard does not offer any efficient protection against attackers.
+Being a communication protocol, \gls{knx} can't handle attacks against devices.
+Nevertheless, the origin standard did not include effective countermeasures to prevent network attacks, too.
+%In Section \ref{sec:knxSecConcept}, these shortcomings and extensions dealing with them are reviewed in more depth.
+This deficit was fixed afterwards by various extensions, bringing confidentiality and authenticity to \gls{knx}. See Section \ref{sec:knxSecConcept} for a review of them.
 \\
-For example, a burglar can render an alarm system useless if he can shortcut the bus lines, thus suppressing the (encrypted) alarm messages. In contrast to such a malicious attack, a transient
-hardware failure can also disable a system, unacceptable for systems handling fire alarms or controlling elevators. 
+In contrast to these cryptographic extensions, up to today no methods for increasing availability are at disposal. This fact avoids the deployment of \gls{knx} in certain application domains.
+For example, a burglar can render an alarm system useless if he can shortcut the bus lines, thus suppressing the (encrypted) alarm messages.
+In contrast to such a malicious attack, a transient hardware failure can also disable a system, unacceptable for systems handling fire alarms or controlling elevators. 
 
 \section{Aim of the work}
 
 The overall goal of this work is to develop a concept for a secure and highly available \gls{knx} network that also considers interoperability and compatibility, 
-allowing the usage in environments even with increased safety-critical requirements. The proposed solution shall be resistant against malicious adversaries, as well as against
+allowing the usage even in environments with increased safety-critical requirements. The proposed solution shall be resistant against malicious adversaries, as well as against
 transient hardware failures.
 \\
 To achieve this, so called security gateways will be used. These gateways will possess two kinds of \gls{knx} interfaces: one kind of interface will be
@@ -110,18 +113,26 @@ handle the twisted-pair media of \gls{knx} (i.e., \gls{knx} \gls{TP}-1), althoug
 wireless and power line networks as well.
 \\
 A threat analysis will be conducted to prove that the system can withstand the defined attacks and is robust,
-i.e., that it can recover from erroneous states. This will be done by exposing the demonstration network to the various defined attacks. 
+i.e., that it can recover from erroneous states. This will be done by exposing the demonstration network to various attacks. 
 
 \section{Structure of the work}
 
-Chapter \ref{ch:prerequisites} introduces the required prerequisites for providing integrity and confidentiality, handling symmetric and asymmetric ciphers. 
-Afterwards Chapter \ref{ch:availability} explains the term availability and is concluded by state-of-the art technologies implementing highly-available communication networks.
+Chapter \ref{ch:prerequisites} explains the term "Informational security" and introduces the required prerequisites for providing integrity and confidentiality.
+Well known symmetric and asymmetric ciphers are reviewed. The findings from this chapter serve as basis for designing the cryptographic part of the proposed solution.  
 \\
-The structure of the \gls{knx} standard and the most important cryptographic extensions are explained in Chapter \ref{ch:knx}.   
+Nevertheless, an important part of "Informational security" is availability. Because the main goal of this work is to improve availability, this property 
+is discussed separately in Chapter \ref{ch:availability}. State-of-the art technologies implementing highly-available communication networks are introduced, serving as
+foundation for designing the mechanism to assure high availability of the proposal.
 \\
-Chapter \ref{ch:concept} suggests a \gls{knx} extension that is applicable in environments with increased availability needs.
+To be able to design the general part of the \gls{knx} extension, insights into the structure of the \gls{knx} standard had to be gathered. This is the aim of Chapter \ref{ch:knx}.
+This part also covers already existing cryptographic \gls{knx} extensions.
 \\
-The work is concluded by Chapter \ref{ch:implementation}, which explains the implementation of the prototype, evaluates it and discusses the results.
+Based on the preceding findings, Chapter \ref{ch:concept} suggests a \gls{knx} extension that is applicable in environments with increased availability needs. 
+\\
+Afterwards, Chapter \ref{ch:implementation} explains how the prototype was implemented. For the practical part, "C" was used as programming language. Therefore, this part
+also introduces some important programming models like multi-threading and how they can be realized in "C".
+\\
+Finally, Chapter \ref{ch:conclusion} discusses the results and proposes some additional improvements.
 
 
 

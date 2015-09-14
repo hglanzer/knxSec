@@ -671,7 +671,7 @@ classical \gls{dh}, is
 shown in Figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all three parties $A$, $B$ and $C$ already agreed upon $(p,g)$.
 \begin{figure}
     \centering
-    \begin{tikzpicture}[scale=0.2]
+    \begin{tikzpicture}[scale=0.15]
 \tikzstyle{every node}+=[inner sep=2pt]
 \tikzstyle{arrow}=[draw, -latex] 
 \tikzset{
@@ -698,7 +698,7 @@ shown in Figures \ref{fig:dh1} and \ref{fig:dh2}, where it is assumed that all t
 \end{figure}
 \begin{figure}
     \centering
-    \begin{tikzpicture}[scale=0.2]
+    \begin{tikzpicture}[scale=0.15]
 \tikzstyle{every node}+=[inner sep=2pt]
 \tikzstyle{arrow}=[draw, -latex] 
 \tikzset{
@@ -820,6 +820,10 @@ The receiver of the message can use the domain parameters and signature to verif
 \end{align*}
 $x'$ is converted to an integer and reduced $\pmod n$ to obtain $r'$. If $r = r'$, the signature is accepted, proving the authenticity of the message.
 
+\section{Summary}
+It showed that when designing a cryptographic extension, both integrity \textbf{and} confidentiality must be honored. Additionally, the findings suggest that such
+an extension will most likely exist of a mixture of symmetric and asymmetric schemes. To keep key size small without harming security, \gls{ecc} qualifies itself for key negotiation.
+Using \gls{ctr} mode of operation is a way to avoid unnecessary overhead, while \gls{aes} serving as block cipher is likely the best choice.   
 
 %\subsection{Key lenghts}
 %

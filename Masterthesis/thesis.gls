@@ -11,6 +11,7 @@
 		\setentrycounter[]{page}\glsnumberformat{30}}}%
 \glossaryentryfield{aes}{\glsnamefont{AES}}{Advanced Encryption Standard}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{24}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{39}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{62\delimN 63}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{89\delimN 90}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{92\delimN 93}}}%
@@ -55,6 +56,7 @@
 \glossaryentryfield{ctr}{\glsnamefont{CTR}}{Counter Mode}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{26\delimN 27}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{33}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{39}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{62\delimN 63}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{89}}}%
 \glossaryentryfield{ctrle}{\glsnamefont{CTRLE}}{Extended Control Field}{\relax }{\glossaryentrynumbers{\relax 
@@ -91,11 +93,11 @@
 \glossaryentryfield{ec}{\glsnamefont{EC}}{Elliptic Curve}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{14}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{16\delimR 18}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{36}}}%
+		\setentrycounter[]{page}\glsnumberformat{35\delimN 36}}}%
 \glossaryentryfield{ecb}{\glsnamefont{ECB}}{Electronic Code Book}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{25\delimN 26}}}%
 \glossaryentryfield{ecc}{\glsnamefont{ECC}}{Elliptic Curve Cryptography}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{35\delimN 36}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{35}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{39}}}%
 \glossaryentryfield{ecdh}{\glsnamefont{ECDH}}{Elliptic Curve Diffie-Hellman}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{70}\delimN 
@@ -162,7 +164,7 @@
 		\setentrycounter[]{page}\glsnumberformat{77}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{79}}}%
 \glossaryentryfield{icd}{\glsnamefont{ICD}}{Interconnection Device}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{3}}}%
+		\setentrycounter[]{page}\glsnumberformat{2\delimN 3}}}%
 \glossaryentryfield{ieee}{\glsnamefont{IEEE}}{Institute of Electrical and Electronics Engineers}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{48}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{50}}}%
@@ -191,7 +193,8 @@
 \glsgroupheading{K}\relax \glsresetentrylist %
 \glossaryentryfield{knx}{\glsnamefont{KNX}}{Konnex}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{iii\delimN iv}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{1\delimR 5}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{1}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{3\delimR 5}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{52\delimR 56}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{58\delimR 69}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{71\delimR 73}\delimN 
@@ -237,7 +240,7 @@
 \glossaryentryfield{mau}{\glsnamefont{MAU}}{Medium Access Unit}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{56}}}%
 \glossaryentryfield{md}{\glsnamefont{MD}}{Management Device}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{3}}}%
+		\setentrycounter[]{page}\glsnumberformat{2\delimN 3}}}%
 \glossaryentryfield{mrp}{\glsnamefont{MRP}}{Media Redundancy Protocol}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{50}}}%
 \glossaryentryfield{mttf}{\glsnamefont{MTTF}}{Mean Time To Failure}{\relax }{\glossaryentrynumbers{\relax 
@@ -289,7 +292,7 @@
 \glossaryentryfield{s-al}{\glsnamefont{S-AL}}{Secure-Application Layer}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{62}}}%
 \glossaryentryfield{sac}{\glsnamefont{SACs}}{Sensors, Actuators and Controllers}{\relax }{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{3}}}%
+		\setentrycounter[]{page}\glsnumberformat{2\delimN 3}}}%
 \glossaryentryfield{san}{\glsnamefont{SAN}}{Single Attached Node}{\relax }{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{51}}}%
 \glossaryentryfield{sha}{\glsnamefont{SHA}}{Standard Hashing Algorithm}{\relax }{\glossaryentrynumbers{\relax 

@@ -410,31 +410,4 @@ Secondly, the attacker is unable to get knowledge of the key because of the key 
 An attacker, trying to inject a new data frame, again must succeed in forging the correct \gls{mac2}. Failure to do so will be detected by the receiving gateway.
 A replayed message will be be correctly verified and decrypted by the receiving device, but because of the outdated counter value $Ctr_{ind}$ the message will be discarded.
 
-\subsection{Conclusion and outlook}
-It was shown that the proposed solution can withstand malicious attacks, as well as transient hardware failures of one of the secured lines. Therefore, the solution allows to connect
-standard \gls{knx} devices which are spatially divided in a secure manner, bridging over areas where malicious behavior cannot be ruled out.
-The proposed solution can be deployed in a 'plug-and-play' 
-manner, as long as the constraints defined in Section \ref{sec:opContraints} are regarded. Thus it is possible to add confidentiality, integrity and availability to a \gls{knx}
-network just where needed, coexisting with segments with low security demands. By using more than 2 secured lines, the solution can easily be extended to use $n$ instead of 2 secure threads
-and communication lines, increasing availability to an even higher level.
-\\
-\\
-The following improvements to the prototype solution are proposed: 
-\begin{itemize}
- \item Using a cache for the mapping group address - security gateway / encryption key, which allows to reduce the bus load.
- \item Obfuscating the size of the data service messages, which  can be achieved by adding an additional length field and corresponding padding, chosen randomly. This makes it harder
- to derive communication profiles
- \item Attacks can be detected if frames with forged \gls{mac2} are received, allowing to send an alert to an operator and adding the corresponding device address to a blacklist. 
- \end{itemize}
- 
-\subsubsection{Restrictions }
-\begin{itemize}
-  \item While \gls{eibd} can send extended frames, it does not support receiving frames with payload $\geq$ 56 byte
-  \item With the current \gls{eibd} \gls{api}, sending raw layer one \gls{knx} frames is not possible, but only application- or transport layer data units. This implies that 
-  it is not possible to set the source address of a written frame. Frames delivered by a security gateway are therefore sent with the gateway's device address, instead of the 
-  origin device address.
- \end{itemize}
-
- 
- 
  

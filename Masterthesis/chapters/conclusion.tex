@@ -1,0 +1,46 @@
+\section{Contribution}
+To be able to deploy a communication system in more demanding environments, it is necessary to achieve informational security combined with mechanisms for improved availability.
+For \gls{knx}, extensions for securing a network against malicious attacks exist, but these extension are not able to handle a fault concerning the communication medium, as well
+as \gls{dos} attacks.
+Therefore, this work proposes a way to protect against transient hardware failures, as well as active and passive adversaries. For the latter, the proposal is able to resist
+restricted \gls{dos} attacks, too. This is achieved by using security gateways which are connected to each other in a redundant way. Standard \gls{knx} devices are connected 
+through these gateways, which copy the client's frames into two properly secured frames and send them over both communication lines. The receiving side will check the received
+frames for modification, discard one of the two copies and forward the remaining one to the destined standard \gls{knx} device.
+\\
+\\
+It was shown that the proposed solution can withstand malicious attacks, as well as transient hardware failures of one of the secured lines. Therefore, the solution allows to connect
+standard \gls{knx} devices which are spatially divided in a secure manner, bridging over areas where malicious behavior cannot be ruled out.
+The proposed solution can be deployed in a 'plug-and-play' 
+manner, as long as the constraints defined in Section \ref{sec:opContraints} are regarded. Thus, it is possible to add confidentiality, integrity and availability to a \gls{knx}
+network just where needed, coexisting with segments with low security demands. By using more than 2 secured lines, the solution can easily be extended to use $n$ instead of 2 secure threads
+and communication lines, increasing availability to an even higher level.
+
+\section{Outlook}
+
+The following improvements to the prototype solution are proposed: 
+\begin{itemize}
+ \item Using a cache for the mapping of group address to security gateways and encryption keys. A gateway receiving data from a client would send a discovery message once and
+ cache the address(es) of the responsible gateway(s), together with the corresponding encryption key(s). Subsequent data transfer can be executed without the need for sending
+ discovery messages first, reducing the bus load. Of course, a reasonable caching time has to be found after which a cached entry is deleted because newly connected
+ clients may not be reachable within this duration.
+ \item Obfuscating the size of the data service messages, which  can be achieved by adding an additional length field and corresponding padding, chosen randomly. This makes it harder
+ to derive communication profiles.
+ \item Attacks can be detected if frames with forged \glspl{mac2} are received, allowing to send an alert to an operator. For the used platform, this can be achieved easily by connecting
+ the RaspberryPis to a restricted \gls{ip} network and sending the alarm, for example, by mail or \gls{snmp}.
+ Additionally, the address of the attacking device can be added to a blacklist such that traffic coming from this address is discarded immediately.
+ \end{itemize}
+ 
+\subsubsection{Restrictions }
+During development, the follow restrictions were found. Of course, the constraining assumptions made in Section \ref{sec:opContraints} are still valid. 
+
+\begin{itemize}
+  \item While \gls{eibd} can send extended frames, it does not support receiving frames with payload $\geq$ 56 byte. While this clearly violates the \gls{knx} specification, no efforts
+  were made to debug this behavior.
+  \item With the current \gls{eibd} \gls{api}, sending raw frames is not possible, but only application- or transport layer data units. This implies that 
+  it is not possible to set the source address of a written frame. Frames delivered by a security gateway are therefore sent with the gateway's device address, instead of the 
+  origin device address. To make the security gateways appear fully transparent to client devices, the \gls{api} must be extended.
+ \end{itemize}
+
+
+ 
+ 
